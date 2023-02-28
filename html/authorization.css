@@ -1,0 +1,11 @@
+.main-frame {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1fr;
+}
+
+.authorization-path {
+    background-color: #ffffff;
+    grid-column: 1;
+    grid-row: 2/3;
+}
