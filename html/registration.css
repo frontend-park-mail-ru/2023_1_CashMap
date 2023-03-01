@@ -39,38 +39,19 @@
     flex: none;
     order: 1;
     flex-grow: 0;
+
+    color: #6C6F72;
+    font-family: 'InterMedium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 100%;
 }
 
 input::placeholder {
     color: #9DA0A3;
     font-size: 15px;
     font-family: InterMedium;
-}
-
-.input-email {
-    /* Figma */
-    font-family: 'InterMedium';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 100%;
-    color: #D9D9D9;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-}
-
-.input-password {
-    /* Figma */
-    font-family: 'InterMedium';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 100%;
-    color: #9DA0A3;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
 .input-red {
@@ -87,6 +68,7 @@ input::placeholder {
     color: #FFFFFF;
 
     /* Figma */
+    text-decoration: none;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -106,12 +88,8 @@ input::placeholder {
     text-align: center;
 }
 
-.btn-auth {
-    background: #9747FF;
-}
-
-.btn-reg {
-    background: #FF9839;
+.btn-gradient {
+    background: linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%);
 }
 
 body, html {
@@ -122,7 +100,7 @@ body, html {
 .grid {
     height: 100%;
     display: grid;
-    grid-template: 100% / 46% 54%;
+    grid-template: 100% / 51.285% 48.715%;
     grid-template-areas:
         "logo-path reg-path";
 }
@@ -142,7 +120,7 @@ reg-table {
     grid-area: reg-table;
 
     display: grid;
-    grid-template: 15% 7% 5% 16% 5% 16% 10% 13% 13%/ 24% 52% 24%;
+    grid-template: 9.6% 4.2% 5.6% 10.5% 4.2% 10.5% 4.2% 10.5% 4.2% 10.5% 4.2% 10.5% 4.2% 7% 2.8% 2.6% 9.5%/ 24% 52% 24%;
     grid-template-areas:
         ". . ."
         ". title-text ."
@@ -158,6 +136,8 @@ reg-table {
         ". input-field5 ."
         ". . ."
         ". btn-field-enter ."
+        ". . ."
+        ". under-reg-text ."
         ". . .";
 }
 
@@ -200,6 +180,57 @@ input-field2 {
         "error-text";
 }
 
+input-field3 {
+    grid-area: input-field3;
+
+    display: grid;
+    grid-template: 70% 2% 28%/ 100%;
+    grid-template-areas:
+        "input-field"
+        "."
+        "error-text";
+}
+
+input-field4 {
+    grid-area: input-field4;
+
+    display: grid;
+    grid-template: 70% 2% 28%/ 100%;
+    grid-template-areas:
+        "input-field"
+        "."
+        "error-text";
+}
+
+input-field5 {
+    grid-area: input-field5;
+
+    display: grid;
+    grid-template: 70% 2% 28%/ 100%;
+    grid-template-areas:
+        "input-field"
+        "."
+        "error-text";
+}
+
+under-reg-text {
+    grid-area: under-reg-text;
+
+    text-align: center;
+
+    /* Figma */
+    font-family: 'Mail Sans Roman';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 100%;
+    color: #395EBA;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+
 input-field {
     grid-area: input-field;
 }
@@ -223,59 +254,15 @@ btn-field-enter {
     grid-area: btn-field-enter;
 }
 
-reg-table {
-    grid-area: reg-table;
-
-    display: grid;
-    grid-template: 47% 53%/ 12.5% 75% 12.5%;
-    grid-template-areas:
-        ". reg ."
-        ". . .";
-}
-
-reg {
-    grid-area: reg;
-
-    display: grid;
-    grid-template: 21% 23% 9% 26% 21%/ 15.5% 69% 15.5%;
-    grid-template-areas:
-        ". . ."
-        ". btn-field-reg ."
-        ". . ."
-        ". text-reg ."
-        ". . .";
-}
-
-btn-field-reg {
-    grid-area: btn-field-reg;
-}
-
-text-reg {
-    grid-area: text-reg;
-
-    /* Figma */
-    font-family: 'InterMedium';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 100%;
-    text-align: center;
-    color: #8D949D;
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-}
-
 logo-path {
     grid-area: logo-path;
 
-    background-image: url(img/fon.jpg); /* Фоновый цвет и фоновый рисунок*/
+    background-image: url(img/background_left.svg); /* Фоновый цвет и фоновый рисунок*/
     background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
-    background-size: 100% 100%;
+    background-size: cover;
 
     display: grid;
-    grid-template: 37% 19% 44% / 21% 58% 21%;
+    grid-template: 34.53% 18.85% 46.62% / 23.8% 52.4% 23.8%;
     grid-template-areas:
         ". . ."
         ". logo-table .";
@@ -327,7 +314,7 @@ logo-text {
 logo-pic {
     grid-area: logo-pic;
 
-    background-image: url(img/logo.png); /* Фоновый цвет и фоновый рисунок*/
+    background-image: url(img/logo.svg); /* Фоновый цвет и фоновый рисунок*/
     background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
     background-size: 100%;
     border-radius: 12px;
