@@ -1,21 +1,26 @@
 @font-face {
     font-family: Limelight; /* Имя шрифта */
-    src: url(fonts/Limelight.ttf); /* Путь к файлу со шрифтом */
+    src: url(fonts/Limelight-Regular.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
-    font-family: Inter; /* Имя шрифта */
-    src: url(fonts/Inter.ttf); /* Путь к файлу со шрифтом */
+    font-family: InterMedium; /* Имя шрифта */
+    src: url(fonts/Inter-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: InterRegular; /* Имя шрифта */
+    src: url(fonts/Inter-Regular.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: "Mail Sans Roman"; /* Имя шрифта */
-    src: url(fonts/MailSansRoman-Bold.ttf); /* Путь к файлу со шрифтом */
+    src: url(fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: Comfortaa; /* Имя шрифта */
-    src: url(fonts/Comfortaa-VariableFont_wght.ttf); /* Путь к файлу со шрифтом */
+    src: url(fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
 .input {
@@ -37,7 +42,7 @@
 
 .input-email {
     /* Figma */
-    font-family: 'Inter';
+    font-family: 'InterMedium';
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
@@ -50,7 +55,7 @@
 
 .input-password {
     /* Figma */
-    font-family: 'Inter';
+    font-family: 'InterMedium';
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
@@ -190,7 +195,7 @@ error-text {
     grid-area: error-text;
 
     /* Figma */
-    font-family: 'Inter';
+    font-family: 'InterRegular';
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -236,7 +241,7 @@ text-reg {
     grid-area: text-reg;
 
     /* Figma */
-    font-family: 'Inter';
+    font-family: 'InterMedium';
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
