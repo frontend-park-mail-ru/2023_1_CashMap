@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="registration.css" type="text/css"/>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+<div class="grid">
+    <auth-path>
+        <auth-table>
+            <title-text>Регистрация</title-text>
+            <input-field1>
+                <input-field><input placeholder="Электронная почта" type="email" class="input input-wight input-email"></input-field>
+                <error-text></error-text>
+            </input-field1>
+            <input-field2>
+                <input-field><input placeholder="Пароль" type="password" class="input input-red input-password"></input-field>
+                <error-text>Введите пароль</error-text>
+            </input-field2>
+            <btn-field-enter><button class="btn btn-auth">Войти</button></btn-field-enter>
+        </auth-table>
+        <reg-table>
+            <reg>
+                <btn-field-reg><button class="btn btn-reg">Зарегистрироваться</button></btn-field-reg>
+                <text-reg>После успешной регистрации вы получите доступ ко всем функциям Depeche</text-reg>
+            </reg>
+        </reg-table>
+    </auth-path>
+    <logo-path>
+        <logo-table>
+            <logo>
+                <logo-pic></logo-pic>
+                <logo-text>Depeche</logo-text>
+            </logo>
+            <under-logo-text>Сервис для общения</under-logo-text>
+        </logo-table>
+    </logo-path>
+</div>
 </body>
 </html>

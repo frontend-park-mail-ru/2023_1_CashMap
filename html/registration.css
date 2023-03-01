@@ -1,3 +1,343 @@
-.main {
+@font-face {
+    font-family: Limelight; /* Имя шрифта */
+    src: url(fonts/Limelight-Regular.ttf); /* Путь к файлу со шрифтом */
+}
 
+@font-face {
+    font-family: InterMedium; /* Имя шрифта */
+    src: url(fonts/Inter-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: InterRegular; /* Имя шрифта */
+    src: url(fonts/Inter-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: "Mail Sans Roman"; /* Имя шрифта */
+    src: url(fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Comfortaa; /* Имя шрифта */
+    src: url(fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+.input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    padding: 0;
+    text-indent: 5px;
+
+    /* Figma */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    mix-blend-mode: normal;
+    border-radius: 8px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+input::placeholder {
+    color: #9DA0A3;
+    font-size: 15px;
+    font-family: InterMedium;
+}
+
+.input-email {
+    /* Figma */
+    font-family: 'InterMedium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 100%;
+    color: #D9D9D9;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.input-password {
+    /* Figma */
+    font-family: 'InterMedium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 100%;
+    color: #9DA0A3;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.input-red {
+    background: #FFEBEB;
+}
+
+.input-wight {
+    background: #F5F5F5;
+}
+
+.btn {
+    height: 100%;
+    width: 100%;
+    color: #FFFFFF;
+
+    /* Figma */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border: none;
+
+    /* Figma */
+    font-family: 'Mail Sans Roman';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    text-align: center;
+}
+
+.btn-auth {
+    background: #9747FF;
+}
+
+.btn-reg {
+    background: #FF9839;
+}
+
+body, html {
+    margin: 0;
+    height: 100%;
+}
+
+.grid {
+    height: 100%;
+    display: grid;
+    grid-template: 100% / 54% 46%;
+    grid-template-areas:
+        "auth-path logo-path";
+}
+
+auth-path {
+    grid-area: auth-path;
+
+    display: grid;
+    grid-template: 21% 35% 44%/ 15% 70% 15%;
+    grid-template-areas:
+        ". . ."
+        ". auth-table ."
+        ". reg-table .";
+}
+
+auth-table {
+    grid-area: auth-table;
+
+    display: grid;
+    grid-template: 15% 7% 5% 16% 5% 16% 10% 13% 13%/ 24% 52% 24%;
+    grid-template-areas:
+        ". . ."
+        ". title-text ."
+        ". . ."
+        ". input-field1 ."
+        ". . ."
+        ". input-field2 ."
+        ". . ."
+        ". btn-field-enter ."
+        ". . .";
+}
+
+title-text {
+    grid-area: title-text;
+
+    text-align: center;
+
+    /* Figma */
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 100%;
+    color: #000000;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+input-field1 {
+    grid-area: input-field1;
+
+    display: grid;
+    grid-template: 70% 2% 28%/ 100%;
+    grid-template-areas:
+        "input-field"
+        "."
+        "error-text";
+}
+
+input-field2 {
+    grid-area: input-field2;
+
+    display: grid;
+    grid-template: 70% 2% 28%/ 100%;
+    grid-template-areas:
+        "input-field"
+        "."
+        "error-text";
+}
+
+input-field {
+    grid-area: input-field;
+}
+
+error-text {
+    grid-area: error-text;
+
+    /* Figma */
+    font-family: 'InterRegular';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%;
+    color: #D5534D;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+btn-field-enter {
+    grid-area: btn-field-enter;
+}
+
+reg-table {
+    grid-area: reg-table;
+
+    display: grid;
+    grid-template: 47% 53%/ 12.5% 75% 12.5%;
+    grid-template-areas:
+        ". reg ."
+        ". . .";
+}
+
+reg {
+    grid-area: reg;
+
+    display: grid;
+    grid-template: 21% 23% 9% 26% 21%/ 15.5% 69% 15.5%;
+    grid-template-areas:
+        ". . ."
+        ". btn-field-reg ."
+        ". . ."
+        ". text-reg ."
+        ". . .";
+}
+
+btn-field-reg {
+    grid-area: btn-field-reg;
+}
+
+text-reg {
+    grid-area: text-reg;
+
+    /* Figma */
+    font-family: 'InterMedium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 100%;
+    text-align: center;
+    color: #8D949D;
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+logo-path {
+    grid-area: logo-path;
+
+    background-image: url(img/fon.jpg); /* Фоновый цвет и фоновый рисунок*/
+    background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
+    background-size: 100% 100%;
+
+    display: grid;
+    grid-template: 37% 19% 44% / 21% 58% 21%;
+    grid-template-areas:
+        ". . ."
+        ". logo-table .";
+}
+
+logo-table {
+    grid-area: logo-table;
+
+    display: grid;
+    grid-template: 25% 29% 9% 12% 25% / 100%;
+    grid-template-areas:
+        "."
+        "logo"
+        "."
+        "under-logo-text"
+        ".";
+
+    /* Figma */
+    background: rgba(251, 221, 255, 0.4);
+    backdrop-filter: blur(2px);
+    border-radius: 12px;
+}
+
+logo {
+    grid-area: logo;
+
+    display: grid;
+    grid-template: 100%/ 27% 9% 2% 35% 27%;
+    grid-template-areas:
+        ". logo-pic . logo-text .";
+}
+
+logo-text {
+    grid-area: logo-text;
+
+    text-align: left;
+    padding-top: 14px;
+    padding-bottom: 12px;
+
+    /* Figma */
+    font-family: Limelight;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 100%;
+    color: #44009D;
+}
+
+logo-pic {
+    grid-area: logo-pic;
+
+    background-image: url(img/logo.png); /* Фоновый цвет и фоновый рисунок*/
+    background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
+    background-size: 100%;
+    border-radius: 12px;
+    background-position: center;
+}
+
+under-logo-text {
+    grid-area: under-logo-text;
+
+    text-align: center;
+
+    /* Figma */
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 100%;
+    color: #D9D9D9;
 }
