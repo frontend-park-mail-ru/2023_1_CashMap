@@ -7,7 +7,7 @@ const page404 = fs.readFileSync('html/404.html');
 
 const server = http.createServer((request, response) => {
     const {url} = request;
-    const normalizedUrl = url === '/' ? '/auth.html' : url;
+    const normalizedUrl = url === '/' ? '/authorization.html' : url;
 
     console.log(normalizedUrl);
     const filepath = `./html${normalizedUrl}`;
