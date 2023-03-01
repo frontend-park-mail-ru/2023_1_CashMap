@@ -87,6 +87,7 @@ input::placeholder {
     color: #FFFFFF;
 
     /* Figma */
+    text-decoration: none;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -106,12 +107,8 @@ input::placeholder {
     text-align: center;
 }
 
-.btn-auth {
-    background: #9747FF;
-}
-
-.btn-reg {
-    background: #FF9839;
+.btn-gradient {
+    background: linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%);
 }
 
 body, html {
@@ -122,7 +119,7 @@ body, html {
 .grid {
     height: 100%;
     display: grid;
-    grid-template: 100% / 54% 46%;
+    grid-template: 100% / 48.715% 51.285%;
     grid-template-areas:
         "auth-path logo-path";
 }
@@ -194,6 +191,23 @@ input-field2 {
         "error-text";
 }
 
+under-reg-text {
+    grid-area: under-reg-text;
+
+    text-align: center;
+
+    /* Figma */
+    font-family: 'Mail Sans Roman';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    color: #395EBA;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
 input-field {
     grid-area: input-field;
 }
@@ -234,7 +248,7 @@ reg {
     grid-template: 21% 23% 9% 26% 21%/ 15.5% 69% 15.5%;
     grid-template-areas:
         ". . ."
-        ". btn-field-reg ."
+        ". under-reg-text ."
         ". . ."
         ". text-reg ."
         ". . .";
@@ -264,12 +278,12 @@ text-reg {
 logo-path {
     grid-area: logo-path;
 
-    background-image: url(img/fon.jpg); /* Фоновый цвет и фоновый рисунок*/
+    background-image: url(img/background_right.svg); /* Фоновый цвет и фоновый рисунок*/
     background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
-    background-size: 100% 100%;
+    background-size: cover;
 
     display: grid;
-    grid-template: 37% 19% 44% / 21% 58% 21%;
+    grid-template: 34.53% 18.85% 46.62% / 23.8% 52.4% 23.8%;
     grid-template-areas:
         ". . ."
         ". logo-table .";
@@ -321,7 +335,7 @@ logo-text {
 logo-pic {
     grid-area: logo-pic;
 
-    background-image: url(img/logo.png); /* Фоновый цвет и фоновый рисунок*/
+    background-image: url(img/logo.svg); /* Фоновый цвет и фоновый рисунок*/
     background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
     background-size: 100%;
     border-radius: 12px;
