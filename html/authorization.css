@@ -28,6 +28,7 @@
     width: 100%;
     border: none;
     padding: 0;
+    text-indent: 5px;
 
     /* Figma */
     display: flex;
@@ -38,6 +39,12 @@
     flex: none;
     order: 1;
     flex-grow: 0;
+}
+
+input::placeholder {
+    color: #9DA0A3;
+    font-size: 15px;
+    font-family: InterMedium;
 }
 
 .input-email {
