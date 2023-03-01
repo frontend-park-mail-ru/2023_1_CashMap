@@ -122,24 +122,24 @@ body, html {
 .grid {
     height: 100%;
     display: grid;
-    grid-template: 100% / 54% 46%;
+    grid-template: 100% / 46% 54%;
     grid-template-areas:
-        "auth-path logo-path";
+        "logo-path reg-path";
 }
 
-auth-path {
-    grid-area: auth-path;
+reg-path {
+    grid-area: reg-path;
 
     display: grid;
-    grid-template: 21% 35% 44%/ 15% 70% 15%;
+    grid-template: 21% 59% 20%/ 15% 70% 15%;
     grid-template-areas:
         ". . ."
-        ". auth-table ."
-        ". reg-table .";
+        ". reg-table ."
+        ". . .";
 }
 
-auth-table {
-    grid-area: auth-table;
+reg-table {
+    grid-area: reg-table;
 
     display: grid;
     grid-template: 15% 7% 5% 16% 5% 16% 10% 13% 13%/ 24% 52% 24%;
@@ -150,6 +150,12 @@ auth-table {
         ". input-field1 ."
         ". . ."
         ". input-field2 ."
+        ". . ."
+        ". input-field3 ."
+        ". . ."
+        ". input-field4 ."
+        ". . ."
+        ". input-field5 ."
         ". . ."
         ". btn-field-enter ."
         ". . .";
