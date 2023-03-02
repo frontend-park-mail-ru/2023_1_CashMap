@@ -2,9 +2,9 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const SERVER_PORT = 8002;
-const htmlpath = './html';
-const page404 = fs.readFileSync('html/404.html');
+const SERVER_PORT = 8003;
+const STATIC_PAHT = './html';
+const PAGE_404 = fs.readFileSync('html/404.html');
 
 const TYPES = {
     html: 'text/html; charset=UTF-8',
@@ -22,9 +22,9 @@ const server = http.createServer((request, response) => {
 
 
     console.log(normalizedUrl);
-    fs.readFile(`${htmlpath}${normalizedUrl}`, (err, data) => {
+    fs.readFile(`${STATIC_PAHT}${normalizedUrl}`, (err, data) => {
         if (err) {
-            response.write(page404);
+            response.write(PAGE_404);
             response.end();
             console.log('file not found 404');
             return;
