@@ -6,36 +6,46 @@
     <title>Авторизация</title>
 </head>
 <body>
-<div class="grid">
-    <auth-path>
-        <auth-table>
-            <title-text>Авторизвция</title-text>
-            <input-field1>
-                <input-field><input placeholder="Электронная почта" type="email" class="input input-wight"></input-field>
-                <error-text></error-text>
-            </input-field1>
-            <input-field2>
-                <input-field><input placeholder="Пароль" type="password" class="input input-red"></input-field>
-                <error-text>Введите пароль</error-text>
-            </input-field2>
-            <btn-field-enter><a class="btn btn-gradient" href="news.html">Войти</a></btn-field-enter>
-        </auth-table>
-        <reg-table>
-            <reg>
-                <under-reg-text><a href="registration.html">У вас еще нет аккаунта? Зарегистрироваться</a></under-reg-text>
-                <text-reg>После успешной регистрации вы получите доступ ко всем функциям Depeche</text-reg>
-            </reg>
-        </reg-table>
-    </auth-path>
-    <logo-path>
-        <logo-table>
-            <logo>
-                <logo-pic></logo-pic>
-                <logo-text>Depeche</logo-text>
-            </logo>
-            <under-logo-text>Сервис для общения</under-logo-text>
-        </logo-table>
-    </logo-path>
-</div>
+    <main class="main">
+        <div class="auth-path">
+            <div class="auth-table">
+                <div class="title">
+                    Авторизация
+                </div>
+                <div class="input-block">
+                    <input placeholder="Электронная почта" type="email" class="input-field correct-input">
+                    <div class="error-text"></div>
+                </div>
+                <div class="input-block">
+                    <input placeholder="Пароль" type="password" class="input-field incorrect-input">
+                    <div class="error-text">Введите пароль</div>
+                </div>
+                <a class="btn" href="news.html">Войти</a>
+            </div>
+            <div class="reg-table">
+                <div class="">
+
+                </div>
+                <div class="">
+
+                </div>
+            </div>
+        </div>
+        <div class="logo-path">
+            <div class="logo-table">
+                <div class="logo">
+                    <div class="logo-pic">
+
+                    </div>
+                    <div class="logo-text">
+                        Depeche
+                    </div>
+                </div>
+                <div class="logo-table-text">
+                    Сервис для общения
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

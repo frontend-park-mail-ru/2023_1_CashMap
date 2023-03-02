@@ -14,7 +14,7 @@
 }
 
 @font-face {
-    font-family: "Mail Sans Roman"; /* Имя шрифта */
+    font-family: MailSansRoman; /* Имя шрифта */
     src: url(fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
@@ -23,92 +23,90 @@
     src: url(fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
-.input {
+:root {
+    --font-size-12: 12px;
+    --font-size-15: 15px;
+    --font-size-16: 16px;
+    --font-size-23: 23px;
+    --font-size-28: 28px;
+
+    --font-color-select-dark: #D9D9D9;
+    --font-color-gray-text: #6C6F72;
+    --font-color-info: #395EBA;
+    --font-color-reg-info: #8D949D;
+    --font-color-logo-color: #44009D;
+    --font-color-error: #D5534D;
+    --font-color-btn: #FFFFFF;
+
+    --background-color-main: #FAFAFA;
+    --background-color-error: #FFEBEB;
+    --background-color-input: #F5F5F5;
+    --background-color-btn: linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%);
+    --background-color-logo-table: rgba(251, 221, 255, 0.4);
+}
+
+.input-block {
+    grid-area: input-block;
+    display: grid;
+    grid-template: 70% 2% 28%/ 100%;
+    grid-template-areas:
+        "input-field"
+        "."
+        "error-text";
+}
+
+.input-field {
+    grid-area: input-field;
+
     height: 100%;
     width: 100%;
-    border: none;
     padding: 0;
     text-indent: 5px;
-
-    /* Figma */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    mix-blend-mode: normal;
-    border-radius: 8px;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
+    font-family: 'InterMedium';
+    font-size: var(--font-size-15);
+    color: var(--font-color-gray-text);
 }
 
-input::placeholder {
-    color: #9DA0A3;
-    font-size: 15px;
+.input-field::placeholder {
     font-family: InterMedium;
+    color: var(--font-color-gray-text);
+    font-size: var(--font-size-15);
 }
 
-.input-email {
-    /* Figma */
-    font-family: 'InterMedium';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 100%;
-    color: #D9D9D9;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+.correct-input {
+    border: none;
+    background: var(--background-color-input);
 }
 
-.input-password {
-    /* Figma */
-    font-family: 'InterMedium';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 100%;
-    color: #9DA0A3;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+.incorrect-input {
+    border: 1px solid var(--font-color-error);
+    border-radius: 8px;
+    background: var(--background-color-error);
 }
 
-.input-red {
-    background: #FFEBEB;
-}
+.error-text {
+    grid-area: error-text;
 
-.input-wight {
-    background: #F5F5F5;
+    font-family: 'InterRegular';
+    font-weight: 400;
+    font-size: var(--font-size-12);
+    color: var(--font-color-error);
 }
 
 .btn {
+    grid-area: btn;
+
     height: 100%;
     width: 100%;
-    color: #FFFFFF;
-
-    /* Figma */
+    color: var(--font-color-btn);
+    background: var(--background-color-btn);
+    font-size: var(--font-size-16);
+    font-family: 'Mail Sans Roman';
     text-decoration: none;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    border: none;
-
-    /* Figma */
-    font-family: 'Mail Sans Roman';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 100%;
-    text-align: center;
-}
-
-.btn-gradient {
-    background: linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%);
 }
 
 body, html {
@@ -116,7 +114,7 @@ body, html {
     height: 100%;
 }
 
-.grid {
+.main {
     height: 100%;
     display: grid;
     grid-template: 100% / 48.715% 51.285%;
@@ -124,7 +122,7 @@ body, html {
         "auth-path logo-path";
 }
 
-auth-path {
+.auth-path {
     grid-area: auth-path;
 
     display: grid;
@@ -135,25 +133,25 @@ auth-path {
         ". reg-table .";
 }
 
-auth-table {
+.auth-table {
     grid-area: auth-table;
 
     display: grid;
     grid-template: 15% 7% 5% 16% 5% 16% 10% 13% 13%/ 24% 52% 24%;
     grid-template-areas:
         ". . ."
-        ". title-text ."
+        ". title ."
         ". . ."
-        ". input-field1 ."
+        ". input-block ."
         ". . ."
-        ". input-field2 ."
+        ". iinput-block ."
         ". . ."
-        ". btn-field-enter ."
+        ". btn ."
         ". . .";
 }
 
-title-text {
-    grid-area: title-text;
+.title {
+    grid-area: title;
 
     text-align: center;
 
@@ -169,7 +167,7 @@ title-text {
     flex-grow: 0;
 }
 
-input-field1 {
+.input-with-error1 {
     grid-area: input-field1;
 
     display: grid;
@@ -180,7 +178,7 @@ input-field1 {
         "error-text";
 }
 
-input-field2 {
+.input-with-error2 {
     grid-area: input-field2;
 
     display: grid;
@@ -191,8 +189,31 @@ input-field2 {
         "error-text";
 }
 
-under-reg-text {
-    grid-area: under-reg-text;
+.reg-table {
+    grid-area: reg-table;
+
+    display: grid;
+    grid-template: 47% 53%/ 12.5% 75% 12.5%;
+    grid-template-areas:
+        ". reg ."
+        ". . .";
+}
+
+.reg {
+    grid-area: reg;
+
+    display: grid;
+    grid-template: 21% 23% 9% 26% 21%/ 15.5% 69% 15.5%;
+    grid-template-areas:
+        ". . ."
+        ". create-new-acc ."
+        ". . ."
+        ". text-reg ."
+        ". . .";
+}
+
+.create-new-acc {
+    grid-area: create-new-acc;
 
     text-align: center;
 
@@ -203,62 +224,9 @@ under-reg-text {
     font-size: 16px;
     line-height: 100%;
     color: #395EBA;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
-input-field {
-    grid-area: input-field;
-}
-
-error-text {
-    grid-area: error-text;
-
-    /* Figma */
-    font-family: 'InterRegular';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 100%;
-    color: #D5534D;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-}
-
-btn-field-enter {
-    grid-area: btn-field-enter;
-}
-
-reg-table {
-    grid-area: reg-table;
-
-    display: grid;
-    grid-template: 47% 53%/ 12.5% 75% 12.5%;
-    grid-template-areas:
-        ". reg ."
-        ". . .";
-}
-
-reg {
-    grid-area: reg;
-
-    display: grid;
-    grid-template: 21% 23% 9% 26% 21%/ 15.5% 69% 15.5%;
-    grid-template-areas:
-        ". . ."
-        ". under-reg-text ."
-        ". . ."
-        ". text-reg ."
-        ". . .";
-}
-
-btn-field-reg {
-    grid-area: btn-field-reg;
-}
-
-text-reg {
+.text-reg {
     grid-area: text-reg;
 
     /* Figma */
@@ -269,13 +237,9 @@ text-reg {
     line-height: 100%;
     text-align: center;
     color: #8D949D;
-
-    flex: none;
-    order: 1;
-    flex-grow: 0;
 }
 
-logo-path {
+.logo-path {
     grid-area: logo-path;
 
     background-image: url(img/background_right.svg); /* Фоновый цвет и фоновый рисунок*/
@@ -289,7 +253,7 @@ logo-path {
         ". logo-table .";
 }
 
-logo-table {
+.logo-table {
     grid-area: logo-table;
 
     display: grid;
@@ -307,7 +271,7 @@ logo-table {
     border-radius: 12px;
 }
 
-logo {
+.logo {
     grid-area: logo;
 
     display: grid;
@@ -316,7 +280,7 @@ logo {
         ". logo-pic . logo-text .";
 }
 
-logo-text {
+.logo-text {
     grid-area: logo-text;
 
     text-align: left;
@@ -332,7 +296,7 @@ logo-text {
     color: #44009D;
 }
 
-logo-pic {
+.logo-pic {
     grid-area: logo-pic;
 
     background-image: url(img/logo.svg); /* Фоновый цвет и фоновый рисунок*/
@@ -342,7 +306,7 @@ logo-pic {
     background-position: center;
 }
 
-under-logo-text {
+.under-logo-text {
     grid-area: under-logo-text;
 
     text-align: center;
