@@ -6,43 +6,43 @@
     <title>Регистрация</title>
 </head>
 <body>
-<div class="grid">
-    <logo-path>
-        <logo-table>
-            <logo>
-                <logo-pic></logo-pic>
-                <logo-text>Depeche</logo-text>
-            </logo>
-            <under-logo-text>Сервис для общения</under-logo-text>
-        </logo-table>
-    </logo-path>
-    <reg-path>
-        <reg-table>
-            <title-text>Регистрация</title-text>
-            <input-field1>
-                <input-field><input placeholder="Имя" type="text" class="input input-wight"></input-field>
-                <error-text></error-text>
-            </input-field1>
-            <input-field2>
-                <input-field><input placeholder="Фамилия" type="text" class="input input-red"></input-field>
-                <error-text>Введите фамилию</error-text>
-            </input-field2>
-            <input-field3>
-                <input-field><input placeholder="Электронная почта" type="email" class="input input-wight"></input-field>
-                <error-text></error-text>
-            </input-field3>
-            <input-field4>
-                <input-field><input placeholder="Пароль" type="password" class="input input-wight"></input-field>
-                <error-text></error-text>
-            </input-field4>
-            <input-field5>
-                <input-field><input placeholder="Повторите пароль" type="password" class="input input-wight"></input-field>
-                <error-text></error-text>
-            </input-field5>
-                <btn-field-enter><a class="btn btn-gradient" href="authorization.html">Зарегистрироваться</a></btn-field-enter>
-            <under-reg-text><a href="authorization.html">У вас уже есть аккаунт? Войти</a></under-reg-text>
-        </reg-table>
-    </reg-path>
-</div>
+    <main class="main">
+        <div class="logo-path">
+            <div class="logo-table">
+                <div class="logo-pic"></div>
+                <div class="logo-text">Depeche</div>
+                <div class="logo-table-text">Сервис для общения</div>
+            </div>
+        </div>
+        <div class="reg-path">
+            <div class="reg-table">
+                <div class="title">
+                    Регистрация
+                </div>
+                <div class="input-block" data-id="1">
+                    <input placeholder="Имя" type="text" class="input-field correct-input">
+                    <div class="error-text"></div>
+                </div>
+                <div class="input-block"  data-id="2">
+                    <input placeholder="Фамилия" type="text" class="input-field incorrect-input">
+                    <div class="error-text">Введите фамилию</div>
+                </div>
+                <div class="input-block"  data-id="3">
+                    <input placeholder="Электронная почта" type="email" class="input-field correct-input">
+                    <div class="error-text"></div>
+                </div>
+                <div class="input-block"  data-id="4">
+                    <input placeholder="Пароль" type="password" class="input-field correct-input">
+                    <div class="error-text"></div>
+                </div>
+                <div class="input-block"  data-id="5">
+                    <input placeholder="Повторите пароль" type="password" class="input-field correct-input">
+                    <div class="error-text"></div>
+                </div>
+                <a class="btn" href="news.html" data-id="1">Зарегистрироваться</a>
+                <a class="under-reg-text" href="authorization.html">У вас уже есть аккаунт? Войти</a>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
