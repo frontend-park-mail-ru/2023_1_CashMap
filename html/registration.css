@@ -14,7 +14,7 @@
 }
 
 @font-face {
-    font-family: "Mail Sans Roman"; /* Имя шрифта */
+    font-family: MailSansRoman; /* Имя шрифта */
     src: url(fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
@@ -23,73 +23,91 @@
     src: url(fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
-.input {
+:root {
+    --font-size-12: 12px;
+    --font-size-15: 15px;
+    --font-size-16: 16px;
+    --font-size-23: 23px;
+    --font-size-28: 28px;
+
+    --font-color-select-dark: #D9D9D9;
+    --font-color-gray-text: #6C6F72;
+    --font-color-info: #395EBA;
+    --font-color-reg-info: #8D949D;
+    --font-color-logo-color: #44009D;
+    --font-color-error: #D5534D;
+    --font-color-btn: #FFFFFF;
+    --font-color-title: #000000;
+
+    --background-color-main: #FAFAFA;
+    --background-color-error: #FFEBEB;
+    --background-color-input: #F5F5F5;
+    --background-color-btn: linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%);
+    --background-color-logo-table: rgba(251, 221, 255, 0.4);
+}
+
+.input-block {
+    grid-area: input-block;
+    display: grid;
+    grid-template: 70% 2% 28%/ 100%;
+    grid-template-areas:
+        "input-field"
+        "."
+        "error-text";
+}
+
+.input-field {
+    grid-area: input-field;
+
     height: 100%;
     width: 100%;
-    border: none;
     padding: 0;
-    text-indent: 5px;
-
-    /* Figma */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    mix-blend-mode: normal;
     border-radius: 8px;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-
-    color: #6C6F72;
+    text-indent: 5px;
     font-family: 'InterMedium';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 100%;
+    font-size: var(--font-size-15);
+    color: var(--font-color-gray-text);
 }
 
-input::placeholder {
-    color: #9DA0A3;
-    font-size: 15px;
+.input-field::placeholder {
     font-family: InterMedium;
+    color: var(--font-color-gray-text);
+    font-size: var(--font-size-15);
 }
 
-.input-red {
-    background: #FFEBEB;
+.correct-input {
+    border: none;
+    background: var(--background-color-input);
 }
 
-.input-wight {
-    background: #F5F5F5;
+.incorrect-input {
+    border: 1px solid var(--font-color-error);
+    background: var(--background-color-error);
+}
+
+.error-text {
+    grid-area: error-text;
+
+    font-family: 'InterRegular';
+    font-weight: 400;
+    font-size: var(--font-size-12);
+    color: var(--font-color-error);
 }
 
 .btn {
+    grid-area: btn;
+
     height: 100%;
     width: 100%;
-    color: #FFFFFF;
-
-    /* Figma */
+    color: var(--font-color-btn);
+    background: var(--background-color-btn);
+    font-size: var(--font-size-16);
+    font-family: 'Mail Sans Roman';
     text-decoration: none;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    border: none;
-
-    /* Figma */
-    font-family: 'Mail Sans Roman';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 100%;
-    text-align: center;
-}
-
-.btn-gradient {
-    background: linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%);
 }
 
 body, html {
