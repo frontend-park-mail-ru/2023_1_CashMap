@@ -102,7 +102,7 @@
     color: var(--font-color-btn);
     background: var(--background-color-btn);
     font-size: var(--font-size-16);
-    font-family: 'Mail Sans Roman';
+    font-family: 'MailSansRoman';
     text-decoration: none;
     display: flex;
     justify-content: center;
@@ -180,7 +180,7 @@ body, html {
     grid-area: create-new-account;
 
     text-align: center;
-    font-family: 'Mail Sans Roman';
+    font-family: 'MailSansRoman';
     font-size: var(--font-size-16);
     color: var(--font-color-info);
 }
