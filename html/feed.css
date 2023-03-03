@@ -1,0 +1,211 @@
+@font-face {
+    font-family: Limelight; /* Имя шрифта */
+    src: url(fonts/Limelight-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: InterMedium; /* Имя шрифта */
+    src: url(fonts/Inter-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: InterRegular; /* Имя шрифта */
+    src: url(fonts/Inter-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: MailSansRoman; /* Имя шрифта */
+    src: url(fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Comfortaa; /* Имя шрифта */
+    src: url(fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+:root {
+    --font-size-12: 12px;
+    --font-size-15: 15px;
+    --font-size-16: 16px;
+    --font-size-23: 23px;
+    --font-size-28: 28px;
+
+    --font-color-select-dark: #D9D9D9;
+    --font-color-gray-text: #6C6F72;
+    --font-color-info: #395EBA;
+    --font-color-reg-info: #8D949D;
+    --font-color-logo-color: #44009D;
+    --font-color-error: #D5534D;
+    --font-color-btn: #FFFFFF;
+    --font-color-title: #000000;
+    --font-color-nav: #6C6F72;
+    --font-color-nav-hover: #B95DD9;
+
+    --background-color-main: #FAFAFA;
+    --background-color-error: #FFEBEB;
+    --background-color-input: #F5F5F5;
+    --background-color-menu: #FFFEFE;
+    --background-color-nav-notify: #D9D9D9;
+    --background-color-btn: linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%);
+    --background-color-logo-table: rgba(251, 221, 255, 0.4);
+}
+
+.main {
+	display: grid;
+	background-color: var(--background-color-input);
+	grid-template-areas: 
+		"menu footer ."
+		"menu post_creator ."
+		"menu feed .";
+
+	grid-template-columns: 25% 50% 25%;
+	grid-template-rows: 1fr 1fr 20fr;
+
+	grid-row-gap: 10px;
+	grid-column-gap: 35px;
+}
+
+@media all and (max-width: 720px) {
+	.main { 
+	    grid-template-areas: 
+			". footer ."
+			". post_creator ."
+			". feed .";
+
+	    grid-template-rows: 1fr 1fr 20fr; 
+	    grid-template-columns: 10% 80% 10%;
+	}
+}
+
+.feed {
+	grid-area: feed;
+	background-color: blue;
+}
+
+.footer {
+	grid-area: footer;
+	background-color: red;
+}
+
+.post_creator {
+	grid-area: post_creator;
+	background-color: green;
+}
+
+.menu {
+	padding-top: 20px;
+	padding-right: 15px;
+	grid-area: menu;
+	background-color: var(--background-color-menu);
+
+	display: grid;
+	grid-template-areas: 
+	". logo"
+	". navigation";
+
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 12% 92%;
+}
+
+
+.logo-block {
+	grid-area: logo;
+
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+	grid-column-gap: 5px;
+}
+
+.logo-text {
+    font-family: Limelight;
+    font-size: var(--font-size-28);
+    color: var(--font-color-logo-color);
+}
+
+
+.nav-list {
+	grid-area: navigation;
+}
+
+.nav-list ol {
+	margin-left: 0; /* Отступ слева в браузере IE и Opera */
+    padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
+}
+
+.nav-list a {
+	text-decoration: none;
+}
+
+
+.nav-item {
+	height: 30px;
+
+	padding-left: 8px;
+	padding-right: 8px;
+
+	list-style-type: none; /* Убираем маркеры */
+
+	border-radius: 8px;
+
+	margin-bottom: 8px;
+
+	display:  grid;
+
+	grid-template-columns: 1fr 70% 1fr;
+	grid-column-gap: 5px;
+
+	color: var(--font-color-nav);
+
+	font-size: var(--font-size-12);
+
+}
+
+.nav-item img {
+	height: var(--font-size-15);
+}
+
+.nav-item * {
+	font-family: "MailSansRoman";
+}
+
+
+.nav-item:hover {
+	color: var(--font-color-nav-hover);
+	background-color: var(--background-color-input);
+}
+
+.nav-item img:nth-child(2) {
+	display: none;
+}
+
+.nav-item:hover img:nth-child(1) {
+	display: none;
+}
+
+.nav-item:hover img:nth-child(2) {
+	display: inline-block;
+}
+
+.nav-item-icon {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.nav-item-text {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.nav-item-notify {
+	margin-top: auto;
+	margin-bottom: auto;
+
+	height: 50%;
+	border-radius: 80%;
+	background-color: var(--background-color-nav-notify);
+}
+
+.nav-item-notify p {
+	margin:  0px;
+	text-align: center;
+}
