@@ -457,8 +457,55 @@ body {
 	display: grid;
 
 	grid-template-rows: 1fr;
+	grid-row-gap: 10px;
 }
 
+.comments-list {
+	display: grid;
+
+	grid-template-rows: 1fr;
+
+	grid-row-gap: 10px;
+}
+
+
+.comment {
+	display: grid;
+
+	grid-template-areas: 
+	"photo name date"
+	"photo body edit";
+
+
+	grid-template-rows: 30px 1fr;
+	grid-template-columns: 30px 6fr 60px;
+
+	grid-column-gap: 7px;
+}
+
+.commentators-photo {
+	grid-area: photo;
+}
+
+.commentators-photo img {
+	height: 30px;
+}
+
+.commentators-name {
+	grid-area: name;
+}
+
+.comment-body {
+	grid-area: body;
+}
+
+.comment-date {
+	grid-area: date;
+}
+
+.comment-edit-block {
+	grid-area: edit;
+}
 
 .create-comment-section {
 	display: grid;
@@ -484,7 +531,7 @@ body {
 }
 
 .create-comment-section img {
-	height: 25px;
+	height: 30px;
 }
 
 
