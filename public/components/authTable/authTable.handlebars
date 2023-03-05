@@ -1,0 +1,16 @@
+<div class="auth-table">
+    <div class="title">
+        Авторизация
+    </div>
+    {{#each inputList}}
+        <div class="input-block" data-id="{{ id }}">
+            {{#if error}}
+            <input placeholder="{{ name }}" type="text" class="input-field incorrect-input">
+            {{else}}
+            <input placeholder="{{ name }}" type="text" class="input-field correct-input">
+            {{/if}}
+            <div class="error-text">{{ error }}</div>
+        </div>
+    {{/each}}
+    <a class="btn" href="news.html" data-id="1">Войти</a>
+</div>

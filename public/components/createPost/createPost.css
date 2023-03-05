@@ -45,3 +45,6 @@
 .post-input input:focus {
     outline: none;
 }
+
+.input-block[data-id="1"] { grid-area: 4 / 2; }
+.input-block[data-id="2"] { grid-area: 6 / 2; }

@@ -1,0 +1,82 @@
+.input-block {
+    grid-area: input-block;
+    display: grid;
+    grid-template: 70% 2% 28%/ 100%;
+    grid-template-areas:
+        "input-field"
+        "."
+        "error-text";
+}
+
+.input-field {
+    grid-area: input-field;
+
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    border-radius: 8px;
+    text-indent: 5px;
+    font-family: 'InterMedium';
+    font-size: var(--font-size-15);
+    color: var(--font-color-gray-text);
+}
+
+.input-field::placeholder {
+    font-family: InterMedium;
+    color: var(--font-color-gray-text);
+    font-size: var(--font-size-15);
+}
+
+.correct-input {
+    border: none;
+    background: var(--background-color-input);
+}
+
+.incorrect-input {
+    border: 1px solid var(--font-color-error);
+    background: var(--background-color-error);
+}
+
+.error-text {
+    grid-area: error-text;
+
+    font-family: 'InterRegular';
+    font-weight: 400;
+    font-size: var(--font-size-12);
+    color: var(--font-color-error);
+}
+
+.btn {
+    grid-area: btn;
+
+    height: 100%;
+    width: 100%;
+    color: var(--font-color-btn);
+    background: var(--background-color-btn);
+    font-size: var(--font-size-16);
+    font-family: 'MailSansRoman';
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.auth-table {
+    grid-area: auth-table;
+    display: grid;
+    grid-template: 15% 7% 5% 16% 5% 16% 10% 13% 13%/ 24% 52% 24%;
+}
+
+.title {
+    grid-area: 2 / 2;
+
+    text-align: center;
+    font-family: 'Comfortaa';
+    font-size: var(--font-size-23);
+    color: var(--font-color-title);
+}
+
+.input-block[data-id="1"] { grid-area: 4 / 2; }
+.input-block[data-id="2"] { grid-area: 6 / 2; }
+.btn[data-id="1"] { grid-area: 8 / 2; }

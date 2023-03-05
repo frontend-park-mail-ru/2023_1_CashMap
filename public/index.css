@@ -55,8 +55,9 @@
     --background-color-logo-table: rgba(251, 221, 255, 0.4);
 }
 
-body {
-    margin: 0px;
+body, html, #root {
+    margin: 0;
+    height: 100%;
 }
 
 .main {

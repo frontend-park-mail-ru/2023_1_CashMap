@@ -1,0 +1,55 @@
+{{!-- <div class="auth-table">
+    <div class="title">
+        Регистрация
+    </div>
+    {{#each inputList}}
+        <div class="input-block" data-id="{{ id }}">
+            {{#if error}}
+            <input placeholder="{{ name }}" type="text" class="input-field incorrect-input">
+            {{else}}
+            <input placeholder="{{ name }}" type="text" class="input-field correct-input">
+            {{/if}}
+            <div class="error-text">{{ error }}</div>
+        </div>
+    {{/each}}
+    <a class="btn" href="news.html" data-id="1">Зарегистрироваться</a>
+</div> --}}
+
+<main class="registration">
+    <div class="logo-path">
+        <div class="logo-table">
+            <div class="logo-pic"></div>
+            <div class="logo-text">Depeche</div>
+            <div class="logo-table-text">Сервис для общения</div>
+        </div>
+    </div>
+    <div class="reg-path">
+        <div class="reg-table">
+            <div class="title">
+                Регистрация
+            </div>
+            <div class="input-block" data-id="1">
+                <input placeholder="Имя" type="text" class="input-field correct-input">
+                <div class="error-text"></div>
+            </div>
+            <div class="input-block"  data-id="2">
+                <input placeholder="Фамилия" type="text" class="input-field incorrect-input">
+                <div class="error-text">Введите фамилию</div>
+            </div>
+            <div class="input-block"  data-id="3">
+                <input placeholder="Электронная почта" type="email" class="input-field correct-input">
+                <div class="error-text"></div>
+            </div>
+            <div class="input-block"  data-id="4">
+                <input placeholder="Пароль" type="password" class="input-field correct-input">
+                <div class="error-text"></div>
+            </div>
+            <div class="input-block"  data-id="5">
+                <input placeholder="Повторите пароль" type="password" class="input-field correct-input">
+                <div class="error-text"></div>
+            </div>
+            <a class="btn" href="news.html" data-id="1">Зарегистрироваться</a>
+            <a class="under-reg-text" href="authorization.html">У вас уже есть аккаунт? Войти</a>
+        </div>
+    </div>
+</main>

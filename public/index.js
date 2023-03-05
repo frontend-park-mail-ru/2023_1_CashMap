@@ -4,31 +4,47 @@ import {Comment} from './components/comment/comment.js';
 import {Feed} from './components/feed/feed.js';
 import Header from "./components/header/header.js";
 import CreatePost from "./components/createPost/createPost.js";
-
+import {AuthTable} from './components/authTable/authTable.js';
+import {Registration} from './components/registration/registration.js';
+import {Authorization} from './components/authorization/authorization.js';
 
 import Ajax from "./modules/ajax.js";
 
 const rootElement = document.getElementById('root');
-const main = document.createElement('div');
-main.classList.add('main');
+// const main = document.createElement('div');
+// main.classList.add('main');
 
-const content = document.createElement('div');
-content.classList.add('main-content');
-main.appendChild(content);
+// const content = document.createElement('div');
+// content.classList.add('main-content');
+// main.appendChild(content);
 
-const feed = document.createElement('div');
-feed.classList.add('feed');
-content.appendChild(feed);
-
-rootElement.appendChild(main);
-
-renderHeader(content)
-renderCreatePost(content)
-renderSideBar(main);
-renderFeed(feed);
+// const feed = document.createElement('div');
+// feed.classList.add('feed');
+// content.appendChild(feed);
 
 
-const request = Ajax.get({url: 'http://95.163.212.121:8080/api/feed/'});
+// rootElement.appendChild(main);
+
+// const logoPath = document.createElement('div');
+// logoPath.classList.add('logo-path');
+// main.appendChild(logoPath);
+
+// const authPath = document.createElement('div');
+// authPath.classList.add('auth-path');
+// main.appendChild(authPath);
+
+
+// renderHeader(content)
+// renderCreatePost(content)
+// renderSideBar(main);
+// renderFeed(feed);
+
+
+
+//renderRegistration(root);
+renderAuthorization(root);
+
+//const request = Ajax.get({url: 'http://95.163.212.121:8080/api/feed/'});
 
 let posts;
 
@@ -139,7 +155,6 @@ function renderPost(parent, postData) {
 }
 
 
-
 function renderSideBar(parent) {
 	const navItems = {
 		pages: [
@@ -225,4 +240,74 @@ function renderCreatePost(parent) {
     const createPost = new CreatePost(parent)
     createPost.config = tmpConfig
     createPost.render()
+}
+
+
+function renderAuthTable(parent) {
+	const inputs = [
+		{
+			id: 1,
+			name: "Электронная почта",
+			error: "Введена некорректная почта",
+		},
+
+		{
+			id: 2,
+			name: "Пароль",
+			error: "",
+		},
+	]
+
+	const authTable = new AuthTable(parent, inputs);
+
+	authTable.render();
+} 
+
+
+function renderRegTable(parent) {
+	const inputs = [
+		{
+			id: 1,
+			name: "Имя",
+			error: "Введено некорректное имя",
+		},
+
+		{
+			id: 2,
+			name: "Фамилия",
+			error: "Введена некорректная фамилия",
+		},
+
+		{
+			id: 3,
+			name: "Электронная почта",
+			error: "Введена некорректная почта",
+		},
+
+		{
+			id: 4,
+			name: "Пароль",
+			error: "",
+		},
+
+		{
+			id: 5,
+			name: "Повторите пароль",
+			error: "Введен некорректный пароль",
+		},
+	]
+
+	const regTable = new RegTable(parent, inputs);
+
+	regTable.render();
+} 
+
+function renderRegistration(parent) {
+    const registration = new Registration(parent);
+    registration.render();
+}
+
+function renderAuthorization(parent) {
+    const authorization = new Authorization(parent);
+    authorization.render();
 }
