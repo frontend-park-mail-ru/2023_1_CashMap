@@ -1,3 +1,3 @@
-export class SearchInput {
+export default class SearchInput {
     
 }

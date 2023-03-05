@@ -1,4 +1,4 @@
-export class SideBar {
+export default class SideBar {
 
 	#config
 	#parent

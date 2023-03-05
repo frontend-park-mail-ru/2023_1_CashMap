@@ -8,7 +8,7 @@ templates['comment'] = template({"compiler":[8,">= 4.3.0"],"main":function(conta
         return undefined
     };
 
-  return "<div class=\"comment\">\r\n    <div class=\"commentators-photo\">\r\n        <img src="
+  return "<div class=\"commentators-photo\">\r\n        <img src="
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"comment") : depth0)) != null ? lookupProperty(stack1,"senderPhotoPath") : stack1), depth0))
     + ">\r\n    </div>\r\n    <div class=\"commentators-name\"><span>"
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"comment") : depth0)) != null ? lookupProperty(stack1,"senderName") : stack1), depth0))
@@ -20,6 +20,6 @@ templates['comment'] = template({"compiler":[8,">= 4.3.0"],"main":function(conta
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"paths") : depth0)) != null ? lookupProperty(stack1,"edit") : stack1), depth0))
     + ">\r\n        <img src="
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"paths") : depth0)) != null ? lookupProperty(stack1,"delete") : stack1), depth0))
-    + ">\r\n    </div>\r\n</div>";
+    + ">\r\n</div>";
 },"useData":true});
 })();

@@ -1,4 +1,4 @@
-export class Post {
+export default class Post {
 
 	#config
 	#parent
@@ -14,8 +14,13 @@ export class Post {
 
 	render() {
 		const template = Handlebars.templates.post;
-		
-		this.#parent.innerHTML += template(this.#config);
+
+		let post = document.createElement('div');
+		post.classList.add('post');
+		post.innerHTML += template(this.#config);
+		this.#parent.appendChild(post);
+
+		return post;
 	}
 
 }
