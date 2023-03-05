@@ -2,9 +2,9 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const SERVER_PORT = 8003;
-const STATIC_PAHT = './html';
-const PAGE_404 = fs.readFileSync('html/404.html');
+const SERVER_PORT = 8002;
+const STATIC_PAHT = './public';
+const PAGE_404 = fs.readFileSync('public/404.html');
 
 const TYPES = {
     html: 'text/html; charset=UTF-8',
@@ -16,7 +16,7 @@ const TYPES = {
 
 const server = http.createServer((request, response) => {
     const {url} = request;
-    const normalizedUrl = url === '/' ? '/authorization.html' : url;
+    const normalizedUrl = url === '/' ? '/index.html' : url;
     const fileExt = path.extname(normalizedUrl).substring(1);
     const restype = TYPES[fileExt];
 
