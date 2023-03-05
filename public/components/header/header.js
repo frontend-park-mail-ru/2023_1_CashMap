@@ -2,8 +2,9 @@ export default class Header {
     #parent
     #config
 
-    constructor(parent) {
+    constructor(parent, config) {
         this.#parent = parent;
+        this.#config = config
     }
 
     get config() {
