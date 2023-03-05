@@ -1,10 +1,72 @@
 import { SideBar } from './components/sidebar/sidebar.js';
+import { Post } from './components/post/post.js';
+import { Feed } from './components/feed/feed.js';
 
 
-const main = document.getElementsByClassName('main')[0];
-const rootElement = document.getElementById('root')
-renderSideBar(rootElement);
+const rootElement = document.getElementById('root');
 
+const main = document.createElement('div');
+main.classList.add('main');
+
+const content = document.createElement('div');
+content.classList.add('main-content');
+main.appendChild(content);
+
+const feed = document.createElement('div');
+feed.classList.add('feed');
+content.appendChild(feed);
+
+rootElement.appendChild(main);
+
+
+
+renderSideBar(main);
+
+renderFeed(feed);
+
+
+
+function renderFeed(parent) {
+	const posts = [
+		{
+			senderName: "Pavel Repin",
+			senderPhoto: "static/img/nav_icons/profile.svg",
+			date: "1 ноя 2019",
+			body: "lorem ipsum lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber commentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumberv",
+			likeNumber: 10,
+			commentsNumber: 4
+		},
+
+		{
+			senderName: "Egor Larkin",
+			senderPhoto: "static/img/nav_icons/profile.svg",
+			date: "1 ноя 2007",
+			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
+			likeNumber: 122,
+			commentsNumber: 400
+		},
+	]
+
+	for (const post of posts) {
+		renderPost(parent, post)
+	}
+
+}
+
+
+function renderPost(parent, postData) {	
+	const staticPaths = {
+		postEditIconPath: "",
+		likeIconPath: "",
+		clickedLikeIconPath: "",
+		commentIconPath: "",
+		bookmarkIconPath: "",
+		clickedBookmarkIconPath: ""
+	}
+
+	const post = new Post(parent, postData, staticPaths);
+	post.render();
+}
 
 
 
@@ -13,7 +75,7 @@ function renderSideBar(parent) {
 		pages: [
 				{
 					ref: '/profile',
-					iconPath: '../html/img/nav-icons/profile.svg',
+					iconPath: './static/img/nav_icons/profile.svg',
 					hoveredIconPath: '../html/img/nav-icons/profile_hover.svg',
 					title: 'Моя страница',
 					notifies: 0
@@ -21,7 +83,7 @@ function renderSideBar(parent) {
 
 				{
 					ref: '/feed',
-					iconPath: '../html/img/nav-icons/news.svg',
+					iconPath: '../html/img/nav_icons/news.svg',
 					hoveredIconPath: '../html/img/nav-icons/news_hover.svg',
 					title: 'Новости',
 					notifies: 0
@@ -29,7 +91,7 @@ function renderSideBar(parent) {
 
 				{
 					ref: '/msg',
-					iconPath: '../html/img/nav-icons/messenger.svg',
+					iconPath: '../html/img/nav_icons/messenger.svg',
 					hoveredIconPath: '../html/img/nav-icons/messenger_hover.svg',
 					title: 'Мессенджер',
 					notifies: 0
@@ -37,7 +99,7 @@ function renderSideBar(parent) {
 
 				{
 					ref: '/albums',
-					iconPath: '../html/img/nav-icons/photos.svg',
+					iconPath: '../html/img/nav_icons/photos.svg',
 					hoveredIconPath: '../html/img/nav-icons/photos_hover.svg',
 					title: 'Фотографии',
 					notifies: 0
@@ -61,7 +123,7 @@ function renderSideBar(parent) {
 
 				{
 					ref: '/bookmarks',
-					iconPath: '../html/img/nav-icons/bookmarks',
+					iconPath: '../html/img/nav_icons/bookmarks',
 					hoveredIconPath: '../html/img/nav-icons/bookmarks_hover',
 					title: 'Закладки',
 					notifies: 0
@@ -69,7 +131,7 @@ function renderSideBar(parent) {
 				]
 			};
 
-	const sideBar = new SideBar(parent, 'Depeche', 'html/img/logo.svg', navItems.pages);
+	const sideBar = new SideBar(parent, 'Depeche', '../html/img/logo.svg', navItems.pages);
 
 	sideBar.render();
 } 

@@ -1,0 +1,32 @@
+<div class="post">
+    <div class="post-head">
+        <div class="post-author-image"><img src={{ post.senderPhoto }}></div>
+        <div class="post-author-name"><span>{{ post.senderName }}</span></div>
+        <div class="post-date">{{ post.date }}</div>
+        <div class="post-edit"><img src={{ paths.postEditIconPath }}></div>
+    </div>
+
+    <div class="post-body">
+        {{ post.body }}
+    </div>
+
+    <div class="post-bottom">
+        <button class="post-like">
+            <div class="post-like-icon">
+                <img src={{ paths.likeIconPath }}>
+                <img src={{ paths.clickedLikeIconPath }}>
+            </div>
+            <div class="post-like-number"><span>{{ post.likeNumber }}</span></div>
+        </button>
+        <button class="post-comments">
+            <div class="post-comments-icon"><img src={{ paths.commentIconPath }}></div>
+            <div class="post-comments-number"><span>{{ post.commentsNumber }}</span></div>
+        </button>
+        <button class=post-bookmark>
+            <div class="post-bookmark-icon">
+                <img src={{ paths.bookmarkIconPath }}>
+                <img src={{ paths.clickedBookmarkIconPath }}>
+            </div>
+        </button>
+    </div>
+</div>

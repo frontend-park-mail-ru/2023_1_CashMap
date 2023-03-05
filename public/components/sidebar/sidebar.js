@@ -1,24 +1,27 @@
 export class SideBar {
+
 	#config
 	#parent
 
-	constructor(parent, logoText, logoPath, itemsList) {
+	constructor(parent, logoTitle, logoPath, itemsList) {
 		this.#parent = parent;
 
 		this.#config = {
-			logoText,
+			logoTitle,
 			logoPath,
-			itemsList,
+			itemsList
 		};
 	}
 
 	render() {
 		const sideBar = document.createElement('div');
-		sideBar.class = 'side-bar';
+		sideBar.classList.add('side-bar');
 
-		let template = Handlebars.templates.sidebar;
+		const template = Handlebars.templates.sidebar;
+
 		sideBar.innerHTML = template(this.#config);
 
-		this.#parent.appendChild(sideBar)
+		this.#parent.appendChild(sideBar);
 	}
+
 }

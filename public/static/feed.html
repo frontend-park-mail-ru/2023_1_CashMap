@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="feed.css" type="text/css"/>
+    <title>Лента</title>
+</head>
+<body>
+<div class="main">
+    <div class="side-bar">
+        <div class="logo-block">
+            <img class="logo-pic" src="img/logo.svg"/>
+            <div class="logo-text">Depeche</div>
+        </div>
+
+        <div class="nav-list">
+            <ol>
+                <a href="">
+                    <li class="nav-item">
+                        <img class="nav-item-icon" src="img/nav_icons/profile.svg"/>
+                        <img class="nav-item-icon" src="img/nav_icons/profile_hover.svg"/>
+                        <div class="nav-item-text"><span>Моя страница</span></div>
+                        <div class="nav-item-notify"><p></p></div>
+                    </li>
+                </a>
+
+                <a href="">
+                    <li class="nav-item">
+                        <img class="nav-item-icon" src="img/nav_icons/news.svg"/>
+                        <img class="nav-item-icon" src="img/nav_icons/news_hover.svg"/>
+                        <div class="nav-item-text"><span>Новости</span></div>
+                        <div class="nav-item-notify"><p></p></div>
+                    </li>
+                </a>
+
+                <a href="">
+                    <li class="nav-item">
+                        <img class="nav-item-icon" src="img/nav_icons/messenger.svg"/>
+                        <img class="nav-item-icon" src="img/nav_icons/messenger_hover.svg"/>
+                        <div class="nav-item-text"><span>Мессенджер</span></div>
+                        <div class="nav-item-notify"><p></p></div>
+                    </li>
+                </a>
+
+                <a href="">
+                    <li class="nav-item">
+                        <img class="nav-item-icon" src="img/nav_icons/photos.svg"/>
+                        <img class="nav-item-icon" src="img/nav_icons/photos_hover.svg"/>
+                        <div class="nav-item-text"><span>Фотографии</span></div>
+                        <div class="nav-item-notify"><p></p></div>
+                    </li>
+                </a>
+
+                <a href="">
+                    <li class="nav-item">
+                        <img class="nav-item-icon" src="img/nav_icons/friends.svg"/>
+                        <img class="nav-item-icon" src="img/nav_icons/friends_hover.svg"/>
+                        <div class="nav-item-text"><span>Друзья</span></div>
+                        <div class="nav-item-notify"><p></p></div>
+                    </li>
+                </a>
+
+                <a href="">
+                    <li class="nav-item">
+
+                        <img class="nav-item-icon" src="img/nav_icons/groups.svg"/>
+                        <img class="nav-item-icon" src="img/nav_icons/groups_hover.svg"/>
+                        <div class="nav-item-text"><span>Сообщества</span></div>
+                        <div class="nav-item-notify"><p></p></div>
+                    </li>
+                </a>
+
+                <a href="">
+                    <li class="nav-item">
+                        <img class="nav-item-icon" src="img/nav_icons/bookmarks.svg"/>
+                        <img class="nav-item-icon" src="img/nav_icons/bookmarks_hover.svg"/>
+                        <div class="nav-item-text"><span>Закладки</span></div>
+                        <div class="nav-item-notify"><p></p></div>
+                    </li>
+                </a>
+
+            </ol>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+
+            <div class="search-area-wrap">
+                <div class="search-area">
+                    <img src="img/search.svg" alt="">
+                    <input class="search-input" placeholder="text">
+                </div>
+            </div>
+
+            <div class="notification-icon">
+                <img class="header-icon" src="img/noticeUnread.svg" alt="">
+            </div>
+
+            <div class="profile-icon">
+                <img class="header-icon" src="img/post_icons/profile_image.svg">
+            </div>
+
+            <div class="profile-menu-icon">
+                <img class="header-icon" src="img/menu.svg">
+        	</div>
+
+		</div>
+
+		<div class="post_creator">
+            <div class="post-creator-profile">
+                <img src="img/post_icons/profile_image.svg">
+            </div>
+            <div class="post-input post-creator-element">
+                <input placeholder="Добавить запись">
+            </div>
+            <div class="post-creator-element">
+                <img src="img/post_icons/photo.svg">
+                <img src="img/post_icons/photo_hover.svg">
+            </div>
+            <div class="post-creator-element">
+                <img src="img/post_icons/smile.svg">
+                <img src="img/post_icons/smile_hover.svg">
+            </div>
+        </div>
+        
+		<div class="feed">
+
+			<div class="post">
+				<div class="post-head">
+					<div class="post-author-image"><img src="img/post_icons/profile_image.svg"></div>
+					<div class="post-author-name"><span>Карина Анохина</span></div>
+					<div class="post-date">1 ноя 2019</div>
+					<div class="post-edit"><img src="img/post_icons/post_menu.svg"></div>
+				</div>
+
+				<div class="post-body">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</div>
+
+				<div class="post-bottom">
+					<button class="post-like">
+						<div class="post-like-icon">
+							<img src="img/post_icons/like.svg">
+							<img src="img/post_icons/like_clicked.svg">
+						</div>
+						<div class="post-like-number"><span>12</span></div>
+					</button>
+					<button class="post-comments">
+						<div class="post-comments-icon"><img src="img/post_icons/comment.svg"></div>
+						<div class="post-comments-number"><span>10</span></div>
+					</button>
+					<button class=post-bookmark>
+						<div class="post-bookmark-icon">
+							<img src="img/post_icons/bookmark.svg">
+							<img src="img/post_icons/bookmark_clicked.svg">
+						</div>
+					</button>
+				</div>
+
+
+				<div class="post-comments-section">
+					<div class="comments-list">
+
+						<div class="comment">
+							<div class="commentators-photo">
+								<img src="img/post_icons/profile_image.svg">
+							</div>
+							<div class="commentators-name"><span>Карина Анохина</span></div>
+							<div class="comment-body"><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></div>
+							<div class="comment-date">1 ноя 2019</div>
+							<div class="comment-edit-block">
+								<img src="">
+								<img src="">
+							</div>
+						</div>
+
+						<div class="comment">
+							<div class="commentators-photo">
+								<img src="img/post_icons/profile_image.svg">
+							</div>
+							<div class="commentators-name"><span>Карина Анохина</span></div>
+							<div class="comment-body"><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></div>
+							<div class="comment-date">1 ноя 2019</div>
+							<div class="comment-edit-block">
+								<img src="">
+								<img src="">
+							</div>
+						</div>
+
+						<div class="comment">
+							<div class="commentators-photo">
+								<img src="img/post_icons/profile_image.svg">
+							</div>
+							<div class="commentators-name"><span>Карина Анохина</span></div>
+							<div class="comment-body"><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></div>
+							<div class="comment-date">1 ноя 2019</div>
+							<div class="comment-edit-block">
+								<img src="">
+								<img src="">
+							</div>
+						</div>
+
+						<div class="comment">
+							<div class="commentators-photo">
+								<img src="img/post_icons/profile_image.svg">
+							</div>
+							<div class="commentators-name"><span>Карина Анохина</span></div>
+							<div class="comment-body"><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></div>
+							<div class="comment-date">1 ноя 2019</div>
+							<div class="comment-edit-block">
+								<img src="">
+								<img src="">
+							</div>
+						</div>
+
+					</div>
+
+					<div class="create-comment-section">
+						<div class="comment-profile-icon">
+							<img src="img/post_icons/profile_image.svg">
+						</div>
+
+						<div class="comment-input-block">
+                    		<input placeholder="Написать комментарий">
+                		</div>
+
+                		<div class="attach-photo-icon">
+                			<img src="img/post_icons/photo.svg">
+                			<img src="img/post_icons/photo_hover.svg">
+                		</div>
+
+                		<div class="choose-emoji-icon">
+                			<img src="img/post_icons/smile.svg">
+                			<img src="img/post_icons/smile_hover.svg">
+                		</div>
+
+                		<div class="send-icon">
+                			<img src="img/post_icons/send.svg">
+                		</div>
+					</div>
+				</div>
+
+
+			</div>
+
+			<div class="post">
+				<div class="post-head">
+					<div class="post-author-image"><img src="img/post_icons/profile_image.svg"></div>
+					<div class="post-author-name"><span>Карина Анохина</span></div>
+					<div class="post-date">1 ноя 2019</div>
+					<div class="post-edit"><img src="img/post_icons/post_menu.svg"></div>
+				</div>
+
+				<div class="post-body">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</div>
+
+				<div class="post-bottom">
+					<button class="post-like">
+						<div class="post-like-icon">
+							<img src="img/post_icons/like.svg">
+							<img src="img/post_icons/like_clicked.svg">
+						</div>
+						<div class="post-like-number"><span></span></div>
+					</button>
+					<button class="post-comments">
+						<div class="post-comments-icon"><img src="img/post_icons/comment.svg"></div>
+						<div class="post-comments-number"><span></span></div>
+					</button>
+					<button>
+						<div class="post-bookmark-icon">
+							<img src="img/post_icons/bookmark.svg">
+							<img src="img/post_icons/bookmark_clicked.svg">
+						</div>
+					</button>
+				</div>
+			</div>
+
+			<div class="post">
+				<div class="post-head">
+					<div class="post-author-image"><img src="img/post_icons/profile_image.svg"></div>
+					<div class="post-author-name"><span>Карина Анохина</span></div>
+					<div class="post-date">1 ноя 2019</div>
+					<div class="post-edit"><img src="img/post_icons/post_menu.svg"></div>
+				</div>
+
+				<div class="post-body"></div>
+
+				<div class="post-bottom">
+					<button class="post-like">
+						<div class="post-like-icon">
+							<img src="img/post_icons/like.svg">
+							<img src="img/post_icons/like_clicked.svg">
+						</div>
+						<div class="post-like-number"><span>12</span></div>
+					</button>
+					<button class="post-comments">
+						<div class="post-comments-icon"><img src="img/post_icons/comment.svg"></div>
+						<div class="post-comments-number"><span>10</span></div>
+					</button>
+					<button>
+						<div class="post-bookmark-icon">
+							<img src="img/post_icons/bookmark.svg">
+							<img src="img/post_icons/bookmark_clicked.svg">
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>
+</body>
+</html>
