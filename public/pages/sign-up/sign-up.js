@@ -1,17 +1,17 @@
 export default class SignUp {
-    constructor() {
+  constructor () {
 
-    }
+  }
 
-    render() {
+  render () {
 
-    }
+  }
 
-    remove() {
+  remove () {
 
-    }
+  }
 
-    setup() {
+  setup () {
 
-    }
+  }
 }

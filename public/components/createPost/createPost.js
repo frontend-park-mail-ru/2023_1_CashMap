@@ -1,28 +1,28 @@
 export default class CreatePost {
-    #config
-    #parent
+  #config
+  #parent
 
-    constructor(parent) {
-        this.#parent = parent;
+  constructor (parent) {
+    this.#parent = parent
+  }
+
+  get config () {
+    return this.#config
+  }
+
+  set config ({ profileUrl, avatar }) {
+    this.#config = {
+      profileUrl,
+      avatar
     }
+  }
 
-    get config() {
-        return this.#config
-    }
+  render () {
+    const header = document.createElement('div')
+    header.classList.add('post-creator')
 
-    set config({profileUrl, avatar}) {
-        this.#config = {
-            profileUrl,
-            avatar,
-        }
-    }
-
-    render() {
-        let header = document.createElement('div');
-        header.classList.add('post-creator');
-
-        const template = Handlebars.templates.createPost;
-        header.innerHTML = template(this.#config)
-        this.#parent.appendChild(header)
-    }
+    const template = Handlebars.templates.createPost
+    header.innerHTML = template(this.#config)
+    this.#parent.appendChild(header)
+  }
 }

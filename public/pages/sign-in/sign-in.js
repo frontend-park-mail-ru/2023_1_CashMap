@@ -1,18 +1,18 @@
-import Ajax from "../../modules/ajax";
+import Ajax from '../../modules/ajax'
 
 export default class SignIn {
-    constructor() {
+  constructor () {
 
-    }
+  }
 
-    render() {
+  render () {
 
-    }
+  }
 
-    remove() {
+  remove () {
 
-    }
+  }
 
-    setup() {
-    }
+  setup () {
+  }
 }

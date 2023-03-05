@@ -1,20 +1,18 @@
 export default class Login {
+  #config
+  #parent
 
-    #config
-    #parent
+  constructor (parent, picPath, fonPath) {
+    this.#parent = parent
 
-    constructor(parent, picPath, fonPath) {
-        this.#parent = parent;
-
-        this.#config = {
-            picPath,
-            fonPath,
-        };
+    this.#config = {
+      picPath,
+      fonPath
     }
+  }
 
-    render() {
-        const template = Handlebars.templates.login;
-        this.#parent.innerHTML = template(this.#config);
-    }
-
+  render () {
+    const template = Handlebars.templates.login
+    this.#parent.innerHTML = template(this.#config)
+  }
 }

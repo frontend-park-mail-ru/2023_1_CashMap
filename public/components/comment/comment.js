@@ -1,26 +1,24 @@
 export default class Comment {
+  #config
+  #parent
 
-	#config
-	#parent
+  constructor (parent, comment, staticPaths) {
+    this.#parent = parent
 
-	constructor(parent, comment, staticPaths) {
-		this.#parent = parent;
+    this.#config = {
+      comment,
+      paths: staticPaths
+    }
+  }
 
-		this.#config = {
-			comment,
-			paths: staticPaths
-		};
-	}
+  render () {
+    const template = Handlebars.templates.comment
 
-	render() {
-		const template = Handlebars.templates.comment;
+    const commentBlock = document.createElement('div')
+    commentBlock.classList.add('comment')
 
-		const commentBlock = document.createElement('div');
-		commentBlock.classList.add('comment');
-		
-		commentBlock.innerHTML = template(this.#config);
+    commentBlock.innerHTML = template(this.#config)
 
-		this.#parent.appendChild(commentBlock);
-	}
-
+    this.#parent.appendChild(commentBlock)
+  }
 }
