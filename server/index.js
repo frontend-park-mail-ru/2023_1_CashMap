@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SERVER_PORT = 8002;
-const STATIC_PAHT = './public';
+const STATIC_PATH = './public';
 const PAGE_404 = fs.readFileSync('public/404.html');
 
 const TYPES = {
@@ -22,7 +22,7 @@ const server = http.createServer((request, response) => {
 
 
     console.log(normalizedUrl);
-    fs.readFile(`${STATIC_PAHT}${normalizedUrl}`, (err, data) => {
+    fs.readFile(`${STATIC_PATH}${normalizedUrl}`, (err, data) => {
         if (err) {
             response.write(PAGE_404);
             response.end();
