@@ -418,7 +418,7 @@ body {
 }
 
 .post-body {
-    display: grid;
+    word-wrap: break-word;
 }
 
 .post-author-image {

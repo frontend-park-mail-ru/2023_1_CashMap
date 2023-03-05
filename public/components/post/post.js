@@ -15,7 +15,7 @@ export class Post {
 	render() {
 		const template = Handlebars.templates.post;
 		
-		this.#parent.innerHTML = template(this.#config);
+		this.#parent.innerHTML += template(this.#config);
 	}
 
 }

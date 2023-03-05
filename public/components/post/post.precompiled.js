@@ -28,10 +28,10 @@ templates['post'] = template({"compiler":[8,">= 4.3.0"],"main":function(containe
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"paths") : depth0)) != null ? lookupProperty(stack1,"commentIconPath") : stack1), depth0))
     + "></div>\r\n            <div class=\"post-comments-number\"><span>"
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"post") : depth0)) != null ? lookupProperty(stack1,"commentsNumber") : stack1), depth0))
-    + "</span></div>\r\n        </button>\r\n        <button class=post-bookmark>\r\n            <div class=\"post-bookmark-icon\">\r\n                <img src="
+    + "</span></div>\r\n        </button>\r\n        <button>\r\n            <div class=\"post-bookmark-icon\">\r\n                <img src="
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"paths") : depth0)) != null ? lookupProperty(stack1,"bookmarkIconPath") : stack1), depth0))
     + ">\r\n                <img src="
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"paths") : depth0)) != null ? lookupProperty(stack1,"clickedBookmarkIconPath") : stack1), depth0))
-    + ">\r\n            </div>\r\n        </button>\r\n    </div>\r\n</div>";
+    + ">\r\n            </div>\r\n        </button>\r\n    </div>\r\n</div>\r\n";
 },"useData":true});
 })();

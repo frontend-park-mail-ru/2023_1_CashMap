@@ -38,14 +38,41 @@ function renderFeed(parent) {
 			commentsNumber: 4
 		},
 
-		// {
-		// 	senderName: "Egor Larkin",
-		// 	senderPhoto: "static/img/nav_icons/profile.svg",
-		// 	date: "1 ноя 2007",
-		// 	body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
-		// 	likeNumber: 122,
-		// 	commentsNumber: 400
-		// },
+		{
+			senderName: "Egor Larkin",
+			senderPhoto: "static/img/nav_icons/profile.svg",
+			date: "1 ноя 2007",
+			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
+			likeNumber: 122,
+			commentsNumber: 400
+		},
+
+		{
+			senderName: "Egor Larkin",
+			senderPhoto: "static/img/nav_icons/profile.svg",
+			date: "1 ноя 2007",
+			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
+			likeNumber: 122,
+			commentsNumber: 400
+		},
+
+		{
+			senderName: "Egor Larkin",
+			senderPhoto: "static/img/nav_icons/profile.svg",
+			date: "1 ноя 2007",
+			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
+			likeNumber: 122,
+			commentsNumber: 400
+		},
+
+		{
+			senderName: "Egor Larkin",
+			senderPhoto: "static/img/nav_icons/profile.svg",
+			date: "1 ноя 2007",
+			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
+			likeNumber: 122,
+			commentsNumber: 400
+		},
 	]
 
 	for (const post of posts) {
