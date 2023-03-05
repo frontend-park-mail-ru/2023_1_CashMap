@@ -2,10 +2,10 @@ import {SideBar} from './components/sidebar/sidebar.js';
 import {Post} from './components/post/post.js';
 import {Comment} from './components/comment/comment.js';
 import {Feed} from './components/feed/feed.js';
-import {Logo} from "./components/logo/logo.js";
 import {Signup} from "./components/signup/signup.js";
 import Header from "./components/header/header.js";
 import CreatePost from "./components/createPost/createPost.js";
+import {Login} from "./components/login/login.js";
 
 
 //import Ajax from "./modules/ajax.js";
@@ -234,6 +234,12 @@ function renderSignup(parent) {
 	const createSignup = new Signup(parent, 'static/img/logo.svg', 'static/img/background_left.svg')
 
 	createSignup.render()
+}
+
+function renderLogin(parent) {
+	const createLogin = new Login(parent, 'static/img/logo.svg', 'static/img/background_right.svg')
+
+	createLogin.render()
 }
 
 const rootElement = document.getElementById('root');
