@@ -5,6 +5,8 @@ import Header from "./components/header/header.js";
 import CreatePost from "./components/createPost/createPost.js";
 
 
+import Ajax from "./modules/ajax.js";
+
 const rootElement = document.getElementById('root');
 const main = document.createElement('div');
 main.classList.add('main');
@@ -21,9 +23,7 @@ rootElement.appendChild(main);
 
 renderHeader(content)
 renderCreatePost(content)
-
 renderSideBar(main);
-
 renderFeed(feed);
 
 // const commentButton = document.querySelector('.post-comments-icon img');
@@ -37,11 +37,29 @@ renderFeed(feed);
 // }
 
 
+// const request = Ajax.get({url: 'http://95.163.212.121:8080/api/feed/'});
+
+let posts;
+
+request
+	.then(response => {
+			if(response.ok){
+				alert("Unauthorized")
+				return
+			}
+			posts = response.response
+		}
+	)
+	.catch( response => {
+			alert(response)
+	})
+
+
 function renderFeed(parent) {
 	const posts = [
 		{
 			senderName: "Pavel Repin",
-			senderPhoto: "static/img/nav_icons/profile.svg",
+			senderPhoto: "static/img/post_icons/profile_image.svg",
 			date: "1 ноя 2019",
 			body: "lorem ipsum lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber commentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumberv",
 			likeNumber: 10,
@@ -65,7 +83,7 @@ function renderFeed(parent) {
 
 		{
 			senderName: "Egor Larkin",
-			senderPhoto: "static/img/nav_icons/profile.svg",
+			senderPhoto: "static/img/post_icons/profile_image.svg",
 			date: "1 ноя 2007",
 			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
 			likeNumber: 122,
@@ -74,7 +92,7 @@ function renderFeed(parent) {
 
 		{
 			senderName: "Egor Larkin",
-			senderPhoto: "static/img/nav_icons/profile.svg",
+			senderPhoto: "static/img/post_icons/profile_image.svg",
 			date: "1 ноя 2007",
 			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
 			likeNumber: 122,
@@ -83,7 +101,7 @@ function renderFeed(parent) {
 
 		{
 			senderName: "Egor Larkin",
-			senderPhoto: "static/img/nav_icons/profile.svg",
+			senderPhoto: "static/img/post_icons/profile_image.svg",
 			date: "1 ноя 2007",
 			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
 			likeNumber: 122,
@@ -100,7 +118,7 @@ function renderFeed(parent) {
 
 		{
 			senderName: "Egor Larkin",
-			senderPhoto: "static/img/nav_icons/profile.svg",
+			senderPhoto: "static/img/post_icons/profile_image.svg",
 			date: "1 ноя 2007",
 			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
 			likeNumber: 122,
@@ -117,12 +135,12 @@ function renderFeed(parent) {
 
 function renderPost(parent, postData) {	
 	const staticPaths = {
-		postEditIconPath: "",
-		likeIconPath: "",
-		clickedLikeIconPath: "",
-		commentIconPath: "",
-		bookmarkIconPath: "",
-		clickedBookmarkIconPath: ""
+		postEditIconPath: "static/img/post_icons/post_menu.svg",
+		likeIconPath: "static/img/post_icons/like.svg",
+		clickedLikeIconPath: "static/img/post_icons/like_clicked.svg",
+		commentIconPath: "static/img/post_icons/comment.svg",
+		bookmarkIconPath: "static/img/post_icons/bookmark.svg",
+		clickedBookmarkIconPath: "static/img/post_icons/bookmark_clicked.svg"
 	}
 
 	const post = new Post(parent, postData, staticPaths);
@@ -136,63 +154,63 @@ function renderSideBar(parent) {
 		pages: [
 				{
 					ref: '/profile',
-					iconPath: './static/img/nav_icons/profile.svg',
-					hoveredIconPath: '../html/img/nav-icons/profile_hover.svg',
+					iconPath: 'static/img/nav_icons/profile.svg',
+					hoveredIconPath: 'static/img/nav_icons/profile_hover.svg',
 					title: 'Моя страница',
 					notifies: 0
 				},
 
 				{
 					ref: '/feed',
-					iconPath: '../html/img/nav_icons/news.svg',
-					hoveredIconPath: '../html/img/nav-icons/news_hover.svg',
+					iconPath: 'static/img/nav_icons/news.svg',
+					hoveredIconPath: 'static/img/nav_icons/news_hover.svg',
 					title: 'Новости',
 					notifies: 0
 				},
 
 				{
 					ref: '/msg',
-					iconPath: '../html/img/nav_icons/messenger.svg',
-					hoveredIconPath: '../html/img/nav-icons/messenger_hover.svg',
+					iconPath: 'static/img/nav_icons/messenger.svg',
+					hoveredIconPath: 'static/img/nav_icons/messenger_hover.svg',
 					title: 'Мессенджер',
 					notifies: 0
 				},
 
 				{
 					ref: '/albums',
-					iconPath: '../html/img/nav_icons/photos.svg',
-					hoveredIconPath: '../html/img/nav-icons/photos_hover.svg',
+					iconPath: 'static/img/nav_icons/photos.svg',
+					hoveredIconPath: 'static/img/nav_icons/photos_hover.svg',
 					title: 'Фотографии',
 					notifies: 0
 				},
 
 				{
 					ref: '/friends',
-					iconPath: '../html/img/nav-icons/friends.svg',
-					hoveredIconPath: '../html/img/nav-icons/friends_hover.svg',
+					iconPath: 'static/img/nav_icons/friends.svg',
+					hoveredIconPath: 'static/img/nav_icons/friends_hover.svg',
 					title: 'Друзья',
 					notifies: 0
 				},
 
 				{
 					ref: '/groups',
-					iconPath: '../html/img/nav-icons/groups.svg',
-					hoveredIconPath: '../html/img/nav-icons/groups_hover.svg',
+					iconPath: 'static/img/nav_icons/groups.svg',
+					hoveredIconPath: 'static/img/nav_icons/groups_hover.svg',
 					title: 'Сообщества',
 					notifies: 0
 				},
 
 				{
 					ref: '/bookmarks',
-					iconPath: '../html/img/nav_icons/bookmarks',
-					hoveredIconPath: '../html/img/nav-icons/bookmarks_hover',
+					iconPath: 'static/img/nav_icons/bookmarks.svg',
+					hoveredIconPath: 'static/img/nav_icons/bookmarks_hover.svg',
 					title: 'Закладки',
 					notifies: 0
 				}
 				]
 			};
 
-	const sideBar = new SideBar(parent, 'Depeche', '../html/img/logo.svg', navItems.pages);
+	const sideBar = new SideBar(parent, 'Depeche', 'static/img/logo.svg', navItems.pages);
 
 	sideBar.render();
 } 
@@ -201,7 +219,7 @@ function renderSideBar(parent) {
 function renderHeader(parent) {
     const tmpConfig = {
         profileUrl: '#',
-        avatar: 'static/default_avatar.svg'
+        avatar: 'static/img/post_icons/profile_image.svg'
     }
 
     const header = new Header(parent)
@@ -211,7 +229,7 @@ function renderHeader(parent) {
 
 function renderCreatePost(parent) {
     const tmpConfig = {
-        avatar: 'static/default_avatar.svg'
+        avatar: 'static/img/post_icons/profile_image.svg'
     }
     const createPost = new CreatePost(parent)
     createPost.config = tmpConfig
