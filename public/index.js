@@ -1,6 +1,7 @@
-import { SideBar } from './components/sidebar/sidebar.js';
-import { Post } from './components/post/post.js';
-import { Feed } from './components/feed/feed.js';
+import SideBar from './components/sidebar/sidebar.js';
+import Post from './components/post/post.js';
+import Comment from './components/comment/comment.js';
+import Feed from './components/feed/feed.js';
 import Header from "./components/header/header.js";
 import CreatePost from "./components/createPost/createPost.js";
 
@@ -36,6 +37,21 @@ function renderFeed(parent) {
 			body: "lorem ipsum lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber commentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumberv",
 			likeNumber: 10,
 			commentsNumber: 4
+			comments: [
+				{
+					senderName: "Карина Анохина",
+					senderPhotoPath: "static/img/nav_icons/profile.svg"
+					date: "1 ноя 2019",
+					body: "Увау, классно мыслишь!",
+				},
+
+				{
+					senderName: "Карина Анохина",
+					senderPhotoPath: "static/img/nav_icons/profile.svg"
+					date: "1 ноя 2019",
+					body: "Увау, классно мыслишь!",
+				}
+			]
 		},
 
 		{
@@ -63,6 +79,14 @@ function renderFeed(parent) {
 			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
 			likeNumber: 122,
 			commentsNumber: 400
+			comments: [
+				{
+					senderName: "Карина Анохина",
+					senderPhotoPath: "static/img/nav_icons/profile.svg"
+					date: "1 ноя 2019",
+					body: "Увау, классно мыслишь!",
+				},
+			]
 		},
 
 		{
