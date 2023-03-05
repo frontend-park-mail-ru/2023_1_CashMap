@@ -3,6 +3,7 @@ import Post from './components/post/post.js';
 import Comment from './components/comment/comment.js';
 import Header from "./components/header/header.js";
 import CreatePost from "./components/createPost/createPost.js";
+import CommentArea from "./components/commentArea/commentArea.js";
 
 
 import Ajax from "./modules/ajax.js";
@@ -39,20 +40,20 @@ renderFeed(feed);
 
 // const request = Ajax.get({url: 'http://95.163.212.121:8080/api/feed/'});
 
-let posts;
+// let posts;
 
-request
-	.then(response => {
-			if(response.ok){
-				alert("Unauthorized")
-				return
-			}
-			posts = response.response
-		}
-	)
-	.catch( response => {
-			alert(response)
-	})
+// request
+// 	.then(response => {
+// 			if(response.ok){
+// 				alert("Unauthorized")
+// 				return
+// 			}
+// 			posts = response.response
+// 		}
+// 	)
+// 	.catch( response => {
+// 			alert(response)
+// 	})
 
 
 function renderFeed(parent) {
@@ -144,10 +145,60 @@ function renderPost(parent, postData) {
 	}
 
 	const post = new Post(parent, postData, staticPaths);
-	post.render();
+	let postBlock = post.render();
+
+	renderCommentArea(postBlock);
 }
 
+function renderCommentArea(parent) {
+	const staticPaths = {
+		attachPhotoIconPath: "static/img/post_icons/photo.svg",
+		attachHoveredPhotoIconPath: "static/img/post_icons/photo_hover.svg",
+		attachSmileIconPath: "static/img/post_icons/smile.svg",
+		attachHoveredSmileIconPath: "static/img/post_icons/smile_hover.svg",
+		sendIconPath: "static/img/post_icons/send.svg"
+	}
 
+	const commentsData = [
+		{	
+			senderName: "Карина Анохина",
+			senderPhotoPath: "static/img/post_icons/profile_image.svg",
+			body: "Lorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumlorem",
+			date: "1 ноя 2019",
+		},
+
+		{	
+			senderName: "Карина Анохина",
+			senderPhotoPath: "static/img/post_icons/profile_image.svg",
+			body: "Lorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumlorem",
+			date: "1 ноя 2019",
+		},
+	]
+
+
+	let user = {
+		photoPath: "static/img/post_icons/profile_image.svg"
+	} 
+
+	const commentsArea = new CommentArea(parent, user, staticPaths);
+
+	let commentList = commentsArea.render();
+
+
+	for (const data of commentsData) {
+		renderComment(commentList, data);
+	}
+}
+
+function renderComment(parent, commentData) {
+	const staticPaths = {
+		edit: "static/img/comment_icons/edit.svg",
+		delete: "static/img/comment_icons/delete.svg"
+	}
+
+	const comment = new Comment(parent, commentData, staticPaths);
+	comment.render();
+}
 
 function renderSideBar(parent) {
 	const navItems = {
