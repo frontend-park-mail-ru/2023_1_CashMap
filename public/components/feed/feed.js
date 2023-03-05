@@ -1,4 +1,4 @@
-export class Feed {
+export default class Feed {
 
 	#config
 	#parent

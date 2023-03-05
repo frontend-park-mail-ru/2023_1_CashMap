@@ -1,4 +1,4 @@
-export class Comment {
+export default class Comment {
 
 	#config
 	#parent

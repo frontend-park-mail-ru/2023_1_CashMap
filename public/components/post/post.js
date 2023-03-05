@@ -1,4 +1,4 @@
-export class Post {
+export default class Post {
 
 	#config
 	#parent
