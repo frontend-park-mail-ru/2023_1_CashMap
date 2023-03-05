@@ -1,10 +1,12 @@
-import SideBar from './components/sidebar/sidebar.js';
-import Post from './components/post/post.js';
-import Comment from './components/comment/comment.js';
-import Feed from './components/feed/feed.js';
+import {SideBar} from './components/sidebar/sidebar.js';
+import {Post} from './components/post/post.js';
+import {Comment} from './components/comment/comment.js';
+import {Feed} from './components/feed/feed.js';
 import Header from "./components/header/header.js";
 import CreatePost from "./components/createPost/createPost.js";
 
+
+import Ajax from "./modules/ajax.js";
 
 const rootElement = document.getElementById('root');
 const main = document.createElement('div');
@@ -22,10 +24,26 @@ rootElement.appendChild(main);
 
 renderHeader(content)
 renderCreatePost(content)
-
 renderSideBar(main);
-
 renderFeed(feed);
+
+
+const request = Ajax.get({url: 'http://95.163.212.121:8080/api/feed/'});
+
+let posts;
+
+request
+	.then(response => {
+			if(response.ok){
+				alert("Unauthorized")
+				return
+			}
+			posts = response.response
+		}
+	)
+	.catch( response => {
+			alert(response)
+	})
 
 
 function renderFeed(parent) {
