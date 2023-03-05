@@ -1,10 +1,11 @@
 import { SideBar } from './components/sidebar/sidebar.js';
 import { Post } from './components/post/post.js';
 import { Feed } from './components/feed/feed.js';
+import Header from "./components/header/header.js";
+import CreatePost from "./components/createPost/createPost.js";
 
 
 const rootElement = document.getElementById('root');
-
 const main = document.createElement('div');
 main.classList.add('main');
 
@@ -18,12 +19,12 @@ content.appendChild(feed);
 
 rootElement.appendChild(main);
 
-
+renderHeader(content)
+renderCreatePost(content)
 
 renderSideBar(main);
 
 renderFeed(feed);
-
 
 
 function renderFeed(parent) {
@@ -136,4 +137,24 @@ function renderSideBar(parent) {
 	sideBar.render();
 } 
 
+
+function renderHeader(parent) {
+    const tmpConfig = {
+        profileUrl: '#',
+        avatar: 'static/default_avatar.svg'
+    }
+
+    const header = new Header(parent)
+    header.config = tmpConfig
+    header.render()
+}
+
+function renderCreatePost(parent) {
+    const tmpConfig = {
+        avatar: 'static/default_avatar.svg'
+    }
+    const createPost = new CreatePost(parent)
+    createPost.config = tmpConfig
+    createPost.render()
+}
 

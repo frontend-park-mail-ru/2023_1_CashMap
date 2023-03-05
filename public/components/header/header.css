@@ -1,0 +1,55 @@
+.header {
+    grid-area: header;
+    display: grid;
+    grid-template-areas: "search . notification profile menu";
+    grid-template-columns: 2fr 1fr 40px 40px 20px;
+
+    grid-template-rows: 1fr;
+}
+
+.header > div {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.search-area-wrap {
+    grid-area: search;
+    border-radius: 12px;
+}
+
+.search-area {
+    background-color: var(--background-color-input);
+    border-radius: 12px;
+    box-shadow: inset 0 4px 8px rgb(0 0 0 / 4%);
+
+    display: grid;
+
+    grid-template-columns: 30px 1fr;
+}
+
+
+.search-area img {
+    padding-left: 8px;
+    padding-top: 5px;
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    font-family: 'InterMedium';
+    font-size: var(--font-size-12);
+    color: var(--font-color-gray-text);
+    height: 30px;
+}
+
+.notification-icon {
+    grid-area: notification;
+}
+
+.profile-icon {
+    grid-area: profile;
+}
+
+.profile-menu-icon {
+    grid-area: menu;
+}
