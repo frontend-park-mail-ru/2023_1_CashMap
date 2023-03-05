@@ -165,7 +165,7 @@ body {
 }
 
 
-.post_creator {
+.post-creator {
     border-radius: 12px;
     grid-area: post_creator;
     padding-left: 20px;

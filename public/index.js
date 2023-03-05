@@ -31,7 +31,7 @@ function renderFeed(parent) {
 	const posts = [
 		{
 			senderName: "Pavel Repin",
-			senderPhoto: "static/img/nav_icons/profile.svg",
+			senderPhoto: "static/img/post_icons/profile_image.svg",
 			date: "1 ноя 2019",
 			body: "lorem ipsum lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber commentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumberv",
 			likeNumber: 10,
@@ -40,7 +40,7 @@ function renderFeed(parent) {
 
 		{
 			senderName: "Egor Larkin",
-			senderPhoto: "static/img/nav_icons/profile.svg",
+			senderPhoto: "static/img/post_icons/profile_image.svg",
 			date: "1 ноя 2007",
 			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
 			likeNumber: 122,
@@ -49,7 +49,7 @@ function renderFeed(parent) {
 
 		{
 			senderName: "Egor Larkin",
-			senderPhoto: "static/img/nav_icons/profile.svg",
+			senderPhoto: "static/img/post_icons/profile_image.svg",
 			date: "1 ноя 2007",
 			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
 			likeNumber: 122,
@@ -58,7 +58,7 @@ function renderFeed(parent) {
 
 		{
 			senderName: "Egor Larkin",
-			senderPhoto: "static/img/nav_icons/profile.svg",
+			senderPhoto: "static/img/post_icons/profile_image.svg",
 			date: "1 ноя 2007",
 			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
 			likeNumber: 122,
@@ -67,7 +67,7 @@ function renderFeed(parent) {
 
 		{
 			senderName: "Egor Larkin",
-			senderPhoto: "static/img/nav_icons/profile.svg",
+			senderPhoto: "static/img/post_icons/profile_image.svg",
 			date: "1 ноя 2007",
 			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
 			likeNumber: 122,
@@ -84,12 +84,12 @@ function renderFeed(parent) {
 
 function renderPost(parent, postData) {	
 	const staticPaths = {
-		postEditIconPath: "",
-		likeIconPath: "",
-		clickedLikeIconPath: "",
-		commentIconPath: "",
-		bookmarkIconPath: "",
-		clickedBookmarkIconPath: ""
+		postEditIconPath: "static/img/post_icons/post_menu.svg",
+		likeIconPath: "static/img/post_icons/like.svg",
+		clickedLikeIconPath: "static/img/post_icons/like_clicked.svg",
+		commentIconPath: "static/img/post_icons/comment.svg",
+		bookmarkIconPath: "static/img/post_icons/bookmark.svg",
+		clickedBookmarkIconPath: "static/img/post_icons/bookmark_clicked.svg"
 	}
 
 	const post = new Post(parent, postData, staticPaths);
@@ -168,7 +168,7 @@ function renderSideBar(parent) {
 function renderHeader(parent) {
     const tmpConfig = {
         profileUrl: '#',
-        avatar: 'static/default_avatar.svg'
+        avatar: 'static/img/post_icons/profile_image.svg'
     }
 
     const header = new Header(parent)
@@ -178,7 +178,7 @@ function renderHeader(parent) {
 
 function renderCreatePost(parent) {
     const tmpConfig = {
-        avatar: 'static/default_avatar.svg'
+        avatar: 'static/img/post_icons/profile_image.svg'
     }
     const createPost = new CreatePost(parent)
     createPost.config = tmpConfig
