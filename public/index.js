@@ -4,11 +4,13 @@ import Comment from './components/comment/comment.js';
 import Header from "./components/header/header.js";
 import CreatePost from "./components/createPost/createPost.js";
 import CommentArea from "./components/commentArea/commentArea.js";
+import Login from "./components/login/login.js";
+import Signup from "./components/signup/signup.js";
 
 
 import Ajax from "./modules/ajax.js";
 
-const rootElement = document.getElementById('root');
+/*const rootElement = document.getElementById('root');
 const main = document.createElement('div');
 main.classList.add('main');
 
@@ -25,7 +27,7 @@ rootElement.appendChild(main);
 renderHeader(content)
 renderCreatePost(content)
 renderSideBar(main);
-renderFeed(feed);
+renderFeed(feed);*/
 
 // const commentButton = document.querySelector('.post-comments-icon img');
 // commentButton.addEventListener('click', function() {
@@ -286,3 +288,19 @@ function renderCreatePost(parent) {
     createPost.config = tmpConfig
     createPost.render()
 }
+
+function renderSignup(parent) {
+	const createSignup = new Signup(parent, 'static/img/logo.svg', 'static/img/background_left.svg')
+
+	createSignup.render()
+}
+
+function renderLogin(parent) {
+	const createLogin = new Login(parent, 'static/img/logo.svg', 'static/img/background_right.svg')
+
+	createLogin.render()
+}
+
+const rootElement = document.getElementById('root');
+
+renderLogin(rootElement)
