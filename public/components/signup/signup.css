@@ -1,0 +1,224 @@
+@font-face {
+    font-family: Limelight; /* Имя шрифта */
+    src: url(../../static/fonts/Limelight-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: InterMedium; /* Имя шрифта */
+    src: url(../../static/fonts/Inter-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: InterRegular; /* Имя шрифта */
+    src: url(../../static/fonts/Inter-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: MailSansRoman; /* Имя шрифта */
+    src: url(../../static/fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Comfortaa; /* Имя шрифта */
+    src: url(../../static/fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+:root {
+    --font-size-12: 12px;
+    --font-size-15: 15px;
+    --font-size-16: 16px;
+    --font-size-23: 23px;
+    --font-size-28: 28px;
+
+    --font-color-select-dark: #D9D9D9;
+    --font-color-gray-text: #6C6F72;
+    --font-color-info: #395EBA;
+    --font-color-reg-info: #8D949D;
+    --font-color-logo-color: #44009D;
+    --font-color-error: #D5534D;
+    --font-color-btn: #FFFFFF;
+    --font-color-title: #000000;
+
+    --background-color-main: #FAFAFA;
+    --background-color-error: #FFEBEB;
+    --background-color-input: #F5F5F5;
+    --background-color-btn: linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%);
+    --background-color-logo-table: rgba(251, 221, 255, 0.4);
+}
+
+.input-block {
+    grid-area: input-block;
+    display: grid;
+    grid-template: 70% 2% 28%/ 100%;
+    grid-template-areas:
+        "input-field"
+        "."
+        "error-text";
+}
+
+.input-field {
+    grid-area: input-field;
+
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    border-radius: 8px;
+    text-indent: 5px;
+    font-family: 'InterMedium';
+    font-size: var(--font-size-15);
+    color: var(--font-color-gray-text);
+}
+
+.input-field::placeholder {
+    font-family: InterMedium;
+    color: var(--font-color-gray-text);
+    font-size: var(--font-size-15);
+}
+
+.correct-input {
+    border: none;
+    background: var(--background-color-input);
+}
+
+.incorrect-input {
+    border: 1px solid var(--font-color-error);
+    background: var(--background-color-error);
+}
+
+.error-text {
+    grid-area: error-text;
+
+    font-family: 'InterRegular';
+    font-weight: 400;
+    font-size: var(--font-size-12);
+    color: var(--font-color-error);
+}
+
+.btn {
+    grid-area: btn;
+
+    height: 100%;
+    width: 100%;
+    color: var(--font-color-btn);
+    background: var(--background-color-btn);
+    font-size: var(--font-size-16);
+    font-family: 'MailSansRoman';
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+body, html, #root {
+    margin: 0;
+    height: 100%;
+}
+
+.main-reg {
+    height: 100%;
+    display: grid;
+    grid-template: 100% / 48.715% 51.285%;
+    grid-template-areas:
+        "logo-path reg-path";
+}
+
+.reg-path {
+    grid-area: reg-path;
+
+    display: grid;
+    grid-template: 21% 59% 20%/ 15% 70% 15%;
+    grid-template-areas:
+        ". . ."
+        ". reg-table ."
+        ". . .";
+}
+
+.reg-table {
+    grid-area: reg-table;
+
+    display: grid;
+    grid-template: 9.6% 4.2% 5.6% 10.5% 4.2% 10.5% 4.2% 10.5% 4.2% 10.5% 4.2% 10.5% 4.2% 7% 2.8% 2.6% 9.5%/ 24% 52% 24%;
+}
+
+.title {
+    grid-area: 2 / 2;
+
+    text-align: center;
+    font-family: 'Comfortaa';
+    font-size: var(--font-size-23);
+    color: var(--font-color-title);
+}
+
+.input-block[data-id="1"] { grid-area: 4 / 2; }
+.input-block[data-id="2"] { grid-area: 6 / 2; }
+.input-block[data-id="3"] { grid-area: 8 / 2; }
+.input-block[data-id="4"] { grid-area: 10 / 2; }
+.input-block[data-id="5"] { grid-area: 12 / 2; }
+.btn[data-id="1"] { grid-area: 14 / 2; }
+
+.under-reg-text {
+    grid-area: 16 / 2;
+
+    text-align: center;
+    font-family: 'MailSansRoman';
+    font-size: var(--font-size-15);
+    color: var(--font-color-info);
+}
+
+.logo-path {
+    grid-area: logo-path;
+
+    background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
+    background-size: cover;
+    background-position: right;
+
+    display: grid;
+    grid-template: 34.53% 18.85% 46.62% / 23.8% 52.4% 23.8%;
+    grid-template-areas:
+        ". . ."
+        ". logo-table .";
+}
+
+.logo-table {
+    grid-area: logo-table;
+    display: grid;
+    grid-template: 25% 6.92% 15.16% 6.92% 9% 12% 25% / 25% 11% 2% 35% 27%;
+    grid-template-areas:
+        ". . . . ."
+        ". logo-pic . . ."
+        ". logo-pic . logo-text ."
+        ". logo-pic . . ."
+        ". . . . ."
+        "logo-table-text logo-table-text logo-table-text logo-table-text logo-table-text"
+        ". . . . .";
+
+    background: var(--background-color-logo-table);
+    backdrop-filter: blur(2px);
+    border-radius: 12px;
+}
+
+.logo-text {
+    grid-area: logo-text;
+    font-family: Limelight;
+    font-size: var(--font-size-28);
+    color: var(--font-color-logo-color);
+}
+
+.logo-pic {
+    grid-area: logo-pic;
+
+    background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
+    background-size: 100%;
+    border-radius: 12px;
+    background-position: center;
+}
+
+.logo-table-text {
+    grid-area: logo-table-text;
+
+    text-align: center;
+    font-family: 'Comfortaa';
+    font-size: var(--font-size-23);
+    color: var(--font-color-select-dark);
+}

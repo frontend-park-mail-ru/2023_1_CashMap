@@ -2,13 +2,15 @@ import {SideBar} from './components/sidebar/sidebar.js';
 import {Post} from './components/post/post.js';
 import {Comment} from './components/comment/comment.js';
 import {Feed} from './components/feed/feed.js';
+import {Logo} from "./components/logo/logo.js";
+import {Signup} from "./components/signup/signup.js";
 import Header from "./components/header/header.js";
 import CreatePost from "./components/createPost/createPost.js";
 
 
-import Ajax from "./modules/ajax.js";
+//import Ajax from "./modules/ajax.js";
 
-const rootElement = document.getElementById('root');
+/*const rootElement = document.getElementById('root');
 const main = document.createElement('div');
 main.classList.add('main');
 
@@ -25,10 +27,10 @@ rootElement.appendChild(main);
 renderHeader(content)
 renderCreatePost(content)
 renderSideBar(main);
-renderFeed(feed);
+renderFeed(feed);*/
 
 
-const request = Ajax.get({url: 'http://95.163.212.121:8080/api/feed/'});
+/*const request = Ajax.get({url: 'http://95.163.212.121:8080/api/feed/'});
 
 let posts;
 
@@ -43,7 +45,7 @@ request
 	)
 	.catch( response => {
 			alert(response)
-	})
+	})*/
 
 
 function renderFeed(parent) {
@@ -226,3 +228,14 @@ function renderCreatePost(parent) {
     createPost.config = tmpConfig
     createPost.render()
 }
+
+
+function renderSignup(parent) {
+	const createSignup = new Signup(parent, 'static/img/logo.svg', 'static/img/background_left.svg')
+
+	createSignup.render()
+}
+
+const rootElement = document.getElementById('root');
+
+renderSignup(rootElement)
