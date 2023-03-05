@@ -36,18 +36,18 @@ function renderFeed(parent) {
 			date: "1 ноя 2019",
 			body: "lorem ipsum lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber commentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumberv",
 			likeNumber: 10,
-			commentsNumber: 4
+			commentsNumber: 4,
 			comments: [
 				{
 					senderName: "Карина Анохина",
-					senderPhotoPath: "static/img/nav_icons/profile.svg"
+					senderPhotoPath: "static/img/nav_icons/profile.svg",
 					date: "1 ноя 2019",
 					body: "Увау, классно мыслишь!",
 				},
 
 				{
 					senderName: "Карина Анохина",
-					senderPhotoPath: "static/img/nav_icons/profile.svg"
+					senderPhotoPath: "static/img/nav_icons/profile.svg",
 					date: "1 ноя 2019",
 					body: "Увау, классно мыслишь!",
 				}
@@ -78,11 +78,11 @@ function renderFeed(parent) {
 			date: "1 ноя 2007",
 			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
 			likeNumber: 122,
-			commentsNumber: 400
+			commentsNumber: 400,
 			comments: [
 				{
 					senderName: "Карина Анохина",
-					senderPhotoPath: "static/img/nav_icons/profile.svg"
+					senderPhotoPath: "static/img/nav_icons/profile.svg",
 					date: "1 ноя 2019",
 					body: "Увау, классно мыслишь!",
 				},
