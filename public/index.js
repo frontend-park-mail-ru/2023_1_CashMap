@@ -244,4 +244,12 @@ function renderLogin(parent) {
 
 const rootElement = document.getElementById('root');
 
-renderSignup(rootElement)
+renderLogin(rootElement)
+
+
+function auth() {
+	const login = document.getElementById('login-field');
+	const loginError = document.getElementById('login-error');
+	const password = document.getElementById('password-field');
+	const passwordError = document.getElementById('password-error');
+}
