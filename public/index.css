@@ -810,14 +810,14 @@ body, html, #root {
     border-radius: 12px;
 }
 
-.logo-text {
+.auth--logo-text {
     grid-area: logo-text;
     font-family: Limelight;
     font-size: var(--font-size-28);
     color: var(--font-color-logo-color);
 }
 
-.logo-pic {
+.auth--logo-pic {
     grid-area: logo-pic;
 
     background-repeat: no-repeat; /* Изображение повторяется по горизонтали */

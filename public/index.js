@@ -8,7 +8,13 @@ import Login from "./components/login/login.js";
 import Signup from "./components/signup/signup.js";
 
 
+
+
 import Ajax from "./modules/ajax.js";
+
+
+renderLoginPage()
+
 
 /*const rootElement = document.getElementById('root');
 const main = document.createElement('div');
@@ -40,22 +46,22 @@ renderFeed(feed);*/
 // }
 
 
-// const request = Ajax.get({url: 'http://95.163.212.121:8080/api/feed/'});
+ /*const request = Ajax.get({url: 'http://95.163.212.121:8080/api/feed/'});
 
-// let posts;
+ let posts;
 
-// request
-// 	.then(response => {
-// 			if(response.ok){
-// 				alert("Unauthorized")
-// 				return
-// 			}
-// 			posts = response.response
-// 		}
-// 	)
-// 	.catch( response => {
-// 			alert(response)
-// 	})
+ request
+ 	.then(response => {
+ 			if(response.ok){
+ 				alert("Unauthorized")
+ 				return
+ 			}
+ 			posts = response.response
+ 		}
+ 	)
+ 	.catch( response => {
+ 			alert(response)
+ 	})*/
 
 
 function renderFeed(parent) {
@@ -289,18 +295,109 @@ function renderCreatePost(parent) {
     createPost.render()
 }
 
-function renderSignup(parent) {
-	const createSignup = new Signup(parent, 'static/img/logo.svg', 'static/img/background_left.svg')
+function renderFeedPage() {
+	const rootElement = document.getElementById('root')
+	const main = document.createElement('div');
+	main.classList.add('main');
+	rootElement.appendChild(main);
 
+	const content = document.createElement('div');
+	content.classList.add('main-content');
+	main.appendChild(content);
+
+	const feed = document.createElement('div');
+	feed.classList.add('feed');
+	content.appendChild(feed);
+
+	renderHeader(content)
+	renderCreatePost(content)
+	renderSideBar(main);
+	renderFeed(feed);
+}
+
+function renderSignupPage() {
+	const rootElement = document.getElementById('root');
+	const createSignup = new Signup(rootElement, 'static/img/logo.svg', 'static/img/background_left.svg')
 	createSignup.render()
 }
 
-function renderLogin(parent) {
-	const createLogin = new Login(parent, 'static/img/logo.svg', 'static/img/background_right.svg')
-
+function renderLoginPage(parent) {
+	const rootElement = document.getElementById('root');
+	const createLogin = new Login(rootElement, 'static/img/logo.svg', 'static/img/background_right.svg')
 	createLogin.render()
+	signIn()
 }
 
-const rootElement = document.getElementById('root');
 
-renderLogin(rootElement)
+function removeLogin() {
+	const lastAuth = document.getElementById('main-auth');
+	if (lastAuth) {
+		lastAuth.remove();
+	}
+}
+
+function signIn() {
+	const emailField = document.getElementById('email-field');
+	const emailErrorField = document.getElementById('email-error');
+	const passwordField = document.getElementById('password-field');
+	const passwordErrorField = document.getElementById('password-error');
+
+	const authBtn = document.getElementById('auth')
+	const newBtn = document.getElementById('new')
+
+	authBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+
+		const validLogin = validateEmail(emailField.value);
+		const validPassword = validatePassword(passwordField.value);
+
+		emailField.classList.add('correct-input')
+		emailField.classList.remove('incorrect-input')
+		passwordField.classList.add('correct-input')
+		passwordField.classList.remove('incorrect-input')
+		emailErrorField.textContent = ''
+		passwordErrorField.textContent = '';
+
+
+		if (validLogin.status && validPassword.status) {
+			// ToDo: Запрос к серверу для проверки данных пользователя
+
+			/*const request = Ajax.post({url:'http://95.163.212.121:80/api/auth/', body: {body:{"email": emailField.value, "password": passwordField.value}}});
+			request
+				.then( response => {
+					if (response.status < 300) {
+						return
+					}
+					// TODO обработать код ответа
+				})
+				.catch(response =>{
+					// TODO обработать ошибку
+					console.log(response)
+
+				})*/
+
+			if (true) {
+				removeLogin()
+				renderFeedPage()
+			}
+		} else {
+			if (validLogin.status === false) {
+				emailErrorField.textContent = 'error'//validLogin.error;
+				emailField.classList.remove('correct-input')
+				emailField.classList.add('incorrect-input')
+			}
+			if (validPassword.status === false) {
+				passwordErrorField.textContent = validPassword.error;
+				passwordField.classList.remove('correct-input')
+				passwordField.classList.add('incorrect-input')
+			}
+		}
+	});
+
+	newBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+
+		removeLogin()
+		renderSignupPage()
+	});
+}

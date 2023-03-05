@@ -1,4 +1,4 @@
-<main-auth class="main-auth">
+<main-auth class="main-auth" id="main-auth">
     <div class="auth-path">
         <div class="auth-table">
             <div class="title">
@@ -9,14 +9,14 @@
                 <div class="error-text" id="email-error"></div>
             </div>
             <div class="input-block"  data-id="7">
-                <input placeholder="Пароль" type="password" class="input-field incorrect-input" id="password-field">
-                <div class="error-text" id="password-error">Введите пароль</div>
+                <input placeholder="Пароль" type="password" class="input-field correct-input" id="password-field">
+                <div class="error-text" id="password-error"></div>
             </div>
             <a class="btn" data-id="2" id="auth">Войти</a>
         </div>
         <div class="reg-table">
             <div class="reg">
-                <a class="create-new-account">У вас еще нет аккаунта? Зарегистрироваться</a>
+                <a class="create-new-account" id="new">У вас еще нет аккаунта? Зарегистрироваться</a>
                 <div class="text-reg">
                     После успешной регистрации вы получите доступ ко всем функциям Depeche
                 </div>
@@ -25,8 +25,8 @@
     </div>
     <div class="logo-path" style="background-image: url({{ fonPath }})">
         <div class="logo-table">
-            <div class="logo-pic" style="background-image: url({{ picPath }})"></div>
-            <div class="logo-text">Depeche</div>
+            <div class="auth--logo-pic" style="background-image: url({{ picPath }})"></div>
+            <div class="auth--logo-text">Depeche</div>
             <div class="logo-table-text">Сервис для общения</div>
         </div>
     </div>
