@@ -213,7 +213,7 @@ body {
 	outline: none;
 }
 
-.menu {
+.side-bar {
 	padding-top: var(--main-margin);
 	padding-right: 15px;
 	grid-area: menu;
@@ -230,7 +230,7 @@ body {
 
 
 @media all and (max-width: 720px) {
-	.menu {
+	.side-bar {
 		padding-top: 20px;
 		padding-right: 15px;
 		grid-area: menu;

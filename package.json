@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/frontend-park-mail-ru/2023_1_CashMap/issues"
   },
-  "homepage": "https://github.com/frontend-park-mail-ru/2023_1_CashMap#readme"
+  "homepage": "https://github.com/frontend-park-mail-ru/2023_1_CashMap#readme",
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
 }
