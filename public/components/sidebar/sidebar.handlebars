@@ -1,5 +1,5 @@
 <div class="logo-block">
-    <img class="logo-pic" src={{ logoPath }}/>
+    <img class="logo-pic" src={{ logoPath }}>
     <div class="logo-text">{{ logoTitle }}</div>
 </div>
 
@@ -7,10 +7,10 @@
     <ol>
         {{#each itemsList}}
         
-            <a href={{ this.ref }}>
+            <a href={{ ref }}>
                 <li class="nav-item">
-                    <img class="nav-item-icon" src={{ this.iconPath }}/>
-                    <img class="nav-item-icon" src={{ this.hoveredIconPath }}/>
+                    <img class="nav-item-icon" src={{ iconPath }}>
+                    <img class="nav-item-icon" src={{ hoveredIconPath }}>
                     <div class="nav-item-text"><span>{{ title }}</span></div>
                     {{#if notifies}}
                         <div class="nav-item-notify"><p>{{ notifies }}</p></div>
