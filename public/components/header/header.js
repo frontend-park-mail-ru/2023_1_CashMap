@@ -1,4 +1,4 @@
-export class Header {
+export default class Header {
     #parent
     #config
 
@@ -10,11 +10,19 @@ export class Header {
         return this.#config
     }
 
-    set config(value) {
-        this.#config = value
+    set config({profileUrl, avatar}) {
+        this.#config = {
+            profileUrl,
+            avatar,
+        }
     }
 
     render() {
-        
+        let header = document.createElement('div');
+        header.classList.add('header');
+
+        const template = Handlebars.templates.header;
+        header.innerHTML = template(this.#config)
+        this.#parent.appendChild(header)
     }
 }
