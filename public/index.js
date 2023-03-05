@@ -2,20 +2,15 @@ import { SideBar } from './components/sidebar/sidebar.js';
 
 
 const main = document.getElementsByClassName('main')[0];
-renderSideBar();
-
-
-
-
-
-
-
+const rootElement = document.getElementById('root')
+renderSideBar(rootElement);
 
 
 
 
 function renderSideBar(parent) {
-	navItems = {
+	const navItems = {
+		pages: [
 				{
 					ref: '/profile',
 					iconPath: '../html/img/nav-icons/profile.svg',
@@ -34,7 +29,7 @@ function renderSideBar(parent) {
 
 				{
 					ref: '/msg',
-					iconPath: '../html/img/nav-icons/messenger.svg'
+					iconPath: '../html/img/nav-icons/messenger.svg',
 					hoveredIconPath: '../html/img/nav-icons/messenger_hover.svg',
 					title: 'Мессенджер',
 					notifies: 0
@@ -50,7 +45,7 @@ function renderSideBar(parent) {
 
 				{
 					ref: '/friends',
-					iconPath: '../html/img/nav-icons/friends.svg'
+					iconPath: '../html/img/nav-icons/friends.svg',
 					hoveredIconPath: '../html/img/nav-icons/friends_hover.svg',
 					title: 'Друзья',
 					notifies: 0
@@ -59,7 +54,7 @@ function renderSideBar(parent) {
 				{
 					ref: '/groups',
 					iconPath: '../html/img/nav-icons/groups.svg',
-					hoveredIconPath: '../html/img/nav-icons/groups_hover.svg'
+					hoveredIconPath: '../html/img/nav-icons/groups_hover.svg',
 					title: 'Сообщества',
 					notifies: 0
 				},
@@ -71,9 +66,10 @@ function renderSideBar(parent) {
 					title: 'Закладки',
 					notifies: 0
 				}
+				]
 			};
 
-	const sideBar = new SideBar(parent, 'Depeche', 'html/img/logo.svg', navItems);
+	const sideBar = new SideBar(parent, 'Depeche', 'html/img/logo.svg', navItems.pages);
 
 	sideBar.render();
 } 

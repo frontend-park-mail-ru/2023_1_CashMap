@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+<!-- CSS-->
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="html/feed.css">
+    <link rel="stylesheet" href="components/sidebar/sidebar.css">
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.runtime.js"></script>
-    <script type="text/javascript" src="components/sidebar/sidebar.js"></script>
+<!--SCRIPTS-->
+    <script src="components/sidebar/sidebar.precompiled.js"></script>
+    <script type="module" src="components/sidebar/sidebar.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 </head>
 <body>
+<div id="root"></div>
+<script type="module" src="index.js"></script>
+
 </body>
 </html>
