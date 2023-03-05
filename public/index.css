@@ -1,26 +1,26 @@
 @font-face {
     font-family: Limelight; /* Имя шрифта */
-    src: url(fonts/Limelight-Regular.ttf); /* Путь к файлу со шрифтом */
+    src: url(static/fonts/Limelight-Regular.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: InterMedium; /* Имя шрифта */
-    src: url(fonts/Inter-Medium.ttf); /* Путь к файлу со шрифтом */
+    src: url(static/fonts/Inter-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: InterRegular; /* Имя шрифта */
-    src: url(fonts/Inter-Regular.ttf); /* Путь к файлу со шрифтом */
+    src: url(static/fonts/Inter-Regular.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: MailSansRoman; /* Имя шрифта */
-    src: url(fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
+    src: url(static/fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: Comfortaa; /* Имя шрифта */
-    src: url(fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
+    src: url(static/fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
 :root {
@@ -84,6 +84,7 @@ body {
 }
 
 .main-content {
+
     margin-top: 10px;
     display: grid;
 
@@ -162,7 +163,7 @@ body {
 }
 
 
-.post_creator {
+.post-creator {
     border-radius: 12px;
     grid-area: post_creator;
     padding-left: 20px;
