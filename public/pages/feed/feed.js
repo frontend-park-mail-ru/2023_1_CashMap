@@ -11,9 +11,8 @@ export default class Feed {
 
     }
 
-    render(callback) {
+    render() {
         this.childElemnts.forEach((el) => el.render());
-        callback();
     }
 
     remove() {
@@ -28,7 +27,7 @@ export default class Feed {
         // TODO добавить компонент создание поста
 
         this.posts = []
-        const request = Ajax.get();
+        const request = Ajax.get('http://95.163.212.121:8080/api/feed');
         request
             .then( response => {
                 if (response.status < 300) {
