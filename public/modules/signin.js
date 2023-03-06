@@ -33,7 +33,7 @@ export default function signIn() {
         if (validEmail.status && validPassword.status) {
             // ToDo: Запрос к серверу для проверки данных пользователя
 
-            const request = Ajax.post({url:'http://127.0.0.1:8080/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
+            const request = Ajax.post({url:'http://95.163.212.121:8080/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
             request
                 .then( response => {
                     if (response.status < 300) {
