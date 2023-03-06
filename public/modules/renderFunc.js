@@ -8,82 +8,29 @@ import Signup from "../components/signup/signup.js";
 import signUp from "./signup.js";
 import Login from "../components/login/login.js";
 import signIn from "./signin.js";
+import Ajax from "./ajax";
 
 function renderFeed(parent) {
-    const posts = [
-        {
-            senderName: "Pavel Repin",
-            senderPhoto: "static/img/post_icons/profile_image.svg",
-            date: "1 ноя 2019",
-            body: "lorem ipsum lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber commentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumberv",
-            likeNumber: 10,
-            commentsNumber: 4,
-            comments: [
-                {
-                    senderName: "Карина Анохина",
-                    senderPhotoPath: "static/img/nav_icons/profile.svg",
-                    date: "1 ноя 2019",
-                    body: "Увау, классно мыслишь!",
-                },
 
-                {
-                    senderName: "Карина Анохина",
-                    senderPhotoPath: "static/img/nav_icons/profile.svg",
-                    date: "1 ноя 2019",
-                    body: "Увау, классно мыслишь!",
+    const request = Ajax.get('http://95.163.212.121:8080/api/feed');
+    request
+        .then( response => {
+            if (response.status < 300) {
+                this.posts = response.response.posts
+
+                for (const post of this.posts) {
+                    renderPost(parent, post)
+                    console.log(post)
                 }
-            ]
-        },
+                return
+            }
+            // TODO обработать код ответа
+        })
+        .catch(response =>{
+            // TODO обработать ошибку
+            console.log(response)
 
-        {
-            senderName: "Egor Larkin",
-            senderPhoto: "static/img/post_icons/profile_image.svg",
-            date: "1 ноя 2007",
-            body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
-            likeNumber: 122,
-            commentsNumber: 400
-        },
-
-        {
-            senderName: "Egor Larkin",
-            senderPhoto: "static/img/post_icons/profile_image.svg",
-            date: "1 ноя 2007",
-            body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
-            likeNumber: 122,
-            commentsNumber: 400
-        },
-
-        {
-            senderName: "Egor Larkin",
-            senderPhoto: "static/img/post_icons/profile_image.svg",
-            date: "1 ноя 2007",
-            body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
-            likeNumber: 122,
-            commentsNumber: 400,
-            comments: [
-                {
-                    senderName: "Карина Анохина",
-                    senderPhotoPath: "static/img/nav_icons/profile.svg",
-                    date: "1 ноя 2019",
-                    body: "Увау, классно мыслишь!",
-                },
-            ]
-        },
-
-        {
-            senderName: "Egor Larkin",
-            senderPhoto: "static/img/post_icons/profile_image.svg",
-            date: "1 ноя 2007",
-            body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
-            likeNumber: 122,
-            commentsNumber: 400
-        },
-    ]
-
-    for (const post of posts) {
-        renderPost(parent, post)
-    }
-
+        })
 }
 
 

@@ -1,12 +1,12 @@
 <div class="post-head">
         <div class="post-author-image"><img src={{ post.senderPhoto }}></div>
-        <div class="post-author-name"><span>{{ post.senderName }}</span></div>
+        <div class="post-author-name"><span>{{ post.sender_name }}</span></div>
         <div class="post-date">{{ post.date }}</div>
         <div class="post-edit"><img src={{ paths.postEditIconPath }}></div>
     </div>
 
     <div class="post-body">
-        {{ post.body }}
+        {{ post.text }}
     </div>
 
     <div class="post-bottom">
@@ -15,7 +15,7 @@
                 <img src={{ paths.likeIconPath }}>
                 <img src={{ paths.clickedLikeIconPath }}>
             </div>
-            <div class="post-like-number"><span>{{ post.likeNumber }}</span></div>
+            <div class="post-like-number"><span>{{ post.likes }}</span></div>
         </button>
         <button class="post-comments">
             <div class="post-comments-icon"><img src={{ paths.commentIconPath }}></div>
