@@ -51,7 +51,7 @@ export default function signUp() {
         if (validEmail.status && validPassword.status && validFirstName.status && validLastName.status && validTwoPasswords.status) {
             // ToDo: Запрос к серверу для проверки данных пользователя
 
-            const request = Ajax.post({url:'http://95.163.212.121:8080/api/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
+            const request = Ajax.post({url:'http://95.163.212.121:8080/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
             request
                 .then( response => {
                     if (response.status < 300) {
