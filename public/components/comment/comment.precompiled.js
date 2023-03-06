@@ -8,18 +8,18 @@ templates['comment'] = template({"compiler":[8,">= 4.3.0"],"main":function(conta
         return undefined
     };
 
-  return "<div class=\"commentators-photo\">\r\n        <img src="
+  return "<div class=\"commentators-photo\">\n        <img src="
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"comment") : depth0)) != null ? lookupProperty(stack1,"senderPhotoPath") : stack1), depth0))
-    + ">\r\n    </div>\r\n    <div class=\"commentators-name\"><span>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"comment") : depth0)) != null ? lookupProperty(stack1,"senderName") : stack1), depth0))
-    + "</span></div>\r\n    <div class=\"comment-body\"><span>"
-    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"comment") : depth0)) != null ? lookupProperty(stack1,"body") : stack1), depth0))
-    + "</span></div>\r\n    <div class=\"comment-date\">"
+    + ">\n    </div>\n    <div class=\"commentators-name\"><span>"
+    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"comment") : depth0)) != null ? lookupProperty(stack1,"sender_name") : stack1), depth0))
+    + "</span></div>\n    <div class=\"comment-body\"><span>"
+    + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"comment") : depth0)) != null ? lookupProperty(stack1,"text") : stack1), depth0))
+    + "</span></div>\n    <div class=\"comment-date\">"
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"comment") : depth0)) != null ? lookupProperty(stack1,"date") : stack1), depth0))
-    + "</div>\r\n    <div class=\"comment-edit-block\">\r\n        <img src="
+    + "</div>\n    <div class=\"comment-edit-block\">\n        <img src="
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"paths") : depth0)) != null ? lookupProperty(stack1,"edit") : stack1), depth0))
-    + ">\r\n        <img src="
+    + ">\n        <img src="
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"paths") : depth0)) != null ? lookupProperty(stack1,"delete") : stack1), depth0))
-    + ">\r\n</div>";
+    + ">\n</div>";
 },"useData":true});
 })();

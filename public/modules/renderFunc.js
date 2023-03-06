@@ -11,26 +11,41 @@ import signIn from "./signin.js";
 import Ajax from "./ajax.js";
 
 function renderFeed(parent) {
+    //
+    // const request = Ajax.get('http://127.0.0.1:8080/api/feed/');
+    // request
+    //     .then( response => {
+    //         if (response.status < 300) {
+    //             this.posts = response.response.posts
+    //
+    //             for (const post of this.posts) {
+    //                 renderPost(parent, post)
+    //                 console.log(post)
+    //             }
+    //             return
+    //         }
+    //         // TODO обработать код ответа
+    //     })
+    //     .catch(response =>{
+    //         // TODO обработать ошибку
+    //         console.log(response)
+    //
+    //     })
 
-    const request = Ajax.get('http://95.163.212.121:8080/api/feed');
-    request
-        .then( response => {
-            if (response.status < 300) {
-                this.posts = response.response.posts
-
-                for (const post of this.posts) {
+    const request = fetch("http://95.163.212.121:8080/api/feed?batch_size=10",
+        {
+            credentials: "include",
+            method: 'GET',
+            mode: "cors"
+        })
+        .then(response => response.json())
+        .then(parsed => {
+                const posts = parsed.body.posts
+                for (const post of posts) {
                     renderPost(parent, post)
-                    console.log(post)
                 }
-                return
             }
-            // TODO обработать код ответа
-        })
-        .catch(response =>{
-            // TODO обработать ошибку
-            console.log(response)
-
-        })
+        ).catch(err => alert(err))
 }
 
 
@@ -47,10 +62,10 @@ function renderPost(parent, postData) {
     const post = new Post(parent, postData, staticPaths);
     let postBlock = post.render();
 
-    renderCommentArea(postBlock);
+    renderCommentArea(postBlock, postData.comments);
 }
 
-function renderCommentArea(parent) {
+function renderCommentArea(parent, comments) {
     const staticPaths = {
         attachPhotoIconPath: "static/img/post_icons/photo.svg",
         attachHoveredPhotoIconPath: "static/img/post_icons/photo_hover.svg",
@@ -58,22 +73,6 @@ function renderCommentArea(parent) {
         attachHoveredSmileIconPath: "static/img/post_icons/smile_hover.svg",
         sendIconPath: "static/img/post_icons/send.svg"
     }
-
-    const commentsData = [
-        {
-            senderName: "Карина Анохина",
-            senderPhotoPath: "static/img/post_icons/profile_image.svg",
-            body: "Lorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumlorem",
-            date: "1 ноя 2019",
-        },
-
-        {
-            senderName: "Карина Анохина",
-            senderPhotoPath: "static/img/post_icons/profile_image.svg",
-            body: "Lorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumloremLorem ipsumlorem",
-            date: "1 ноя 2019",
-        },
-    ]
 
 
     let user = {
@@ -85,7 +84,7 @@ function renderCommentArea(parent) {
     let commentList = commentsArea.render();
 
 
-    for (const data of commentsData) {
+    for (const data of comments) {
         renderComment(commentList, data);
     }
 }
@@ -97,6 +96,7 @@ function renderComment(parent, commentData) {
     }
 
     const comment = new Comment(parent, commentData, staticPaths);
+    console.log(commentData)
     comment.render();
 }
 
@@ -186,7 +186,6 @@ export function renderCreatePost(parent) {
     createPost.config = tmpConfig
     createPost.render()
 }
-
 
 
 // render pages
