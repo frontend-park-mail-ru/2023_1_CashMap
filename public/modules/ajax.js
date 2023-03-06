@@ -29,7 +29,7 @@ export default class Ajax {
             headers: {
                 Origin: this.FrontendHost,
             },
-            body: params.body,
+            body: params.body.stringify(),
         });
         return {
             status: response.status,

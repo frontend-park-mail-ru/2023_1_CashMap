@@ -2,7 +2,6 @@ import Ajax from "../../modules/ajax.js";
 import Header from "../../components/header/header.js";
 
 export default class Feed {
-
     constructor(parent) {
         this.parent = parent;
         this.childElemnts = [];
@@ -10,18 +9,13 @@ export default class Feed {
         this.selfElement.setAttribute('class', 'main')
 
     }
-
     render() {
         this.childElemnts.forEach((el) => el.render());
     }
-
     remove() {
-
     }
-
     setup() {
         // TODO добавить компонент сайдбар
-        // TODO добавить компонент поиск
         const header = new Header(this.selfElement, {});
         this.childElemnts.push(header);
         // TODO добавить компонент создание поста
@@ -41,7 +35,6 @@ export default class Feed {
                 console.log(response)
 
             })
-
         this.posts.forEach(post => {
             // TODO добавить компоненты пост
         })
