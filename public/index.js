@@ -229,7 +229,7 @@ function renderFeedPage() {
 	renderHeader(content)
 	renderCreatePost(content)
 	renderSideBar(main);
-	const request = Ajax.get({url: 'http://localhost:8080/api/feed/'});
+	const request = Ajax.get({url: 'http://95.163.212.121:8080/api/feed/'});
 
 	let posts;
 
