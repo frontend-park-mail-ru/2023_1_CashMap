@@ -15,6 +15,29 @@ const MAIN_PAGE_SIGNIN = "main-auth"
 import Ajax from "./modules/ajax.js";
 
 
+const config = {
+	feed: {
+		name: 'Лента',
+		href: '/feed',
+		render: renderFeedPage(),
+		key: 'main',
+
+	},
+	login: {
+		name: 'Авторизация',
+		href: '/login',
+		render: renderLoginPage(),
+		key: 'main-teg',
+	},
+	signup: {
+		name: 'Регистрация',
+		href: '/signup',
+		render: renderSignupPage(),
+		key: 'main-auth',
+	},
+};
+
+
 renderLoginPage()
 
 
@@ -279,6 +302,7 @@ function renderCreatePost(parent) {
 }
 
 
+
 // render pages
 
 function renderFeedPage() {
@@ -326,6 +350,21 @@ function removePage(main) {
 }
 
 
+function goToPage(configSection) {
+	const el = document.getElementById(configSection.key)
+	if (el.classList.contains('active')) {
+		return;
+	}
+
+
+	contentElement.innerHTML = '';
+
+	document.querySelector('.active').classList.remove('active');
+	el.classList.add('active');
+
+	configSection.render(contentElement);
+}
+
 // func
 
 function signIn() {
@@ -357,7 +396,15 @@ function signIn() {
 			request
 				.then( response => {
 					if (response.status < 300) {
+						// ToDo: нормальный роутинг нужен
+						// goToPage(config.feed);
+
+						removePage(MAIN_PAGE_SIGNIN);
+						renderFeedPage();
+
 						return
+					} else {
+						alert(response.status)
 					}
 					// TODO обработать код ответа
 				})
@@ -366,11 +413,6 @@ function signIn() {
 					console.log(response)
 
 				})
-
-			if (true) {
-				removePage(MAIN_PAGE_SIGNIN);
-				renderFeedPage();
-			}
 		} else {
 			if (validEmail.status === false) {
 				emailErrorField.textContent = validEmail.error;
@@ -387,6 +429,9 @@ function signIn() {
 
 	newBtn.addEventListener('click', (e) => {
 		e.preventDefault();
+
+		// ToDo: нормальный роутинг нужен
+		// goToPage(config.signup);
 
 		removePage(MAIN_PAGE_SIGNIN)
 		renderSignupPage()
@@ -441,7 +486,16 @@ function signUp() {
 			request
 				.then( response => {
 					if (response.status < 300) {
+
+						// ToDo: нормальный роутинг нужен
+						// goToPage(config.login);
+
+						removePage(MAIN_PAGE_SIGNUP)
+						renderLoginPage()
+
 						return
+					} else {
+						alert(response.status)
 					}
 					// TODO обработать код ответа
 				})
@@ -450,11 +504,6 @@ function signUp() {
 					console.log(response)
 
 				})
-
-			if (true) {
-				removePage(MAIN_PAGE_SIGNUP)
-				renderLoginPage()
-			}
 		} else {
 			if (validEmail.status === false) {
 				emailErrorField.textContent = validEmail.error;
@@ -486,6 +535,9 @@ function signUp() {
 
 	logBtn.addEventListener('click', (e) => {
 		e.preventDefault();
+
+		// ToDo: нормальный роутинг нужен
+		// goToPage(config.login);
 
 		removePage(MAIN_PAGE_SIGNUP)
 		renderLoginPage()
