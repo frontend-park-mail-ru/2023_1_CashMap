@@ -7,7 +7,7 @@ export default class Feed {
         this.parent = parent;
         this.childElemnts = [];
         this.selfElement = parent.createElement('div')
-        this.selfElement.setAttribute('class', 'main')
+        this.selfElement.classList.add('main')
 
     }
 
@@ -18,6 +18,7 @@ export default class Feed {
     remove() {
 
     }
+
 
     setup() {
         // TODO добавить компонент сайдбар

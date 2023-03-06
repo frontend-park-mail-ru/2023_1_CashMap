@@ -1,4 +1,4 @@
-import SideBar from './components/sidebar/sidebar.js';
+ import SideBar from './components/sidebar/sidebar.js';
 import Post from './components/post/post.js';
 import Comment from './components/comment/comment.js';
 import Header from "./components/header/header.js";
@@ -47,77 +47,8 @@ renderLoginPage()
  	})*/
 
 
-function renderFeed(parent) {
-	const posts = [
-		{
-			senderName: "Pavel Repin",
-			senderPhoto: "static/img/post_icons/profile_image.svg",
-			date: "1 ноя 2019",
-			body: "lorem ipsum lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber commentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumberv",
-			likeNumber: 10,
-			commentsNumber: 4,
-			comments: [
-				{
-					senderName: "Карина Анохина",
-					senderPhotoPath: "static/img/nav_icons/profile.svg",
-					date: "1 ноя 2019",
-					body: "Увау, классно мыслишь!",
-				},
-
-				{
-					senderName: "Карина Анохина",
-					senderPhotoPath: "static/img/nav_icons/profile.svg",
-					date: "1 ноя 2019",
-					body: "Увау, классно мыслишь!",
-				}
-			]
-		},
-
-		{
-			senderName: "Egor Larkin",
-			senderPhoto: "static/img/post_icons/profile_image.svg",
-			date: "1 ноя 2007",
-			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
-			likeNumber: 122,
-			commentsNumber: 400
-		},
-
-		{
-			senderName: "Egor Larkin",
-			senderPhoto: "static/img/post_icons/profile_image.svg",
-			date: "1 ноя 2007",
-			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
-			likeNumber: 122,
-			commentsNumber: 400
-		},
-
-		{
-			senderName: "Egor Larkin",
-			senderPhoto: "static/img/post_icons/profile_image.svg",
-			date: "1 ноя 2007",
-			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
-			likeNumber: 122,
-			commentsNumber: 400,
-			comments: [
-				{
-					senderName: "Карина Анохина",
-					senderPhotoPath: "static/img/nav_icons/profile.svg",
-					date: "1 ноя 2019",
-					body: "Увау, классно мыслишь!",
-				},
-			]
-		},
-
-		{
-			senderName: "Egor Larkin",
-			senderPhoto: "static/img/post_icons/profile_image.svg",
-			date: "1 ноя 2007",
-			body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
-			likeNumber: 122,
-			commentsNumber: 400
-		},
-	]
-
+function renderFeed(parent, posts) {
+	console.log(posts);
 	for (const post of posts) {
 		renderPost(parent, post)
 	}
@@ -295,7 +226,21 @@ function renderFeedPage() {
 	renderHeader(content)
 	renderCreatePost(content)
 	renderSideBar(main);
-	renderFeed(feed);
+	const request = Ajax.get({url: 'http://localhost:8080/api/feed/'});
+
+	let posts;
+
+	request
+		.then(response => {
+				if (response.status < 300){
+					posts = response.response;
+					renderFeed(feed, posts);
+				}
+			}
+		)
+		.catch( response => {
+				renderFeed(feed, []);
+		})
 }
 
 function renderSignupPage() {
@@ -484,3 +429,74 @@ function signUp() {
 		renderLoginPage()
 	});
 }
+
+
+ // const posts = [
+	//  {
+	// 	 senderName: "Pavel Repin",
+	// 	 senderPhoto: "static/img/post_icons/profile_image.svg",
+	// 	 date: "1 ноя 2019",
+	// 	 body: "lorem ipsum lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber commentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumbercommentsNumberv",
+	// 	 likeNumber: 10,
+	// 	 commentsNumber: 4,
+	// 	 comments: [
+	// 		 {
+	// 			 senderName: "Карина Анохина",
+	// 			 senderPhotoPath: "static/img/nav_icons/profile.svg",
+	// 			 date: "1 ноя 2019",
+	// 			 body: "Увау, классно мыслишь!",
+	// 		 },
+ //
+	// 		 {
+	// 			 senderName: "Карина Анохина",
+	// 			 senderPhotoPath: "static/img/nav_icons/profile.svg",
+	// 			 date: "1 ноя 2019",
+	// 			 body: "Увау, классно мыслишь!",
+	// 		 }
+	// 	 ]
+	//  },
+ //
+	//  {
+	// 	 senderName: "Egor Larkin",
+	// 	 senderPhoto: "static/img/post_icons/profile_image.svg",
+	// 	 date: "1 ноя 2007",
+	// 	 body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
+	// 	 likeNumber: 122,
+	// 	 commentsNumber: 400
+	//  },
+ //
+	//  {
+	// 	 senderName: "Egor Larkin",
+	// 	 senderPhoto: "static/img/post_icons/profile_image.svg",
+	// 	 date: "1 ноя 2007",
+	// 	 body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
+	// 	 likeNumber: 122,
+	// 	 commentsNumber: 400
+	//  },
+ //
+	//  {
+	// 	 senderName: "Egor Larkin",
+	// 	 senderPhoto: "static/img/post_icons/profile_image.svg",
+	// 	 date: "1 ноя 2007",
+	// 	 body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
+	// 	 likeNumber: 122,
+	// 	 commentsNumber: 400,
+	// 	 comments: [
+	// 		 {
+	// 			 senderName: "Карина Анохина",
+	// 			 senderPhotoPath: "static/img/nav_icons/profile.svg",
+	// 			 date: "1 ноя 2019",
+	// 			 body: "Увау, классно мыслишь!",
+	// 		 },
+	// 	 ]
+	//  },
+ //
+	//  {
+	// 	 senderName: "Egor Larkin",
+	// 	 senderPhoto: "static/img/post_icons/profile_image.svg",
+	// 	 date: "1 ноя 2007",
+	// 	 body: "lorem ipsum lorem  ipsumlorem ipsumlorem ipsum commentsNumbercommentsNumbercommentsNumber",
+	// 	 likeNumber: 122,
+	// 	 commentsNumber: 400
+	//  },
+ // ]
