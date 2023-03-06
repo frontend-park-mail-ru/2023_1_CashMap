@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const SERVER_PORT = 8000g;
+const SERVER_PORT = 8000;
 const STATIC_PATH = './public';
 const PAGE_404 = fs.readFileSync('public/404.html');
 
