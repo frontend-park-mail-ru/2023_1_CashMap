@@ -278,6 +278,9 @@ function renderCreatePost(parent) {
     createPost.render()
 }
 
+
+// render pages
+
 function renderFeedPage() {
 	const rootElement = document.getElementById('root')
 	const main = document.createElement('div');
@@ -313,12 +316,17 @@ function renderLoginPage(parent) {
 }
 
 
+// remove pages
+
 function removePage(main) {
 	const curPage = document.getElementById(main);
 	if (curPage) {
 		curPage.remove();
 	}
 }
+
+
+// func
 
 function signIn() {
 	const emailField = document.getElementById('email-field');
@@ -332,7 +340,7 @@ function signIn() {
 	authBtn.addEventListener('click', (e) => {
 		e.preventDefault();
 
-		const validLogin = validateEmail(emailField.value);
+		const validEmail = validateEmail(emailField.value);
 		const validPassword = validatePassword(passwordField.value);
 
 		emailField.classList.add('correct-input')
@@ -342,11 +350,10 @@ function signIn() {
 		emailErrorField.textContent = ''
 		passwordErrorField.textContent = '';
 
-
-		if (1) { //validLogin.status && validPassword.status
+		if (validEmail.status && validPassword.status) {
 			// ToDo: Запрос к серверу для проверки данных пользователя
 
-			const request = Ajax.post({url:'http://95.163.212.121:80/api/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
+			const request = Ajax.post({url:'http://127.0.0.1:8080/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
 			request
 				.then( response => {
 					if (response.status < 300) {
@@ -365,8 +372,8 @@ function signIn() {
 				renderFeedPage();
 			}
 		} else {
-			if (validLogin.status === false) {
-				emailErrorField.textContent = 'error'//validLogin.error;
+			if (validEmail.status === false) {
+				emailErrorField.textContent = validEmail.error;
 				emailField.classList.remove('correct-input')
 				emailField.classList.add('incorrect-input')
 			}
@@ -427,10 +434,10 @@ function signUp() {
 		passwordRepeatErrorField.textContent = '';
 
 
-		if (1) { //validLogin.status && validPassword.status && validName.status && passwordField == passwordRepeatField
+		if (validLogin.status && validPassword.status && validFirstName.status && validLastName.status && validTwoPasswords.status) {
 			// ToDo: Запрос к серверу для проверки данных пользователя
 
-			const request = Ajax.post({url:'http://95.163.212.121:80/api/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
+			const request = Ajax.post({url:'http://95.163.212.121:8080/api/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
 			request
 				.then( response => {
 					if (response.status < 300) {
