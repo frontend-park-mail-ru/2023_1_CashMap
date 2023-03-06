@@ -349,7 +349,6 @@ function removePage(configSection) {
 
 function goToPage(configSection) {
 	if (configSection === curPageConfig) {
-		alert('уже')
 		return;
 	}
 
