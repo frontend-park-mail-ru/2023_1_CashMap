@@ -411,7 +411,7 @@ function signUp() {
 	regBtn.addEventListener('click', (e) => {
 		e.preventDefault();
 
-		const validLogin = validateEmail(emailField.value);
+		const validEmail = validateEmail(emailField.value);
 		const validPassword = validatePassword(passwordField.value);
 		const validFirstName = validateName(firstNameField.value);
 		const validLastName = validateName(lastNameField.value);
@@ -434,7 +434,7 @@ function signUp() {
 		passwordRepeatErrorField.textContent = '';
 
 
-		if (validLogin.status && validPassword.status && validFirstName.status && validLastName.status && validTwoPasswords.status) {
+		if (validEmail.status && validPassword.status && validFirstName.status && validLastName.status && validTwoPasswords.status) {
 			// ToDo: Запрос к серверу для проверки данных пользователя
 
 			const request = Ajax.post({url:'http://95.163.212.121:8080/api/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
@@ -456,20 +456,20 @@ function signUp() {
 				renderLoginPage()
 			}
 		} else {
-			if (validFirstName.status === false) {
-				firstNameErrorField.textContent = validFirstName.error;
+			if (validEmail.status === false) {
+				emailErrorField.textContent = validEmail.error;
 				emailField.classList.remove('correct-input')
 				emailField.classList.add('incorrect-input')
+			}
+			if (validFirstName.status === false) {
+				firstNameErrorField.textContent = validFirstName.error;
+				firstNameField.classList.remove('correct-input')
+				firstNameField.classList.add('incorrect-input')
 			}
 			if (validLastName.status === false) {
 				lastNameErrorField.textContent = validLastName.error;
 				lastNameField.classList.remove('correct-input')
 				lastNameField.classList.add('incorrect-input')
-			}
-			if (validLogin.status === false) {
-				emailErrorField.textContent = validLogin.error;
-				emailField.classList.remove('correct-input')
-				emailField.classList.add('incorrect-input')
 			}
 			if (validPassword.status === false) {
 				passwordErrorField.textContent = validPassword.error;
@@ -477,9 +477,9 @@ function signUp() {
 				passwordField.classList.add('incorrect-input')
 			}
 			if (validTwoPasswords.status === false) {
-				passwordErrorField.textContent = validPassword.error;
-				passwordField.classList.remove('correct-input')
-				passwordField.classList.add('incorrect-input')
+				passwordRepeatErrorField.textContent = validTwoPasswords.error;
+				passwordErrorField.classList.remove('correct-input')
+				passwordErrorField.classList.add('incorrect-input')
 			}
 		}
 	});
