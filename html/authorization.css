@@ -202,16 +202,19 @@ body, html {
     background-size: cover;
 
     display: grid;
-    grid-template: 34.53% 18.85% 46.62% / 23.8% 52.4% 23.8%;
     grid-template-areas:
         ". . ."
-        ". logo-table .";
+        ". logo-table ."
+        ". . .";
+
+    grid-template-columns: 1fr 100px 1fr;
+    grid-template-rows: 1fr 100px 1fr;
 }
 
 .logo-table {
     grid-area: logo-table;
     display: grid;
-    grid-template: 25% 6.92% 15.16% 6.92% 9% 12% 25% / 25% 11% 2% 35% 27%;
+
     grid-template-areas:
         ". . . . ."
         ". logo-pic . . ."
@@ -220,6 +223,9 @@ body, html {
         ". . . . ."
         "logo-table-text logo-table-text logo-table-text logo-table-text logo-table-text"
         ". . . . .";
+
+    grid-template-columns: 10% 10% 60% 20%;
+    grid-template-rows: 20% 30% 30% 20%;
 
     background: var(--background-color-logo-table);
     backdrop-filter: blur(2px);
