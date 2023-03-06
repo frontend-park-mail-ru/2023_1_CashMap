@@ -8,7 +8,7 @@ import Signup from "../components/signup/signup.js";
 import signUp from "./signup.js";
 import Login from "../components/login/login.js";
 import signIn from "./signin.js";
-import Ajax from "./ajax";
+import Ajax from "./ajax.js";
 
 function renderFeed(parent) {
 
