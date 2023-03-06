@@ -15,27 +15,8 @@ const MAIN_PAGE_SIGNIN = "main-auth"
 import Ajax from "./modules/ajax.js";
 
 
-renderSignupPage()
+renderLoginPage()
 
-
-/*const rootElement = document.getElementById('root');
-const main = document.createElement('div');
-main.classList.add('main');
-
-const content = document.createElement('div');
-content.classList.add('main-content');
-main.appendChild(content);
-
-const feed = document.createElement('div');
-feed.classList.add('feed');
-content.appendChild(feed);
-
-rootElement.appendChild(main);
-
-renderHeader(content)
-renderCreatePost(content)
-renderSideBar(main);
-renderFeed(feed);*/
 
 // const commentButton = document.querySelector('.post-comments-icon img');
 // commentButton.addEventListener('click', function() {
