@@ -7,13 +7,15 @@ import CommentArea from "./components/commentArea/commentArea.js";
 import Login from "./components/login/login.js";
 import Signup from "./components/signup/signup.js";
 
-
+const MAIN_PAGE_FEED = "main"
+const MAIN_PAGE_SIGNUP = "main-teg"
+const MAIN_PAGE_SIGNIN = "main-auth"
 
 
 import Ajax from "./modules/ajax.js";
 
 
-renderLoginPage()
+renderSignupPage()
 
 
 /*const rootElement = document.getElementById('root');
@@ -319,6 +321,7 @@ function renderSignupPage() {
 	const rootElement = document.getElementById('root');
 	const createSignup = new Signup(rootElement, 'static/img/logo.svg', 'static/img/background_left.svg')
 	createSignup.render()
+	signUp()
 }
 
 function renderLoginPage(parent) {
@@ -329,10 +332,10 @@ function renderLoginPage(parent) {
 }
 
 
-function removeLogin() {
-	const lastAuth = document.getElementById('main-auth');
-	if (lastAuth) {
-		lastAuth.remove();
+function removePage(main) {
+	const curPage = document.getElementById(main);
+	if (curPage) {
+		curPage.remove();
 	}
 }
 
@@ -359,10 +362,10 @@ function signIn() {
 		passwordErrorField.textContent = '';
 
 
-		if (validLogin.status && validPassword.status) {
+		if (1) { //validLogin.status && validPassword.status
 			// ToDo: Запрос к серверу для проверки данных пользователя
 
-			/*const request = Ajax.post({url:'http://95.163.212.121:80/api/auth/', body: {body:{"email": emailField.value, "password": passwordField.value}}});
+			const request = Ajax.post({url:'http://95.163.212.121:80/api/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
 			request
 				.then( response => {
 					if (response.status < 300) {
@@ -374,11 +377,11 @@ function signIn() {
 					// TODO обработать ошибку
 					console.log(response)
 
-				})*/
+				})
 
 			if (true) {
-				removeLogin()
-				renderFeedPage()
+				removePage(MAIN_PAGE_SIGNIN);
+				renderFeedPage();
 			}
 		} else {
 			if (validLogin.status === false) {
@@ -397,7 +400,106 @@ function signIn() {
 	newBtn.addEventListener('click', (e) => {
 		e.preventDefault();
 
-		removeLogin()
+		removePage(MAIN_PAGE_SIGNIN)
 		renderSignupPage()
+	});
+}
+
+function signUp() {
+	const firstNameField = document.getElementById('first-name');
+	const firstNameErrorField = document.getElementById('first-name-error');
+	const lastNameField = document.getElementById('last-name');
+	const lastNameErrorField = document.getElementById('last-name-error');
+	const emailField = document.getElementById('email');
+	const emailErrorField = document.getElementById('reg-email-error');
+	const passwordField = document.getElementById('password');
+	const passwordErrorField = document.getElementById('reg-password-error');
+	const passwordRepeatField = document.getElementById('repeat-password');
+	const passwordRepeatErrorField = document.getElementById('repeat-password-error');
+
+	const regBtn = document.getElementById('reg-btn')
+	const logBtn = document.getElementById('log-btn')
+
+	regBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+
+		const validLogin = validateEmail(emailField.value);
+		const validPassword = validatePassword(passwordField.value);
+		const validFirstName = validateName(firstNameField.value);
+		const validLastName = validateName(lastNameField.value);
+		const validTwoPasswords = validateTwoPasswords(passwordField.value, passwordRepeatField.value);
+
+		firstNameField.classList.add('correct-input')
+		firstNameField.classList.remove('incorrect-input')
+		lastNameField.classList.add('correct-input')
+		lastNameField.classList.remove('incorrect-input')
+		emailField.classList.add('correct-input')
+		emailField.classList.remove('incorrect-input')
+		passwordField.classList.add('correct-input')
+		passwordField.classList.remove('incorrect-input')
+		passwordRepeatField.classList.add('correct-input')
+		passwordRepeatField.classList.remove('incorrect-input')
+		firstNameErrorField.textContent = '';
+		lastNameErrorField.textContent = '';
+		emailErrorField.textContent = '';
+		passwordErrorField.textContent = '';
+		passwordRepeatErrorField.textContent = '';
+
+
+		if (1) { //validLogin.status && validPassword.status && validName.status && passwordField == passwordRepeatField
+			// ToDo: Запрос к серверу для проверки данных пользователя
+
+			const request = Ajax.post({url:'http://95.163.212.121:80/api/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
+			request
+				.then( response => {
+					if (response.status < 300) {
+						return
+					}
+					// TODO обработать код ответа
+				})
+				.catch(response =>{
+					// TODO обработать ошибку
+					console.log(response)
+
+				})
+
+			if (true) {
+				removePage(MAIN_PAGE_SIGNUP)
+				renderLoginPage()
+			}
+		} else {
+			if (validFirstName.status === false) {
+				firstNameErrorField.textContent = validFirstName.error;
+				emailField.classList.remove('correct-input')
+				emailField.classList.add('incorrect-input')
+			}
+			if (validLastName.status === false) {
+				lastNameErrorField.textContent = validLastName.error;
+				lastNameField.classList.remove('correct-input')
+				lastNameField.classList.add('incorrect-input')
+			}
+			if (validLogin.status === false) {
+				emailErrorField.textContent = validLogin.error;
+				emailField.classList.remove('correct-input')
+				emailField.classList.add('incorrect-input')
+			}
+			if (validPassword.status === false) {
+				passwordErrorField.textContent = validPassword.error;
+				passwordField.classList.remove('correct-input')
+				passwordField.classList.add('incorrect-input')
+			}
+			if (validTwoPasswords.status === false) {
+				passwordErrorField.textContent = validPassword.error;
+				passwordField.classList.remove('correct-input')
+				passwordField.classList.add('incorrect-input')
+			}
+		}
+	});
+
+	logBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+
+		removePage(MAIN_PAGE_SIGNUP)
+		renderLoginPage()
 	});
 }

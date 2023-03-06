@@ -143,3 +143,16 @@ function validateName(name) {
 		status: true,
 	}
 }
+
+function validateTwoPasswords(password1, password2) {
+	if (password1 !== password2) {
+		return {
+			status: false,
+			errors: 'Пароли не совпадают'
+		};
+	}
+
+	return {
+		status: true,
+	}
+}
