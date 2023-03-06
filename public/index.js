@@ -209,6 +209,9 @@ function renderCreatePost(parent) {
     createPost.render()
 }
 
+
+// render pages
+
 function renderFeedPage() {
 	const rootElement = document.getElementById('root')
 	const main = document.createElement('div');
@@ -258,12 +261,17 @@ function renderLoginPage(parent) {
 }
 
 
+// remove pages
+
 function removePage(main) {
 	const curPage = document.getElementById(main);
 	if (curPage) {
 		curPage.remove();
 	}
 }
+
+
+// func
 
 function signIn() {
 	const emailField = document.getElementById('email-field');
@@ -277,7 +285,7 @@ function signIn() {
 	authBtn.addEventListener('click', (e) => {
 		e.preventDefault();
 
-		const validLogin = validateEmail(emailField.value);
+		const validEmail = validateEmail(emailField.value);
 		const validPassword = validatePassword(passwordField.value);
 
 		emailField.classList.add('correct-input')
@@ -287,11 +295,10 @@ function signIn() {
 		emailErrorField.textContent = ''
 		passwordErrorField.textContent = '';
 
-
-		if (1) { //validLogin.status && validPassword.status
+		if (validEmail.status && validPassword.status) {
 			// ToDo: Запрос к серверу для проверки данных пользователя
 
-			const request = Ajax.post({url:'http://95.163.212.121:80/api/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
+			const request = Ajax.post({url:'http://127.0.0.1:8080/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
 			request
 				.then( response => {
 					if (response.status < 300) {
@@ -310,8 +317,8 @@ function signIn() {
 				renderFeedPage();
 			}
 		} else {
-			if (validLogin.status === false) {
-				emailErrorField.textContent = 'error'//validLogin.error;
+			if (validEmail.status === false) {
+				emailErrorField.textContent = validEmail.error;
 				emailField.classList.remove('correct-input')
 				emailField.classList.add('incorrect-input')
 			}
@@ -349,7 +356,7 @@ function signUp() {
 	regBtn.addEventListener('click', (e) => {
 		e.preventDefault();
 
-		const validLogin = validateEmail(emailField.value);
+		const validEmail = validateEmail(emailField.value);
 		const validPassword = validatePassword(passwordField.value);
 		const validFirstName = validateName(firstNameField.value);
 		const validLastName = validateName(lastNameField.value);
@@ -372,10 +379,10 @@ function signUp() {
 		passwordRepeatErrorField.textContent = '';
 
 
-		if (1) { //validLogin.status && validPassword.status && validName.status && passwordField == passwordRepeatField
+		if (validEmail.status && validPassword.status && validFirstName.status && validLastName.status && validTwoPasswords.status) {
 			// ToDo: Запрос к серверу для проверки данных пользователя
 
-			const request = Ajax.post({url:'http://95.163.212.121:80/api/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
+			const request = Ajax.post({url:'http://95.163.212.121:8080/api/auth/sign-in', body: {body:{"email": emailField.value, "password": passwordField.value}}});
 			request
 				.then( response => {
 					if (response.status < 300) {
@@ -394,20 +401,20 @@ function signUp() {
 				renderLoginPage()
 			}
 		} else {
-			if (validFirstName.status === false) {
-				firstNameErrorField.textContent = validFirstName.error;
+			if (validEmail.status === false) {
+				emailErrorField.textContent = validEmail.error;
 				emailField.classList.remove('correct-input')
 				emailField.classList.add('incorrect-input')
+			}
+			if (validFirstName.status === false) {
+				firstNameErrorField.textContent = validFirstName.error;
+				firstNameField.classList.remove('correct-input')
+				firstNameField.classList.add('incorrect-input')
 			}
 			if (validLastName.status === false) {
 				lastNameErrorField.textContent = validLastName.error;
 				lastNameField.classList.remove('correct-input')
 				lastNameField.classList.add('incorrect-input')
-			}
-			if (validLogin.status === false) {
-				emailErrorField.textContent = validLogin.error;
-				emailField.classList.remove('correct-input')
-				emailField.classList.add('incorrect-input')
 			}
 			if (validPassword.status === false) {
 				passwordErrorField.textContent = validPassword.error;
@@ -415,9 +422,9 @@ function signUp() {
 				passwordField.classList.add('incorrect-input')
 			}
 			if (validTwoPasswords.status === false) {
-				passwordErrorField.textContent = validPassword.error;
-				passwordField.classList.remove('correct-input')
-				passwordField.classList.add('incorrect-input')
+				passwordRepeatErrorField.textContent = validTwoPasswords.error;
+				passwordErrorField.classList.remove('correct-input')
+				passwordErrorField.classList.add('incorrect-input')
 			}
 		}
 	});

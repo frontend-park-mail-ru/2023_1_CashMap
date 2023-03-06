@@ -6,7 +6,7 @@ function validatePassword(password) {
 	if (!(password instanceof String) && typeof(password) != 'string') {
 		return {
 			status: false,
-			errors: 'invalid data type'
+			error: 'invalid data type'
 		};
 	}
 
@@ -21,7 +21,7 @@ function validatePassword(password) {
 	if (password.length > MAX_PASSWORD_LENGTH) {
 		return {
 			status: false,
-			error: 'password is too long' 
+			error: 'password is too long'
 		};
 	}
 
@@ -106,27 +106,37 @@ function validateEmail(email) {
 	if (!(email instanceof String) && typeof(email) != 'string') {
 		return {
 			status: false,
-			errors: 'invalid data type'
+			error: 'invalid data type'
 		};
 	}
 
 	match = email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+	alert(match)
 
-	return {status: true} ? match != null : {status: false, error: 'invalid email'};
+	if (match == null) {
+		return {
+			status: false,
+			error: 'invalid email'
+		};
+	}
+
+	return {
+		status: true,
+	}
 }
 
 function validateName(name) {	
 	if (!(name instanceof String) && typeof(name) != 'string') {
 		return {
 			status: false,
-			errors: 'invalid data type'
+			error: 'invalid data type'
 		};
 	}
 
 	if (name.length == 0) {
 		return {
 			status: false,
-			errors: 'name is empty'
+			error: 'name is empty'
 		};
 	}
 
@@ -134,7 +144,7 @@ function validateName(name) {
 		if (char.match(/[a-zA-Z]/i) == null) {
 			return {
 				status: false,
-				errors: 'name can\'t contain non-letter symbols'
+				error: 'name can\'t contain non-letter symbols'
 			};
 		}
 	}
@@ -148,7 +158,7 @@ function validateTwoPasswords(password1, password2) {
 	if (password1 !== password2) {
 		return {
 			status: false,
-			errors: 'Пароли не совпадают'
+			error: 'Пароли не совпадают'
 		};
 	}
 
