@@ -6,22 +6,29 @@ function validatePassword(password) {
 	if (!(password instanceof String) && typeof(password) != 'string') {
 		return {
 			status: false,
-			error: 'invalid data type'
+			error: 'Недопустимый формат данных'
 		};
 	}
 
 
+	if (password.length == 0) {
+		return {
+			status: false,
+			error: 'Введите пароль' 
+		};
+	}
+
 	if (password.length < MIN_PASSWORD_LENGTH) {
 		return {
 			status: false,
-			error: 'password is too short' 
+			error: 'Пароль слишком короткий' 
 		};
 	}
 
 	if (password.length > MAX_PASSWORD_LENGTH) {
 		return {
 			status: false,
-			error: 'password is too long'
+			error: 'Пароль слишком длинный'
 		};
 	}
 
@@ -55,14 +62,14 @@ function validatePassword(password) {
 		if (char.match(/[а-яА-Я]/i) != null) {
 			return {
 				status: false,
-				error: 'cyrillic characters\'re not allowed' 
+				error: 'Кириллица в пароле не допускается' 
 			};
 		}
 
 		if (char == ' ') {
 			return {
 				status: false,
-				error: 'whitespaces in password\'re not allowed' 
+				error: 'Пробелы в пароле не допускаются' 
 			};
 		}
 
@@ -71,14 +78,14 @@ function validatePassword(password) {
 	if ((lettersNumber / password.length) < MIN_LETTERS_IN_PASSWORD_COEF) {
 		return {
 			status: false,
-			error: 'too few letters in password' 
+			error: 'Слишком мало букв в пароле' 
 		};
 	}
 
 	if (!hasSpeacialChars) {
 		return {
 			status: false,
-			error: 'password must contain at least one speacial char' 
+			error: 'Пароль должен содержать хотя бы один специальный символ' 
 		};
 	}
 
@@ -86,14 +93,14 @@ function validatePassword(password) {
 	if (!hasDigits) {
 		return {
 			status: false,
-			error: 'password must contain at least one digit' 
+			error: 'Пароль должен содержать хотя бы одну цифру' 
 		};
 	}
 
 	if (!hasUpperCaseChars) {
 		return {
 			status: false,
-			error: 'password must contain at least one uppercase symbol' 
+			error: 'Пароль должен содержать хотя бы одну заглавную букву' 
 		};
 	}
 
@@ -103,10 +110,17 @@ function validatePassword(password) {
 }
 
 function validateEmail(email) {
+	if (email.length == 0) {
+		return {
+			status: false,
+			error: 'Введите электронную почту' 
+		};
+	}
+
 	if (!(email instanceof String) && typeof(email) != 'string') {
 		return {
 			status: false,
-			error: 'invalid data type'
+			error: 'Недопустимый формат данных'
 		};
 	}
 
@@ -115,7 +129,7 @@ function validateEmail(email) {
 	if (match == null) {
 		return {
 			status: false,
-			error: 'invalid email'
+			error: 'Некорректный адрес электронной почты'
 		};
 	}
 
@@ -128,22 +142,51 @@ function validateName(name) {
 	if (!(name instanceof String) && typeof(name) != 'string') {
 		return {
 			status: false,
-			error: 'invalid data type'
+			error: 'Недопустимый формат данных'
 		};
 	}
 
 	if (name.length == 0) {
 		return {
 			status: false,
-			error: 'name is empty'
+			error: 'Введите имя'
 		};
 	}
 
 	for (const char of name) {
-		if (char.match(/[a-zA-Z]/i) == null) {
+		if (char.match(/[a-zA-Zа-яА-Я]/i) == null) {
 			return {
 				status: false,
-				error: 'name can\'t contain non-letter symbols'
+				error: 'Имя должно содержать буквенные символы'
+			};
+		}
+	}
+
+	return {
+		status: true,
+	}
+}
+
+function validateSurname(surname) {	
+	if (!(surname instanceof String) && typeof(surname) != 'string') {
+		return {
+			status: false,
+			error: 'Недопустимый формат данных'
+		};
+	}
+
+	if (surname.length == 0) {
+		return {
+			status: false,
+			error: 'Введите фамилию'
+		};
+	}
+
+	for (const char of surname) {
+		if (char.match(/[a-zA-Zа-яА-Я]/i) == null) {
+			return {
+				status: false,
+				error: 'Фамилия должна содержать буквенные символы'
 			};
 		}
 	}
@@ -154,6 +197,13 @@ function validateName(name) {
 }
 
 function validateTwoPasswords(password1, password2) {
+	if (password2.length == 0) {
+		return {
+			status: false,
+			error: 'Введите пароль'
+		};
+	}
+
 	if (password1 !== password2) {
 		return {
 			status: false,

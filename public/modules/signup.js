@@ -28,7 +28,7 @@ export default function signUp() {
         const validEmail = validateEmail(emailField.value);
         const validPassword = validatePassword(passwordField.value);
         const validFirstName = validateName(firstNameField.value);
-        const validLastName = validateName(lastNameField.value);
+        const validLastName = validateSurname(lastNameField.value);
         const validTwoPasswords = validateTwoPasswords(passwordField.value, passwordRepeatField.value);
 
         firstNameField.classList.add('correct-input')
