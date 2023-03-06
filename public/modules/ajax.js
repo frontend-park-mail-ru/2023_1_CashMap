@@ -11,7 +11,7 @@ export default class Ajax {
             mode: "cors",
             credentials: "include",
             headers: {
-                Origin: this.FrontendHost,
+                Origin: "http://95.163.212.121:8000",
             },
         });
         const body = await response.json();
@@ -27,7 +27,7 @@ export default class Ajax {
             mode: "cors",
             credentials: "include",
             headers: {
-                Origin: this.FrontendHost,
+                Origin: "http://95.163.212.121:8000",
             },
             body: params.body,
         });
