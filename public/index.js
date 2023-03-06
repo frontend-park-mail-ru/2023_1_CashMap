@@ -7,38 +7,35 @@ import CommentArea from "./components/commentArea/commentArea.js";
 import Login from "./components/login/login.js";
 import Signup from "./components/signup/signup.js";
 
-const MAIN_PAGE_FEED = "main"
-const MAIN_PAGE_SIGNUP = "main-teg"
-const MAIN_PAGE_SIGNIN = "main-auth"
-
 
 import Ajax from "./modules/ajax.js";
 
+let curPageConfig = null
 
 const config = {
 	feed: {
 		name: 'Лента',
 		href: '/feed',
-		render: renderFeedPage(),
+		render: renderFeedPage,
 		key: 'main',
-
 	},
 	login: {
 		name: 'Авторизация',
 		href: '/login',
-		render: renderLoginPage(),
-		key: 'main-teg',
+		render: renderLoginPage,
+		key: 'main-auth',
 	},
 	signup: {
 		name: 'Регистрация',
 		href: '/signup',
-		render: renderSignupPage(),
-		key: 'main-auth',
+		render: renderSignupPage,
+		key: 'main-reg',
 	},
 };
 
 
-renderLoginPage()
+//renderLoginPage()
+goToPage(config.login)
 
 
 // const commentButton = document.querySelector('.post-comments-icon img');
@@ -342,27 +339,25 @@ function renderLoginPage(parent) {
 
 // remove pages
 
-function removePage(main) {
-	const curPage = document.getElementById(main);
+function removePage(configSection) {
+	const curPage = document.getElementById(configSection.key);
 	if (curPage) {
 		curPage.remove();
+		configSection.status = false;
 	}
 }
 
-
 function goToPage(configSection) {
-	const el = document.getElementById(configSection.key)
-	if (el.classList.contains('active')) {
+	if (configSection === curPageConfig) {
+		alert('уже')
 		return;
 	}
 
-
-	contentElement.innerHTML = '';
-
-	document.querySelector('.active').classList.remove('active');
-	el.classList.add('active');
-
-	configSection.render(contentElement);
+	if (curPageConfig) {
+		removePage(curPageConfig);
+	}
+	curPageConfig = configSection;
+	configSection.render();
 }
 
 // func
@@ -397,10 +392,10 @@ function signIn() {
 				.then( response => {
 					if (response.status < 300) {
 						// ToDo: нормальный роутинг нужен
-						// goToPage(config.feed);
+						goToPage(config.feed);
 
-						removePage(MAIN_PAGE_SIGNIN);
-						renderFeedPage();
+						//removePage(MAIN_PAGE_SIGNIN);
+						//renderFeedPage();
 
 						return
 					} else {
@@ -431,10 +426,10 @@ function signIn() {
 		e.preventDefault();
 
 		// ToDo: нормальный роутинг нужен
-		// goToPage(config.signup);
+		goToPage(config.signup);
 
-		removePage(MAIN_PAGE_SIGNIN)
-		renderSignupPage()
+		//removePage(MAIN_PAGE_SIGNIN)
+		//renderSignupPage()
 	});
 }
 
@@ -488,10 +483,10 @@ function signUp() {
 					if (response.status < 300) {
 
 						// ToDo: нормальный роутинг нужен
-						// goToPage(config.login);
+						goToPage(config.login);
 
-						removePage(MAIN_PAGE_SIGNUP)
-						renderLoginPage()
+						//removePage(MAIN_PAGE_SIGNUP)
+						//renderLoginPage()
 
 						return
 					} else {
@@ -537,9 +532,9 @@ function signUp() {
 		e.preventDefault();
 
 		// ToDo: нормальный роутинг нужен
-		// goToPage(config.login);
+		goToPage(config.login);
 
-		removePage(MAIN_PAGE_SIGNUP)
-		renderLoginPage()
+		//removePage(MAIN_PAGE_SIGNUP)
+		//renderLoginPage()
 	});
 }
