@@ -521,8 +521,8 @@ function signUp() {
 			}
 			if (validTwoPasswords.status === false) {
 				passwordRepeatErrorField.textContent = validTwoPasswords.error;
-				passwordErrorField.classList.remove('correct-input')
-				passwordErrorField.classList.add('incorrect-input')
+				passwordRepeatField.classList.remove('correct-input')
+				passwordRepeatField.classList.add('incorrect-input')
 			}
 		}
 	});
