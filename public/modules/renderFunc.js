@@ -11,41 +11,21 @@ import signIn from "./signin.js";
 import Ajax from "./ajax.js";
 
 function renderFeed(parent) {
-    //
-    // const request = Ajax.get('http://127.0.0.1:8080/api/feed/');
-    // request
-    //     .then( response => {
-    //         if (response.status < 300) {
-    //             this.posts = response.response.posts
-    //
-    //             for (const post of this.posts) {
-    //                 renderPost(parent, post)
-    //                 console.log(post)
-    //             }
-    //             return
-    //         }
-    //         // TODO обработать код ответа
-    //     })
-    //     .catch(response =>{
-    //         // TODO обработать ошибку
-    //         console.log(response)
-    //
-    //     })
-
-    const request = fetch("http://95.163.212.121:8080/api/feed?batch_size=10",
-        {
-            credentials: "include",
-            method: 'GET',
-            mode: "cors"
-        })
-        .then(response => response.json())
-        .then(parsed => {
-                const posts = parsed.body.posts
-                for (const post of posts) {
+    const request = Ajax.get('/api/feed?batch_size=10');
+    request
+        .then(response => {
+            if (response.status === 200) {
+                for (const post of response.body.posts) {
                     renderPost(parent, post)
                 }
+                return
+            } else {
+                alert(response.message)
             }
-        ).catch(err => alert(err))
+        })
+        .catch(response =>{
+            alert('catch '+ response.message)
+        })
 }
 
 
@@ -58,6 +38,8 @@ function renderPost(parent, postData) {
         bookmarkIconPath: "static/img/post_icons/bookmark.svg",
         clickedBookmarkIconPath: "static/img/post_icons/bookmark_clicked.svg"
     }
+
+    postData.senderPhoto = "static/img/post_icons/profile_image.svg";
 
     const post = new Post(parent, postData, staticPaths);
     let postBlock = post.render();
@@ -95,8 +77,9 @@ function renderComment(parent, commentData) {
         delete: "static/img/comment_icons/delete.svg"
     }
 
+    commentData.senderPhotoPath = "static/img/post_icons/profile_image.svg";
+
     const comment = new Comment(parent, commentData, staticPaths);
-    console.log(commentData)
     comment.render();
 }
 

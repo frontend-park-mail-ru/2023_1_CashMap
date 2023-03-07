@@ -36,7 +36,6 @@ function removePage(configSection) {
     const curPage = document.getElementById(configSection.key);
     if (curPage) {
         curPage.remove();
-        configSection.status = false;
     }
 }
 
@@ -54,6 +53,7 @@ export default function goToPage(configSection) {
     if (curPageConfig) {
         removePage(curPageConfig);
     }
+
     curPageConfig = configSection;
-    configSection.render();
+    curPageConfig.render();
 }

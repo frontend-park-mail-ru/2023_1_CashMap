@@ -51,27 +51,18 @@ export default function signUp() {
         if (validEmail.status && validPassword.status && validFirstName.status && validLastName.status && validTwoPasswords.status) {
             // ToDo: Запрос к серверу для проверки данных пользователя
 
-            const request = Ajax.post({url:'http://95.163.212.121:8080/auth/sign-up', body: {body:{"email": emailField.value, "password": passwordField.value}}});
+            const request = Ajax.post('/auth/sign-up', {"email": emailField.value, "password": passwordField.value});
             request
                 .then( response => {
-                    if (response.status < 300) {
-
-                        // ToDo: нормальный роутинг нужен
+                    if (response.status === 200) {
                         goToPage(config.login);
-
-                        //removePage(MAIN_PAGE_SIGNUP)
-                        //renderLoginPage()
-
                         return
                     } else {
-                        alert(response.status)
+                        alert(response.message)
                     }
-                    // TODO обработать код ответа
                 })
                 .catch(response =>{
-                    // TODO обработать ошибку
-                    console.log(response)
-
+                    alert('catch '+ response.message)
                 })
         } else {
             if (validEmail.status === false) {
@@ -107,8 +98,5 @@ export default function signUp() {
 
         // ToDo: нормальный роутинг нужен
         goToPage(config.login);
-
-        //removePage(MAIN_PAGE_SIGNUP)
-        //renderLoginPage()
     });
 }
