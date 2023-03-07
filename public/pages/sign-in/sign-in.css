@@ -206,8 +206,8 @@ main-auth .title {
 .logo-path {
     grid-area: logo-path;
 
-    background-image: url(img/background_right.svg); /* Фоновый цвет и фоновый рисунок*/
-    background-repeat: no-repeat repeat; /* Изображение повторяется по горизонтали */
+    background-image: url(img/background_right.svg); 
+    background-repeat: no-repeat repeat;
     background-size: cover;
 
     display: grid;
@@ -220,7 +220,7 @@ main-auth .title {
     grid-template-rows: 31% 25% 59.5%
 }
 
-.logo-table {
+/*.logo-table {
     grid-area: logo-table;
     display: grid;
 
@@ -260,3 +260,4 @@ main-auth .title {
     font-size: var(--font-size-23);
     color: var(--font-color-select-dark);
 }
+*/

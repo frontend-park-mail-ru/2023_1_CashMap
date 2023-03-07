@@ -3,4 +3,4 @@ import goToPage from "./modules/goToPage.js";
 
 console.log(window. location.href);
 
-goToPage(config.login)
+goToPage(config.feed)

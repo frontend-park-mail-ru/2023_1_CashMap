@@ -15,7 +15,7 @@ function renderFeed(parent) {
     request
         .then(response => {
             if (response.status === 200) {
-                for (const post of response.body.post) {
+                for (const post of response.body.posts) {
                     renderPost(parent, post)
                 }
                 return
