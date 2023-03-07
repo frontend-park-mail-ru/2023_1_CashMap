@@ -15,7 +15,7 @@ function renderFeed(parent) {
     request
         .then(response => {
             if (response.status === 200) {
-                for (const post of response.body.posts) {
+                for (const post of response.body.post) {
                     renderPost(parent, post)
                 }
                 return
@@ -72,6 +72,7 @@ function renderCommentArea(parent, comments) {
 }
 
 function renderComment(parent, commentData) {
+    console.log(commentData);
     const staticPaths = {
         edit: "static/img/comment_icons/edit.svg",
         delete: "static/img/comment_icons/delete.svg"
