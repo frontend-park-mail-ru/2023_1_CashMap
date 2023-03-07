@@ -658,7 +658,7 @@ body {
     border-radius: 12px;
 }
 
-.logo-text {
+.logo-table .logo-text {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -670,7 +670,7 @@ body {
     color: var(--font-color-logo-color);
 }
 
-.logo-table-text {
+.logo-table .logo-table-text {
     margin: auto;
     grid-area: logo-table-text;
 
