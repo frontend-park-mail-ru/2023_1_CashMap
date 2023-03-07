@@ -4,7 +4,6 @@ const path = require('path');
 
 const SERVER_PORT = 8000;
 const STATIC_PATH = './public';
-const PAGE_404 = fs.readFileSync('public/404.html');
 
 const TYPES = {
     html: 'text/html; charset=UTF-8',
@@ -16,17 +15,22 @@ const TYPES = {
 
 const server = http.createServer((request, response) => {
     const {url} = request;
-    const normalizedUrl = url === '/' ? '/index.html' : url;
-    const fileExt = path.extname(normalizedUrl).substring(1);
+    let fileExt = path.extname(url).substring(1);
+    let normalizedUrl;
+    if (url === '/' || fileExt === '') {
+        normalizedUrl = '/index.html';
+        fileExt = 'html';
+    } else {
+        normalizedUrl = url;
+    }
+
+
     const restype = TYPES[fileExt];
 
-
-    console.log(normalizedUrl);
     fs.readFile(`${STATIC_PATH}${normalizedUrl}`, (err, data) => {
         if (err) {
-            response.write(PAGE_404);
+            response.writeHead(404);
             response.end();
-            console.log('file not found 404');
             return;
         }
 
