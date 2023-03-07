@@ -56,6 +56,10 @@
         "error-text";
 }
 
+.input-field:focus {
+    outline: 1px solid var(--font-color-gray-text);
+}
+
 .input-field {
     grid-area: input-field;
 
@@ -118,30 +122,72 @@ body, html {
 .main {
     height: 100%;
     display: grid;
-    grid-template: 100% / 48.715% 51.285%;
+    grid-template-columns: 50% 50%;
     grid-template-areas:
         "auth-path logo-path";
 }
+
+
+@media all and (max-width: 700px) {
+    .main {
+    height: 100%;
+    display: grid;
+
+    grid-template-columns: 10% 1fr 10%;
+    grid-template-areas:
+        ". auth-path .";
+    }
+
+    .logo-path {
+        display: none !important; 
+    }
+
+
+    .auth-path {
+        grid-area: auth-path;
+
+        display: grid;
+        grid-template-areas:
+            ". . ."
+            ". auth-table ."
+            ". reg-table .";
+
+        grid-template-columns: 10% 80% 10% !important;
+        grid-template-rows: minmax(50px, 25%) minmax(300px, 35%) minmax(50px, 40%) !important;
+    }
+}
+
 
 .auth-path {
     grid-area: auth-path;
 
     display: grid;
-    grid-template: 21% 35% 44%/ 15% 70% 15%;
     grid-template-areas:
         ". . ."
         ". auth-table ."
         ". reg-table .";
+
+    grid-template-columns: 27.5% 45% 27.5%;
+    grid-template-rows: minmax(50px, 25%) minmax(300px, 35%) minmax(50px, 40%);
 }
 
 .auth-table {
     grid-area: auth-table;
     display: grid;
-    grid-template: 15% 7% 5% 16% 5% 16% 10% 13% 13%/ 24% 52% 24%;
+    grid-template-areas: 
+    "auth-title"
+    "email-input"
+    "password-input"
+    "input-button";
+
+    grid-template-rows: minmax(50px, 1fr) minmax(50px, 1fr) minmax(50px, 1fr) minmax(40px, 1fr);
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
 }
 
 .title {
-    grid-area: 2 / 2;
+    grid-area: auth-title;
+    margin: auto;
 
     text-align: center;
     font-family: 'Comfortaa';
@@ -149,31 +195,33 @@ body, html {
     color: var(--font-color-title);
 }
 
-.input-block[data-id="1"] { grid-area: 4 / 2; }
-.input-block[data-id="2"] { grid-area: 6 / 2; }
-.btn[data-id="1"] { grid-area: 8 / 2; }
+.input-block[data-id="1"] {
+    grid-area: email-input;
+}
+
+.input-block[data-id="2"] {
+    grid-area: password-input;
+ }
+
+.btn[data-id="1"] {
+    grid-area: input-button;
+    height: 80%;
+}
 
 .reg-table {
     grid-area: reg-table;
 
     display: grid;
-    grid-template: 47% 53%/ 12.5% 75% 12.5%;
     grid-template-areas:
-        ". reg ."
-        ". . .";
+        ". reg .";
 }
 
 .reg {
-    grid-area: reg;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 10px;
 
-    display: grid;
-    grid-template: 21% 23% 9% 26% 21%/ 15.5% 69% 15.5%;
-    grid-template-areas:
-        ". . ."
-        ". create-new-account ."
-        ". . ."
-        ". text-reg ."
-        ". . .";
+
 }
 
 .create-new-account {
@@ -198,7 +246,7 @@ body, html {
     grid-area: logo-path;
 
     background-image: url(img/background_right.svg); /* Фоновый цвет и фоновый рисунок*/
-    background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
+    background-repeat: no-repeat repeat; /* Изображение повторяется по горизонтали */
     background-size: cover;
 
     display: grid;
@@ -207,8 +255,8 @@ body, html {
         ". logo-table ."
         ". . .";
 
-    grid-template-columns: 1fr 100px 1fr;
-    grid-template-rows: 1fr 100px 1fr;
+    grid-template-columns: minmax(100px, 25%) minmax(300px, 50%) minmax(100px, 25%);
+    grid-template-rows: 31% 25% 59.5%
 }
 
 .logo-table {
@@ -216,40 +264,34 @@ body, html {
     display: grid;
 
     grid-template-areas:
-        ". . . . ."
-        ". logo-pic . . ."
-        ". logo-pic . logo-text ."
-        ". logo-pic . . ."
-        ". . . . ."
-        "logo-table-text logo-table-text logo-table-text logo-table-text logo-table-text"
-        ". . . . .";
+        ". . ."
+        ". logo-text ."
+        ". logo-table-text ."
+        ". . .";
 
-    grid-template-columns: 10% 10% 60% 20%;
-    grid-template-rows: 20% 30% 30% 20%;
+    grid-template-columns: minmax(50px, 10%) minmax(100px, 80%) minmax(50px, 10%);
 
+
+    grid-template-rows: minmax(10px, 30%) minmax(40px, 20%) minmax(40px, 30%) minmax(10px, 20%);
     background: var(--background-color-logo-table);
     backdrop-filter: blur(2px);
     border-radius: 12px;
 }
 
 .logo-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 9px;
+
     grid-area: logo-text;
     font-family: Limelight;
     font-size: var(--font-size-28);
     color: var(--font-color-logo-color);
 }
 
-.logo-pic {
-    grid-area: logo-pic;
-
-    background-image: url(img/logo.svg); /* Фоновый цвет и фоновый рисунок*/
-    background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
-    background-size: 100%;
-    border-radius: 12px;
-    background-position: center;
-}
-
 .logo-table-text {
+    margin: auto;
     grid-area: logo-table-text;
 
     text-align: center;

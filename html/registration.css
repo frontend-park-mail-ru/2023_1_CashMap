@@ -126,31 +126,74 @@ body, html {
 .main {
     height: 100%;
     display: grid;
-    grid-template: 100% / 48.715% 51.285%;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
         "logo-path reg-path";
+}
+
+@media all and (max-width: 700px) {
+    .main {
+    height: 100%;
+    display: grid;
+
+    grid-template-columns: 10% 1fr 10%;
+    grid-template-areas:
+        ". reg-path .";
+    }
+
+    .logo-path {
+        display: none !important; 
+    }
+
+
+    .reg-path {
+        grid-area: auth-path;
+
+        display: grid;
+        grid-template-areas:
+            ". . ."
+            ". reg-table ."
+            ". . .";
+
+        grid-template-columns: 10% 80% 10% !important;
+        grid-template-rows: minmax(50px, 25%) minmax(300px, 35%) minmax(50px, 40%) !important;
+    }
 }
 
 .reg-path {
     grid-area: reg-path;
 
     display: grid;
-    grid-template: 21% 59% 20%/ 15% 70% 15%;
     grid-template-areas:
         ". . ."
         ". reg-table ."
         ". . .";
+
+    grid-template-columns: 27.5% 45% 27.5%;
+    grid-template-rows: minmax(50px, 25%) minmax(300px, 35%) minmax(50px, 40%);
 }
 
 .reg-table {
     grid-area: reg-table;
-
     display: grid;
-    grid-template: 9.6% 4.2% 5.6% 10.5% 4.2% 10.5% 4.2% 10.5% 4.2% 10.5% 4.2% 10.5% 4.2% 7% 2.8% 2.6% 9.5%/ 24% 52% 24%;
+    grid-gap: 10px;
+    grid-template-areas: 
+    "header"
+    "name-input"
+    "lastname-input"
+    "email-input"
+    "password-input"
+    "password-repeat-input"
+    "register-button"
+    "auth-link";
+
+    grid-template-rows: repeat(8, minmax(50px, 1fr));
+
+    grid-template-columns: 1fr;
 }
 
 .title {
-    grid-area: 2 / 2;
+    grid-area: header;
 
     text-align: center;
     font-family: 'Comfortaa';
@@ -158,15 +201,19 @@ body, html {
     color: var(--font-color-title);
 }
 
-.input-block[data-id="1"] { grid-area: 4 / 2; }
-.input-block[data-id="2"] { grid-area: 6 / 2; }
-.input-block[data-id="3"] { grid-area: 8 / 2; }
-.input-block[data-id="4"] { grid-area: 10 / 2; }
-.input-block[data-id="5"] { grid-area: 12 / 2; }
-.btn[data-id="1"] { grid-area: 14 / 2; }
+.input-block input:focus {
+    outline: 1px solid;
+}
+
+.input-block[data-id="1"] { grid-area: name-input; }
+.input-block[data-id="2"] { grid-area: lastname-input; }
+.input-block[data-id="3"] { grid-area: email-input; }
+.input-block[data-id="4"] { grid-area: password-input; }
+.input-block[data-id="5"] { grid-area: password-repeat-input; }
+.btn[data-id="1"] { grid-area: register-button; }
 
 .under-reg-text {
-    grid-area: 16 / 2;
+    grid-area: auth-link;
 
     text-align: center;
     font-family: 'MailSansRoman';
@@ -183,31 +230,40 @@ body, html {
     background-position: right;
 
     display: grid;
-    grid-template: 34.53% 18.85% 46.62% / 23.8% 52.4% 23.8%;
     grid-template-areas:
         ". . ."
-        ". logo-table .";
+        ". logo-table ."
+        ". . .";
+
+    grid-template-columns: minmax(100px, 25%) minmax(300px, 50%) minmax(100px, 25%);
+    grid-template-rows: 31% 25% 59.5%
 }
 
 .logo-table {
     grid-area: logo-table;
     display: grid;
-    grid-template: 25% 6.92% 15.16% 6.92% 9% 12% 25% / 25% 11% 2% 35% 27%;
-    grid-template-areas:
-        ". . . . ."
-        ". logo-pic . . ."
-        ". logo-pic . logo-text ."
-        ". logo-pic . . ."
-        ". . . . ."
-        "logo-table-text logo-table-text logo-table-text logo-table-text logo-table-text"
-        ". . . . .";
 
+    grid-template-areas:
+        ". . ."
+        ". logo-text ."
+        ". logo-table-text ."
+        ". . .";
+
+    grid-template-columns: minmax(50px, 10%) minmax(100px, 80%) minmax(50px, 10%);
+
+
+    grid-template-rows: minmax(10px, 30%) minmax(40px, 20%) minmax(40px, 30%) minmax(10px, 20%);
     background: var(--background-color-logo-table);
     backdrop-filter: blur(2px);
     border-radius: 12px;
 }
 
 .logo-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 9px;
+
     grid-area: logo-text;
     font-family: Limelight;
     font-size: var(--font-size-28);
@@ -225,6 +281,7 @@ body, html {
 }
 
 .logo-table-text {
+    margin: auto;
     grid-area: logo-table-text;
 
     text-align: center;
