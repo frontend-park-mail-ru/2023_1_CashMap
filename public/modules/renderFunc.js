@@ -72,6 +72,7 @@ function renderCommentArea(parent, comments) {
 }
 
 function renderComment(parent, commentData) {
+    console.log(commentData);
     const staticPaths = {
         edit: "static/img/comment_icons/edit.svg",
         delete: "static/img/comment_icons/delete.svg"
