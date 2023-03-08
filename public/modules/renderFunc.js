@@ -14,13 +14,13 @@ import FeedController from './feed.js'
 
 function renderFeed(parent) {
     const request = Ajax.get('/api/feed?batch_size=10');
-    console.log(Promise.resolve(request.body))
     request
         .then(response => {
             if (response.status === 200) {
                 for (const post of response.body.posts) {
                     renderPost(parent, post)
                 }
+
                 return
             } else {
                 alert(response.message)
@@ -41,6 +41,12 @@ function renderPost(parent, postData) {
         bookmarkIconPath: "static/img/post_icons/bookmark.svg",
         clickedBookmarkIconPath: "static/img/post_icons/bookmark_clicked.svg"
     }
+
+    console.log(222222222222222);
+    const a = Date.parse(postData.date);
+    // const options = { dateStyle: 'full', weekday: 'short', year: 'numeric',  day: 'numeric' };
+    const options = { dateStyle: 'long' };
+    console.log((new Date(a)).toLocaleDateString('ru-RU', options));
 
     postData.senderPhoto = "static/img/post_icons/profile_image.svg";
 

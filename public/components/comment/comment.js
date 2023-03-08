@@ -6,6 +6,9 @@ export default class Comment {
 	constructor(parent, comment, staticPaths) {
 		this.#parent = parent;
 
+
+		const options = { dateStyle: 'medium' };
+		comment.date = (new Date(comment.date)).toLocaleDateString('ru-RU', options)
 		this.#config = {
 			comment,
 			paths: staticPaths

@@ -51,7 +51,6 @@ export default function goToPage(configSection) {
     }
 
     const request = Ajax.get_c('/auth/check');
-    console.log(request)
     request
         .then(response => {
             if (response.status === 200) {

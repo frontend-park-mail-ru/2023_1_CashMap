@@ -35,7 +35,8 @@ body {
     "post_creator"
     "feed";
 
-    grid-template-rows: 50px 50px ;
+    grid-template-rows: 50px 50px;
+    grid-template-columns: minmax(100px, 1fr);
     grid-row-gap: 10px;
 }
 
@@ -428,7 +429,7 @@ body {
     background-color: var(--background-color-menu);
 
     display: grid;
-    grid-template-columns: minmax(100px, 1fr);
+    grid-template-columns: minmax(50px, 1fr);
     grid-template-rows: repeat(auto-fit, 1fr);
     grid-row-gap: 15px;
 
@@ -603,7 +604,7 @@ body {
 .create-comment-section {
     display: grid;
 
-    grid-template-columns: 40px 12fr 5% 5% 1fr;
+    grid-template-columns: 30px 12fr 5% 5% 1fr;
     grid-column-gap: 8px;
 
 }
@@ -611,7 +612,6 @@ body {
 
 .comment-input-block {
     display: flex;
-    align-items: center;
 }
 
 
@@ -630,6 +630,11 @@ body {
     cursor: pointer;
     margin-left: auto;
     margin-right: auto;
+}
+
+.comment-profile-icon img {
+    width: var(--profile-img-size);
+    height: var(--profile-img-size);
 }
 
 .attach-photo-icon img, .choose-emoji-icon img {

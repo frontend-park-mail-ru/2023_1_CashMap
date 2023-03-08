@@ -6,6 +6,9 @@ export default class Post {
 	constructor(parent, postData, staticPaths) {
 		this.#parent = parent;
 
+		const options = { dateStyle: 'medium' };
+		postData.date = (new Date(postData.date)).toLocaleDateString('ru-RU', options)
+		console.log(postData.date)
 		this.#config = {
 			post: postData,
 			paths: staticPaths

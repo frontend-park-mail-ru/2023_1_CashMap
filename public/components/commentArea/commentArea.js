@@ -5,7 +5,7 @@ export default class CommentArea {
 
 	constructor(parent, user, staticPaths) {
 		this.#parent = parent;
-
+		
 		this.#config = {
 			paths: staticPaths,
 			user

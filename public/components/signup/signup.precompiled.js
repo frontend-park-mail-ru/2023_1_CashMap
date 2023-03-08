@@ -8,7 +8,7 @@ templates['signup'] = template({"compiler":[8,">= 4.3.0"],"main":function(contai
         return undefined
     };
 
-  return "<main-reg class=\"main-reg\">\r\n    <div class=\"logo-path\" style=\"background-image: url("
+  return "<main-reg class=\"main-reg\" id=\"main-reg\">\r\n    <div class=\"logo-path\" style=\"background-image: url("
     + alias4(((helper = (helper = lookupProperty(helpers,"fonPath") || (depth0 != null ? lookupProperty(depth0,"fonPath") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"fonPath","hash":{},"data":data,"loc":{"start":{"line":2,"column":56},"end":{"line":2,"column":69}}}) : helper)))
     + ")\">\r\n        <div class=\"logo-table\">\r\n            <div class=\"logo-text\">\r\n                <img src="
     + alias4(((helper = (helper = lookupProperty(helpers,"picPath") || (depth0 != null ? lookupProperty(depth0,"picPath") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"picPath","hash":{},"data":data,"loc":{"start":{"line":5,"column":25},"end":{"line":5,"column":38}}}) : helper)))
