@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080";
+const URL = "http://95.163.212.121:8080";
 
 const AJAX_METHOD_TYPES = {
     GET: 'GET',
