@@ -1,16 +1,11 @@
 import {renderFeedPage} from "./renderFunc.js";
 import {renderSignupPage} from "./renderFunc.js";
 import {renderLoginPage} from "./renderFunc.js";
+import Ajax from "./ajax.js";
 
 let curPageConfig = null
 
 export const config = {
-    feed: {
-        name: 'Лента',
-        href: '/feed',
-        render: renderFeedPage,
-        key: 'main',
-    },
     login: {
         name: 'Авторизация',
         href: '/login',
@@ -23,8 +18,27 @@ export const config = {
         render: renderSignupPage,
         key: 'main-reg',
     },
+    feed: {
+        name: 'Лента',
+        href: '/feed',
+        render: renderFeedPage,
+        key: 'main',
+    },
 };
 
+
+export function initPage() {
+    if (window.location.pathname === config.login.href) {
+        goToPage(config.login);
+    } else if (window.location.pathname === config.feed.href) {
+        goToPage(config.feed);
+    } else if (window.location.pathname === config.signup.href) {
+        goToPage(config.signup);
+    } else {
+        window.location.pathname = config.login.href;
+        goToPage(config.login);
+    }
+}
 
 /**
  * page cleaning function
