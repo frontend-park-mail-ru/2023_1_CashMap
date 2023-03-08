@@ -2,6 +2,30 @@ let MAX_PASSWORD_LENGTH = 100;
 let MIN_PASSWORD_LENGTH = 8;
 let MIN_LETTERS_IN_PASSWORD_COEF = 0.4;
 
+function validatePasswordAuth(password) {
+	if (password.length < 8) {
+		return {
+			status: false,
+			error: 'Пароль слишком короткий'
+		};
+	}
+
+	password.trim()
+
+	for (const symbol of password) {
+		if (symbol == ' ') {
+			return {
+				status: false,
+				error: 'Пробелы в пароле недопустимы'
+			};
+		}
+	}
+
+	return {
+		status: true,
+	};
+}
+
 function validatePassword(password) {
 	if (!(password instanceof String) && typeof(password) != 'string') {
 		return {

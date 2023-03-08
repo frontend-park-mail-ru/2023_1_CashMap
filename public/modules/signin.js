@@ -21,7 +21,7 @@ export default function signIn() {
         e.preventDefault();
 
         const validEmail = validateEmail(emailField.value);
-        const validPassword = validatePassword(passwordField.value);
+        const validPassword = validatePasswordAuth(passwordField.value);
 
         emailField.classList.add('correct-input')
         emailField.classList.remove('incorrect-input')
@@ -37,12 +37,18 @@ export default function signIn() {
                     if (response.status === 200) {
                         goToPage(config.feed);
                         return
-                    } else {
-                        alert(response.message)
                     }
+
+                    throw response;
                 })
-                .catch(response =>{
-                    alert('catch '+ response.message)
+                .catch( response => {
+                    if (response.status == "404") {
+                        emailErrorField.textContent = "Пользователь не найден"
+                    } else {
+                        emailErrorField.textContent = "Ошибка сервера"
+                    }
+                    emailField.classList.remove('correct-input')
+                    emailField.classList.add('incorrect-input')
                 })
         } else {
             if (validEmail.status === false) {

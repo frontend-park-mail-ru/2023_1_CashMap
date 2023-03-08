@@ -8,7 +8,8 @@ export default class Post {
 
 		const options = { dateStyle: 'medium' };
 		postData.date = (new Date(postData.date)).toLocaleDateString('ru-RU', options)
-		console.log(postData.date)
+		postData.commentsNumber = postData.comments.length;
+
 		this.#config = {
 			post: postData,
 			paths: staticPaths

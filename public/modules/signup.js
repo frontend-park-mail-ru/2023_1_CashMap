@@ -57,12 +57,17 @@ export default function signUp() {
                     if (response.status === 200) {
                         goToPage(config.login);
                         return
-                    } else {
-                        alert(response.message)
                     }
+                    throw response;
                 })
-                .catch(response =>{
-                    alert('catch '+ response.message)
+                .catch(response => {
+                    if (response.status == 409) {
+                        emailErrorField.textContent = "Пользователь с таким email уже зарегистрирован";
+                    } else {
+                        emailErrorField.textContent = "Ошибка сервера"
+                    }
+                    emailField.classList.remove('correct-input')
+                    emailField.classList.add('incorrect-input')
                 })
         } else {
             if (validEmail.status === false) {

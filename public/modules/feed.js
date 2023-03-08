@@ -16,16 +16,10 @@ export default class FeedController {
 			const request = Ajax.post('/auth/logout');
 			request
 				.then((response) => {
-					if (response.status < 300) {
-						goToPage(config.login);
-						return;
-					} 
-
-					throw response
+					goToPage(config.login);
 				})
 				.catch((response) => {
-					console.log(12312312);
-					alert("Unsuccessfully exited. code=", response.status);
+					alert(response.message)
 				})
 		})
 	}
