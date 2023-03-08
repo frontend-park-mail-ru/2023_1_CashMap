@@ -26,20 +26,6 @@ export const config = {
     },
 };
 
-
-export function initPage() {
-    if (window.location.pathname === config.login.href) {
-        goToPage(config.login);
-    } else if (window.location.pathname === config.feed.href) {
-        goToPage(config.feed);
-    } else if (window.location.pathname === config.signup.href) {
-        goToPage(config.signup);
-    } else {
-        window.location.pathname = config.login.href;
-        goToPage(config.login);
-    }
-}
-
 /**
  * page cleaning function
  * @param {object} configSection - information about the page being deleted
@@ -64,10 +50,41 @@ export default function goToPage(configSection) {
         return;
     }
 
-    if (curPageConfig) {
-        removePage(curPageConfig);
-    }
+    const request = Ajax.get_c('/auth/check');
+    console.log(request)
+    request
+        .then(response => {
+            if (response.status === 200) {
+                if (curPageConfig) {
+                    removePage(curPageConfig);
+                }
 
-    curPageConfig = configSection;
-    curPageConfig.render();
+                curPageConfig = config.feed;
+                curPageConfig.render();
+                return
+            } else {
+                if (configSection === config.feed) {
+                    if (curPageConfig) {
+                        removePage(curPageConfig);
+                    }
+
+                    curPageConfig = config.login;
+                    curPageConfig.render();
+                } else {
+                    if (curPageConfig) {
+                        removePage(curPageConfig);
+                    }
+
+                    curPageConfig = configSection;
+                    curPageConfig.render();
+                }
+            }
+        })
+        .catch(response =>{
+            alert('catch go '+ response.message)
+        })
+}
+
+export function initPage() {
+    goToPage(config.feed);
 }

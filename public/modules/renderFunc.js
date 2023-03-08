@@ -12,6 +12,7 @@ import Ajax from "./ajax.js";
 
 function renderFeed(parent) {
     const request = Ajax.get('/api/feed?batch_size=10');
+    console.log(Promise.resolve(request.body))
     request
         .then(response => {
             if (response.status === 200) {

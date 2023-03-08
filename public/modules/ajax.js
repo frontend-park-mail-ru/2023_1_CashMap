@@ -1,4 +1,4 @@
-const URL = "http://95.163.212.121:8080";
+const URL = "http://127.0.0.1:8080";
 
 const AJAX_METHOD_TYPES = {
     GET: 'GET',
@@ -25,6 +25,27 @@ export default class Ajax {
         }
     }
 
+    static async get_c(url) {
+        const response = await fetch(URL+url, {
+            method: AJAX_METHOD_TYPES.GET,
+            mode: "cors",
+            credentials: "include",
+            headers: {
+                Origin: this.FrontendHost,
+            },
+        });
+
+        //const body = await response.json();
+
+        return {
+            status: response.status,
+            message: response.statusText,
+            body: response,
+        }
+    }
+
+
+
     static async post(url, body) {
         const response = await fetch(URL+url, {
             method: AJAX_METHOD_TYPES.POST,
@@ -41,4 +62,5 @@ export default class Ajax {
             body: response.body,
         }
     }
+
 };
