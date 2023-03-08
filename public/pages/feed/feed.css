@@ -119,9 +119,71 @@ body {
     height: var(--profile-img-size);
 }
 
+
+
 .profile-menu-icon {
     grid-area: menu;
+
+    font-family: "MailSansRoman";
+    color: var(--font-color-gray-text);
 }
+
+.exit {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    margin-top: auto;
+    margin-bottom: auto;
+
+    display: flex;
+}
+
+.exit:hover {
+    cursor: pointer;
+}
+
+.exit img {
+    width: 20px;
+    height: 20px;
+}
+
+.exit img:nth-child(3) {
+    display: none;
+}
+
+.exit:hover img:nth-child(2) {
+    display: none;
+}
+
+.exit:hover img:nth-child(3) {
+    display: inline-block;
+}
+
+.header-dropdown-menu {
+    display: none;
+    position: absolute;
+}
+
+.profile-menu-icon:hover .header-dropdown-menu {
+    display: grid;
+
+    grid-template-rows: repeat(1, minmax(30px, 1fr));
+    background-color: var(--background-color-menu);
+    border-radius: 12px;
+    border: 1px solid var(--background-color-input);
+}
+
+
+
+.header-icon:hover {
+    cursor: pointer;
+}
+
+
+
+
+
+
 
 
 .post-creator {
