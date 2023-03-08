@@ -10,6 +10,8 @@ import Login from "../components/login/login.js";
 import signIn from "./signin.js";
 import Ajax from "./ajax.js";
 
+import FeedController from './feed.js'
+
 function renderFeed(parent) {
     const request = Ajax.get('/api/feed?batch_size=10');
     request
@@ -192,6 +194,10 @@ export function renderFeedPage() {
     renderCreatePost(content)
     renderSideBar(main);
     renderFeed(feed);
+
+    const mainElem = document.querySelector('.main');
+    const feedController = new FeedController(mainElem);
+    feedController.setup();
 }
 
 export function renderSignupPage() {
