@@ -273,7 +273,7 @@ body {
     grid-column-gap: 5px;
 
     position: fixed;
-    left: 80px;
+    left: 1%;
 }
 
 @media all and (max-width: 720px) {
@@ -319,8 +319,8 @@ body {
     grid-area: navigation;
 
     position: fixed;
-    top: 50px;
-    left: 120px;
+    top: 10%;
+    left: 1%;
 }
 
 .nav-list ol {
