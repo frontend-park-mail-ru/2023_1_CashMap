@@ -57,6 +57,10 @@ body {
     grid-template-columns: 2fr 1fr 40px 40px 20px;
 
     grid-template-rows: 1fr;
+
+    position: fixed;
+    left: 310px;
+    width: 680px;
 }
 
 .header > div {
@@ -267,6 +271,9 @@ body {
     display: grid;
     grid-template-columns: 1fr 4fr;
     grid-column-gap: 5px;
+
+    position: fixed;
+    left: 80px;
 }
 
 @media all and (max-width: 720px) {
@@ -310,6 +317,10 @@ body {
 
 .nav-list {
     grid-area: navigation;
+
+    position: fixed;
+    top: 50px;
+    left: 120px;
 }
 
 .nav-list ol {
@@ -526,6 +537,7 @@ body {
 
 .post-comments-number {
     margin: auto;
+    text-align: center;
 }
 
 .post-bookmark-icon {
