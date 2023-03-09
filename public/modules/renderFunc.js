@@ -205,6 +205,13 @@ export function renderFeedPage() {
     const mainElem = document.querySelector('.main');
     const feedController = new FeedController(mainElem);
     feedController.setup();
+
+    /*const el = document.getElementsByClassName('comment')
+
+    for (var i = 0; i < el.length; i++) el[i].onclick =
+        function() {
+            alert('awd');
+        };*/
 }
 
 export function renderSignupPage() {
