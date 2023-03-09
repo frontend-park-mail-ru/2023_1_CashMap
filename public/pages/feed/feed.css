@@ -59,8 +59,8 @@ body {
     grid-template-rows: 1fr;
 
     position: fixed;
-    left: 310px;
-    width: 680px;
+    left: 27%;
+    width: 50%;
 }
 
 .header > div {
