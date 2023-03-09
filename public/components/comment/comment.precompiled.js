@@ -16,7 +16,7 @@ templates['comment'] = template({"compiler":[8,">= 4.3.0"],"main":function(conta
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"comment") : depth0)) != null ? lookupProperty(stack1,"text") : stack1), depth0))
     + "</span></div>\n    <div class=\"comment-date\">"
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"comment") : depth0)) != null ? lookupProperty(stack1,"date") : stack1), depth0))
-    + "</div>\n    <div class=\"comment-edit-block\">\n        <img src="
+    + "</div>\n    <div class=\"comment-edit-block opacity-pic\">\n        <img src="
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"paths") : depth0)) != null ? lookupProperty(stack1,"edit") : stack1), depth0))
     + ">\n        <img src="
     + alias2(alias1(((stack1 = (depth0 != null ? lookupProperty(depth0,"paths") : depth0)) != null ? lookupProperty(stack1,"delete") : stack1), depth0))

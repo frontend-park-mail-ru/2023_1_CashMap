@@ -21,6 +21,32 @@ function renderFeed(parent) {
                     renderPost(parent, post)
                 }
 
+                let el = document.getElementsByClassName('comment')
+                el = Array.prototype.slice.call(el);
+
+                for (let i = 0; i < el.length; i++) {
+                    el[i].addEventListener('mouseover', (e) => {
+                        e.preventDefault();
+
+                        let elPic = el[i].getElementsByClassName('comment-edit-block')
+                        elPic = Array.prototype.slice.call(elPic)[0];
+
+                        elPic.classList.remove('opacity-pic')
+                        console.log(i)
+                    });
+
+                    el[i].addEventListener('mouseout', (e) => {
+                        e.preventDefault();
+
+                        let elPic = el[i].getElementsByClassName('comment-edit-block')
+                        elPic = Array.prototype.slice.call(elPic)[0];
+
+                        elPic.classList.add('opacity-pic')
+                        console.log(i)
+                        //comment-edit-block
+                    });
+                }
+
                 return
             } else {
                 alert(response.message)
@@ -205,13 +231,6 @@ export function renderFeedPage() {
     const mainElem = document.querySelector('.main');
     const feedController = new FeedController(mainElem);
     feedController.setup();
-
-    /*const el = document.getElementsByClassName('comment')
-
-    for (var i = 0; i < el.length; i++) el[i].onclick =
-        function() {
-            alert('awd');
-        };*/
 }
 
 export function renderSignupPage() {
