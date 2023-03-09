@@ -564,12 +564,13 @@ body {
 .comment {
     display: grid;
 
-    grid-template-areas: 
-    "photo name date"
+    grid-template-areas:
+    "photo name ."
+    "photo date ."
     "photo body edit";
 
 
-    grid-template-rows: 30px 1fr;
+    grid-template-rows: 15px 15px 1fr;
     grid-template-columns: 30px 6fr 60px;
 
     grid-column-gap: 7px;
@@ -593,8 +594,8 @@ body {
 
 .comment-date {
     grid-area: date;
-    margin: auto;
-    text-align: center;
+    font-size: var(--font-size-10) !important;
+    color: var(--font-color-gray-text) !important;
 }
 
 .comment-edit-block {
