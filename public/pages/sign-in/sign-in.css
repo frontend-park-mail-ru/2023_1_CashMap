@@ -217,7 +217,7 @@ main-auth .title {
         ". . .";
 
     grid-template-columns: minmax(100px, 25%) minmax(300px, 50%) minmax(100px, 25%);
-    grid-template-rows: 31% 25% 59.5%
+    grid-template-rows: 31% 25% 44%
 }
 
 /*.logo-table {
