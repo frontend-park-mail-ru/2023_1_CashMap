@@ -180,7 +180,7 @@ main-reg {
 main-reg .logo-path {
     grid-area: logo-path;
 
-    background-image: url(img/background_left.svg); /* Фоновый цвет и фоновый рисунок
+    background-image: url(img/background_left.svg); /* Фоновый цвет и фоновый рисунок */
     background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
     background-size: cover;
     background-position: right;
