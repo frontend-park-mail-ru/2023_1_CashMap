@@ -9,7 +9,7 @@
 }
 
 .input-field:focus {
-    outline: 1px solid var(--font-color-gray-text);
+    outline: 1px solid var(--font-color-gray-text, #6C6F72);
 }
 
 .input-field {
@@ -21,24 +21,24 @@
     border-radius: 8px;
     text-indent: 5px;
     font-family: 'InterMedium';  /* Todo: добавить fallback шрифты */
-    font-size: var(--font-size-15);
-    color: var(--font-color-gray-text);
+    font-size: var(--font-size-15, 15px);
+    color: var(--font-color-gray-text, #6C6F72);
 }
 
 .input-field::placeholder {
     font-family: InterMedium;  /* Todo: добавить fallback шрифты */
-    color: var(--font-color-gray-text);
-    font-size: var(--font-size-15);
+    color: var(--font-color-gray-text, #6C6F72);
+    font-size: var(--font-size-15, 15px);
 }
 
 .correct-input {
     border: none;
-    background: var(--background-color-input);
+    background: var(--background-color-input, #E9E9E9);
 }
 
 .incorrect-input {
-    border: 1px solid var(--font-color-error);
-    background: var(--background-color-error);
+    border: 1px solid var(--font-color-error, #D5534D);
+    background: var(--background-color-error, #FFEBEB);
 }
 
 .error-text {
@@ -46,8 +46,8 @@
 
     font-family: 'InterRegular';  /* Todo: добавить fallback шрифты */
     font-weight: 400;
-    font-size: var(--font-size-12);
-    color: var(--font-color-error);
+    font-size: var(--font-size-12, 12px);
+    color: var(--font-color-error, #D5534D);
 }
 
 .auth-table .btn:hover {
@@ -59,9 +59,9 @@
 
     height: 100%;
     width: 100%;
-    color: var(--font-color-btn);
-    background: var(--background-color-btn);
-    font-size: var(--font-size-16);
+    color: var(--font-color-btn, #FFFFFF);
+    background: var(--background-color-btn, linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%));
+    font-size: var(--font-size-16, 16px);
     font-family: 'MailSansRoman';  /* Todo: добавить fallback шрифты */
     text-decoration: none;
     display: flex;
@@ -147,8 +147,8 @@ main-auth .title {
 
     text-align: center;
     font-family: 'Comfortaa';  /* Todo: добавить fallback шрифты */
-    font-size: var(--font-size-23);
-    color: var(--font-color-title);
+    font-size: var(--font-size-23, 23px);
+    color: var(--font-color-title, #000000);
 }
 
 .input-block[data-id="6"] {
@@ -190,16 +190,16 @@ main-auth .title {
 
     text-align: center;
     font-family: 'MailSansRoman';  /* Todo: добавить fallback шрифты */
-    font-size: var(--font-size-16);
-    color: var(--font-color-info);
+    font-size: var(--font-size-16, 16px);
+    color: var(--font-color-info, #395EBA);
 }
 
 .text-reg {
     grid-area: text-reg;
 
     font-family: 'InterMedium';  /* Todo: добавить fallback шрифты */
-    font-size: var(--font-size-15);
-    color: var(--font-color-reg-info);
+    font-size: var(--font-size-15, 15px);
+    color: var(--font-color-reg-info, #8D949D);
     text-align: center;
 }
 

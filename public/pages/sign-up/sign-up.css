@@ -17,24 +17,24 @@
     border-radius: 8px;
     text-indent: 5px;
     font-family: 'InterMedium';  /* Todo: добавить fallback шрифты */
-    font-size: var(--font-size-15);
-    color: var(--font-color-gray-text);
+    font-size: var(--font-size-15, 15px);
+    color: var(--font-color-gray-text, #6C6F72);
 }
 
 .reg-table .input-field::placeholder {
     font-family: InterMedium;  /* Todo: добавить fallback шрифты */
-    color: var(--font-color-gray-text);
-    font-size: var(--font-size-15);
+    color: var(--font-color-gray-text, #6C6F72);
+    font-size: var(--font-size-15, 15px);
 }
 
 .reg-table .correct-input {
     border: none;
-    background: var(--background-color-input);
+    background: var(--background-color-input, #E9E9E9);
 }
 
 .reg-table .incorrect-input {
-    border: 1px solid var(--font-color-error);
-    background: var(--background-color-error);
+    border: 1px solid var(--font-color-error, #D5534D);
+    background: var(--background-color-error, #FFEBEB);
 }
 
 .reg-table .error-text {
@@ -42,8 +42,8 @@
 
     font-family: 'InterRegular';  /* Todo: добавить fallback шрифты */
     font-weight: 400;
-    font-size: var(--font-size-12);
-    color: var(--font-color-error);
+    font-size: var(--font-size-12, 12px);
+    color: var(--font-color-error, #D5534D);
 }
 
 .reg-table .btn:hover {
@@ -55,9 +55,9 @@
 
     height: 100%;
     width: 100%;
-    color: var(--font-color-btn);
-    background: var(--background-color-btn);
-    font-size: var(--font-size-16);
+    color: var(--font-color-btn, #FFFFFF);
+    background: var(--background-color-btn, linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%));
+    font-size: var(--font-size-16, 16px);
     font-family: 'MailSansRoman';  /* Todo: добавить fallback шрифты */
     text-decoration: none;
     display: flex;
@@ -148,8 +148,8 @@ main-reg {
 
     text-align: center;
     font-family: 'Comfortaa';  /* Todo: добавить fallback шрифты */
-    font-size: var(--font-size-23);
-    color: var(--font-color-title);
+    font-size: var(--font-size-23, 23px);
+    color: var(--font-color-title, #000000);
 }
 
 .reg-table .input-block input:focus {
@@ -173,8 +173,8 @@ main-reg {
 
     text-align: center;
     font-family: 'MailSansRoman';  /* Todo: добавить fallback шрифты */
-    font-size: var(--font-size-15);
-    color: var(--font-color-info);
+    font-size: var(--font-size-15, 15px);
+    color: var(--font-color-info, #395EBA);
 }
 
 main-reg .logo-path {
@@ -209,7 +209,7 @@ main-reg .logo-table {
 
 
     grid-template-rows: minmax(10px, 30%) minmax(40px, 20%) minmax(40px, 30%) minmax(10px, 20%);
-    background: var(--background-color-logo-table);
+    background: var(--background-color-logo-table, rgba(251, 221, 255, 0.4));
     backdrop-filter: blur(2px);
     border-radius: 12px;
 }
@@ -222,8 +222,8 @@ main-reg .logo-text {
 
     grid-area: logo-text;
     font-family: Limelight;  /* Todo: добавить fallback шрифты */
-    font-size: var(--font-size-28);
-    color: var(--font-color-logo-color);
+    font-size: var(--font-size-28, 28px);
+    color: var(--font-color-logo-color, #44009D);
 }
 
 main-reg .logo-pic {
@@ -242,6 +242,6 @@ main-reg .logo-table-text {
 
     text-align: center;
     font-family: 'Comfortaa';  /* Todo: добавить fallback шрифты */
-    font-size: var(--font-size-23);
-    color: var(--font-color-select-dark);
+    font-size: var(--font-size-23, 23px);
+    color: var(--font-color-select-dark, #D9D9D9);
 }
