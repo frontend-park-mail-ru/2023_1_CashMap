@@ -16,13 +16,13 @@
     padding: 0;
     border-radius: 8px;
     text-indent: 5px;
-    font-family: 'InterMedium';
+    font-family: 'InterMedium';  /* Todo: добавить fallback шрифты */
     font-size: var(--font-size-15);
     color: var(--font-color-gray-text);
 }
 
 .reg-table .input-field::placeholder {
-    font-family: InterMedium;
+    font-family: InterMedium;  /* Todo: добавить fallback шрифты */
     color: var(--font-color-gray-text);
     font-size: var(--font-size-15);
 }
@@ -40,7 +40,7 @@
 .reg-table .error-text {
     grid-area: error-text;
 
-    font-family: 'InterRegular';
+    font-family: 'InterRegular';  /* Todo: добавить fallback шрифты */
     font-weight: 400;
     font-size: var(--font-size-12);
     color: var(--font-color-error);
@@ -58,7 +58,7 @@
     color: var(--font-color-btn);
     background: var(--background-color-btn);
     font-size: var(--font-size-16);
-    font-family: 'MailSansRoman';
+    font-family: 'MailSansRoman';  /* Todo: добавить fallback шрифты */
     text-decoration: none;
     display: flex;
     justify-content: center;
@@ -147,7 +147,7 @@ main-reg {
     grid-area: header;
 
     text-align: center;
-    font-family: 'Comfortaa';
+    font-family: 'Comfortaa';  /* Todo: добавить fallback шрифты */
     font-size: var(--font-size-23);
     color: var(--font-color-title);
 }
@@ -172,7 +172,7 @@ main-reg {
     grid-area: auth-link;
 
     text-align: center;
-    font-family: 'MailSansRoman';
+    font-family: 'MailSansRoman';  /* Todo: добавить fallback шрифты */
     font-size: var(--font-size-15);
     color: var(--font-color-info);
 }
@@ -221,7 +221,7 @@ main-reg .logo-text {
     grid-gap: 9px;
 
     grid-area: logo-text;
-    font-family: Limelight;
+    font-family: Limelight;  /* Todo: добавить fallback шрифты */
     font-size: var(--font-size-28);
     color: var(--font-color-logo-color);
 }
@@ -241,7 +241,7 @@ main-reg .logo-table-text {
     grid-area: logo-table-text;
 
     text-align: center;
-    font-family: 'Comfortaa';
+    font-family: 'Comfortaa';  /* Todo: добавить fallback шрифты */
     font-size: var(--font-size-23);
     color: var(--font-color-select-dark);
 }

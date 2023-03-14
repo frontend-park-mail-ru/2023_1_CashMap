@@ -4,7 +4,7 @@ body {
 
 .main {
     display: grid;
-    background-color: var(--background-item-hovered);
+    background-color: var(--background-item-hovered, #F5F5F5);
     grid-template-areas: 
         "menu content ."
         "menu content ."
@@ -73,12 +73,12 @@ body {
 
 .search-area-wrap {
     grid-area: search;
-    border-radius: var(--main-border-radius);
+    border-radius: var(--main-border-radius, 12px);
 }
 
 .search-area {
-    background-color: var(--background-color-input);
-    border-radius: var(--main-border-radius);
+    background-color: var(--background-color-input, #E9E9E9);
+    border-radius: var(--main-border-radius, 12px);
     box-shadow: inset 0 4px 8px rgb(0 0 0 / 4%);
 
     display: grid;
@@ -97,9 +97,9 @@ body {
     margin-right: 10px;
     background: transparent;
     border: none;
-    font-family: 'InterMedium';
-    font-size: var(--font-size-12);
-    color: var(--font-color-gray-text);
+    font-family: 'InterMedium';  /* Todo: добавить fallback шрифты */
+    font-size: var(--font-size-12, 12px);
+    color: var(--font-color-gray-text, #6C6F72);
     height: 30px;
 }
 
@@ -112,7 +112,7 @@ body {
 }
 
 .notification-icon img {
-    height: var(--notification-img-size);
+    height: var(--notification-img-size, 24px);
 }
 
 .profile-icon {
@@ -121,7 +121,7 @@ body {
 }
 
 .profile-icon img {
-    height: var(--profile-img-size);
+    height: var(--profile-img-size, 30px);
 }
 
 
@@ -129,8 +129,8 @@ body {
 .profile-menu-icon {
     grid-area: menu;
 
-    font-family: "MailSansRoman";
-    color: var(--font-color-gray-text);
+    font-family: "MailSansRoman"; /* Todo: добавить fallback шрифты */
+    color: var(--font-color-gray-text, #6C6F72);
 }
 
 .exit {
@@ -173,9 +173,9 @@ body {
     display: grid;
 
     grid-template-rows: repeat(1, minmax(30px, 1fr));
-    background-color: var(--background-color-menu);
+    background-color: var(--background-color-menu, #FFFEFE);
     border-radius: 12px;
-    border: 1px solid var(--background-color-input);
+    border: 1px solid var(--background-color-input, #E9E9E9);
 }
 
 
@@ -192,10 +192,10 @@ body {
 
 
 .post-creator {
-    border-radius: var(--main-border-radius);
+    border-radius: var(--main-border-radius, 12px);
     grid-area: post_creator;
-    padding-left: var(--feed-content-padding);
-    padding-right: var(--feed-content-padding);
+    padding-left: var(--feed-content-padding, 18px);
+    padding-right: var(--feed-content-padding, 18px);
     background: #FFFFFF;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
 
@@ -221,7 +221,7 @@ body {
 }
 
 .post-creator-profile img {
-    height: var(--profile-img-size);
+    height: var(--profile-img-size, 30px);
 }
 .post-creator-element img:nth-child(2) {
     display: none;
@@ -236,9 +236,9 @@ body {
 }
 
 .post-input input {
-    font-family: InterRegular;
+    font-family: InterRegular;  /* Todo: добавить fallback шрифты */
     font-size: 15px;
-    color: var(--font-color-reg-info);
+    color: var(--font-color-reg-info, #8D949D);
 
     width: 100%;
     border: none;
@@ -250,10 +250,10 @@ body {
 }
 
 .side-bar {
-    padding-top: var(--main-margin);
+    padding-top: var(--main-margin, 20px);
     padding-right: 15px;
     grid-area: menu;
-    background-color: var(--background-color-menu);
+    background-color: var(--background-color-menu, #FFFEFE);
 
     display: grid;
     grid-template-areas: 
@@ -281,7 +281,7 @@ body {
         padding-top: 12px;
         padding-right: 0px;
         grid-area: menu;
-        background-color: var(--background-color-menu);
+        background-color: var(--background-color-menu, #FFFEFE);
 
         display: grid;
         grid-template-areas: 
@@ -310,9 +310,9 @@ body {
 }
 
 .logo-block .logo-text {
-    font-family: Limelight;
-    font-size: var(--font-size-28);
-    color: var(--font-color-logo-color);
+    font-family: Limelight;  /* Todo: добавить fallback шрифты */
+    font-size: var(--font-size-28, 28px);
+    color: var(--font-color-logo-color, #44009D);
 }
 
 .nav-list {
@@ -356,7 +356,7 @@ body {
 
     color: var(--font-color-nav);
 
-    font-size: var(--font-size-12);
+    font-size: var(--font-size-12, 12px);
 
 }
 
@@ -365,13 +365,13 @@ body {
         display: flex;
         justify-content: center;
 
-        border-radius: var(--main-border-radius);
+        border-radius: var(--main-border-radius, 12px);
 
         margin-bottom: 8px;
 
         color: var(--font-color-nav);
 
-        font-size: var(--font-size-12);*/
+        font-size: var(--font-size-12, 12px);*/
 
     }
 
@@ -385,7 +385,7 @@ body {
 }
 
 .nav-item * {
-    font-family: "MailSansRoman";
+    font-family: "MailSansRoman";  /* Todo: добавить fallback шрифты */
 }
 
 
@@ -433,15 +433,15 @@ body {
 
 
 .post {
-    font-family: "MailSansRoman";
-    font-size: var(--font-size-12);
+    font-family: "MailSansRoman";  /* Todo: добавить fallback шрифты */
+    font-size: var(--font-size-12, 12px);
     color: var(--font-color-post-sender);
 
     padding: var(--feed-content-padding);
 
-    border-radius: var(--main-border-radius);
+    border-radius: var(--main-border-radius, 12px);
 
-    background-color: var(--background-color-menu);
+    background-color: var(--background-color-menu, #FFFEFE);
 
     display: grid;
     grid-template-columns: minmax(50px, 1fr);
@@ -473,7 +473,7 @@ body {
 }
 
 .post-author-image img {
-    height: var(--profile-img-size);
+    height: var(--profile-img-size, 30px);
 }
 
 .post-author-name {
@@ -506,20 +506,20 @@ body {
     align-items: center;
     justify-content: center;
 
-    border-radius: var(--main-border-radius);
-    background-color: var(--background-color-menu);
+    border-radius: var(--main-border-radius, 12px);
+    background-color: var(--background-color-menu, #FFFEFE);
     border: 1px solid var(--background-color-nav-notify);
 }
 
 
 .post-bottom span {
-    font-size: var(--font-size-12);
+    font-size: var(--font-size-12, 12px);
     color: var(--font-color-nav);
 }
 
 
 .post-bottom button:hover {
-    background-color: var(--background-color-input);
+    background-color: var(--background-color-input, #E9E9E9);
     cursor: pointer;
 }
 
@@ -597,7 +597,7 @@ body {
 }
 
 .commentators-photo img {
-    height: var(--profile-img-size);
+    height: var(--profile-img-size, 30px);
 }
 
 .commentators-name {
@@ -610,8 +610,8 @@ body {
 
 .comment-date {
     grid-area: date;
-    font-size: var(--font-size-10) !important;
-    color: var(--font-color-gray-text) !important;
+    font-size: var(--font-size-10, 10px) !important;
+    color: var(--font-color-gray-text, #6C6F72) !important;
 }
 
 .comment-edit-block {
@@ -650,35 +650,35 @@ body {
 }
 
 .comment-profile-icon img {
-    width: var(--profile-img-size);
-    height: var(--profile-img-size);
+    width: var(--profile-img-size, 30px);
+    height: var(--profile-img-size, 30px);
 }
 
 .attach-photo-icon img, .choose-emoji-icon img {
-    height: var(--input-widgets-size);
-    width: var(--input-widgets-size);
+    height: var(--input-widgets-size, 25px);
+    width: var(--input-widgets-size, 25px);
 }
 
 
 .comment-input-block input {
-    background-color: var(--background-color-input);
+    background-color: var(--background-color-input, #E9E9E9);
 
-    border-radius: var(--main-border-radius);
+    border-radius: var(--main-border-radius, 12px);
     border: none;
 
     text-indent: 5px;
 
-    font-family: 'InterMedium';
-    font-size: var(--font-size-12);
-    color: var(--font-color-gray-text);
+    font-family: 'InterMedium';  /* Todo: добавить fallback шрифты */
+    font-size: var(--font-size-12, 12px);
+    color: var(--font-color-gray-text, #6C6F72);
     width: 100%;
     height: 28px;
 }
 
 .comment-input-block input::placeholder {
-    font-family: InterMedium;
-    color: var(--font-color-gray-text);
-    font-size: var(--font-size-12);
+    font-family: InterMedium;  /* Todo: добавить fallback шрифты */
+    color: var(--font-color-gray-text, #6C6F72);
+    font-size: var(--font-size-12, 12px);
 }
 
 
@@ -709,8 +709,8 @@ body {
 .logo-path {
     grid-area: logo-path;
 
-    background-image: url(img/background_right.svg); /* Фоновый цвет и фоновый рисунок*/
-    background-repeat: no-repeat repeat; /* Изображение повторяется по горизонтали */
+    /*background-image: url(img/background_right.svg);*/
+    /*background-repeat: no-repeat repeat; */
     background-size: cover;
 
     display: grid;
@@ -737,7 +737,7 @@ body {
 
 
     grid-template-rows: minmax(10px, 30%) minmax(40px, 20%) minmax(40px, 30%) minmax(10px, 20%);
-    background: var(--background-color-logo-table);
+    background: var(--background-color-logo-table, rgba(251, 221, 255, 0.4));
     backdrop-filter: blur(2px);
     border-radius: 12px;
 }
@@ -749,9 +749,9 @@ body {
     grid-gap: 9px;
 
     grid-area: logo-text;
-    font-family: Limelight;
-    font-size: var(--font-size-28);
-    color: var(--font-color-logo-color);
+    font-family: Limelight;  /* Todo: добавить fallback шрифты */
+    font-size: var(--font-size-28, 28px);
+    color: var(--font-color-logo-color, #44009D);
 }
 
 .logo-table .logo-table-text {
@@ -759,7 +759,7 @@ body {
     grid-area: logo-table-text;
 
     text-align: center;
-    font-family: 'Comfortaa';
-    font-size: var(--font-size-23);
-    color: var(--font-color-select-dark);
+    font-family: 'Comfortaa';  /* Todo: добавить fallback шрифты */
+    font-size: var(--font-size-23, 23px);
+    color: var(--font-color-select-dark, #D9D9D9);
 }
