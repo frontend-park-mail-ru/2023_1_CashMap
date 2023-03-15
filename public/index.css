@@ -1,3 +1,7 @@
+@import "pages/feed/feed.css";
+@import "pages/sign-in/sign-in.css";
+@import "pages/sign-up/sign-up.css";
+
 @font-face {
     font-family: Limelight; /* Имя шрифта */
     src: url(static/fonts/Limelight-Regular.ttf); /* Путь к файлу со шрифтом */
