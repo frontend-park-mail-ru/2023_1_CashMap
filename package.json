@@ -4,6 +4,7 @@
   "description": "messenger Depeche",
   "main": "index.js",
   "scripts": {
+    "prestart": "handlebars public/components/*/*.handlebars -f public/templates.precompiled.js",
     "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
