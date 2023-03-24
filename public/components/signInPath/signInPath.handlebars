@@ -1,0 +1,18 @@
+<div class="signIn-path">
+    <div class="signIn-table">
+        <span class="signIn-table__title font-Comfortaa font-size-23 font-color-title"> {{ title }} </span>
+        <div class="input-table">
+            {{#each inputFields}}
+                {{> inputField this}}
+            {{/each}}
+
+            {{> button buttonInfo}}
+
+            <a class="input-table__link font-MailSansRoman font-size-16 font-color-info" id="{{ link.jsId }}"> {{ link.text }} </a>
+
+            <span class="input-table__link-info font-InterMedium font-size-15 font-color-reg-info">
+                {{ linkInfo }}
+            </span>
+        </div>
+    </div>
+</div>

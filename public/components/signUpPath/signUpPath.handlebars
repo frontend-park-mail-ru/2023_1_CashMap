@@ -1,0 +1,14 @@
+<div class="signUp-path">
+    <div class="signUp-table">
+        <span class="signUp-table__title font-Comfortaa font-size-23 font-color-title"> {{ title }} </span>
+        <div class="input-table">
+            {{#each inputFields}}
+                {{> inputField this}}
+            {{/each}}
+
+            {{> button buttonInfo}}
+
+            <a class="input-table__link font-MailSansRoman font-size-16 font-color-info" id="{{ link.jsId }}"> {{ link.text }} </a>
+        </div>
+    </div>
+</div>
