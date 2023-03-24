@@ -4,13 +4,13 @@ import Comment from "../components/comment/comment.js";
 import SideBar from "../components/sidebar/sidebar.js";
 import Header from "../components/header/header.js";
 import CreatePost from "../components/createPost/createPost.js";
-import Signup from "../components/signup/signup.js";
 import signUp from "./signup.js";
-import Login from "../components/login/login.js";
 import signIn from "./signin.js";
 import Ajax from "./ajax.js";
 
 import FeedController from './feed.js'
+import SignUp from "../components/signUp/signUp.js";
+import SignIn from "../components/signIn/signIn.js";
 
 function renderFeed(parent) {
     const request = Ajax.get('/api/feed?batch_size=10');
@@ -235,14 +235,14 @@ export function renderFeedPage() {
 
 export function renderSignupPage() {
     const rootElement = document.getElementById('root');
-    const createSignup = new Signup(rootElement, 'static/img/logo.svg', 'static/img/background_left.svg')
+    const createSignup = new SignUp(rootElement)
     createSignup.render()
     signUp()
 }
 
-export function renderLoginPage(parent) {
+export function renderLoginPage() {
     const rootElement = document.getElementById('root');
-    const createLogin = new Login(rootElement, 'static/img/logo.svg', 'static/img/background_right.svg')
+    const createLogin = new SignIn(rootElement)
     createLogin.render()
     signIn()
 }

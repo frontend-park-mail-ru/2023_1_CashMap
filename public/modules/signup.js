@@ -8,19 +8,19 @@ import {config} from "./goToPage.js";
  * @returns {}
  */
 export default function signUp() {
-    const firstNameField = document.getElementById('first-name');
-    const firstNameErrorField = document.getElementById('first-name-error');
-    const lastNameField = document.getElementById('last-name');
-    const lastNameErrorField = document.getElementById('last-name-error');
-    const emailField = document.getElementById('email');
-    const emailErrorField = document.getElementById('reg-email-error');
-    const passwordField = document.getElementById('password');
-    const passwordErrorField = document.getElementById('reg-password-error');
-    const passwordRepeatField = document.getElementById('repeat-password');
-    const passwordRepeatErrorField = document.getElementById('repeat-password-error');
+    const firstNameField = document.getElementById('js-first-name-input');
+    const firstNameErrorField = document.getElementById('js-first-name-error');
+    const lastNameField = document.getElementById('js-last-name-input');
+    const lastNameErrorField = document.getElementById('js-last-name-error');
+    const emailField = document.getElementById('js-email-input');
+    const emailErrorField = document.getElementById('js-email-error');
+    const passwordField = document.getElementById('js-password-input');
+    const passwordErrorField = document.getElementById('js-password-error');
+    const passwordRepeatField = document.getElementById('js-repeat-password-input');
+    const passwordRepeatErrorField = document.getElementById('js-repeat-password-error');
 
-    const regBtn = document.getElementById('reg-btn')
-    const logBtn = document.getElementById('log-btn')
+    const regBtn = document.getElementById('js-sign-up-btn')
+    const logBtn = document.getElementById('js-have-account-btn')
 
     regBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -31,16 +31,16 @@ export default function signUp() {
         const validLastName = validateSurname(lastNameField.value);
         const validTwoPasswords = validateTwoPasswords(passwordField.value, passwordRepeatField.value);
 
-        firstNameField.classList.add('correct-input')
-        firstNameField.classList.remove('incorrect-input')
-        lastNameField.classList.add('correct-input')
-        lastNameField.classList.remove('incorrect-input')
-        emailField.classList.add('correct-input')
-        emailField.classList.remove('incorrect-input')
-        passwordField.classList.add('correct-input')
-        passwordField.classList.remove('incorrect-input')
-        passwordRepeatField.classList.add('correct-input')
-        passwordRepeatField.classList.remove('incorrect-input')
+        firstNameField.classList.add('input-block__field_correct')
+        firstNameField.classList.remove('input-block__field_incorrect')
+        lastNameField.classList.add('input-block__field_correct')
+        lastNameField.classList.remove('input-block__field_incorrect')
+        emailField.classList.add('input-block__field_correct')
+        emailField.classList.remove('input-block__field_incorrect')
+        passwordField.classList.add('input-block__field_correct')
+        passwordField.classList.remove('input-block__field_incorrect')
+        passwordRepeatField.classList.add('input-block__field_correct')
+        passwordRepeatField.classList.remove('input-block__field_incorrect')
         firstNameErrorField.textContent = '';
         lastNameErrorField.textContent = '';
         emailErrorField.textContent = '';
@@ -66,34 +66,34 @@ export default function signUp() {
                     } else {
                         emailErrorField.textContent = "Ошибка сервера"
                     }
-                    emailField.classList.remove('correct-input')
-                    emailField.classList.add('incorrect-input')
+                    emailField.classList.remove('input-block__field_correct')
+                    emailField.classList.add('input-block__field_incorrect')
                 })
         } else {
             if (validEmail.status === false) {
                 emailErrorField.textContent = validEmail.error;
-                emailField.classList.remove('correct-input')
-                emailField.classList.add('incorrect-input')
+                emailField.classList.remove('input-block__field_correct')
+                emailField.classList.add('input-block__field_incorrect')
             }
             if (validFirstName.status === false) {
                 firstNameErrorField.textContent = validFirstName.error;
-                firstNameField.classList.remove('correct-input')
-                firstNameField.classList.add('incorrect-input')
+                firstNameField.classList.remove('input-block__field_correct')
+                firstNameField.classList.add('input-block__field_incorrect')
             }
             if (validLastName.status === false) {
                 lastNameErrorField.textContent = validLastName.error;
-                lastNameField.classList.remove('correct-input')
-                lastNameField.classList.add('incorrect-input')
+                lastNameField.classList.remove('input-block__field_correct')
+                lastNameField.classList.add('input-block__field_incorrect')
             }
             if (validPassword.status === false) {
                 passwordErrorField.textContent = validPassword.error;
-                passwordField.classList.remove('correct-input')
-                passwordField.classList.add('incorrect-input')
+                passwordField.classList.remove('input-block__field_correct')
+                passwordField.classList.add('input-block__field_incorrect')
             }
             if (validTwoPasswords.status === false) {
                 passwordRepeatErrorField.textContent = validTwoPasswords.error;
-                passwordRepeatField.classList.remove('correct-input')
-                passwordRepeatField.classList.add('incorrect-input')
+                passwordRepeatField.classList.remove('input-block__field_correct')
+                passwordRepeatField.classList.add('input-block__field_incorrect')
             }
         }
     });

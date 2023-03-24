@@ -9,13 +9,13 @@ import {config} from "./goToPage.js";
  * @returns {}
  */
 export default function signIn() {
-    const emailField = document.getElementById('email-field');
-    const emailErrorField = document.getElementById('email-error');
-    const passwordField = document.getElementById('password-field');
-    const passwordErrorField = document.getElementById('password-error');
+    const emailField = document.getElementById('js-email-input');
+    const emailErrorField = document.getElementById('js-email-error');
+    const passwordField = document.getElementById('js-password-input');
+    const passwordErrorField = document.getElementById('js-password-error');
 
-    const authBtn = document.getElementById('auth')
-    const newBtn = document.getElementById('new')
+    const authBtn = document.getElementById('js-sign-in-btn')
+    const newBtn = document.getElementById('js-create-account-btn')
 
     authBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -23,10 +23,10 @@ export default function signIn() {
         const validEmail = validateEmail(emailField.value);
         const validPassword = validatePasswordAuth(passwordField.value);
 
-        emailField.classList.add('correct-input')
-        emailField.classList.remove('incorrect-input')
-        passwordField.classList.add('correct-input')
-        passwordField.classList.remove('incorrect-input')
+        emailField.classList.add('input-block__field_correct')
+        emailField.classList.remove('input-block__field_incorrect')
+        passwordField.classList.add('input-block__field_correct')
+        passwordField.classList.remove('input-block__field_incorrect')
         emailErrorField.textContent = ''
         passwordErrorField.textContent = '';
 
@@ -47,19 +47,19 @@ export default function signIn() {
                     } else {
                         emailErrorField.textContent = "Ошибка сервера"
                     }
-                    emailField.classList.remove('correct-input')
-                    emailField.classList.add('incorrect-input')
+                    emailField.classList.remove('input-block__field_correct')
+                    emailField.classList.add('input-block__field_incorrect')
                 })
         } else {
             if (validEmail.status === false) {
                 emailErrorField.textContent = validEmail.error;
-                emailField.classList.remove('correct-input')
-                emailField.classList.add('incorrect-input')
+                emailField.classList.remove('input-block__field_correct')
+                emailField.classList.add('input-block__field_incorrect')
             }
             if (validPassword.status === false) {
                 passwordErrorField.textContent = validPassword.error;
-                passwordField.classList.remove('correct-input')
-                passwordField.classList.add('incorrect-input')
+                passwordField.classList.remove('input-block__field_correct')
+                passwordField.classList.add('input-block__field_incorrect')
             }
         }
     });
