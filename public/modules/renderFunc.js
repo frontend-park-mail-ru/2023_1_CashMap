@@ -1,7 +1,7 @@
 import Post from "../components/post/post.js";
 import CommentArea from "../components/commentArea/commentArea.js";
 import Comment from "../components/comment/comment.js";
-import SideBar from "../components/sidebar/sidebar.js";
+import SideBar from "../components/sideBar/sideBar.js";
 import Header from "../components/header/header.js";
 import CreatePost from "../components/createPost/createPost.js";
 import signUp from "./signup.js";
@@ -11,6 +11,7 @@ import Ajax from "./ajax.js";
 import FeedController from './feed.js'
 import SignUp from "../components/signUp/signUp.js";
 import SignIn from "../components/signIn/signIn.js";
+import Feed from "../components/feed/feed.js";
 
 function renderFeed(parent) {
     const request = Ajax.get('/api/feed?batch_size=10');
@@ -53,7 +54,7 @@ function renderFeed(parent) {
             }
         })
         .catch(response =>{
-            alert('catch '+ response.message)
+            alert('catch! '+ response.message)
         })
 }
 
@@ -209,7 +210,7 @@ export function renderCreatePost(parent) {
 
 // render pages
 
-export function renderFeedPage() {
+export function renderFeedPageLast() {
     const rootElement = document.getElementById('root')
     const main = document.createElement('div');
     main.classList.add('main');
@@ -231,6 +232,25 @@ export function renderFeedPage() {
     const mainElem = document.querySelector('.main');
     const feedController = new FeedController(mainElem);
     feedController.setup();
+}
+
+export function renderFeedPage() {
+    const request = Ajax.get('/api/feed?batch_size=10');
+    request
+        .then(response => {
+            if (response.status === 200) {
+                const posts = response.body.posts;
+                const rootElement = document.getElementById('root');
+                const createFeed = new Feed(rootElement, posts)
+                createFeed.render()
+                // ToDo: дописать метод для слушанья кнопопк
+            } else {
+                alert('renderFeedPage not 200');
+            }
+        })
+        .catch(response =>{
+            alert('catch renderFeedPage '+ response.message)
+        })
 }
 
 export function renderSignupPage() {

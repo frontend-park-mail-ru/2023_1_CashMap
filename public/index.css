@@ -5,6 +5,10 @@
 @import "components/logoPath/logoPath.css";
 @import "components/button/button.css";
 @import "components/inputField/inputField.css";
+@import "components/feed/feed.css";
+@import "components/sideBar/sideBar.css";
+@import "components/header/header.css";
+@import "components/postArea/postArea.css";
 
 @font-face {
     font-family: Limelight; /* Имя шрифта */

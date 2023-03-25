@@ -10,19 +10,19 @@ export const config = {
         name: 'Авторизация',
         href: '/login',
         render: renderLoginPage,
-        key: 'main-auth',
+        key: 'sign-in',
     },
     signup: {
         name: 'Регистрация',
         href: '/signup',
         render: renderSignupPage,
-        key: 'main-reg',
+        key: 'sign-up',
     },
     feed: {
         name: 'Лента',
         href: '/feed',
         render: renderFeedPage,
-        key: 'main',
+        key: 'feed',
     },
 };
 
@@ -33,6 +33,7 @@ export const config = {
  * @returns {}
  */
 function removePage(configSection) {
+    console.log('removePage');
     const curPage = document.getElementById(configSection.key);
     if (curPage) {
         curPage.remove();

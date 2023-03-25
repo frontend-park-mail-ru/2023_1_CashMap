@@ -45,8 +45,6 @@ export default class Ajax {
         }
     }
 
-
-
     static async post(url, body) {
         const response = await fetch(URL+url, {
             method: AJAX_METHOD_TYPES.POST,
@@ -63,5 +61,4 @@ export default class Ajax {
             body: response.body,
         }
     }
-
 };
