@@ -1,22 +1,5 @@
-<div class="logo-block">
-    <img class="logo-pic" src={{ logoPath }}/>
-    <div class="logo-text">{{ logoTitle }}</div>
-</div>
-
-<div class="nav-list">
-    <ol>
-        {{#each itemsList}}
-            <a href={{ this.ref }}>
-                <li class="nav-item">
-                    <img class="nav-item-icon" src={{ this.iconPath }}/>
-                    <img class="nav-item-icon" src={{ this.hoveredIconPath }}/>
-                    <div class="nav-item-text"><span>{{ title }}</span></div>
-                    {{#if notifies}}
-                        <div class="nav-item-notify"><p>{{ notifies }}</p></div>
-                    {{/if}}
-                </li>
-            </a>
-
-        {{/each}}
-    </ol>
+<div class="feed" id="feed">
+    {{> sideBar sideBarData}}
+    {{> header headerData}}
+    <div class="feed__post-area"> {{> postArea postAreaData}} </div>
 </div>
