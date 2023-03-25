@@ -1,0 +1,19 @@
+<div class="side-bar">
+    <div class="logo-block">
+        <img class="logo-block__pic" src={{ logoImgPath }}>
+        <span class="logo-block__text font-Limelight font-size-28 font-color-logo-color">
+            {{ logoText }}
+        </span>
+    </div>
+
+
+    <div class="menu">
+        {{#each buttons}}
+            <div class="menu-item" id="{{ jsId }}">
+                <img class="menu-item__icon" src={{ iconPath }}>
+                <span class="menu-item__text">{{ text }}</span>
+            </div>
+        {{/each}}
+    </div>
+
+</div>
