@@ -1,0 +1,10 @@
+.menu-item {
+    width: 280px;
+    height: 40px;
+    border: none;
+}
+.menu-item__text {
+    display: inline-grid;
+    justify-content: center;
+    align-items: center;
+}
