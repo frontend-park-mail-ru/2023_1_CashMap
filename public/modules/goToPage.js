@@ -33,7 +33,6 @@ export const config = {
  * @returns {}
  */
 function removePage(configSection) {
-    console.log('removePage');
     const curPage = document.getElementById(configSection.key);
     if (curPage) {
         curPage.remove();

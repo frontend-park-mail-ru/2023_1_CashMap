@@ -33,10 +33,10 @@
     height: 40px;
     display: grid;
     grid-template-columns: 10px 20px 8px 106px 8px 22px 10px;
+    grid-template-rows: ;
 }
 .menu-item__icon {
     width: 100%;
-    height: 100%;
     object-fit: cover;
     overflow: hidden;
 
@@ -47,4 +47,10 @@
     align-items: center;
 
     grid-column: 4;
+}
+.menu-item__notifies {
+    display: inline-grid;
+    align-items: center;
+
+    grid-column: 6;
 }

@@ -8,11 +8,8 @@
 
 
     <div class="menu">
-        {{#each buttons}}
-            <div class="menu-item" id="{{ jsId }}">
-                <img class="menu-item__icon" src={{ iconPath }}>
-                <span class="menu-item__text">{{ text }}</span>
-            </div>
+        {{#each menuItemList}}
+            {{> menuItem this}}
         {{/each}}
     </div>
 
