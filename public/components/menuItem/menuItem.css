@@ -1,10 +1,28 @@
 .menu-item {
     width: 280px;
     height: 40px;
-    border: none;
+    display: grid;
+    grid-template-columns: 10px 20px 8px 106px 8px 22px 10px;
+}
+.menu-item__icon {
+    width: 100%;
+    object-fit: cover;
+    overflow: hidden;
+
+    margin-top: auto;
+    margin-bottom: auto;
+
+    grid-column: 2;
 }
 .menu-item__text {
     display: inline-grid;
-    justify-content: center;
     align-items: center;
+
+    grid-column: 4;
+}
+.menu-item__notifies {
+    display: inline-grid;
+    align-items: center;
+
+    grid-column: 6;
 }

@@ -1,5 +1,48 @@
 .header {
     position: fixed;
-    right: 100px;
-    width: 1300px;
+
+    display: grid;
+    grid-template-columns: 64% 19.8% 3.3% 2.7% 7% 3.2%;
+}
+.search-area {
+    grid-column: 1;
+    mix-blend-mode: normal;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.04);
+
+    display: grid;
+    grid-template-columns: 30px 1fr;
+}
+.search-area__icon {
+    margin: auto;
+}
+.search-area__input {
+    margin-right: 10px;
+}
+
+
+.notification {
+    grid-column: 3;
+}
+.notification__icon {
+
+}
+.profile {
+    grid-column: 5;
+}
+.profile__icon {
+
+}
+.profile-menu-icon {
+    margin: auto;
+    grid-column: 6;
+}
+
+
+.header-size {
+    width: 758px;
+    height: 38px;
+}
+.header-position {
+    left: 479px;
+    top: 32px;
 }

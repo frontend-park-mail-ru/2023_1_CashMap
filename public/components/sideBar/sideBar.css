@@ -1,9 +1,10 @@
 .side-bar {
-    width: 100%;
+    position: fixed;
+    background: var(--background-color-side-bar);
+
     display: grid;
     grid-template-rows: 31px 35px 35px 1fr;
     grid-template-columns: 222px 1fr 14px;
-
 }
 .logo-block {
     grid-row: 2;
@@ -29,28 +30,11 @@
     grid-row: 4;
     grid-column: 2;
 }
-.menu-item {
-    height: 40px;
-    display: grid;
-    grid-template-columns: 10px 20px 8px 106px 8px 22px 10px;
-    grid-template-rows: ;
-}
-.menu-item__icon {
-    width: 100%;
-    object-fit: cover;
-    overflow: hidden;
 
-    grid-column: 2;
-}
-.menu-item__text {
-    display: inline-grid;
-    align-items: center;
 
-    grid-column: 4;
-}
-.menu-item__notifies {
-    display: inline-grid;
-    align-items: center;
 
-    grid-column: 6;
+
+.side-bar-size {
+    width: var(--side-bar-width, 427px);
+    height: var(--side-bar-height, 100%);
 }
