@@ -1,25 +1,7 @@
 <div class="post-area">
-    <div class="logo-block">
-        <img class="logo-pic" src={{ logoPath }}>
-        <div class="logo-text">{{ logoTitle }}</div>
-    </div>
+    {{> createPost createPostData }}
 
-    <div class="nav-list">
-        <ol>
-            {{#each itemsList}}
-
-                <a href={{ ref }}>
-                    <li class="nav-item">
-                        <img class="nav-item-icon" src={{ iconPath }}>
-                        <img class="nav-item-icon" src={{ hoveredIconPath }}>
-                        <div class="nav-item-text"><span>{{ title }}</span></div>
-                        {{#if notifies}}
-                            <div class="nav-item-notify"><p>{{ notifies }}</p></div>
-                        {{/if}}
-                    </li>
-                </a>
-
-            {{/each}}
-        </ol>
-    </div>
+    {{#each postList}}
+        {{> post this}}
+    {{/each}}
 </div>

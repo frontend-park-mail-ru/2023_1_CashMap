@@ -24,7 +24,8 @@ export default class Feed {
 				avatar: 'static/img/post_icons/profile_image.svg',
 			},
 			postAreaData: {
-				post: posts,
+				createPostData: { avatar: "static/img/post_icons/profile_image.svg" },
+				postList: posts,
 			},
 		};
 	}
@@ -37,6 +38,8 @@ export default class Feed {
 		Handlebars.registerPartial('header', Handlebars.templates.header)
 		Handlebars.registerPartial('postArea', Handlebars.templates.postArea)
 		Handlebars.registerPartial('menuItem', Handlebars.templates.menuItem)
+		Handlebars.registerPartial('post', Handlebars.templates.post)
+		Handlebars.registerPartial('createPost', Handlebars.templates.createPost)
 
 		const template = Handlebars.templates.feed;
 		this.#parent.innerHTML = template(this.#config);

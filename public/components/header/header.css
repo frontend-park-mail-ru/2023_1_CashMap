@@ -7,7 +7,6 @@
 .search-area {
     grid-column: 1;
     mix-blend-mode: normal;
-    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.04);
 
     display: grid;
     grid-template-columns: 30px 1fr;
@@ -41,10 +40,10 @@
 
 
 .header-size {
-    width: 758px;
+    width: 55%;
     height: 38px;
 }
 .header-position {
-    left: 479px;
+    left: 28.6%;
     top: 32px;
 }
