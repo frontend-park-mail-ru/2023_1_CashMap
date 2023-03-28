@@ -73,6 +73,7 @@
     --font-color-nav: #6C6F72;
     --font-color-nav-hover: #B95DD9;
     --font-color-post-sender: #474852;
+    --font-color-text: #0D0F1E;
 
     --background-color-main: #FAFAFA;
     --background-color-error: #FFEBEB;
@@ -166,6 +167,9 @@
 }
 .font-color-post-sender {
     color: var(--font-color-post-sender, #474852);
+}
+.font-color-text {
+    color: var(--font-color-text, #0D0F1E);
 }
 
 .background-color-main {

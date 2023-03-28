@@ -234,6 +234,13 @@ export function renderFeedPage() {
         .then(response => {
             if (response.status === 200) {
                 const posts = response.body.posts;
+
+                for (let i = 0; i < posts.length; i++) {
+                    posts[i].date = (new Date(posts[i].date)).toLocaleDateString('ru-RU', { dateStyle: 'medium' })
+                    posts[i].senderPhoto = 'static/img/post_icons/profile_image.svg';
+                    posts[i].commentsCount = posts[i].comments.length;
+                }
+
                 const rootElement = document.getElementById('root');
                 const createFeed = new Feed(rootElement, posts)
                 createFeed.render()

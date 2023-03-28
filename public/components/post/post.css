@@ -1,16 +1,64 @@
 .post {
     display: grid;
-    grid-gap: 32px;
+    grid-gap: 8px;
 }
 .post-profile {
-
+    display: grid;
+    grid-template-columns: 2.6% 4.6% 1% 84.5% 1% 2.1% 4.2%;
+    grid-template-rows: 8px 16% 32% 10% 26% 16%;
+}
+.post-profile__avatar {
+    margin: auto;
+    grid-column: 2;
+    grid-row: 2 / 5;
+}
+.post-profile__name {
+    grid-column: 4;
+    grid-row: 2;
+}
+.post-profile__date {
+    grid-column: 4;
+    grid-row: 4;
+}
+.post-profile__dots {
+    grid-column: 6;
+    grid-row: 3;
 }
 .post-text {
-
+    margin-right: 4%;
+    margin-left: 2.6%;
 }
 .post-media {
-
+    margin-right: 4%;
+    margin-left: 2.6%;
 }
 .post-buttons {
-
+    display: grid;
+    grid-template-columns: 2.6% 6% 6% 6%;
+}
+.post-buttons__icon {
+    margin: auto;
+}
+.post-buttons-like {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.like__count {
+    display: inline-grid;
+    align-items: center;
+    text-align: center;
+}
+.post-buttons-comment {
+    grid-column: 3;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.comment__count {
+    display: inline-grid;
+    align-items: center;
+    text-align: center;
+}
+.post-buttons-bookmark {
+    grid-column: 4;
 }

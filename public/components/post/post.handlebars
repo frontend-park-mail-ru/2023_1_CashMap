@@ -1,8 +1,26 @@
 <div class="post background-color-post border-radius">
-    <div class="post-profile"></div>
-    <div class="post-text"></div>
+    <div class="post-profile">
+        <img class="post-profile__avatar" src="{{ senderPhoto }}">
+        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender"> {{ sender_name }} </span>
+        <span class="post-profile__date font-InterMedium font-size-12 font-color-gray-text"> {{ date }} </span>
+        <img class="post-profile__dots" src="static/img/post_icons/post_menu.svg">
+    </div>
+
+    <div class="post-text font-MailSansRoman font-size-16 font-color-text"> {{ text }} </div>
     <div class="post-media"></div>
-    <div class="post-buttons"></div>
+    <div class="post-buttons">
+        <div class="post-buttons-like">
+            <img class="post-buttons__icon" src="static/img/post_icons/like.svg">
+            <span class="like__count"> {{ likes }} </span>
+        </div>
+        <div class="post-buttons-comment">
+            <img class="post-buttons__icon" src="static/img/post_icons/comment.svg">
+            <span class="comment__count"> {{ commentsCount }} </span>
+        </div>
+        <div class="post-buttons-bookmark">
+            <img class="post-buttons__icon" src="static/img/post_icons/bookmark.svg">
+        </div>
+    </div>
 
     {{> commentArea this }}
 </div>
