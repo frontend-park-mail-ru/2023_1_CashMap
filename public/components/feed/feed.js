@@ -28,6 +28,8 @@ export default class Feed {
 				postList: posts,
 			},
 		};
+
+		console.log(posts);
 	}
 
 	render() {
@@ -40,6 +42,8 @@ export default class Feed {
 		Handlebars.registerPartial('menuItem', Handlebars.templates.menuItem)
 		Handlebars.registerPartial('post', Handlebars.templates.post)
 		Handlebars.registerPartial('createPost', Handlebars.templates.createPost)
+		Handlebars.registerPartial('commentArea', Handlebars.templates.commentArea)
+		Handlebars.registerPartial('comment', Handlebars.templates.comment)
 
 		const template = Handlebars.templates.feed;
 		this.#parent.innerHTML = template(this.#config);
