@@ -13,6 +13,8 @@
 @import "components/postArea/postArea.css";
 @import "components/createPost/createPost.css";
 @import "components/post/post.css";
+@import "components/commentArea/commentArea.css";
+@import "components/comment/comment.css";
 
 @font-face {
     font-family: Limelight; /* Имя шрифта */
@@ -228,5 +230,5 @@
 
 body, html, #root {
     margin: 0;
-    height: 100%;
+    min-height: 100vh;
 }
