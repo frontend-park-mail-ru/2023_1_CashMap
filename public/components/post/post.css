@@ -1,11 +1,14 @@
 .post {
     display: grid;
     grid-gap: 8px;
+
+    padding-bottom: 8px;
+    padding-top: 8px;
 }
 .post-profile {
     display: grid;
     grid-template-columns: 2.6% 4.6% 1% 84.5% 1% 2.1% 4.2%;
-    grid-template-rows: 8px 16% 32% 10% 26% 16%;
+    grid-template-rows: 16% 32% 10% 26% 16%;
 }
 .post-profile__avatar {
     margin: auto;
