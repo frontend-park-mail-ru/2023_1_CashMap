@@ -23,7 +23,7 @@ function renderFeed(parent) {
                     el[i].addEventListener('mouseover', (e) => {
                         e.preventDefault();
 
-                        let elPic = el[i].getElementsByClassName('comment-edit-block')
+                        let elPic = el[i].getElementsByClassName('comment-operations')
                         elPic = Array.prototype.slice.call(elPic)[0];
 
                         elPic.classList.remove('opacity-pic')
@@ -33,7 +33,7 @@ function renderFeed(parent) {
                     el[i].addEventListener('mouseout', (e) => {
                         e.preventDefault();
 
-                        let elPic = el[i].getElementsByClassName('comment-edit-block')
+                        let elPic = el[i].getElementsByClassName('comment-operations')
                         elPic = Array.prototype.slice.call(elPic)[0];
 
                         elPic.classList.add('opacity-pic')
@@ -249,6 +249,32 @@ export function renderFeedPage() {
                 const rootElement = document.getElementById('root');
                 const createFeed = new Feed(rootElement, posts)
                 createFeed.render()
+
+                let el = document.getElementsByClassName('comment')
+                el = Array.prototype.slice.call(el);
+
+                for (let i = 0; i < el.length; i++) {
+                    el[i].addEventListener('mouseover', (e) => {
+                        e.preventDefault();
+
+                        let elPic = el[i].getElementsByClassName('comment-operations')
+                        elPic = Array.prototype.slice.call(elPic)[0];
+
+                        elPic.classList.remove('opacity-pic')
+                        console.log(i)
+                    });
+
+                    el[i].addEventListener('mouseout', (e) => {
+                        e.preventDefault();
+
+                        let elPic = el[i].getElementsByClassName('comment-operations')
+                        elPic = Array.prototype.slice.call(elPic)[0];
+
+                        elPic.classList.add('opacity-pic')
+                        console.log(i)
+                        //comment-edit-block
+                    });
+                }
                 // ToDo: дописать метод для слушанья кнопопк
             } else {
                 alert('renderFeedPage not 200');

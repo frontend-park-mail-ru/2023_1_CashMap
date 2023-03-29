@@ -28,6 +28,8 @@ export default class Feed {
 				postList: posts,
 			},
 		};
+
+		console.log(posts)
 	}
 
 	render() {
