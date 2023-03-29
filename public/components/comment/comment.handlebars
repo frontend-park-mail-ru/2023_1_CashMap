@@ -1,10 +1,11 @@
-<div class="commentators-photo">
-    <img src={{ comment.senderPhotoPath }}>
-</div>
-<div class="commentators-name"><span>{{ comment.sender_name }}</span></div>
-<div class="comment-body"><span>{{ comment.text }}</span></div>
-<div class="comment-date">{{ comment.date }}</div>
-<div class="comment-edit-block opacity-pic">
-    <img src={{ paths.edit }}>
-    <img src={{ paths.delete }}>
+<div class="comment">
+    <img class="comment__avatar profile-img-size" src="{{ senderPhoto }}">
+    <span class="comment__name font-InterMedium font-size-15 font-color-comment-sender"> {{ sender_name }} </span>
+    <span class="comment__date font-InterMedium font-size-10 font-color-gray-text"> {{ date }} </span>
+    <div class="comment-operations">
+        <img class="comment-operations__update" src="static/img/comment_icons/edit.svg">
+        <img class="comment-operations__delete" src="static/img/comment_icons/delete.svg">
+    </div>
+    <span class="comment__text font-InterMedium font-size-15 font-color-text"> {{ text }} </span>
+    <div class="comment__media"></div>
 </div>

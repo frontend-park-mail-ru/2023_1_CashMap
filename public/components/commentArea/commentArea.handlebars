@@ -1,29 +1,16 @@
-<div class="comments-list">
-    {{#each comments }}
-        <div> awd </div>
-    {{/each}}
-</div>
-
-<div class="create-comment-section">
-    <div class="comment-profile-icon">
-        <img src={{ user.photoPath }}>
+<div class="comments-area">
+    <div class="comments-list">
+        {{#each comments }}
+            {{> comment this }}
+        {{/each}}
     </div>
 
-    <div class="comment-input-block">
-        <input placeholder="Написать комментарий">
-    </div>
+    <div class="create-comment">
+        <img class="create-comment__avatar profile-img-size" src={{ senderPhoto }}>
+        <input class="create-comment__input border-radius-btn-input background-item-hovered border-none" placeholder="Написать комментарий">
 
-    <div class="attach-photo-icon">
-        <img src={{ paths.attachPhotoIconPath }}>
-        <img src={{ paths.attachHoveredPhotoIconPath }}>
-    </div>
-
-    <div class="choose-emoji-icon">
-        <img src={{ paths.attachSmileIconPath }}>
-        <img src={{ paths.attachHoveredSmileIconPath }}>
-    </div>
-
-    <div class="send-icon">
-        <img src={{ paths.sendIconPath }}>
+        <img class="create-comment__photo-icon" src="static/img/post_icons/photo.svg">
+        <img class="create-comment__emoji-icon" src="static/img/post_icons/smile.svg">
+        <img class="create-comment__send-icon" src="static/img/post_icons/send.svg">
     </div>
 </div>
