@@ -1,5 +1,9 @@
-<div class="menu-item" id="{{ jsId }}">
-    <img class="menu-item__icon" src={{ iconPath }}>
-    <span class="menu-item__text font-color-gray-text font-size-15 font-MailSansRoman"> {{ text }} </span>
+<div class="menu-item hover-block border-radius-btn-input" id="{{ jsId }}">
+    <div class="margin-auto" style="grid-column: 2;">
+        <img class="margin-auto" src={{ iconPath }}>
+        <img class="margin-auto" src={{ hoveredIconPath }}>
+    </div>
+
+    <span class="menu-item__text font-size-15 font-MailSansRoman"> {{ text }} </span>
     <!--<span class="menu-item__notifies">{{ notifies }}</span>-->
 </div>

@@ -3,18 +3,12 @@
     width: 43%;
     height: 40px;
     margin-left: auto;
+    margin-right: 10px;
 
     display: grid;
-    grid-template-columns: 10px 20px 8px 106px 8px 22px 10px;
+    grid-template-columns: 10px 20px 8px 106px 8px 22px;
 }
 .menu-item__icon {
-    width: 100%;
-    object-fit: cover;
-    overflow: hidden;
-
-    margin-top: auto;
-    margin-bottom: auto;
-
     grid-column: 2;
 }
 .menu-item__text {
@@ -28,4 +22,21 @@
     align-items: center;
 
     grid-column: 6;
+}
+
+.hover-block {
+    color: var(--font-color-gray-text);
+}
+.hover-block:hover {
+    background-color: var(--background-item-hovered);
+    color: var(--font-color-menu-item-hover);
+}
+.hover-block img:nth-child(2) {
+    display: none;
+}
+.hover-block:hover img:nth-child(1) {
+    display: none;
+}
+.hover-block:hover img:nth-child(2) {
+    display: inline-block;
 }

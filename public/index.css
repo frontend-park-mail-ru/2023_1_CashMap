@@ -74,6 +74,7 @@
     --font-color-title: #000000;
     --font-color-nav: #6C6F72;
     --font-color-comment-sender: #B95DD9;
+    --font-color-menu-item-hover: #B95DD9;
     --font-color-post-sender: #474852;
     --font-color-text: #0D0F1E;
 
@@ -242,6 +243,24 @@
 .profile-img-size {
     width: var(--profile-img-size, 35px);
     height: var(--profile-img-size, 35px);
+}
+
+.margin-auto {
+    margin: auto;
+}
+
+
+.hover-pic {
+
+}
+.hover-pic img:nth-child(2) {
+    display: none;
+}
+.hover-pic:hover img:nth-child(1) {
+    display: none;
+}
+.hover-pic:hover img:nth-child(2) {
+    display: block;
 }
 
 body, html, #root {

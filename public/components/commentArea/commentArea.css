@@ -11,18 +11,3 @@
     grid-template-columns: 35px 12fr 5% 5% 1fr;
     grid-column-gap: 8px;
 }
-.create-comment__avatar {
-
-}
-.create-comment__input {
-
-}
-.create-comment__photo-icon {
-    margin: auto;
-}
-.create-comment__emoji-icon {
-    margin: auto;
-}
-.create-comment__send-icon {
-    margin: auto;
-}
