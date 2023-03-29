@@ -1,6 +1,10 @@
 import {renderFeedPage} from "./renderFunc.js";
 import {renderSignupPage} from "./renderFunc.js";
 import {renderLoginPage} from "./renderFunc.js";
+import {renderFriendsPage} from "./renderFunc.js";
+import {renderMessagesPage} from "./renderFunc.js";
+import {renderChatPage} from "./renderFunc.js";
+import {renderProfilePage} from "./renderFunc.js";
 import Ajax from "./ajax.js";
 
 let curPageConfig = null
@@ -23,6 +27,30 @@ export const config = {
         href: '/feed',
         render: renderFeedPage,
         key: 'feed',
+    },
+    profile: {
+        name: 'Профиль',
+        href: '/profile',
+        render: renderProfilePage,
+        key: 'profile',
+    },
+    friends: {
+        name: 'Друзья',
+        href: '/friends',
+        render: renderFriendsPage,
+        key: 'friends',
+    },
+    messages: {
+        name: 'Сообщения',
+        href: '/msg',
+        render: renderMessagesPage,
+        key: 'msg',
+    },
+    chat: {
+        name: 'Чат',
+        href: '/chat',
+        render: renderChatPage,
+        key: 'chat',
     },
 };
 

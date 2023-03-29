@@ -6,6 +6,10 @@ import FeedController from './feed.js'
 import SignUp from "../components/signUp/signUp.js";
 import SignIn from "../components/signIn/signIn.js";
 import Feed from "../components/feed/feed.js";
+import Friends from "../components/friends/friends.js";
+import Messages from "../components/messages/messages.js";
+import Chat from "../components/chatPage/chatPage.js";
+import Profile from "../components/profile/profile.js";
 
 function renderFeed(parent) {
     const request = Ajax.get('/api/feed?batch_size=10');
@@ -259,4 +263,32 @@ export function renderLoginPage() {
     const createLogin = new SignIn(rootElement)
     createLogin.render()
     signIn()
+}
+
+export function renderFriendsPage() {
+    const rootElement = document.getElementById('root');
+    const createFriends = new Friends(rootElement)
+    createFriends.render()
+    //Friends()
+}
+
+export function renderMessagesPage() {
+    const rootElement = document.getElementById('root');
+    const createMessages = new Messages(rootElement)
+    createMessages.render()
+    //Messages()
+}
+
+export function renderChatPage() {
+    const rootElement = document.getElementById('root');
+    const createChat = new Chat(rootElement)
+    createChat.render()
+    //Chat()
+}
+
+export function renderProfilePage() {
+    const rootElement = document.getElementById('root');
+    const createProfile = new Profile(rootElement)
+    createProfile.render()
+    //Profile()
 }
