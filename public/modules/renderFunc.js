@@ -239,6 +239,11 @@ export function renderFeedPage() {
                     posts[i].date = (new Date(posts[i].date)).toLocaleDateString('ru-RU', { dateStyle: 'medium' })
                     posts[i].senderPhoto = 'static/img/post_icons/profile_image.svg';
                     posts[i].commentsCount = posts[i].comments.length;
+
+                    for (let j = 0; j < posts[i].comments.length; j++) {
+                        posts[i].comments[j].date = (new Date(posts[i].comments[j].date)).toLocaleDateString('ru-RU', { dateStyle: 'medium' })
+                        posts[i].comments[j].senderPhoto = 'static/img/post_icons/profile_image.svg';
+                    }
                 }
 
                 const rootElement = document.getElementById('root');

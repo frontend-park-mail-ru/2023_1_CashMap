@@ -48,8 +48,9 @@
     --border-radius-btn: 8px;
 
     --feed-content-padding: 18px;
+    --post-padding: 20px;
 
-    --profile-img-size: 30px;
+    --profile-img-size: 35px;
     --notification-img-size: 24px;
     --input-widgets-size: 25px;
 
@@ -64,6 +65,7 @@
 
     --font-color-select-dark: #D9D9D9;
     --font-color-gray-text: #6C6F72;
+    --font-color-gray-icon: #9DA0A3;
     --font-color-info: #395EBA;
     --font-color-reg-info: #8D949D;
     --font-color-logo-color: #44009D;
@@ -71,7 +73,7 @@
     --font-color-btn: #FFFFFF;
     --font-color-title: #000000;
     --font-color-nav: #6C6F72;
-    --font-color-nav-hover: #B95DD9;
+    --font-color-comment-sender: #B95DD9;
     --font-color-post-sender: #474852;
     --font-color-text: #0D0F1E;
 
@@ -141,6 +143,9 @@
 .font-color-gray-text {
     color: var(--font-color-gray-text, #6C6F72);
 }
+.font-color-gray-icon {
+    color: var(--font-color-gray-icon, #9DA0A3);
+}
 .font-color-info {
     color: var(--font-color-info, #395EBA);
 }
@@ -162,8 +167,8 @@
 .font-color-nav {
     color: var(--font-color-nav, #6C6F72);
 }
-.font-color-nav-hover {
-    color: var(--font-color-nav-hover, #B95DD9);
+.font-color-comment-sender {
+    color: var(--font-color-comment-sender, #B95DD9);
 }
 .font-color-post-sender {
     color: var(--font-color-post-sender, #474852);
@@ -230,6 +235,13 @@
 }
 .text-indent-input {
     text-indent: var(--text-indent-input, 5px);
+}
+.post-padding {
+    padding: var(--post-padding, 20px);
+}
+.profile-img-size {
+    width: var(--profile-img-size, 35px);
+    height: var(--profile-img-size, 35px);
 }
 
 body, html, #root {
