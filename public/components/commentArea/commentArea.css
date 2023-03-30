@@ -11,3 +11,6 @@
     grid-template-columns: 35px 12fr 5% 5% 1fr;
     grid-column-gap: 8px;
 }
+.create-comment__input {
+    outline:none;
+}
