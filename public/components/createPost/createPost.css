@@ -9,4 +9,6 @@
 }
 .create-post__input {
     grid-column: 4;
+
+    outline:none;
 }

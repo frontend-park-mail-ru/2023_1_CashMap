@@ -60,6 +60,7 @@
     --font-size-12: 12px;
     --font-size-15: 15px;
     --font-size-16: 16px;
+    --font-size-19: 19px;
     --font-size-23: 23px;
     --font-size-28: 28px;
 
@@ -132,6 +133,9 @@
 }
 .font-size-16 {
     font-size: var(--font-size-16, 16px);
+}
+.font-size-19 {
+    font-size: var(--font-size-19, 19px);
 }
 .font-size-23 {
     font-size: var(--font-size-23, 23px);
@@ -273,6 +277,12 @@
 
 .opacity-pic {
     visibility: hidden;
+}
+
+.hidden-and-add-dots {
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis; /* Добавляем многоточие */
 }
 
 body, html, #root {

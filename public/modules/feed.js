@@ -11,7 +11,7 @@ export default class FeedController {
 	}
 
 	setup() {
-		const exitItem = this.#mainElement.querySelector('.header-dropdown-menu .exit');
+		const exitItem = document.getElementById('js-exit-btn');
 		exitItem.addEventListener('click', () => {
 			const request = Ajax.post('/auth/logout');
 			request

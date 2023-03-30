@@ -25,6 +25,7 @@ export default class SignIn {
                         jsIdError: 'js-password-error'}],
                 buttonInfo: { text: 'Войти',
                     jsId: 'js-sign-in-btn'},
+                errorInfo: { jsId: 'js-sign-in-error' },
                 link: { text:'У вас еще нет аккаунта? Зарегистрироваться',
                     jsId: 'js-create-account-btn'},
                 linkInfo: 'После успешной регистрации вы получите доступ ко всем функциям Depeche',

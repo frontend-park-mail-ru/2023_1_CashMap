@@ -3,6 +3,10 @@
     grid-template: 70% 2% 28%/ 100%;
 }
 .input-block__field {
+    outline:none;
+    padding-left: 10px;
+    padding-right: 10px;
+
     grid-row: 1;
     grid-column: 1;
 }

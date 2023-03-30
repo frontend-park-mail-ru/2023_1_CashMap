@@ -27,6 +27,11 @@
     grid-row-gap: 16px;
     grid-column: 2;
 }
+.input-table__error-info {
+    display: inline-grid;
+    align-items: center;
+    text-align: center;
+}
 .input-table__link {
     display: inline-grid;
     align-items: center;

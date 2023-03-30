@@ -13,6 +13,7 @@ export default function signIn() {
     const emailErrorField = document.getElementById('js-email-error');
     const passwordField = document.getElementById('js-password-input');
     const passwordErrorField = document.getElementById('js-password-error');
+    const error = document.getElementById('js-sign-in-error');
 
     const authBtn = document.getElementById('js-sign-in-btn')
     const newBtn = document.getElementById('js-create-account-btn')
@@ -29,6 +30,7 @@ export default function signIn() {
         passwordField.classList.remove('input-block__field_incorrect')
         emailErrorField.textContent = ''
         passwordErrorField.textContent = '';
+        error.textContent = '';
 
         if (validEmail.status && validPassword.status) {
             const request = Ajax.post('/auth/sign-in', {"email": emailField.value, "password": passwordField.value});
@@ -43,23 +45,21 @@ export default function signIn() {
                 })
                 .catch( response => {
                     if (response.status == "404") {
-                        emailErrorField.textContent = "Пользователь не найден"
+                        error.textContent = "Пользователь не найден"
                     } else {
-                        emailErrorField.textContent = "Ошибка сервера"
+                        error.textContent = "Ошибка сервера"
                     }
-                    emailField.classList.remove('input-block__field_correct')
-                    emailField.classList.add('input-block__field_incorrect')
                 })
         } else {
             if (validEmail.status === false) {
                 emailErrorField.textContent = validEmail.error;
-                emailField.classList.remove('input-block__field_correct')
-                emailField.classList.add('input-block__field_incorrect')
+                emailField.classList.remove('input-block__field_correct');
+                emailField.classList.add('input-block__field_incorrect');
             }
             if (validPassword.status === false) {
                 passwordErrorField.textContent = validPassword.error;
-                passwordField.classList.remove('input-block__field_correct')
-                passwordField.classList.add('input-block__field_incorrect')
+                passwordField.classList.remove('input-block__field_correct');
+                passwordField.classList.add('input-block__field_incorrect');
             }
         }
     });

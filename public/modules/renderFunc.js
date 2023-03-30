@@ -6,6 +6,7 @@ import FeedController from './feed.js'
 import SignUp from "../components/signUp/signUp.js";
 import SignIn from "../components/signIn/signIn.js";
 import Feed from "../components/feed/feed.js";
+import goToPage, {config} from "./goToPage.js";
 
 function renderFeed(parent) {
     const request = Ajax.get('/api/feed?batch_size=10');
@@ -228,6 +229,20 @@ export function renderFeedPageLast() {
     feedController.setup();
 }
 
+function setup() {
+    const exitItem = document.getElementById('js-exit-btn');
+    exitItem.addEventListener('click', () => {
+        const request = Ajax.post('/auth/logout');
+        request
+            .then((response) => {
+                goToPage(config.login);
+            })
+            .catch((response) => {
+                alert(response.message)
+            })
+    })
+}
+
 export function renderFeedPage() {
     const request = Ajax.get('/api/feed?batch_size=10');
     request
@@ -247,8 +262,9 @@ export function renderFeedPage() {
                 }
 
                 const rootElement = document.getElementById('root');
-                const createFeed = new Feed(rootElement, posts)
-                createFeed.render()
+                const createFeed = new Feed(rootElement, posts);
+                createFeed.render();
+                setup();
 
                 let el = document.getElementsByClassName('comment')
                 el = Array.prototype.slice.call(el);
