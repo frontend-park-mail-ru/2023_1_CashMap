@@ -3,7 +3,16 @@
         <img class="post-profile__avatar" src="{{ senderPhoto }}">
         <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender"> {{ sender_name }} </span>
         <span class="post-profile__date font-InterMedium font-size-12 font-color-gray-text"> {{ date }} </span>
-        <img class="post-profile__dots" src="static/img/post_icons/post_menu.svg">
+        <img class="post-profile__dots margin-auto" src="static/img/post_icons/post_menu.svg">
+
+        <div class="post-menu post-menu-size post-menu-position background-color-profile-menu border-radius-btn-input box-shadow-profile-menu">
+            <div class="post-menu-item hover-block border-radius-btn-input margin-auto" id="js-delete-post">
+                <span class="menu-item__text font-size-15 font-MailSansRoman margin-auto"> Удалить запись </span>
+            </div>
+            <div class="post-menu-item hover-block border-radius-btn-input margin-auto" id="js-edit-post">
+                <span class="menu-item__text font-size-15 font-MailSansRoman margin-auto"> Редактировать </span>
+            </div>
+        </div>
     </div>
 
     <div class="post-text font-MailSansRoman font-size-16 font-color-text"> {{ text }} </div>

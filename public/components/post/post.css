@@ -22,7 +22,7 @@
 }
 .post-profile__dots {
     grid-column: 6;
-    grid-row: 3;
+    grid-row: 1/6;
 }
 .post-text {
 
@@ -59,4 +59,30 @@
 }
 .post-buttons-bookmark {
     grid-column: 4;
+}
+.post-menu {
+    position: absolute;
+    margin-top: 10px;
+    padding: 12px;
+
+    display: none;
+    grid-template-rows: 1fr 1fr;
+}
+.post-profile__dots:hover + .post-menu {
+    display: grid;
+}
+.post-menu:hover {
+    display: grid;
+}
+.post-menu-item {
+    cursor: pointer;
+}
+
+.post-menu-size {
+    width: 6%;
+    height: 50px;
+}
+.post-menu-position {
+    left: 75%;
+    top: 20%;
 }
