@@ -22,9 +22,11 @@ export default class Feed {
 			headerData: {
 				profileUrl: '#',
 				avatar: 'static/img/post_icons/profile_image.svg',
+				exitButton: { text: 'Выход', jsId: 'js-exit-btn', iconPath: 'static/img/exit.svg', hoveredIconPath: 'static/img/exit_hover.svg'},
+				settingsButton: { text: 'Настройки', jsId: 'js-settings-btn', iconPath: 'static/img/settings.svg', hoveredIconPath: 'static/img/settings_hover.svg'},
 			},
 			postAreaData: {
-				createPostData: { avatar: "static/img/post_icons/profile_image.svg" },
+				createPostData: { avatar: 'static/img/post_icons/profile_image.svg' },
 				postList: posts,
 			},
 		};

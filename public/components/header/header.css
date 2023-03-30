@@ -37,13 +37,40 @@
     margin: auto;
     grid-column: 2;
 }
+.profile-menu {
+    position: absolute;
+    margin-top: 10px;
 
+    padding: 12px;
+
+    display: none;
+    grid-template-rows: 1fr 1fr;
+}
+.profile:hover .profile-menu {
+    display: grid;
+}
+.profile-menu:hover {
+    display: grid;
+}
+.profile-menu-item {
+    cursor: pointer;
+
+    display: grid;
+    grid-template-columns: 8px 26px 8px 48px 41px;
+}
 
 .header-size {
     width: 55%;
-    height: 38px;
 }
 .header-position {
     left: 28.6%;
     top: 32px;
+}
+.profile-menu-size {
+    width: 15%;
+    height: 100px;
+}
+.profile-menu-position {
+    left: 83%;
+    top: 60%;
 }

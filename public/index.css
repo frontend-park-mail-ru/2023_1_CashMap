@@ -86,6 +86,7 @@
     --background-color-menu: #FFFEFE;
     --background-color-header: #EDEDED;
     --background-color-side-bar: #FFFFFF;
+    --background-color-profile-menu: #FFFFFF;
     --background-color-post: #FFFFFF;
     --background-color-nav-notify: #D9D9D9;
     --background-color-btn: linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%);
@@ -93,6 +94,7 @@
 
     --box-shadow-create-post: 0px 0px 12px rgba(0, 0, 0, 0.1);
     --box-shadow-search-area: inset 0px 4px 8px rgba(0, 0, 0, 0.04);
+    --box-shadow-profile-menu: 0 0 12px rgba(0, 0, 0, 0.25);
 
     --btn-input-width: 280px;
     --btn-input-height: 52px;
@@ -208,6 +210,9 @@
 .background-color-side-bar {
     background: var(--background-color-side-bar, #FFFFFF);
 }
+.background-color-profile-menu {
+    background: var(--background-color-profile-menu, #FFFFFF);
+}
 .background-color-post {
     background: var(--background-color-post, #FFFFFF);
 }
@@ -216,6 +221,9 @@
 }
 .box-shadow-create-post {
     box-shadow: var(--box-shadow-create-post, 0px 0px 12px rgba(0, 0, 0, 0.1));
+}
+.box-shadow-profile-menu {
+    box-shadow: var(--box-shadow-profile-menu, 0 0 12px rgba(0, 0, 0, 0.25));
 }
 
 .border-radius {
