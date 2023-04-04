@@ -1,0 +1,13 @@
+.create-post {
+    display: grid;
+    height: 59px;
+
+    grid-template-columns: 2.6% 4.6% 2% 75% 2% 4% 2% 3.4% 4.4%;
+}
+.create-post__profile {
+    grid-column: 2;
+}
+.create-post__input {
+    grid-column: 4;
+    outline:none;
+}

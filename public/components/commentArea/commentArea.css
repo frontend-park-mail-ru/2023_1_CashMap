@@ -1,0 +1,16 @@
+.comments-area {
+    display: grid;
+    grid-gap: 16px;
+}
+.comments-list {
+    display: grid;
+    grid-gap: 16px;
+}
+.create-comment {
+    display: grid;
+    grid-template-columns: 35px 12fr 5% 5% 1fr;
+    grid-column-gap: 8px;
+}
+.create-comment__input {
+    outline:none;
+}

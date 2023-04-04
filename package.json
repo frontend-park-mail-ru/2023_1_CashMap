@@ -4,6 +4,7 @@
   "description": "messenger Depeche",
   "main": "index.js",
   "scripts": {
+    "prestart": "handlebars public/components/*/*.handlebars -f public/templates.precompiled.js",
     "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/frontend-park-mail-ru/2023_1_CashMap/issues"
   },
-  "homepage": "https://github.com/frontend-park-mail-ru/2023_1_CashMap#readme"
+  "homepage": "https://github.com/frontend-park-mail-ru/2023_1_CashMap#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "handlebars": "^4.7.7"
+  }
 }

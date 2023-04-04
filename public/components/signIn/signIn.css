@@ -1,0 +1,11 @@
+.sign-in {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.left-path {
+    grid-column: 1;
+}
+.right-path {
+    grid-column: 2;
+}

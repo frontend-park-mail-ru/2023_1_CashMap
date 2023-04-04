@@ -1,4 +1,294 @@
-.header {
-    font-size: 24px;
-    color: red;
+@import "components/signIn/signIn.css";
+@import "components/signInPath/signInPath.css";
+@import "components/signUp/signUp.css";
+@import "components/signUpPath/signUpPath.css";
+@import "components/logoPath/logoPath.css";
+@import "components/button/button.css";
+@import "components/inputField/inputField.css";
+
+@import "components/feed/feed.css";
+@import "components/header/header.css";
+@import "components/sideBar/sideBar.css";
+@import "components/menuItem/menuItem.css";
+@import "components/postArea/postArea.css";
+@import "components/createPost/createPost.css";
+@import "components/post/post.css";
+@import "components/commentArea/commentArea.css";
+@import "components/comment/comment.css";
+
+@font-face {
+    font-family: Limelight; /* Имя шрифта */
+    src: url(static/fonts/Limelight-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: InterMedium; /* Имя шрифта */
+    src: url(static/fonts/Inter-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: InterRegular; /* Имя шрифта */
+    src: url(static/fonts/Inter-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: MailSansRoman; /* Имя шрифта */
+    src: url(static/fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Comfortaa; /* Имя шрифта */
+    src: url(static/fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+:root {
+    --blur-logo-table: blur(2px);
+
+    --border-radius: 12px;
+    --border-radius-btn: 8px;
+
+    --feed-content-padding: 18px;
+    --post-padding: 20px;
+
+    --profile-img-size: 35px;
+    --notification-img-size: 24px;
+    --input-widgets-size: 25px;
+
+    --main-margin: 20px;
+
+    --font-size-10: 10px;
+    --font-size-12: 12px;
+    --font-size-15: 15px;
+    --font-size-16: 16px;
+    --font-size-19: 19px;
+    --font-size-23: 23px;
+    --font-size-28: 28px;
+
+    --font-color-select-dark: #D9D9D9;
+    --font-color-gray-text: #6C6F72;
+    --font-color-gray-icon: #9DA0A3;
+    --font-color-info: #395EBA;
+    --font-color-reg-info: #8D949D;
+    --font-color-logo-color: #44009D;
+    --font-color-error: #D5534D;
+    --font-color-btn: #FFFFFF;
+    --font-color-title: #000000;
+    --font-color-nav: #6C6F72;
+    --font-color-comment-sender: #B95DD9;
+    --font-color-menu-item-hover: #B95DD9;
+    --font-color-post-sender: #474852;
+    --font-color-text: #0D0F1E;
+
+    --background-color-main: #FAFAFA;
+    --background-color-error: #FFEBEB;
+    --background-item-hovered: #F5F5F5;
+    --background-color-feed: #F5F5F5;
+    --background-color-input: #E9E9E9;
+    --background-color-menu: #FFFEFE;
+    --background-color-header: #EDEDED;
+    --background-color-side-bar: #FFFFFF;
+    --background-color-profile-menu: #FFFFFF;
+    --background-color-post: #FFFFFF;
+    --background-color-nav-notify: #D9D9D9;
+    --background-color-btn: linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%);
+    --background-color-logo-table: rgba(251, 221, 255, 0.4);
+
+    --box-shadow-create-post: 0px 0px 12px rgba(0, 0, 0, 0.1);
+    --box-shadow-search-area: inset 0px 4px 8px rgba(0, 0, 0, 0.04);
+    --box-shadow-profile-menu: 0 0 12px rgba(0, 0, 0, 0.25);
+
+    --btn-input-width: 280px;
+    --btn-input-height: 52px;
+
+    --text-indent-input: 5px;
+
+    --side-bar-width: 427px;
+    --side-bar-height: 100%;
+}
+
+.font-Limelight {
+    font-family: Limelight, sans-serif;
+}
+.font-InterMedium {
+    font-family: InterMedium, sans-serif;
+}
+.font-InterRegular {
+    font-family: InterRegular, sans-serif;
+}
+.font-MailSansRoman {
+    font-family: MailSansRoman, sans-serif;
+}
+.font-Comfortaa {
+    font-family: Comfortaa, sans-serif;
+}
+
+.font-size-10 {
+    font-size: var(--font-size-10, 10px);
+}
+.font-size-12 {
+    font-size: var(--font-size-12, 12px);
+}
+.font-size-15 {
+    font-size: var(--font-size-15, 15px);
+}
+.font-size-16 {
+    font-size: var(--font-size-16, 16px);
+}
+.font-size-19 {
+    font-size: var(--font-size-19, 19px);
+}
+.font-size-23 {
+    font-size: var(--font-size-23, 23px);
+}
+.font-size-28 {
+    font-size: var(--font-size-28, 28px);
+}
+
+.font-color-select-dark {
+    color: var(--font-color-select-dark, #D9D9D9);
+}
+.font-color-gray-text {
+    color: var(--font-color-gray-text, #6C6F72);
+}
+.font-color-gray-icon {
+    color: var(--font-color-gray-icon, #9DA0A3);
+}
+.font-color-info {
+    color: var(--font-color-info, #395EBA);
+}
+.font-color-reg-info {
+    color: var(--font-color-reg-info, #8D949D);
+}
+.font-color-logo-color {
+    color: var(--font-color-logo-color, #44009D);
+}
+.font-color-error {
+    color: var(--font-color-error, #D5534D);
+}
+.font-color-btn {
+    color: var(--font-color-btn, #FFFFFF);
+}
+.font-color-title {
+    color: var(--font-color-title, #000000);
+}
+.font-color-nav {
+    color: var(--font-color-nav, #6C6F72);
+}
+.font-color-comment-sender {
+    color: var(--font-color-comment-sender, #B95DD9);
+}
+.font-color-post-sender {
+    color: var(--font-color-post-sender, #474852);
+}
+.font-color-text {
+    color: var(--font-color-text, #0D0F1E);
+}
+
+.background-color-main {
+    background: var(--background-color-main, #FAFAFA);
+}
+.background-color-feed {
+    background: var(--background-color-feed, #F5F5F5);
+}
+.background-color-error {
+    background: var(--background-color-error, #FFEBEB);
+}
+.background-item-hovered {
+    background: var(--background-item-hovered, #F5F5F5);
+}
+.background-color-input {
+    background: var(--background-color-input, #E9E9E9);
+}
+.background-color-menu {
+    background: var(--background-color-menu, #FFFEFE);
+}
+.background-color-header {
+    background: var(--background-color-header, #EDEDED);
+}
+.background-color-nav-notify {
+    background: var(--background-color-nav-notify, #D9D9D9);
+}
+.background-color-btn {
+    background: var(--background-color-btn, linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%));
+}
+.background-color-logo-table {
+    background: var(--background-color-logo-table, rgba(251, 221, 255, 0.4));
+}
+.background-color-side-bar {
+    background: var(--background-color-side-bar, #FFFFFF);
+}
+.background-color-profile-menu {
+    background: var(--background-color-profile-menu, #FFFFFF);
+}
+.background-color-post {
+    background: var(--background-color-post, #FFFFFF);
+}
+.box-shadow-search-area {
+    box-shadow: var(--box-shadow-search-area, inset 0px 4px 8px rgba(0, 0, 0, 0.04));
+}
+.box-shadow-create-post {
+    box-shadow: var(--box-shadow-create-post, 0px 0px 12px rgba(0, 0, 0, 0.1));
+}
+.box-shadow-profile-menu {
+    box-shadow: var(--box-shadow-profile-menu, 0 0 12px rgba(0, 0, 0, 0.25));
+}
+
+.border-radius {
+    border-radius: var(--border-radius, 12px);
+}
+.border-none {
+    border: none;
+}
+.border-radius-btn-input {
+    border-radius: var(--border-radius-btn, 8px);
+}
+.blur-logo-table {
+    backdrop-filter: var(--blur-logo-table, blur(2px));
+}
+.sign-btn-input-size {
+    width: var(--btn-input-width, 280px);
+    height: var(--btn-input-height, 52px);
+}
+.text-indent-input {
+    text-indent: var(--text-indent-input, 5px);
+}
+.post-padding {
+    padding: var(--post-padding, 20px);
+}
+.profile-img-size {
+    width: var(--profile-img-size, 35px);
+    height: var(--profile-img-size, 35px);
+}
+
+.margin-auto {
+    margin: auto;
+}
+
+
+.hover-pic {
+
+}
+.hover-pic img:nth-child(2) {
+    display: none;
+}
+.hover-pic:hover img:nth-child(1) {
+    display: none;
+}
+.hover-pic:hover img:nth-child(2) {
+    display: block;
+}
+
+.opacity-pic {
+    visibility: hidden;
+}
+
+.hidden-and-add-dots {
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+}
+
+body, html, #root {
+    margin: 0;
+    min-height: 100vh;
 }

@@ -1,0 +1,32 @@
+<div class="header header-size header-position">
+    <div class="search-area background-color-header border-radius box-shadow-search-area">
+        <img class="search-area__icon" src="static/img/search.svg">
+        <input class="search-area__input border-none font-InterMedium font-size-12 font-color-gray-text background-color-header" placeholder="Найти">
+    </div>
+
+    <div class="notification">
+        <img class="notification__icon profile-img-size margin-auto" src="static/img/noticeUnread.svg" alt="">
+    </div>
+
+    <div class="profile">
+        <img class="profile__icon profile-img-size margin-auto" src={{ avatar }}>
+        <img class="profile__menu-icon" src="static/img/menu.svg">
+
+        <div class="profile-menu profile-menu-size profile-menu-position background-color-profile-menu border-radius-btn-input box-shadow-profile-menu">
+            <div class="profile-menu-item hover-block border-radius-btn-input" id="{{ exitButton.jsId }}">
+                <div class="margin-auto" style="grid-column: 2;">
+                    <img class="margin-auto" src="{{ exitButton.iconPath }}">
+                    <img class="margin-auto" src="{{ exitButton.hoveredIconPath }}">
+                </div>
+                <span class="menu-item__text font-size-15 font-MailSansRoman"> {{ exitButton.text }} </span>
+            </div>
+            <div class="profile-menu-item hover-block border-radius-btn-input" id="{{ settingsButton.jsId }}">
+                <div class="margin-auto" style="grid-column: 2;">
+                    <img class="margin-auto" src="{{ settingsButton.iconPath }}">
+                    <img class="margin-auto" src="{{ settingsButton.hoveredIconPath }}">
+                </div>
+                <span class="menu-item__text font-size-15 font-MailSansRoman"> {{ settingsButton.text }} </span>
+            </div>
+        </div>
+    </div>
+</div>

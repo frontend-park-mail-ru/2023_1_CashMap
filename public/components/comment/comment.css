@@ -1,0 +1,43 @@
+.comment {
+    display: grid;
+    grid-template-rows: 15px 15px 1fr;
+    grid-template-columns: 35px 6fr 60px;
+
+    grid-column-gap: 8px;
+}
+.comment__avatar {
+    margin: auto;
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
+.comment__name {
+    grid-column: 2;
+    grid-row: 1;
+}
+.comment__date {
+    grid-column: 2;
+    grid-row: 2;
+}
+.comment-operations {
+    grid-column: 3;
+    grid-row: 3;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.comment-operations__update {
+    grid-column: 1;
+    margin: auto;
+}
+.comment-operations__delete {
+    grid-column: 2;
+    margin: auto;
+}
+.comment__text {
+    grid-column: 2;
+    grid-row: 3;
+}
+.comment__media {
+    margin-right: 4%;
+    margin-left: 2.6%;
+}
