@@ -10,11 +10,11 @@
     grid-row: 1;
     grid-column: 1;
 }
-.input-block__field_correct {
+.input-block__field-correct {
     border: none;
     background: var(--background-color-input, #E9E9E9);
 }
-.input-block__field_incorrect {
+.input-block__field-incorrect {
     border: 1px solid var(--font-color-error, #D5534D);
     background: var(--background-color-error, #FFEBEB);
 }

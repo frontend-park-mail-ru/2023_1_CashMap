@@ -28,8 +28,8 @@
     color: var(--font-color-gray-text);
 }
 .hover-block:hover {
-    background-color: var(--background-item-hovered);
-    color: var(--font-color-menu-item-hover);
+    background-color: var(--background-item-hovered, #F5F5F5);
+    color: var(--font-color-menu-item-hover, #B95DD9);
 }
 .hover-block img:nth-child(2) {
     display: none;
