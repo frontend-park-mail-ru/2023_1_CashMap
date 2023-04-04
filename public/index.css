@@ -187,6 +187,9 @@
 .background-color-main {
     background: var(--background-color-main, #FAFAFA);
 }
+.background-color-feed {
+    background: var(--background-color-feed, #F5F5F5);
+}
 .background-color-error {
     background: var(--background-color-error, #FFEBEB);
 }
