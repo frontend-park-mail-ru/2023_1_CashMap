@@ -1,17 +1,17 @@
-.signUp-path {
+.sign-up-path {
     height: 100%;
 
     display: grid;
     grid-template-columns: 13.3% 1fr 13.3%;
     grid-template-rows: 21.2% 1fr 21%;
 }
-.signUp-table {
+.sign-up-table {
     grid-area: 2 / 2;
     display: grid;
     grid-template-rows: 55px 23px 32px 1fr;
     grid-template-columns: 1fr 280px 1fr;
 }
-.signUp-table__title {
+.sign-up-table__title {
     display: inline-grid;
     align-items: center;
     text-align: center;

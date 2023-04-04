@@ -1,17 +1,17 @@
-.signIn-path {
+.sign-in-path {
     height: 100%;
 
     display: grid;
     grid-template-columns: 13.3% 1fr 13.3%;
     grid-template-rows: 21.2% 1fr 26.9%;
 }
-.signIn-table {
+.sign-in-table {
     grid-area: 2 / 2;
     display: grid;
     grid-template-rows: 55px 23px 32px 1fr;
     grid-template-columns: 1fr 280px 1fr;
 }
-.signIn-table__title {
+.sign-in-table__title {
     display: inline-grid;
     align-items: center;
     text-align: center;
