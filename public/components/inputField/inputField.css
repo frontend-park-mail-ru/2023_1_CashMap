@@ -33,7 +33,7 @@
     outline: 1px solid var(--font-color-gray-text, #6C6F72);
 }
 .input-block__field::placeholder {
-    font-family: InterMedium;  /* Todo: добавить fallback шрифты */
+    font-family: InterMedium, sans-serif;
     color: var(--font-color-gray-text, #6C6F72);
     font-size: var(--font-size-15, 15px);
 }
