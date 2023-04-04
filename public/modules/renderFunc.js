@@ -3,9 +3,9 @@ import signIn from "./signin.js";
 import Ajax from "./ajax.js";
 
 import FeedController from './feed.js'
-import SignUp from "../components/signUp/signUp.js";
-import SignIn from "../components/signIn/signIn.js";
-import Feed from "../components/feed/feed.js";
+import SignUpView from "../views/signUpView.js";
+import SignInView from "../views/signInView.js";
+import FeedView from "../views/feedView.js";
 import goToPage, {config} from "./goToPage.js";
 
 function renderFeed(parent) {
@@ -262,7 +262,7 @@ export function renderFeedPage() {
                 }
 
                 const rootElement = document.getElementById('root');
-                const createFeed = new Feed(rootElement, posts);
+                const createFeed = new FeedView(rootElement, posts);
                 createFeed.render();
                 setup();
 
@@ -303,14 +303,14 @@ export function renderFeedPage() {
 
 export function renderSignupPage() {
     const rootElement = document.getElementById('root');
-    const createSignup = new SignUp(rootElement)
+    const createSignup = new SignUpView(rootElement)
     createSignup.render()
     signUp()
 }
 
 export function renderLoginPage() {
     const rootElement = document.getElementById('root');
-    const createLogin = new SignIn(rootElement)
+    const createLogin = new SignInView(rootElement)
     createLogin.render()
     signIn()
 }

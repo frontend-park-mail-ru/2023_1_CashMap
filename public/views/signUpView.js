@@ -4,10 +4,10 @@ export default class SignUpView {
     #parent
 
     constructor(parent) {
-        Handlebars.registerPartial('logoPath', Handlebars.templates.logoPath);
-        Handlebars.registerPartial('signUpPath', Handlebars.templates.signUpPath);
-        Handlebars.registerPartial('button', Handlebars.templates.button);
-        Handlebars.registerPartial('inputField', Handlebars.templates.inputField);
+        Handlebars.registerPartial('logoPath', Handlebars.templates.logoPath)
+        Handlebars.registerPartial('signUpPath', Handlebars.templates.signUpPath)
+        Handlebars.registerPartial('button', Handlebars.templates.button)
+        Handlebars.registerPartial('inputField', Handlebars.templates.inputField)
 
         this.#parent = parent;
 
