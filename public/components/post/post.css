@@ -5,7 +5,7 @@
 .post-profile {
     display: grid;
     grid-template-columns: 0 4.6% 1% 84.5% 7.8% 2.1% 0;
-    grid-template-rows: 16% 32% 10% 26% 16%;
+    grid-template-rows: 10% 40% 8% 26% 16%;
 }
 .post-profile__avatar {
     margin: auto;
