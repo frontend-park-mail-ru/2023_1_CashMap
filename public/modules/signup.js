@@ -31,16 +31,16 @@ export default function signUp() {
         const validLastName = validateSurname(lastNameField.value);
         const validTwoPasswords = validateTwoPasswords(passwordField.value, passwordRepeatField.value);
 
-        firstNameField.classList.add('input-block__field_correct')
-        firstNameField.classList.remove('input-block__field_incorrect')
-        lastNameField.classList.add('input-block__field_correct')
-        lastNameField.classList.remove('input-block__field_incorrect')
-        emailField.classList.add('input-block__field_correct')
-        emailField.classList.remove('input-block__field_incorrect')
-        passwordField.classList.add('input-block__field_correct')
-        passwordField.classList.remove('input-block__field_incorrect')
-        passwordRepeatField.classList.add('input-block__field_correct')
-        passwordRepeatField.classList.remove('input-block__field_incorrect')
+        firstNameField.classList.add('input-block__field-correct')
+        firstNameField.classList.remove('input-block__field-incorrect')
+        lastNameField.classList.add('input-block__field-correct')
+        lastNameField.classList.remove('input-block__field-incorrect')
+        emailField.classList.add('input-block__field-correct')
+        emailField.classList.remove('input-block__field-incorrect')
+        passwordField.classList.add('input-block__field-correct')
+        passwordField.classList.remove('input-block__field-incorrect')
+        passwordRepeatField.classList.add('input-block__field-correct')
+        passwordRepeatField.classList.remove('input-block__field-incorrect')
         firstNameErrorField.textContent = '';
         lastNameErrorField.textContent = '';
         emailErrorField.textContent = '';
@@ -66,34 +66,34 @@ export default function signUp() {
                     } else {
                         emailErrorField.textContent = "Ошибка сервера"
                     }
-                    emailField.classList.remove('input-block__field_correct')
-                    emailField.classList.add('input-block__field_incorrect')
+                    emailField.classList.remove('input-block__field-correct')
+                    emailField.classList.add('input-block__field-incorrect')
                 })
         } else {
             if (validEmail.status === false) {
                 emailErrorField.textContent = validEmail.error;
-                emailField.classList.remove('input-block__field_correct')
-                emailField.classList.add('input-block__field_incorrect')
+                emailField.classList.remove('input-block__field-correct')
+                emailField.classList.add('input-block__field-incorrect')
             }
             if (validFirstName.status === false) {
                 firstNameErrorField.textContent = validFirstName.error;
-                firstNameField.classList.remove('input-block__field_correct')
-                firstNameField.classList.add('input-block__field_incorrect')
+                firstNameField.classList.remove('input-block__field-correct')
+                firstNameField.classList.add('input-block__field-incorrect')
             }
             if (validLastName.status === false) {
                 lastNameErrorField.textContent = validLastName.error;
-                lastNameField.classList.remove('input-block__field_correct')
-                lastNameField.classList.add('input-block__field_incorrect')
+                lastNameField.classList.remove('input-block__field-correct')
+                lastNameField.classList.add('input-block__field-incorrect')
             }
             if (validPassword.status === false) {
                 passwordErrorField.textContent = validPassword.error;
-                passwordField.classList.remove('input-block__field_correct')
-                passwordField.classList.add('input-block__field_incorrect')
+                passwordField.classList.remove('input-block__field-correct')
+                passwordField.classList.add('input-block__field-incorrect')
             }
             if (validTwoPasswords.status === false) {
                 passwordRepeatErrorField.textContent = validTwoPasswords.error;
-                passwordRepeatField.classList.remove('input-block__field_correct')
-                passwordRepeatField.classList.add('input-block__field_incorrect')
+                passwordRepeatField.classList.remove('input-block__field-correct')
+                passwordRepeatField.classList.add('input-block__field-incorrect')
             }
         }
     });

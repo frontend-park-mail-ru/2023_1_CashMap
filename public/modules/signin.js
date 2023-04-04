@@ -25,9 +25,9 @@ export default function signIn() {
         const validPassword = validatePasswordAuth(passwordField.value);
 
         emailField.classList.add('input-block__field_correct')
-        emailField.classList.remove('input-block__field_incorrect')
-        passwordField.classList.add('input-block__field_correct')
-        passwordField.classList.remove('input-block__field_incorrect')
+        emailField.classList.remove('input-block__field-incorrect')
+        passwordField.classList.add('input-block__field-correct')
+        passwordField.classList.remove('input-block__field-incorrect')
         emailErrorField.textContent = ''
         passwordErrorField.textContent = '';
         error.textContent = '';
@@ -53,13 +53,13 @@ export default function signIn() {
         } else {
             if (validEmail.status === false) {
                 emailErrorField.textContent = validEmail.error;
-                emailField.classList.remove('input-block__field_correct');
-                emailField.classList.add('input-block__field_incorrect');
+                emailField.classList.remove('input-block__field-correct');
+                emailField.classList.add('input-block__field-incorrect');
             }
             if (validPassword.status === false) {
                 passwordErrorField.textContent = validPassword.error;
-                passwordField.classList.remove('input-block__field_correct');
-                passwordField.classList.add('input-block__field_incorrect');
+                passwordField.classList.remove('input-block__field-correct');
+                passwordField.classList.add('input-block__field-incorrect');
             }
         }
     });
