@@ -1,0 +1,7 @@
+<div class="post-area">
+    {{> createPost createPostData }}
+
+    {{#each postList}}
+        {{> post this}}
+    {{/each}}
+</div>
