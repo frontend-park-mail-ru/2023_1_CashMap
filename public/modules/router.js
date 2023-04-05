@@ -1,5 +1,11 @@
 class Router {
+    constructor() {
 
+    }
+
+    go() {
+
+    }
 }
 
-export default Router;
+export default new Router();

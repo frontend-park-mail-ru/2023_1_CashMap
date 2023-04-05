@@ -9,7 +9,7 @@ class Validation {
 			password: this._validatePasswordAuth,
 			email: this._validateEmail,
 			firstName: this._validateName,
-			secondName: this._validateSurname,
+			lastName: this._validateSurname,
 			secondPassword: this._validateTwoPasswords,
 		}
 	}

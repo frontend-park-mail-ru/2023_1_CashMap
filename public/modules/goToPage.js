@@ -6,13 +6,13 @@ import Ajax from "./ajax.js";
 let curPageConfig = null
 
 export const config = {
-    login: {
+    signIn: {
         name: 'Авторизация',
         href: '/login',
         render: renderLoginPage,
         key: 'sign-in',
     },
-    signup: {
+    signUp: {
         name: 'Регистрация',
         href: '/signup',
         render: renderSignupPage,
@@ -50,7 +50,7 @@ export default function goToPage(configSection) {
         return;
     }
 
-    const request = Ajax.get_c('/auth/check');
+    const request = Ajax.check();
     request
         .then(response => {
             if (response.status === 200) {
@@ -67,7 +67,7 @@ export default function goToPage(configSection) {
                         removePage(curPageConfig);
                     }
 
-                    curPageConfig = config.login;
+                    curPageConfig = config.signIn;
                     curPageConfig.render();
                 } else {
                     if (curPageConfig) {
