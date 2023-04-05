@@ -1,9 +1,20 @@
+import PostsStore from "../stores/postsStore.js";
+import userStore from "../stores/userStore.js";
+
 export default class FeedView {
 
 	#config
 	#parent
 
-	constructor(parent, posts) {
+	constructor(parent) {
+		this._addHandlebarsPartial();
+
+		this.#parent = parent;
+
+		PostsStore.registerCallback(this.render)
+	}
+
+	_addHandlebarsPartial() {
 		Handlebars.registerPartial('inputField', Handlebars.templates.inputField);
 		Handlebars.registerPartial('button', Handlebars.templates.button);
 		Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar);
@@ -14,40 +25,23 @@ export default class FeedView {
 		Handlebars.registerPartial('createPost', Handlebars.templates.createPost);
 		Handlebars.registerPartial('commentArea', Handlebars.templates.commentArea);
 		Handlebars.registerPartial('comment', Handlebars.templates.comment);
+	}
 
-		this.#parent = parent;
+	_addPagesElements() {
 
-		this.#config = {
-			sideBarData: {
-				logoImgPath: 'static/img/logo.svg',
-				logoText: 'Depeche',
-				menuItemList: [
-					{text: 'Моя страница', jsId: 'js-side-bar-my-page', iconPath: 'static/img/nav_icons/profile.svg', hoveredIconPath: 'static/img/nav_icons/profile_hover.svg', notifies: 1},
-					{text: 'Новости', jsId: 'js-side-bar-news', iconPath: 'static/img/nav_icons/news.svg', hoveredIconPath: 'static/img/nav_icons/news_hover.svg', notifies: 0},
-					{text: 'Мессенджер', jsId: 'js-side-bar-msg', iconPath: 'static/img/nav_icons/messenger.svg', hoveredIconPath: 'static/img/nav_icons/messenger_hover.svg', notifies: 7},
-					{text: 'Фотографии', jsId: 'js-side-bar-photo', iconPath: 'static/img/nav_icons/photos.svg', hoveredIconPath: 'static/img/nav_icons/photos_hover.svg', notifies: 0},
-					{text: 'Друзья', jsId: 'js-side-bar-friends', iconPath: 'static/img/nav_icons/friends.svg', hoveredIconPath: 'static/img/nav_icons/friends_hover.svg', notifies: 0},
-					{text: 'Сообщества', jsId: 'js-side-bar-groups', iconPath: 'static/img/nav_icons/groups.svg', hoveredIconPath: 'static/img/nav_icons/groups_hover.svg', notifies: 0},
-					{text: 'Закладки', jsId: 'js-side-bar-bookmarks', iconPath: 'static/img/nav_icons/bookmarks.svg', hoveredIconPath: 'static/img/nav_icons/bookmarks_hover.svg', notifies: 11}]
-			},
-			headerData: {
-				profileUrl: '#',
-				avatar: 'static/img/post_icons/profile_image.svg',
-				exitButton: { text: 'Выход', jsId: 'js-exit-btn', iconPath: 'static/img/exit.svg', hoveredIconPath: 'static/img/exit_hover.svg'},
-				settingsButton: { text: 'Настройки', jsId: 'js-settings-btn', iconPath: 'static/img/settings.svg', hoveredIconPath: 'static/img/settings_hover.svg'},
-			},
-			postAreaData: {
-				createPostData: { avatar: 'static/img/post_icons/profile_image.svg' },
-				postList: posts,
-			},
-		};
+	}
 
-		console.log(posts);
+	_addPagesListener() {
+
 	}
 
 	render() {
 		const template = Handlebars.templates.feed;
-		this.#parent.innerHTML = template(this.#config);
+		this.#parent.innerHTML = template({sideBarData: PostsStore.sideBarData, headerData: PostsStore.headerData, postAreaData: PostsStore.posts});
+
+		this._addPagesElements();
+
+		this._addPagesListener();
 	}
 
 }
