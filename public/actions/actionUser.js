@@ -1,15 +1,21 @@
 import Dispatcher from "../dispatcher/dispatcher.js";
 
 export const actionUser = {
-    setState(str) {
+    signIn(data) {
         Dispatcher.dispatch({
-            actionName: 'set',
-            text: str,
+            actionName: 'signIn',
+            data: data,
         });
     },
-    getState() {
+    signUp(data) {
         Dispatcher.dispatch({
-            actionName: 'get',
+            actionName: 'signUp',
+            data: data,
+        });
+    },
+    signOut() {
+        Dispatcher.dispatch({
+            actionName: 'signOut',
         });
     },
 };

@@ -1,15 +1,28 @@
 import Dispatcher from "../dispatcher/dispatcher.js";
 
 export const actionPost = {
-    setState(str) {
+    getPosts(data) {
         Dispatcher.dispatch({
-            actionName: 'set',
-            text: str,
+            actionName: 'getPosts',
+            data: data,
         });
     },
-    getState() {
+    createPost(data) {
         Dispatcher.dispatch({
-            actionName: 'get',
+            actionName: 'createPost',
+            data: data,
+        });
+    },
+    deletePost(data) {
+        Dispatcher.dispatch({
+            actionName: 'deletePost',
+            data: data,
+        });
+    },
+    editPost(data) {
+        Dispatcher.dispatch({
+            actionName: 'editPost',
+            data: data,
         });
     },
 };
