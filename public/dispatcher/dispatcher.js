@@ -6,8 +6,6 @@ class Dispatcher {
     }
 
     register(callback) {
-        console.log('register');
-        console.log(this._callbacks);
         this._callbacks.push(callback);
     }
 
