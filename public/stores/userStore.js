@@ -1,62 +1,35 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
+import Router from "../modules/router.js";
 
 class userStore {
     constructor() {
         this._callbacks = [];
         this.user = {
             isAuth: false,
+            errorAuth: '',
 
             link: null,
             firstName: null,
             lastName: null,
             email: null,
-        };
-        this.logoDataSignIn = {
-            logoImgPath: 'static/img/logo.svg',
-            backgroundImgPath: 'static/img/background_right.svg',
-            logoText: 'Depeche',
-            logoTagline: 'Сервис для общения',
-        };
-        this.logoDataSignUp = {
-            logoImgPath: 'static/img/logo.svg',
-            backgroundImgPath: 'static/img/background_left.svg',
-            logoText: 'Depeche',
-            logoTagline: 'Сервис для общения',
+            avatar: null,
         };
 
-        this.signInData = {
-            title: 'Авторизация',
-            inputFields: [
-                { help: 'Электронная почта', type: 'email', jsIdInput: 'js-email-input', jsIdError: 'js-email-error'},
-                { help: 'Пароль', type: 'password', jsIdInput: 'js-password-input', jsIdError: 'js-password-error'}],
-            buttonInfo: { text: 'Войти', jsId: 'js-sign-in-btn'},
-            errorInfo: { jsId: 'js-sign-in-error' },
-            link: { text:'У вас еще нет аккаунта? Зарегистрироваться', jsId: 'js-create-account-btn'},
-            linkInfo: 'После успешной регистрации вы получите доступ ко всем функциям Depeche',
-        };
-
-        this.signUpData = {
-            title: 'Регистрация',
-                inputFields: [
-                { help: 'Имя', type: 'text', jsIdInput: 'js-first-name-input', jsIdError: 'js-first-name-error'},
-                { help: 'Фамилия', type: 'text', jsIdInput: 'js-last-name-input', jsIdError: 'js-last-name-error'},
-                { help: 'Электронная почта', type: 'email', jsIdInput: 'js-email-input', jsIdError: 'js-email-error'},
-                { help: 'Пароль', type: 'password', jsIdInput: 'js-password-input', jsIdError: 'js-password-error'},
-                { help: 'Повторите пароль', type: 'password', jsIdInput: 'js-repeat-password-input', jsIdError: 'js-repeat-password-error'}],
-                buttonInfo: { text: 'Зарегистрироваться', jsId: 'js-sign-up-btn'},
-            link: { text:'У вас уже есть аккаунт? Войти', jsId: 'js-have-account-btn'},
-        };
-
-        Dispatcher.register(this.invokeOnDispatch.bind(this));
+        Dispatcher.register(this._fromDispatch.bind(this));
     }
 
     registerCallback(callback) {
         this._callbacks.push(callback);
     }
 
-    async invokeOnDispatch(payload) {
-        await this._fromDispatch(payload);
+    _refreshStore() {
+        //Router.currentPage.render();
+        this._callbacks.forEach((callback) => {
+            if (callback) {
+                callback();
+            }
+        });
     }
 
     async _fromDispatch(action) {
@@ -70,6 +43,12 @@ class userStore {
             case 'signOut':
                 await this._signOut();
                 break;
+            case 'getUserInfo':
+                await this._getUserInfo(action.link);
+                break;
+            case 'checkAuth':
+                await this._checkAuth();
+                break;
             default:
                 return;
         }
@@ -79,15 +58,14 @@ class userStore {
         const request = await Ajax.signIn(data.email, data.password);
 
         if (request.status === 200) {
+            this.user.errorAuth = '';
             this.user.isAuth = true;
-            console.log(request.data);
-
-            this._callbacks.forEach((callback) => {
-                if (callback) {
-                    callback();
-                }
-            });
+        } else if (request.status === 404) {
+            this.user.errorAuth = 'Пользователь не найден';
+        } else {
+            this.user.errorAuth = 'Ошибка сервера';
         }
+        this._refreshStore();
     }
 
     async _signUp(data) {
@@ -95,20 +73,53 @@ class userStore {
 
         if (request.status === 200) {
             this.user.isAuth = true;
-            console.log(request.data);
-
-            this._callbacks.forEach((callback) => {
-                if (callback) {
-                    callback();
-                }
-            });
+        } else {
+            if (request.status === 409) {
+                this.user.errorAuth = 'Пользователь с таким email уже зарегистрирован';
+            } else {
+                this.user.errorAuth = 'Ошибка сервера';
+            }
         }
+        this._refreshStore();
     }
 
     async _signOut() {
+        const request = await Ajax.signOut();
 
+        if (request.status === 200) {
+            this.user.isAuth = false;
+        }
+        this._refreshStore();
     }
 
+    async _getUserInfo(link) {
+        const request = await Ajax.getUserInfo(link);
+        const response = await request.json();
+
+        if (request.status === 200) {
+            this.user.avatar = response.body.avatar;
+            this.user.link = response.body.link;
+            this.user.email = response.body.email;
+            this.user.firstName = response.body.firstName;
+            this.user.lastName = response.body.lastName;
+        } else {
+            alert('error getUserInfo')
+        }
+
+        this._refreshStore();
+    }
+
+    async _checkAuth() {
+        const request = await Ajax.checkAuth();
+
+        if (request.status === 200) {
+            this.user.isAuth = true;
+        } else {
+            this.user.isAuth = false;
+        }
+
+        this._refreshStore();
+    }
 }
 
 export default new userStore();

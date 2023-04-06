@@ -1,17 +1,22 @@
 import PostsStore from "../stores/postsStore.js";
 import userStore from "../stores/userStore.js";
+import Router from "../modules/router.js";
+import {sideBarConst, headerConst} from "../static/htmlConst.js";
+import {actionUser} from "../actions/actionUser.js";
+import {actionPost} from "../actions/actionPost.js";
+import UserStore from "../stores/userStore.js";
 
 export default class FeedView {
-
-	#config
-	#parent
-
-	constructor(parent) {
+	constructor() {
 		this._addHandlebarsPartial();
 
-		this.#parent = parent;
+		this._jsId = 'feed';
 
-		PostsStore.registerCallback(this.render)
+		actionUser.getUserInfo();
+		actionPost.getPosts(10, 0);
+
+		PostsStore.registerCallback(this.render);
+		UserStore.registerCallback(this.render);
 	}
 
 	_addHandlebarsPartial() {
@@ -32,12 +37,60 @@ export default class FeedView {
 	}
 
 	_addPagesListener() {
+		let el = document.getElementsByClassName('comment')
+		el = Array.prototype.slice.call(el);
 
+		for (let i = 0; i < el.length; i++) {
+			el[i].addEventListener('mouseover', (e) => {
+				e.preventDefault();
+
+				let elPic = el[i].getElementsByClassName('comment-operations')
+				elPic = Array.prototype.slice.call(elPic)[0];
+
+				elPic.classList.remove('opacity-pic')
+				console.log(i)
+			});
+
+			el[i].addEventListener('mouseout', (e) => {
+				e.preventDefault();
+
+				let elPic = el[i].getElementsByClassName('comment-operations')
+				elPic = Array.prototype.slice.call(elPic)[0];
+
+				elPic.classList.add('opacity-pic')
+				console.log(i)
+				//comment-edit-block
+			});
+		}
+
+		const exitItem = document.getElementById('js-exit-btn');
+		exitItem.addEventListener('click', () => {
+			actionUser.signOut();
+		})
+	}
+
+	remove() {
+		document.getElementById(this._jsId)?.remove();
 	}
 
 	render() {
+		if (!userStore.user.isAuth) {
+			Router.go('/signIn');
+			return;
+		}
+		if (Router.currentPage !== this) {
+			return;
+		}
+
+		let header = headerConst;
+		header['avatar'] = userStore.user.avatar;
+
 		const template = Handlebars.templates.feed;
-		this.#parent.innerHTML = template({sideBarData: PostsStore.sideBarData, headerData: PostsStore.headerData, postAreaData: PostsStore.posts});
+		Router.rootElement.innerHTML = template({
+			sideBarData: sideBarConst,
+			headerData: header,
+			postAreaData: {createPostData: {avatar: userStore.user.avatar}, postList: PostsStore.posts},
+		});
 
 		this._addPagesElements();
 

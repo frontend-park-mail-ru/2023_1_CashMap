@@ -1,12 +1,12 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 
-class postsStore {
+class friendsStore {
     constructor() {
         this._callbacks = [];
 
-        this.posts = {
-            postList: [],
+        this.friends = {
+            friendList: [],
         };
 
         Dispatcher.register(this._fromDispatch.bind(this));
@@ -27,48 +27,26 @@ class postsStore {
 
     async _fromDispatch(action) {
         switch (action.actionName) {
-            case 'getPosts':
-                await this._getPosts(action.postsCount, action.postsOffset);
-                break;
-            case 'createPost':
-                await this._createPost(action.data);
-                break;
-            case 'deletePost':
-                await this._deletePost(action.data);
-                break;
-            case 'editPost':
-                await this._editPost(action.data);
+            case 'getFriends':
+                await this._getFriends(action.friendsCount, action.friendsOffset);
                 break;
             default:
                 return;
         }
     }
 
-    async _getPosts(postsCount, postsOffset) {
-        const request = await Ajax.getPosts(postsCount, postsOffset);
+    async _getFriends(friendsCount, friendsOffset) {
+        const request = await Ajax.getFriends(friendsCount, friendsOffset);
         const response = await request.json();
 
         if (request.status === 200) {
-            this.posts = response.body.posts;
+            this.friends = response.body.friends;
         } else {
             alert('error');
         }
 
         this._refreshStore();
     }
-
-    async _createPost(data) {
-
-    }
-
-    async _deletePost() {
-
-    }
-
-    async _editPost() {
-
-    }
-
 }
 
-export default new postsStore();
+export default new friendsStore();

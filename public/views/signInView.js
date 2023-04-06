@@ -2,15 +2,14 @@ import UserStore from "../stores/userStore.js";
 import {actionUser} from "../actions/actionUser.js";
 import userStore from "../stores/userStore.js";
 import Validation from "../modules/validation.js";
-import goToPage, {config} from "../modules/goToPage.js";
+import Router from "../modules/router.js";
+import {logoDataSignIn, signInData} from "../static/htmlConst.js";
 
 export default class SignInView {
-    #parent
-
-    constructor(parent) {
+    constructor() {
         this._addHandlebarsPartial();
 
-        this.#parent = parent;
+        this._jsId = 'sign-in';
 
         this._validateEmail = false;
         this._validatePassword = false;
@@ -33,6 +32,8 @@ export default class SignInView {
         this._error = document.getElementById('js-sign-in-error');
         this._authBtn = document.getElementById('js-sign-in-btn')
         this._newBtn = document.getElementById('js-create-account-btn')
+
+        this._error.textContent = userStore.user.errorAuth;
     }
 
     _addPagesListener() {
@@ -43,45 +44,38 @@ export default class SignInView {
         });
 
         this._newBtn.addEventListener('click', (e) => {
-            goToPage(config.signUp);
+            Router.go('/signUp');
         });
 
         this._emailField.addEventListener('change', (e) => {
-            this._validateEmail = this._validation(this._emailField, this._emailErrorField, 'email');
+            this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email');
         });
         this._passwordField.addEventListener('change', (e) => {
-            this._validatePassword = this._validation(this._passwordField, this._passwordErrorField, 'password');
+            this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password');
         });
     }
 
-    _validation(inputField, errorField, type) {
-        const validationRes = Validation.validate(inputField.value, type);
-
-        if (validationRes.status === false) {
-            errorField.textContent = validationRes.error;
-            inputField.classList.remove('input-block__field-correct');
-            inputField.classList.add('input-block__field-incorrect');
-
-            return false;
-        } else {
-            errorField.textContent = '';
-            inputField.classList.add('input-block__field-correct');
-            inputField.classList.remove('input-block__field-incorrect');
-
-            return true;
-        }
+    remove() {
+        document.getElementById(this._jsId)?.remove();
     }
 
     render() {
         if (userStore.user.isAuth) {
-            goToPage(config.feed);
-        } else {
-            const template = Handlebars.templates.signIn;
-            this.#parent.innerHTML = template({logoData: userStore.logoDataSignIn, signInData: userStore.signInData});
-
-            this._addPagesElements();
-
-            this._addPagesListener();
+            Router.go('/feed');
+            return;
         }
+        if (Router.currentPage !== this) {
+            return;
+        }
+
+        const template = Handlebars.templates.signIn;
+        Router.rootElement.innerHTML = template({
+            logoData: logoDataSignIn,
+            signInData: signInData
+        });
+
+        this._addPagesElements();
+
+        this._addPagesListener();
     }
 }
