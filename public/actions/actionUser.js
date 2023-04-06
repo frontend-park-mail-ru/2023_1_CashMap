@@ -18,4 +18,15 @@ export const actionUser = {
             actionName: 'signOut',
         });
     },
+    getUserInfo(link) {
+        Dispatcher.dispatch({
+            actionName: 'getUserInfo',
+            link: link,
+        });
+    },
+    checkAuth() {
+        Dispatcher.dispatch({
+            actionName: 'checkAuth',
+        });
+    },
 };

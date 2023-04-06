@@ -1,16 +1,17 @@
 import Dispatcher from "../dispatcher/dispatcher.js";
 
 export const actionPost = {
-    getPosts(data) {
+    getPosts(count, offset) {
         Dispatcher.dispatch({
             actionName: 'getPosts',
-            data: data,
+            postsCount: count,
+            postsOffset: offset,
         });
     },
     createPost(data) {
         Dispatcher.dispatch({
             actionName: 'createPost',
-            data: data,
+            data: data
         });
     },
     deletePost(data) {
