@@ -14,8 +14,22 @@ class Validation {
 		}
 	}
 
-	validate(inputField, type) {
-		return this.validateFunc[type](inputField);
+	validation(inputField, errorField, type) {
+		const validationRes = this.validateFunc[type](inputField.value);
+
+		if (validationRes.status === false) {
+			errorField.textContent = validationRes.error;
+			inputField.classList.remove('input-block__field-correct');
+			inputField.classList.add('input-block__field-incorrect');
+
+			return false;
+		} else {
+			errorField.textContent = '';
+			inputField.classList.add('input-block__field-correct');
+			inputField.classList.remove('input-block__field-incorrect');
+
+			return true;
+		}
 	}
 
 	_validatePasswordAuth(password) {
@@ -255,7 +269,6 @@ class Validation {
 			status: true,
 		}
 	}
-
 }
 
 export default new Validation();
