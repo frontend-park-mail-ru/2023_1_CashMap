@@ -27,15 +27,15 @@ class friendsStore {
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'getFriends':
-                await this._getFriends(action.friendsCount, action.friendsOffset);
+                await this._getFriends(action.link, action.count, action.offset);
                 break;
             default:
                 return;
         }
     }
 
-    async _getFriends(friendsCount, friendsOffset) {
-        const request = await Ajax.getFriends(friendsCount, friendsOffset);
+    async _getFriends(link, count, offset) {
+        const request = await Ajax.getFriends(link, count, offset);
         const response = await request.json();
 
         if (request.status === 200) {

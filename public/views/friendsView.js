@@ -11,6 +11,7 @@ export default class FriendsView {
 
 		this._jsId = 'friends';
 		this.curPage = false;
+		this.init = false;
 
 		friendsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
@@ -27,13 +28,24 @@ export default class FriendsView {
 	}
 
 	_addPagesElements() {
+		this._exitItem = document.getElementById('js-exit-btn');
 
+		this._myPageItem = document.getElementById('js-side-bar-my-page');
+		this._newsItem = document.getElementById('js-side-bar-news');
+		this._msgItem = document.getElementById('js-side-bar-msg');
+		this._photoItem = document.getElementById('js-side-bar-photo');
+		this._friendsItem = document.getElementById('js-side-bar-friends');
+		this._groupsItem = document.getElementById('js-side-bar-groups');
+		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 	}
 
 	_addPagesListener() {
-		const exitItem = document.getElementById('js-exit-btn');
-		exitItem.addEventListener('click', () => {
+		this._exitItem.addEventListener('click', () => {
 			actionUser.signOut();
+		})
+
+		this._newsItem.addEventListener('click', () => {
+			Router.go('/feed');
 		})
 	}
 
@@ -43,26 +55,14 @@ export default class FriendsView {
 
 	updatePage() {
 		if (this.curPage) {
-			//alert('friends');
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
-				console.log(22222)
+				if (this.init === false) {
+					actionFriends.getFriends(userStore.user.user_link, 15, 0);
+				}
 				this._render();
 			}
-		}
-	}
-
-	showPage() {
-		//alert('show friends')
-		if (userStore.user.isAuth === false) {
-			console.log(userStore.user.isAuth);
-			Router.go('/signIn');
-		} else {
-			actionUser.getUserInfo();
-			actionFriends.getFriends(15, 0);
-			console.log(11111)
-			this._render();
 		}
 	}
 
