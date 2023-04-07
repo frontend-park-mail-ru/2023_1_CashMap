@@ -1,4 +1,3 @@
-import UserStore from "../stores/userStore.js";
 import {actionUser} from "../actions/actionUser.js";
 import Validation from "../modules/validation.js";
 import userStore from "../stores/userStore.js";
@@ -6,12 +5,11 @@ import Router from "../modules/router.js";
 import {logoDataSignUp, signUpData} from "../static/htmlConst.js";
 
 export default class SignUpView {
-    #parent
-
     constructor() {
         this._addHandlebarsPartial();
 
         this._jsId = 'sign-up';
+        this.curPage = false;
 
         this._validateFirstName = false;
         this._validateLastName = false;
@@ -19,7 +17,7 @@ export default class SignUpView {
         this._validatePassword = false;
         this._validatePasswordRepeat = true;
 
-        UserStore.registerCallback(this.render)
+        userStore.registerCallback(this.updatePage.bind(this))
     }
 
     _addHandlebarsPartial() {
@@ -40,9 +38,13 @@ export default class SignUpView {
         this._passwordErrorField = document.getElementById('js-password-error');
         this._passwordRepeatField = document.getElementById('js-repeat-password-input');
         this._passwordRepeatErrorField = document.getElementById('js-repeat-password-error');
+        this._error = document.getElementById('js-sign-up-error');
 
         this._regBtn = document.getElementById('js-sign-up-btn')
         this._logBtn = document.getElementById('js-have-account-btn')
+
+        this._error.textContent = userStore.user.errorReg;
+
     }
 
     _addPagesListener() {
@@ -78,20 +80,34 @@ export default class SignUpView {
         document.getElementById(this._jsId)?.remove();
     }
 
-    render() {
+    updatePage() {
+        if (this.curPage) {
+            alert('up')
+            if (userStore.user.isAuth) {
+                Router.go('/feed');
+            } else {
+                this._render();
+            }
+        }
+    }
+
+    showPage() {
+        alert('show up')
         if (userStore.user.isAuth) {
             Router.go('/feed');
-            return;
+        } else {
+            this._render();
         }
-        if (Router.currentPage !== this) {
-            return;
-        }
+    }
 
+    _render() {
         const template = Handlebars.templates.signUp;
         Router.rootElement.innerHTML = template({
             logoData: logoDataSignUp,
             signUpData: signUpData
         });
+
+        console.log('comp');
 
         this._addPagesElements();
 

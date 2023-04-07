@@ -1,5 +1,6 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
+import Router from "../modules/router.js";
 
 class postsStore {
     constructor() {
@@ -17,7 +18,6 @@ class postsStore {
     }
 
     _refreshStore() {
-        //Router.currentPage.render();
         this._callbacks.forEach((callback) => {
             if (callback) {
                 callback();
@@ -51,7 +51,7 @@ class postsStore {
         if (request.status === 200) {
             this.posts = response.body.posts;
         } else {
-            alert('error');
+            alert('getPosts error');
         }
 
         this._refreshStore();

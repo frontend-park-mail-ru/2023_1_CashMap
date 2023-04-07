@@ -11,7 +11,7 @@ const Views = {
     SignUpView: new SignUpView(),
 };
 
-actionUser.checkAuth();
+/*actionUser.checkAuth();*/
 
 Router.registerPage('/', Views.FeedView);
 Router.registerPage('/feed', Views.FeedView);

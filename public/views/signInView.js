@@ -1,6 +1,5 @@
-import UserStore from "../stores/userStore.js";
-import {actionUser} from "../actions/actionUser.js";
 import userStore from "../stores/userStore.js";
+import {actionUser} from "../actions/actionUser.js";
 import Validation from "../modules/validation.js";
 import Router from "../modules/router.js";
 import {logoDataSignIn, signInData} from "../static/htmlConst.js";
@@ -10,11 +9,12 @@ export default class SignInView {
         this._addHandlebarsPartial();
 
         this._jsId = 'sign-in';
+        this.curPage = false;
 
         this._validateEmail = false;
         this._validatePassword = false;
 
-        UserStore.registerCallback(this.render)
+        userStore.registerCallback(this.updatePage.bind(this))
     }
 
     _addHandlebarsPartial() {
@@ -59,15 +59,27 @@ export default class SignInView {
         document.getElementById(this._jsId)?.remove();
     }
 
-    render() {
+    updatePage() {
+        if (this.curPage) {
+            //alert('in')
+            if (userStore.user.isAuth) {
+                Router.go('/feed');
+                return;
+            }
+            this._render();
+        }
+    }
+
+    showPage() {
+        //alert('show in')
         if (userStore.user.isAuth) {
             Router.go('/feed');
             return;
         }
-        if (Router.currentPage !== this) {
-            return;
-        }
+        this._render();
+    }
 
+    _render() {
         const template = Handlebars.templates.signIn;
         Router.rootElement.innerHTML = template({
             logoData: logoDataSignIn,
@@ -75,7 +87,6 @@ export default class SignInView {
         });
 
         this._addPagesElements();
-
         this._addPagesListener();
     }
 }
