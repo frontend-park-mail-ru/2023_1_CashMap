@@ -85,8 +85,8 @@ class Ajax {
         return this._request(this._apiUrl.createPost, this._requestType.POST, formData);
     }
 
-    async getFriends(count, offset) {
-        return this._request(this._apiUrl.friends + `?batch_size=${count}&last_post_id=${offset}`, this._requestType.GET);
+    async getFriends(link, count, offset= 0) {
+        return this._request(this._apiUrl.friends + `?link=${count}&limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 }
 

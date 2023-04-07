@@ -13,6 +13,7 @@ class Router {
     }
 
     go(url) {
+        console.log(window.history)
         actionUser.checkAuth();
 
         if (this.currentPage) {

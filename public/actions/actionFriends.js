@@ -1,11 +1,12 @@
 import Dispatcher from "../dispatcher/dispatcher.js";
 
 export const actionFriends = {
-    getFriends(count, offset) {
+    getFriends(link, count, offset) {
         Dispatcher.dispatch({
             actionName: 'getFriends',
-            friendsCount: count,
-            friendsOffset: offset,
+            link,
+            count,
+            offset,
         });
     },
     createSub(data) {
