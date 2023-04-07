@@ -4,6 +4,7 @@
 @import "components/signUpPath/signUpPath.css";
 @import "components/logoPath/logoPath.css";
 @import "components/button/button.css";
+@import "components/buttonDefault/buttonDefault.css";
 @import "components/inputField/inputField.css";
 
 @import "components/feed/feed.css";
@@ -29,6 +30,8 @@
 @import "components/settings/settings.css";
 @import "components/settingsPath/settingsPath.css";
 @import "components/inputSettings/inputSettings.css";
+@import "components/editPost/editPost.css";
+@import "components/editPostPage/editPostPage.css";
 
 @font-face {
     font-family: Limelight; /* Имя шрифта */
@@ -235,6 +238,9 @@
 }
 .background-color-btn {
     background: var(--background-color-btn, linear-gradient(270deg, #C72FCB -0.18%, #803BB6 37.83%, #510AC2 70.47%, #510AC2 98.59%));
+}
+.background-color-icon {
+    background: var(--background-color-icon);
 }
 .background-color-logo-table {
     background: var(--background-color-logo-table, rgba(251, 221, 255, 0.4));
