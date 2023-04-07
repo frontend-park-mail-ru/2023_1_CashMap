@@ -1,3 +1,6 @@
+import {actionUser} from "../actions/actionUser.js";
+import userStore from "../stores/userStore.js";
+
 class Router {
     constructor() {
         this.currentPage = null;
@@ -10,11 +13,17 @@ class Router {
     }
 
     go(url) {
-        this.currentPage?.remove();
+        actionUser.checkAuth();
+
+        if (this.currentPage) {
+            this.currentPage.remove();
+            this.currentPage.curPage = false;
+        }
 
         if (this._pages[url]) {
             this.currentPage = this._pages[url];
-            this.currentPage.render();
+            this.currentPage.curPage = true;
+            this.currentPage.showPage();
 
             if (window.location.pathname + window.location.search !== url) {
                 window.history.replaceState(null, null, url);
@@ -23,6 +32,10 @@ class Router {
         } else {
             alert('page not found');
         }
+    }
+
+    goBack() {
+        window.history.back();
     }
 
     init() {
