@@ -1,5 +1,6 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
+import Router from "../modules/router.js";
 
 class friendsStore {
     constructor() {
@@ -17,7 +18,6 @@ class friendsStore {
     }
 
     _refreshStore() {
-        //Router.currentPage.render();
         this._callbacks.forEach((callback) => {
             if (callback) {
                 callback();

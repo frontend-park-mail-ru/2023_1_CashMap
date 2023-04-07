@@ -50,6 +50,7 @@ export const signUpData = {
         { help: 'Пароль', type: 'password', jsIdInput: 'js-password-input', jsIdError: 'js-password-error'},
         { help: 'Повторите пароль', type: 'password', jsIdInput: 'js-repeat-password-input', jsIdError: 'js-repeat-password-error'}],
     buttonInfo: { text: 'Зарегистрироваться', jsId: 'js-sign-up-btn'},
+    errorInfo: { jsId: 'js-sign-up-error' },
     link: { text:'У вас уже есть аккаунт? Войти', jsId: 'js-have-account-btn'},
 };
 

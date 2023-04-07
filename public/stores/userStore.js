@@ -8,6 +8,7 @@ class userStore {
         this.user = {
             isAuth: false,
             errorAuth: '',
+            errorReg: '',
 
             link: null,
             firstName: null,
@@ -24,7 +25,6 @@ class userStore {
     }
 
     _refreshStore() {
-        //Router.currentPage.render();
         this._callbacks.forEach((callback) => {
             if (callback) {
                 callback();
@@ -56,29 +56,26 @@ class userStore {
 
     async _signIn(data) {
         const request = await Ajax.signIn(data.email, data.password);
+        const response = await request.json();
 
-        if (request.status === 200) {
+        if (response.status === 200) {
             this.user.errorAuth = '';
             this.user.isAuth = true;
-        } else if (request.status === 404) {
-            this.user.errorAuth = 'Пользователь не найден';
         } else {
-            this.user.errorAuth = 'Ошибка сервера';
+            this.user.errorAuth = response.message;
         }
         this._refreshStore();
     }
 
     async _signUp(data) {
         const request = await Ajax.signUp(data.firstName, data.lastName, data.email, data.password);
+        const response = await request.json();
 
         if (request.status === 200) {
+            this.user.errorReg = '';
             this.user.isAuth = true;
         } else {
-            if (request.status === 409) {
-                this.user.errorAuth = 'Пользователь с таким email уже зарегистрирован';
-            } else {
-                this.user.errorAuth = 'Ошибка сервера';
-            }
+            this.user.errorReg = response.message;
         }
         this._refreshStore();
     }
@@ -96,7 +93,7 @@ class userStore {
         const request = await Ajax.getUserInfo(link);
         const response = await request.json();
 
-        if (request.status === 200) {
+        if (response.status === 200) {
             this.user.avatar = response.body.avatar;
             this.user.link = response.body.link;
             this.user.email = response.body.email;
