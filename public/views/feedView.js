@@ -46,7 +46,6 @@ export default class FeedView {
 
 	updatePage() {
 		if (this.curPage) {
-			//alert('feed');
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
@@ -56,7 +55,6 @@ export default class FeedView {
 	}
 
 	showPage() {
-		//alert('show feed')
 		if (userStore.user.isAuth === false) {
 			console.log(userStore.user.isAuth);
 			Router.go('/signIn');

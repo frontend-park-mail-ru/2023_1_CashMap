@@ -1,6 +1,6 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
-import Router from "../modules/router.js";
+import {headerConst} from "../static/htmlConst.js";
 
 class userStore {
     constructor() {
@@ -56,12 +56,12 @@ class userStore {
 
     async _signIn(data) {
         const request = await Ajax.signIn(data.email, data.password);
-        const response = await request.json();
 
-        if (response.status === 200) {
+        if (request.status === 200) {
             this.user.errorAuth = '';
             this.user.isAuth = true;
         } else {
+            const response = await request.json();
             this.user.errorAuth = response.message;
         }
         this._refreshStore();
@@ -69,12 +69,13 @@ class userStore {
 
     async _signUp(data) {
         const request = await Ajax.signUp(data.firstName, data.lastName, data.email, data.password);
-        const response = await request.json();
 
         if (request.status === 200) {
             this.user.errorReg = '';
             this.user.isAuth = true;
         } else {
+            const response = await request.json();
+            console.log(response.message);
             this.user.errorReg = response.message;
         }
         this._refreshStore();
@@ -93,12 +94,16 @@ class userStore {
         const request = await Ajax.getUserInfo(link);
         const response = await request.json();
 
-        if (response.status === 200) {
+        if (request.status === 200) {
             this.user.avatar = response.body.avatar;
             this.user.link = response.body.link;
             this.user.email = response.body.email;
             this.user.firstName = response.body.firstName;
             this.user.lastName = response.body.lastName;
+
+            if (!this.user.avatar) {
+                this.user.avatar = headerConst.avatarDefault;
+            }
         } else {
             alert('error getUserInfo')
         }
