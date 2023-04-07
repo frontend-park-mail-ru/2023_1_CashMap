@@ -1,7 +1,7 @@
 class Ajax {
     constructor() {
-        //this._backendUrl = 'http://127.0.0.1';
-        this._backendUrl = 'http://95.163.212.121';
+        this._backendUrl = 'http://127.0.0.1';
+        //this._backendUrl = 'http://95.163.212.121';
         this._backendPort = '8080';
 
         this._apiUrl = {
@@ -9,14 +9,23 @@ class Ajax {
             signUp: '/auth/sign-up',
             signOut: '/auth/logout',
             check: '/auth/check',
+            getProfile: '/api/user/profile',
+
             feed: '/api/feed',
-            getUserInfo: '/api/user/profile',
+            userPosts: '/api/posts/profile',
+            communityPosts: '/api/posts/community',
+            createPost: '/api/posts/create',
+            deletePost: '/api/posts/delete',
+            editPost: '/api/posts/edit',
+
             friends: '',
         }
 
         this._requestType = {
             GET: 'GET',
             POST: 'POST',
+            DELETE: 'DELETE',
+            PATCH: 'PATCH',
         }
     }
 
@@ -31,7 +40,7 @@ class Ajax {
             headers: {
                 Origin: this.FrontendHost,
             },
-            body: body,
+            body,
         });
     }
 
@@ -49,11 +58,11 @@ class Ajax {
         return this._request(this._apiUrl.signOut, this._requestType.POST);
     }
 
-    async getUserInfo(link) {
+    async getProfile(link) {
         if (link === undefined) {
-            return this._request(this._apiUrl.getUserInfo, this._requestType.GET);
+            return this._request(this._apiUrl.getProfile, this._requestType.GET);
         } else {
-            return this._request(this._apiUrl.getUserInfo + `?link=${link}`, this._requestType.GET);
+            return this._request(this._apiUrl.getProfile + `?link=${link}`, this._requestType.GET);
         }
     }
 
@@ -61,9 +70,19 @@ class Ajax {
         return this._request(this._apiUrl.check, this._requestType.GET);
     }
 
-    async getPosts(count, offset) {
-        //return this._request(this._apiUrl.feed + `?batch_size=${count}&last_post_id=${offset}`, this._requestType.GET);
-        return this._request(this._apiUrl.feed + `?batch_size=${count}`, this._requestType.GET);
+    async getPosts(userLink, count, lastPostDate) {
+        //&last_post_date=${lastPostDate}
+        return this._request(this._apiUrl.userPosts + `?owner_link=${userLink}&batch_size=${count}`, this._requestType.GET);
+    }
+
+    async createPosts(data) {
+        let formData = new FormData();
+
+        Object.keys(data).forEach((key) => {
+            formData.append(key, data[key]);
+        });
+
+        return this._request(this._apiUrl.createPost, this._requestType.POST, formData);
     }
 
     async getFriends(count, offset) {

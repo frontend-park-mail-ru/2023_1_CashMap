@@ -56,12 +56,10 @@ export default class FeedView {
 
 	showPage() {
 		if (userStore.user.isAuth === false) {
-			console.log(userStore.user.isAuth);
 			Router.go('/signIn');
 		} else {
-
-			actionUser.getUserInfo();
-			actionPost.getPosts(10, 0);
+			actionUser.getProfile();
+			actionPost.getPostsByUser('id1', 10);
 
 			this._render();
 		}
@@ -74,7 +72,9 @@ export default class FeedView {
 		const template = Handlebars.templates.feed;
 		Router.rootElement.innerHTML = template({
 			sideBarData: sideBarConst,
+
 			headerData: header,
+
 			postAreaData: {createPostData: {avatar: userStore.user.avatar}, postList: postsStore.posts},
 		});
 
