@@ -18,9 +18,9 @@ export const actionUser = {
             actionName: 'signOut',
         });
     },
-    getUserInfo(link) {
+    getProfile(link) {
         Dispatcher.dispatch({
-            actionName: 'getUserInfo',
+            actionName: 'getProfile',
             link: link,
         });
     },

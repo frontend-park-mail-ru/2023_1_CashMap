@@ -2,7 +2,7 @@ import Router from "./modules/router.js";
 import SignInView from "./views/signInView.js";
 import SignUpView from "./views/signUpView.js";
 import FeedView from "./views/feedView.js";
-import {actionUser} from "./actions/actionUser.js";
+import {actionPost} from "./actions/actionPost.js";
 
 
 const Views = {
@@ -19,4 +19,6 @@ Router.registerPage('/signIn', Views.SignInView);
 Router.registerPage('/signUp', Views.SignUpView);
 
 Router.init()
+
+// actionPost.createPostUser(userStore.user.link, userStore.user.link, true, text);
 

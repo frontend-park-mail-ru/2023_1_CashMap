@@ -50,7 +50,7 @@ export default class SignUpView {
     _addPagesListener() {
         this._regBtn.addEventListener('click', (e) => {
             if (this._validateFirstName && this._validateLastName && this._validateEmail && this._validatePassword && this._validatePasswordRepeat) {
-                actionUser.signUp({firstName: this._firstNameField, lastName: this._lastNameField,email: this._emailField.value, password: this._passwordField.value});
+                actionUser.signUp({firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, password: this._passwordField.value});
             }
         });
 
