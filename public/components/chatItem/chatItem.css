@@ -1,0 +1,29 @@
+.chatItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.chatItem__info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.chatItem__img {
+    width: 35px;
+    height: 35px;
+}
+
+.chatItem__text {
+    color: var(--font-color-gray-text);
+    font-size: var(--font-size-16);
+    font-family: MailSansRoman;
+}
+
+.chatItem__text_little {
+    font-size: var(--font-size-13);
+    font-family: InterMedium;
+}
