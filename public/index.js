@@ -3,6 +3,7 @@ import SignInView from "./views/signInView.js";
 import SignUpView from "./views/signUpView.js";
 import FeedView from "./views/feedView.js";
 import FriendsView from "./views/friendsView.js";
+import ProfileView from "./views/profileView.js";
 import {actionUser} from "./actions/actionUser.js";
 import {actionPost} from "./actions/actionPost.js";
 
@@ -12,6 +13,7 @@ const Views = {
     SignInView: new SignInView(),
     SignUpView: new SignUpView(),
     FriendsView: new FriendsView(),
+    ProfileView: new ProfileView(),
 };
 
 /*actionUser.checkAuth();*/
@@ -21,6 +23,7 @@ Router.registerPage('/feed', Views.FeedView);
 Router.registerPage('/signIn', Views.SignInView);
 Router.registerPage('/signUp', Views.SignUpView);
 Router.registerPage('/friends', Views.FriendsView);
+Router.registerPage('/profile', Views.ProfileView);
 
 Router.init()
 
