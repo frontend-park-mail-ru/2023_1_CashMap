@@ -4,7 +4,7 @@ import SignUpView from "./views/signUpView.js";
 import FeedView from "./views/feedView.js";
 import FriendsView from "./views/friendsView.js";
 import {actionUser} from "./actions/actionUser.js";
-import {actionUser} from "./actions/actionUser.js";
+import {actionPost} from "./actions/actionPost.js";
 
 
 const Views = {
