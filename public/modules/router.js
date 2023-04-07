@@ -23,7 +23,7 @@ class Router {
         if (this._pages[url]) {
             this.currentPage = this._pages[url];
             this.currentPage.curPage = true;
-            this.currentPage.showPage();
+            this.currentPage.updatePage();
 
             if (window.location.pathname + window.location.search !== url) {
                 window.history.replaceState(null, null, url);

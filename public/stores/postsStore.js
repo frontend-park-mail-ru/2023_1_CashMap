@@ -49,8 +49,6 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
             this.posts = response.body.posts;
-
-            console.log(this.posts);
         } else {
             alert('getPosts error');
         }
