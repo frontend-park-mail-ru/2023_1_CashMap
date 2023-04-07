@@ -18,7 +18,7 @@ class Ajax {
             deletePost: '/api/posts/delete',
             editPost: '/api/posts/edit',
 
-            friends: '',
+            friends: '/api/user/friends',
         }
 
         this._requestType = {
