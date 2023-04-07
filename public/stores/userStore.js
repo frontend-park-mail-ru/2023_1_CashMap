@@ -10,7 +10,7 @@ class userStore {
             errorAuth: '',
             errorReg: '',
 
-            link: null,
+            user_link: null,
             firstName: null,
             lastName: null,
             email: null,
@@ -96,14 +96,11 @@ class userStore {
         const response = await request.json();
 
         if (request.status === 200) {
-            this.user.avatar = response.body.avatar;
-            this.user.link = response.body.user_link;
-            this.user.email = response.body.email;
-            this.user.firstName = response.body.firstName;
-            this.user.lastName = response.body.lastName;
+            this.user.avatar = response.body.profile.avatar;
+            this.user.user_link = response.body.profile.user_link;
+            this.user.firstName = response.body.profile.first_name;
+            this.user.lastName = response.body.profile.last_name;
 
-            console.log('profike')
-            console.log(response.body);
 
             if (!this.user.avatar) {
                 this.user.avatar = headerConst.avatarDefault;

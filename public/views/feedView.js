@@ -11,9 +11,10 @@ export default class FeedView {
 
 		this._jsId = 'feed';
 		this.curPage = false;
+		this.init = false;
 
 		postsStore.registerCallback(this.updatePage.bind(this));
-		userStore.registerCallback(this.updatePage.bind(this));
+		userStore.registerCallback(this.updatePageProfile.bind(this));
 	}
 
 	_addHandlebarsPartial() {
@@ -38,6 +39,11 @@ export default class FeedView {
 		exitItem.addEventListener('click', () => {
 			actionUser.signOut();
 		})
+
+		window.onload = function() {
+			actionUser.getProfile();
+			actionPost.getPostsByUser(userStore.user.user_link, 10);
+		}
 	}
 
 	remove() {
@@ -49,19 +55,21 @@ export default class FeedView {
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
+				if (this.init === false) {
+					actionUser.getProfile();
+				}
 				this._render();
 			}
 		}
 	}
 
-	showPage() {
-		if (userStore.user.isAuth === false) {
-			Router.go('/signIn');
-		} else {
-			actionUser.getProfile();
-			actionPost.getPostsByUser('id1', 10);
-
-			this._render();
+	updatePageProfile() {
+		if (this.curPage) {
+			if (!userStore.user.isAuth) {
+				Router.go('/signIn');
+			} else {
+				actionPost.getPostsByUser(userStore.user.user_link, 10);
+			}
 		}
 	}
 
@@ -81,6 +89,8 @@ export default class FeedView {
 		this._addPagesElements();
 
 		this._addPagesListener();
+
+		this.init = true;
 	}
 
 }

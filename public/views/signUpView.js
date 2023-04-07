@@ -90,14 +90,6 @@ export default class SignUpView {
         }
     }
 
-    showPage() {
-        if (userStore.user.isAuth) {
-            Router.go('/feed');
-        } else {
-            this._render();
-        }
-    }
-
     _render() {
         const template = Handlebars.templates.signUp;
         Router.rootElement.innerHTML = template({
