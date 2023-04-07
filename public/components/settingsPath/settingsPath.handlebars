@@ -1,0 +1,15 @@
+<div class="settingsPath">
+    <div class="settingsPath__photo">
+        <img src="{{avatar}}" class="settingsPath__avatar">
+        <div class="settingsPath__div">
+            <img class="settingsPath__div-img" src="static/img/upload.svg">
+            <div class="settingsPath__div-text">Загрузить новую фотографию профиля</div>
+        </div>
+    </div>
+
+    {{#each inputFields}}
+        {{> inputField this}}
+    {{/each}}
+
+    {{> button buttonInfo}}
+</div>
