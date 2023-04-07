@@ -59,6 +59,10 @@ export default class FeedView {
 			Router.go('/friends');
 		})
 
+		this._myPageItem.addEventListener('click', () => {
+			Router.go('/profile');
+		})
+
 		this._newsItem.addEventListener('click', () => {
 			Router.go('/feed');
 		})

@@ -28,7 +28,7 @@ export default class FriendsView {
 	}
 
 	_addPagesElements() {
-		this._exitItem = document.getElementById('js-exit-btn');
+		this._exitBtn = document.getElementById('js-exit-btn');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
@@ -40,8 +40,16 @@ export default class FriendsView {
 	}
 
 	_addPagesListener() {
-		this._exitItem.addEventListener('click', () => {
+		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
+		})
+
+		this._friendsItem.addEventListener('click', () => {
+			Router.go('/friends');
+		})
+
+		this._myPageItem.addEventListener('click', () => {
+			Router.go('/profile');
 		})
 
 		this._newsItem.addEventListener('click', () => {

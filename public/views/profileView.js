@@ -31,13 +31,32 @@ export default class ProfileView {
 	}
 
 	_addPagesElements() {
+		this._exitBtn = document.getElementById('js-exit-btn');
 
+		this._myPageItem = document.getElementById('js-side-bar-my-page');
+		this._newsItem = document.getElementById('js-side-bar-news');
+		this._msgItem = document.getElementById('js-side-bar-msg');
+		this._photoItem = document.getElementById('js-side-bar-photo');
+		this._friendsItem = document.getElementById('js-side-bar-friends');
+		this._groupsItem = document.getElementById('js-side-bar-groups');
+		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 	}
 
 	_addPagesListener() {
-		const exitItem = document.getElementById('js-exit-btn');
-		exitItem.addEventListener('click', () => {
+		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
+		})
+
+		this._friendsItem.addEventListener('click', () => {
+			Router.go('/friends');
+		})
+
+		this._myPageItem.addEventListener('click', () => {
+			Router.go('/profile');
+		})
+
+		this._newsItem.addEventListener('click', () => {
+			Router.go('/feed');
 		})
 	}
 
