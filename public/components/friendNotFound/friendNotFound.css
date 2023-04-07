@@ -1,0 +1,22 @@
+.friendNotFound {
+    display: flex;
+    align-items: center;
+    padding: 50px 250px;
+    gap: 16px;
+    background-color: var(--background-color-menu);
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    width: 100%;
+    position: fixed;
+}
+
+.friendNotFound__img {
+    width: 24;
+    height: 24;
+}
+
+.friendNotFound__text {
+    color: var(--font-color-gray-text);
+    font-family: 'MailSansRoman';
+	font-size: var(--font-size-19);
+}

@@ -1,0 +1,12 @@
+<div class="friends" id="friends">
+    {{> sideBar sideBarData}}
+    {{> header headerData}}
+    <div class="friends__search">
+        {{> search}}
+    </div>
+    <div class="friends__nav-list">
+        {{#each friendsData}}
+            {{> friend this}}
+        {{/each}}
+    </div>
+</div>

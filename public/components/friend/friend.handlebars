@@ -1,0 +1,26 @@
+<div class="friend" id="{{id}}">
+    <div class="friend__info">
+        <img src="{{avatar}}" class="friend__avatar" data-action="profile">
+        <div class="friend__wrapper">
+            <div class="friend__name" data-action="profile">{{firstName}} {{lastName}}</div>
+            {{#if isFriend}}
+            <button class="friend__button friend__button_grey" data-action="message">
+                <div class="friend__button-text">
+                    Написать сообщение
+                </div>
+            </button>
+            {{else}}
+            <div class="friend__city">{{city}}</div>
+            {{/if}}
+        </div>
+    </div>
+    {{#if isFriend}}
+    <div class="friend__img"><img src="static/img/post_icons/post_menu.svg"></div>
+    {{else}}
+    <button class="friend__button friend__button_grey" data-action="message">
+        <div class="friend__button-text">
+            Добавить в друзья
+        </div>
+    </button>
+    {{/if}}
+</div>

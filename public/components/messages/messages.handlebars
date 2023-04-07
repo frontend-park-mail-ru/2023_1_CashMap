@@ -1,0 +1,12 @@
+<div class="messages" id="messages">
+    {{> sideBar sideBarData}}
+    {{> header headerData}}
+    <div class="messages__search">
+        {{> search}}
+    </div>
+    <div class="messages__nav-list">
+        {{#each messagesData}}
+            {{> message this}}
+        {{/each}}
+    </div>
+</div>

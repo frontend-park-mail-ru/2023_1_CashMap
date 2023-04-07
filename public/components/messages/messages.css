@@ -1,0 +1,20 @@
+.messages {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 25% 3.6% 55% 16.4%;
+    grid-template-rows: 32px 38px 32px 70px 1fr 32px;
+    background: var(--background-color-feed);
+}
+
+.messages__search {
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.messages__nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    grid-column: 3;
+    grid-row: 5;
+}
