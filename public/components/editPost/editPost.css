@@ -1,0 +1,37 @@
+.edit-post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 16px 20px;
+    gap: 8px;
+}
+
+.edit-post__body {
+    display: flex;
+    align-items: flex-start;
+    padding: 0px 0px 12px;
+    gap: 10px;
+    width: 100%;
+}
+
+.edit-post__body-text {
+    background: transparent;
+	border: none;
+    width: 100%;
+    padding: 0px 10px;
+    resize: none;
+}
+
+.edit-post__options {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 8px 0px 0px;
+    gap: 16px;
+}
+
+.edit-post__options-button {
+    width: 133px;
+    height: 31px;
+}

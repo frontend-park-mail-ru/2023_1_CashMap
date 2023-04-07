@@ -1,0 +1,15 @@
+.button-def {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.button-def:hover {
+    background-color: var(--font-color-menu-item-hover);
+}
+
+.button-def__text {
+    display: inline-grid;
+    justify-content: center;
+    align-items: center;
+}
