@@ -25,4 +25,7 @@ Router.registerPage('/friends', Views.FriendsView);
 Router.init()
 
 // actionPost.createPostUser(userStore.user.link, userStore.user.link, true, text);
+/*for (let i = 0; i < 10; i++) {
+    actionPost.createPostUser('id1', 'id1', true, 'text');
+}*/
 

@@ -69,14 +69,6 @@ export default class SignInView {
         }
     }
 
-    showPage() {
-        if (userStore.user.isAuth) {
-            Router.go('/feed');
-            return;
-        }
-        this._render();
-    }
-
     _render() {
         const template = Handlebars.templates.signIn;
         Router.rootElement.innerHTML = template({
