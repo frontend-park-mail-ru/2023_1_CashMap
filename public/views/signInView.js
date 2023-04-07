@@ -61,7 +61,6 @@ export default class SignInView {
 
     updatePage() {
         if (this.curPage) {
-            //alert('in')
             if (userStore.user.isAuth) {
                 Router.go('/feed');
                 return;
@@ -71,7 +70,6 @@ export default class SignInView {
     }
 
     showPage() {
-        //alert('show in')
         if (userStore.user.isAuth) {
             Router.go('/feed');
             return;
