@@ -41,7 +41,7 @@ class Ajax {
     }
 
     async signUp(firstName, lastName, email, password) {
-        let body = {email: email, password: password};
+        let body = {first_name: firstName, last_name: lastName, email: email, password: password};
         return this._request(this._apiUrl.signUp, this._requestType.POST, JSON.stringify({body}));
     }
 
