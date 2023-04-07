@@ -50,7 +50,7 @@ export default class SignUpView {
     _addPagesListener() {
         this._regBtn.addEventListener('click', (e) => {
             if (this._validateFirstName && this._validateLastName && this._validateEmail && this._validatePassword && this._validatePasswordRepeat) {
-                actionUser.signUp({email: this._emailField.value, password: this._passwordField.value});
+                actionUser.signUp({firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, password: this._passwordField.value});
             }
         });
 
@@ -82,7 +82,6 @@ export default class SignUpView {
 
     updatePage() {
         if (this.curPage) {
-            alert('up')
             if (userStore.user.isAuth) {
                 Router.go('/feed');
             } else {
@@ -92,7 +91,6 @@ export default class SignUpView {
     }
 
     showPage() {
-        alert('show up')
         if (userStore.user.isAuth) {
             Router.go('/feed');
         } else {
@@ -106,8 +104,6 @@ export default class SignUpView {
             logoData: logoDataSignUp,
             signUpData: signUpData
         });
-
-        console.log('comp');
 
         this._addPagesElements();
 

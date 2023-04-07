@@ -1,6 +1,5 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
-import Router from "../modules/router.js";
 
 class friendsStore {
     constructor() {

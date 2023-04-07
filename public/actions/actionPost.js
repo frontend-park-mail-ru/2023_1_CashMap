@@ -1,23 +1,48 @@
 import Dispatcher from "../dispatcher/dispatcher.js";
 
 export const actionPost = {
-    getPosts(count, offset) {
+    getPostsByUser(userLink, count, lastPostDate) {
         Dispatcher.dispatch({
             actionName: 'getPosts',
-            postsCount: count,
-            postsOffset: offset,
+            userLink,
+            count,
+            lastPostDate,
         });
     },
-    createPost(data) {
+    getPostsByCommunity(community_link, count, lastPostDate) {
         Dispatcher.dispatch({
-            actionName: 'createPost',
-            data: data
+            actionName: 'getPosts',
+            community_link,
+            count,
+            lastPostDate,
         });
     },
-    deletePost(data) {
+    deletePost(post_id) {
         Dispatcher.dispatch({
             actionName: 'deletePost',
-            data: data,
+            post_id,
+        });
+    },
+    createPostUser(author_link, owner_link, show_author, text) {
+        Dispatcher.dispatch({
+            actionName: 'createPost',
+            data: {
+                author_link,
+                owner_link,
+                show_author,
+                text
+            },
+        });
+    },
+    createPostCommunity(author_link, community_link, show_author, text) {
+        Dispatcher.dispatch({
+            actionName: 'createPost',
+            data: {
+                author_link,
+                community_link,
+                show_author,
+                text
+            },
         });
     },
     editPost(data) {

@@ -1,6 +1,5 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
-import Router from "../modules/router.js";
 
 class postsStore {
     constructor() {
@@ -28,7 +27,7 @@ class postsStore {
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'getPosts':
-                await this._getPosts(action.postsCount, action.postsOffset);
+                await this._getPosts(action.userLink, action.count, action.lastPostDate);
                 break;
             case 'createPost':
                 await this._createPost(action.data);
@@ -44,12 +43,14 @@ class postsStore {
         }
     }
 
-    async _getPosts(postsCount, postsOffset) {
-        const request = await Ajax.getPosts(postsCount, postsOffset);
-        const response = await request.json();
+    async _getPosts(userLink, count, lastPostDate) {
+        const request = await Ajax.getPosts(userLink, count, lastPostDate);
 
         if (request.status === 200) {
+            const response = await request.json();
             this.posts = response.body.posts;
+
+            console.log(this.posts);
         } else {
             alert('getPosts error');
         }
@@ -58,7 +59,15 @@ class postsStore {
     }
 
     async _createPost(data) {
+        const request = await Ajax.createPosts(data);
 
+        if (request.status === 200) {
+
+        } else {
+            alert('createPost error');
+        }
+
+        this._refreshStore();
     }
 
     async _deletePost() {

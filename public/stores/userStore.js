@@ -1,6 +1,6 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
-import Router from "../modules/router.js";
+import {headerConst} from "../static/htmlConst.js";
 
 class userStore {
     constructor() {
@@ -16,6 +16,7 @@ class userStore {
             email: null,
             avatar: null,
         };
+        this.users = [];
 
         Dispatcher.register(this._fromDispatch.bind(this));
     }
@@ -43,8 +44,8 @@ class userStore {
             case 'signOut':
                 await this._signOut();
                 break;
-            case 'getUserInfo':
-                await this._getUserInfo(action.link);
+            case 'getProfile':
+                await this._getProfile(action.link);
                 break;
             case 'checkAuth':
                 await this._checkAuth();
@@ -56,12 +57,12 @@ class userStore {
 
     async _signIn(data) {
         const request = await Ajax.signIn(data.email, data.password);
-        const response = await request.json();
 
-        if (response.status === 200) {
+        if (request.status === 200) {
             this.user.errorAuth = '';
             this.user.isAuth = true;
         } else {
+            const response = await request.json();
             this.user.errorAuth = response.message;
         }
         this._refreshStore();
@@ -69,12 +70,13 @@ class userStore {
 
     async _signUp(data) {
         const request = await Ajax.signUp(data.firstName, data.lastName, data.email, data.password);
-        const response = await request.json();
 
         if (request.status === 200) {
             this.user.errorReg = '';
             this.user.isAuth = true;
         } else {
+            const response = await request.json();
+            console.log(response.message);
             this.user.errorReg = response.message;
         }
         this._refreshStore();
@@ -89,16 +91,23 @@ class userStore {
         this._refreshStore();
     }
 
-    async _getUserInfo(link) {
-        const request = await Ajax.getUserInfo(link);
+    async _getProfile(link) {
+        const request = await Ajax.getProfile(link);
         const response = await request.json();
 
-        if (response.status === 200) {
+        if (request.status === 200) {
             this.user.avatar = response.body.avatar;
-            this.user.link = response.body.link;
+            this.user.link = response.body.user_link;
             this.user.email = response.body.email;
             this.user.firstName = response.body.firstName;
             this.user.lastName = response.body.lastName;
+
+            console.log('profike')
+            console.log(response.body);
+
+            if (!this.user.avatar) {
+                this.user.avatar = headerConst.avatarDefault;
+            }
         } else {
             alert('error getUserInfo')
         }
