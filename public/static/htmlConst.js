@@ -54,3 +54,35 @@ export const signUpData = {
     link: { text:'У вас уже есть аккаунт? Войти', jsId: 'js-have-account-btn'},
 };
 
+export const settingsPathData = {
+    avatar: "static/img/post_icons/profile_image.svg",
+    inputFields:
+        [
+        { help: 'Имя',
+          type: 'text',
+          jsIdInput: 'js-first-name-input',
+          jsIdError: 'js-first-name-error'},
+        { help: 'Фамилия',
+          type: 'text',
+          jsIdInput: 'js-last-name-input',
+          jsIdError: 'js-last-name-error'},
+        { help: 'Электронная почта',
+          type: 'email',
+          jsIdInput: 'js-email-input',
+          jsIdError: 'js-email-error'},
+        { help: 'Город',
+          type: 'text',
+          jsIdInput: 'js-city-input',
+          jsIdError: 'js-city-error'},
+        { help: 'Дата рождения',
+          type: 'date',
+          jsIdInput: 'js-birthday-input',
+          jsIdError: 'js-birthday-error'},
+        { help: 'Статус',
+          type: 'text',
+          jsIdInput: 'js-status-input',
+          jsIdError: 'js-status-error'}
+        ],
+    buttonInfo: { text: 'Сохранить',
+        jsId: 'js-settings-save-btn'},
+}
