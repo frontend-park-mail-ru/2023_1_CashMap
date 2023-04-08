@@ -4,6 +4,7 @@
 }
 .post-profile {
     display: grid;
+    position: relative;
     grid-template-columns: 0 4.6% 1% 84.5% 7.8% 2.1% 0;
     grid-template-rows: 10% 40% 8% 26% 16%;
 }
@@ -74,15 +75,18 @@
 .post-menu:hover {
     display: grid;
 }
-.post-menu-item {
+.post-menu-item-edit {
+    cursor: pointer;
+}
+.post-menu-item-delete {
     cursor: pointer;
 }
 
 .post-menu-size {
-    width: 6%;
+    width: 14%;
     height: 50px;
 }
 .post-menu-position {
-    left: 75%;
+    left: 85%;
     top: 20%;
 }

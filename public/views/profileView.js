@@ -11,6 +11,7 @@ export default class ProfileView {
 
 		this._jsId = 'profile';
 		this.curPage = false;
+		this.init = false;
 
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
@@ -48,15 +49,11 @@ export default class ProfileView {
 		})
 
 		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends');
-		})
-
-		this._myPageItem.addEventListener('click', () => {
-			Router.go('/profile');
+			Router.go('/friends', false);
 		})
 
 		this._newsItem.addEventListener('click', () => {
-			Router.go('/feed');
+			Router.go('/feed', false);
 		})
 	}
 
@@ -64,65 +61,38 @@ export default class ProfileView {
 		document.getElementById(this._jsId)?.remove();
 	}
 
+	showPage() {
+		this.init = true;
+		actionUser.getProfile(() => { actionPost.getPostsByUser(userStore.user.user_link, 15); });
+	}
+
 	updatePage() {
 		if (this.curPage) {
-			//alert('profile');
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
-				console.log(4444444)
 				this._render();
 			}
 		}
 	}
 
-	showPage() {
-		//alert('show profile')
-		if (userStore.user.isAuth === false) {
-			console.log(userStore.user.isAuth);
-			Router.go('/signIn');
-		} else {
-			actionUser.getUserInfo();
-			actionPost.getPostsByUser('id1', 10);
-			console.log(11133311)
-			this._render();
+	_preRender() {
+		this._template = Handlebars.templates.profile;
+
+		let header = headerConst;
+		header['avatar'] = userStore.user.avatar;
+		this._context = {
+			sideBarData: sideBarConst,
+			headerData: header,
+			profileData: userStore.user,
+			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
 		}
 	}
 
 	_render() {
-		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
-
-		const template = Handlebars.templates.profile;
-		Router.rootElement.innerHTML = template({
-			sideBarData: sideBarConst,
-			headerData: header,
-			//profileData: userStore.user,
-			profileData: {
-                id: 1,
-				avatar: 'static/img/post_icons/profile_image.svg',
-				firstName: 'Карина',
-				lastName: 'Анохина',
-				status: 'Это мой статус)))',
-				birthday: '01.01.2000'
-            },
-			// this.user = {
-			// 	isAuth: false,
-			// 	errorAuth: '',
-			// 	errorReg: '',
-	
-			// 	link: null,
-			// 	firstName: null,
-			// 	lastName: null,
-			// 	email: null,
-			// 	avatar: null,
-			// };
-			postAreaData: {createPostData: {avatar: userStore.user.avatar}, postList: postsStore.posts},
-		});
-
+		this._preRender();
+		Router.rootElement.innerHTML = this._template(this._context);
 		this._addPagesElements();
-
 		this._addPagesListener();
 	}
-
 }

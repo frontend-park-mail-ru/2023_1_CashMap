@@ -5,7 +5,7 @@ import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
 
-export default class EditPostView {
+export default class CreatePostView {
 	constructor() {
 		this._addHandlebarsPartial();
 
@@ -49,8 +49,7 @@ export default class EditPostView {
 		});
 
 		this._editBtn.addEventListener('click', () => {
-			console.log(this._text.value, window.history.state);
-			actionPost.editPost(this._text.value, window.history.state);
+			actionPost.createPostUser(userStore.user.user_link, userStore.user.user_link, true, this._text.value);
 			Router.goBack();
 		});
 
@@ -102,8 +101,7 @@ export default class EditPostView {
 			headerData: header,
 			editPostData: {
 				avatar: userStore.user.avatar,
-				text: postsStore.curPost.text_content,
-				id: postsStore.curPost.id,
+				text: '',
 				buttonData: {
 					text: 'Опубликовать',
 					jsId: 'js-edit-post-btn'

@@ -18,15 +18,17 @@ export const actionUser = {
             actionName: 'signOut',
         });
     },
-    getProfile(link) {
+    getProfile(callback, link) {
         Dispatcher.dispatch({
             actionName: 'getProfile',
-            link: link,
+            callback,
+            link,
         });
     },
-    checkAuth() {
+    checkAuth(callback) {
         Dispatcher.dispatch({
             actionName: 'checkAuth',
+            callback,
         });
     },
 };

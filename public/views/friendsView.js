@@ -4,6 +4,7 @@ import {sideBarConst, headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
+import {actionPost} from "../actions/actionPost.js";
 
 export default class FriendsView {
 	constructor() {
@@ -37,28 +38,46 @@ export default class FriendsView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+
+		this._addUser = document.getElementsByClassName('js-friend-add');
+		this._deleteUser = document.getElementsByClassName('js-friend-delete');
 	}
 
 	_addPagesListener() {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
-		})
-
-		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends');
-		})
+		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/profile');
-		})
+			Router.go('/profile', false);
+		});
 
 		this._newsItem.addEventListener('click', () => {
-			Router.go('/feed');
-		})
+			Router.go('/feed', false);
+		});
+
+		for (let i = 0; i < this._addUser.length; i++) {
+			this._addUser[i].addEventListener('click', () => {
+				const userId = this._addUser[i].getAttribute("data-id");
+				actionFriends.sub(userId);
+			});
+		}
+
+		for (let i = 0; i < this._deleteUser.length; i++) {
+			this._deleteUser[i].addEventListener('click', () => {
+				const userId = this._deleteUser[i].getAttribute("data-id");
+				actionFriends.unsub(userId);
+			});
+		}
 	}
 
 	remove() {
 		document.getElementById(this._jsId)?.remove();
+	}
+
+	showPage() {
+		this.init = true;
+		actionUser.getProfile(() => { actionFriends.getFriends(userStore.user.user_link, 15, 0); });
 	}
 
 	updatePage() {
@@ -66,27 +85,27 @@ export default class FriendsView {
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
-				if (this.init === false) {
-					actionFriends.getFriends(userStore.user.user_link, 15, 0);
-				}
 				this._render();
 			}
 		}
 	}
 
-	_render() {
+	_preRender() {
+		this._template = Handlebars.templates.friends;
+
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
-
-		const template = Handlebars.templates.friends;
-		Router.rootElement.innerHTML = template({
+		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 			friendsData: friendsStore.friends,
-		});
+		}
+	}
 
+	_render() {
+		this._preRender();
+		Router.rootElement.innerHTML = this._template(this._context);
 		this._addPagesElements();
-
 		this._addPagesListener();
 	}
 

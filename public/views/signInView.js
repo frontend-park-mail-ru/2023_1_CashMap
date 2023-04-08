@@ -10,6 +10,7 @@ export default class SignInView {
 
         this._jsId = 'sign-in';
         this.curPage = false;
+        this.init = true;
 
         this._validateEmail = false;
         this._validatePassword = false;
@@ -44,7 +45,7 @@ export default class SignInView {
         });
 
         this._newBtn.addEventListener('click', (e) => {
-            Router.go('/signUp');
+            Router.go('/signUp', false);
         });
 
         this._emailField.addEventListener('change', (e) => {
@@ -59,6 +60,11 @@ export default class SignInView {
         document.getElementById(this._jsId)?.remove();
     }
 
+    showPage() {
+        /*this.init = true;
+        actionUser.checkAuth();*/
+    }
+
     updatePage() {
         if (this.curPage) {
             if (userStore.user.isAuth) {
@@ -69,13 +75,18 @@ export default class SignInView {
         }
     }
 
-    _render() {
-        const template = Handlebars.templates.signIn;
-        Router.rootElement.innerHTML = template({
+    _preRender() {
+        this._template = Handlebars.templates.signIn;
+
+        this._context = {
             logoData: logoDataSignIn,
             signInData: signInData
-        });
+        }
+    }
 
+    _render() {
+        this._preRender();
+        Router.rootElement.innerHTML = this._template(this._context);
         this._addPagesElements();
         this._addPagesListener();
     }
