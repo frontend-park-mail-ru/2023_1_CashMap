@@ -69,7 +69,7 @@ export default class FeedView {
 		for (let i = 0; i < this._deletePosts.length; i++) {
 			this._deletePosts[i].addEventListener('click', () => {
 				const postId = this._deletePosts[i].getAttribute("data-id");
-				actionPost.deletePost(postId);
+				actionPost.deletePost(Number(postId));
 			});
 		}
 
