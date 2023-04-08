@@ -1,4 +1,5 @@
 import userStore from "../stores/userStore.js";
+import Validation from "../modules/validation.js";
 import Router from "../modules/router.js";
 import {sideBarConst, headerConst, settingsConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
@@ -108,12 +109,12 @@ export default class SettingsView {
 			console.log(this._cityField.value, window.history.state);
 			console.log(this._birthdayField.value, window.history.state);
 			console.log(this._statusField.value, window.history.state);
+			console.log(this._dropContent.src, window.history.state);
 
 			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
-                //actionUser.signUp({firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, password: this._passwordField.value});
-            }
-			actionPost.editPost(this._text.value, window.history.state);
-			Router.goBack();
+                actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, city: this._cityField.value, birthday: this._birthdayField.value, status: this._statusField.value});
+				//Router.goBack();
+			}
 		});
 
 		this._firstNameField.addEventListener('change', (e) => {

@@ -54,6 +54,9 @@ class userStore {
             case 'checkAuth':
                 await this._checkAuth(action.callback);
                 break;
+            case 'editProfile':
+                await this._editProfile(action.data);
+                break;
             default:
                 return;
         }
@@ -140,6 +143,19 @@ class userStore {
         }
 
         callback();
+    }
+
+    async _editProfile(data) {
+        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.email, data.city, data.birthday, data.status);
+        if (request.status === 200) {
+            alert('done');
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('editProfile error');
+        }
+
+        this._refreshStore();
     }
 }
 

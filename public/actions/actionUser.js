@@ -31,4 +31,10 @@ export const actionUser = {
             callback,
         });
     },
+    editProfile(data) {
+        Dispatcher.dispatch({
+            actionName: 'editProfile',
+            data: data,
+        });
+    },
 };
