@@ -9,6 +9,13 @@ export const actionFriends = {
             offset,
         });
     },
+    getUsers(count, offset) {
+        Dispatcher.dispatch({
+            actionName: 'getUsers',
+            count,
+            offset,
+        });
+    },
     getSubscriptions(link, count, offset) {
         Dispatcher.dispatch({
             actionName: 'getSub',

@@ -1,5 +1,7 @@
 import Router from "../modules/router.js";
 import {logoDataSignUp, signUpData} from "../static/htmlConst";
+import {actionUser} from "../actions/actionUser";
+import userStore from "../stores/userStore";
 
 export default class BaseView {
     constructor() {
@@ -46,11 +48,33 @@ export default class BaseView {
     }
 
     _addPagesElements() {
+        this._exitBtn = document.getElementById('js-exit-btn');
 
+        this._myPageItem = document.getElementById('js-side-bar-my-page');
+        this._newsItem = document.getElementById('js-side-bar-news');
+        this._msgItem = document.getElementById('js-side-bar-msg');
+        this._photoItem = document.getElementById('js-side-bar-photo');
+        this._friendsItem = document.getElementById('js-side-bar-friends');
+        this._groupsItem = document.getElementById('js-side-bar-groups');
+        this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
     }
 
     _addPagesListener() {
+        this._exitBtn.addEventListener('click', () => {
+            actionUser.signOut();
+        });
 
+        this._myPageItem.addEventListener('click', () => {
+            Router.go('/profile', false);
+        });
+
+        this._newsItem.addEventListener('click', () => {
+            Router.go('/feed', false);
+        });
+
+        this._friendsItem.addEventListener('click', () => {
+            Router.go('/friends', false);
+        });
     }
 
     remove() {
@@ -58,7 +82,13 @@ export default class BaseView {
     }
 
     updatePage() {
-
+        if (this.curPage) {
+            if (!userStore.user.isAuth) {
+                Router.go('/signIn');
+            } else {
+                this._render();
+            }
+        }
     }
 
     _preRender() {

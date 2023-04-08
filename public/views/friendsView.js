@@ -4,6 +4,7 @@ import {sideBarConst, headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
+import {actionPost} from "../actions/actionPost.js";
 
 export default class FriendsView {
 	constructor() {
@@ -38,7 +39,8 @@ export default class FriendsView {
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 
-		this._addFr = document.getElementsByClassName('js-add-friend');
+		this._addUser = document.getElementsByClassName('js-friend-add');
+		this._deleteUser = document.getElementsByClassName('js-friend-delete');
 	}
 
 	_addPagesListener() {
@@ -54,12 +56,19 @@ export default class FriendsView {
 			Router.go('/feed', false);
 		});
 
-		/*this._addFr.addEventListener('click', () => {
-			const dataId = this._addFr.getAttribute('data-id');
-			console.log(dataId);
+		for (let i = 0; i < this._addUser.length; i++) {
+			this._addUser[i].addEventListener('click', () => {
+				const userId = this._addUser[i].getAttribute("data-id");
+				actionFriends.sub(userId);
+			});
+		}
 
-			actionFriends.unsub('id2');
-		});*/
+		for (let i = 0; i < this._deleteUser.length; i++) {
+			this._deleteUser[i].addEventListener('click', () => {
+				const userId = this._deleteUser[i].getAttribute("data-id");
+				actionFriends.unsub(userId);
+			});
+		}
 	}
 
 	remove() {

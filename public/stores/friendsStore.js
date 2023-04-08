@@ -1,14 +1,14 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
+import {headerConst} from "../static/htmlConst.js";
 
 class friendsStore {
     constructor() {
         this._callbacks = [];
 
-        this.friends = {
-            friendList: [],
-        };
+        this.friends = [];
+        this.users = [];
 
         this.subscribers = [];
         this.subscriptions = [];
@@ -33,6 +33,9 @@ class friendsStore {
             case 'getFriends':
                 await this._getFriends(action.link, action.count, action.offset);
                 break;
+            case 'getUsers':
+                await this._getUsers(action.count, action.offset);
+                break;
             case 'getSub':
                 await this._getSub(action.type, action.link, action.count, action.offset);
                 break;
@@ -55,7 +58,40 @@ class friendsStore {
         const response = await request.json();
 
         if (request.status === 200) {
+            response.body.friends.forEach((friend) => {
+                friend.isFriend = true;
+                if (!friend.avatar) {
+                    friend.avatar = headerConst.avatarDefault;
+                }
+                if (!friend.city) {
+                    friend.city = 'город не указан';
+                }
+            });
             this.friends = response.body.friends;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('error');
+        }
+
+        this._refreshStore();
+    }
+
+    async _getUsers(count, offset) {
+        const request = await Ajax.getUsers(count, offset);
+        const response = await request.json();
+
+        if (request.status === 200) {
+            response.body.friends.forEach((friend) => {
+                friend.isFriend = true;
+                if (!friend.avatar) {
+                    friend.avatar = headerConst.avatarDefault;
+                }
+                if (!friend.city) {
+                    friend.city = 'город не указан';
+                }
+            });
+            this.users = response.body.users;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

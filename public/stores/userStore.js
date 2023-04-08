@@ -20,7 +20,6 @@ class userStore {
             status: null,
             lastActive: null,
         };
-        this.users = [];
 
         Dispatcher.register(this._fromDispatch.bind(this));
     }

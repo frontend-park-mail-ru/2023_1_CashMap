@@ -20,6 +20,7 @@ class Ajax {
             editPost: '/api/posts/edit',
 
             getFriends: '/api/user/friends',
+            getUsers: '/api/user/awdawdawdawdawdawd',
             getSub: '/api/user/sub',
             reject: '/api/user/reject',
             sub: '/api/user/sub',
@@ -117,6 +118,10 @@ class Ajax {
 
     async getFriends(link, count, offset= 0) {
         return this._request(this._apiUrl.getFriends + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async getUsers(count, offset= 0) {
+        return this._request(this._apiUrl.getUsers + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
     async getSub(type, link, count, offset = 0) {
