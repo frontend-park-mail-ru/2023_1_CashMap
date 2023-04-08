@@ -12,6 +12,7 @@ class userStore {
             errorAuth: '',
             errorReg: '',
 
+            email: null,
             user_link: null,
             firstName: null,
             lastName: null,
@@ -108,6 +109,7 @@ class userStore {
             this.user.birthday = response.body.profile.birthday;
             this.user.status = response.body.profile.status;
             this.user.lastActive = response.body.profile.last_active;
+            this.user.email = response.body.profile.email;
 
             if (!this.user.status) {
                 this.user.status = 'статус не задан'
