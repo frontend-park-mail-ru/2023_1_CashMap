@@ -25,10 +25,10 @@ export const actionPost = {
             lastPostDate,
         });
     },
-    deletePost(post_id) {
+    deletePost(postId) {
         Dispatcher.dispatch({
             actionName: 'deletePost',
-            post_id,
+            postId,
         });
     },
     createPostUser(author_link, owner_link, show_author, text) {

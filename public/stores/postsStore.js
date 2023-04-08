@@ -39,7 +39,7 @@ class postsStore {
                 await this._createPost(action.data);
                 break;
             case 'deletePost':
-                await this._deletePost(action.data);
+                await this._deletePost(action.postId);
                 break;
             case 'editPost':
                 await this._editPost(action.text, action.postId);
@@ -115,8 +115,18 @@ class postsStore {
         this._refreshStore();
     }
 
-    async _deletePost() {
+    async _deletePost(postId) {
+        const request = await Ajax.deletePost(postId);
 
+        if (request.status === 200) {
+            alert('done');
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('deletePost error');
+        }
+
+        this._refreshStore();
     }
 
     async _editPost(text, postId) {

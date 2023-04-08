@@ -42,6 +42,7 @@ export default class FeedView {
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 
 		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
+		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
 		this._createPosts = document.getElementById('js-create-post');
 	}
 
@@ -62,6 +63,13 @@ export default class FeedView {
 			this._editPosts[i].addEventListener('click', () => {
 				const postId = this._editPosts[i].getAttribute("data-id");
 				Router.go('/editPost', false, postId);
+			});
+		}
+
+		for (let i = 0; i < this._deletePosts.length; i++) {
+			this._deletePosts[i].addEventListener('click', () => {
+				const postId = this._deletePosts[i].getAttribute("data-id");
+				actionPost.deletePost(postId);
 			});
 		}
 

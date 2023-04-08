@@ -110,6 +110,11 @@ class Ajax {
         return this._request(this._apiUrl.editPost, this._requestType.PATCH, formData);
     }
 
+    async deletePost(post_id) {
+        let body = {post_id: post_id};
+        return this._request(this._apiUrl.deletePost, this._requestType.DELETE, JSON.stringify({body}));
+    }
+
     async getFriends(link, count, offset= 0) {
         return this._request(this._apiUrl.getFriends + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
     }
