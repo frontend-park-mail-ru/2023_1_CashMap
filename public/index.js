@@ -9,6 +9,8 @@ import {actionPost} from "./actions/actionPost.js";
 import {actionFriends} from "./actions/actionFriends.js";
 import EditPostView from "./views/editPostView.js";
 import CreatePostView from "./views/createPostView.js";
+import userStore from "./stores/userStore.js";
+import SettingsView from "./views/settingsView.js";
 
 
 const Views = {
@@ -19,6 +21,7 @@ const Views = {
     ProfileView: new ProfileView(),
     EditPostView: new EditPostView(),
     CreatePostView: new CreatePostView(),
+    SettingsView: new SettingsView(),
 };
 
 Router.registerPage('/', Views.FeedView);
@@ -29,9 +32,10 @@ Router.registerPage('/friends', Views.FriendsView);
 Router.registerPage('/profile', Views.ProfileView);
 Router.registerPage('/editPost', Views.EditPostView);
 Router.registerPage('/createPost', Views.CreatePostView);
+Router.registerPage('/settings', Views.SettingsView);
 
 actionUser.checkAuth(() => { Router.init() });
 
-// actionPost.createPostUser(userStore.user.link, userStore.user.link, true, text);
-// actionPost.createPostUser(userStore.user.link, userStore.user.link, true, text);
+//actionPost.createPostUser(userStore.user.link, userStore.user.link, true, text);
+//actionPost.createPostUser(userStore.user.link, userStore.user.link, true, text);
 

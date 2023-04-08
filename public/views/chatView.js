@@ -2,33 +2,29 @@ import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
 import {sideBarConst, headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
-import {actionPost} from "../actions/actionPost.js";
-import postsStore from "../stores/postsStore.js";
+import {actionMessages} from "../actions/actionMessages.js";
+import messagesStore from "../stores/messagesStore.js";
 
-export default class ProfileView {
+export default class ChatView {
 	constructor() {
 		this._addHandlebarsPartial();
 
-		this._jsId = 'profile';
+		this._jsId = 'chat-page';
 		this.curPage = false;
 		this.init = false;
 
-		postsStore.registerCallback(this.updatePage.bind(this));
+		messagesStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	_addHandlebarsPartial() {
-		Handlebars.registerPartial('inputField', Handlebars.templates.inputField)
+        Handlebars.registerPartial('inputField', Handlebars.templates.inputField)
 		Handlebars.registerPartial('button', Handlebars.templates.button)
 		Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar)
-		Handlebars.registerPartial('header', Handlebars.templates.header);
+		Handlebars.registerPartial('header', Handlebars.templates.header)
 		Handlebars.registerPartial('menuItem', Handlebars.templates.menuItem)
-		Handlebars.registerPartial('profileCard', Handlebars.templates.profileCard)
-		Handlebars.registerPartial('postArea', Handlebars.templates.postArea)
-		Handlebars.registerPartial('post', Handlebars.templates.post)
-		Handlebars.registerPartial('createPost', Handlebars.templates.createPost)
-		Handlebars.registerPartial('commentArea', Handlebars.templates.commentArea)
-		Handlebars.registerPartial('comment', Handlebars.templates.comment)
+		Handlebars.registerPartial('chat', Handlebars.templates.chat)
+		Handlebars.registerPartial('chatItem', Handlebars.templates.chatItem)
 	}
 
 	_addPagesElements() {
@@ -54,11 +50,15 @@ export default class ProfileView {
         });
 
 		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends', false);
+			Router.go('/friends');
+		})
+
+		this._myPageItem.addEventListener('click', () => {
+			Router.go('/profile');
 		})
 
 		this._newsItem.addEventListener('click', () => {
-			Router.go('/feed', false);
+			Router.go('/feed');
 		})
 	}
 
@@ -66,38 +66,56 @@ export default class ProfileView {
 		document.getElementById(this._jsId)?.remove();
 	}
 
-	showPage() {
-		this.init = true;
-		actionUser.getProfile(() => { actionPost.getPostsByUser(userStore.user.user_link, 15); });
-	}
-
 	updatePage() {
 		if (this.curPage) {
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
+				if (this.init === false) {
+					actionMessages.getMessages(userStore.user.user_link, 15, 0);
+				}
 				this._render();
 			}
 		}
 	}
 
-	_preRender() {
-		this._template = Handlebars.templates.profile;
-
+	_render() {
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
-		this._context = {
+
+		const template = Handlebars.templates.chatPage;
+		Router.rootElement.innerHTML = template({
 			sideBarData: sideBarConst,
 			headerData: header,
-			profileData: userStore.user,
-			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
-		}
-	}
+			chatData: {
+				id: 1,
+				friendPhoto: 'static/img/post_icons/profile_image.svg',
+				firstName: 'Карина',
+				lastName: 'Анохина',
+				messages: [ {
+                    id: 1,
+                    friendPhoto: 'static/img/post_icons/user_photo.svg',
+                    text: 'Привет) Как дела?',
+                    time: '13:30'
+                },
+                {
+                    id: 2,
+                    friendPhoto: 'static/img/post_icons/profile_image.svg',
+                    text: 'Привет, хорошо. У тебя как? Чем занимаешься?',
+                    time: '13:31'
+                },
+                {
+                    id: 3,
+                    friendPhoto: 'static/img/post_icons/user_photo.svg',
+                    text: 'У меня супер! делаю проект....',
+                    time: '13:35'
+                }]
+			}
+		});
 
-	_render() {
-		this._preRender();
-		Router.rootElement.innerHTML = this._template(this._context);
 		this._addPagesElements();
+
 		this._addPagesListener();
 	}
+
 }

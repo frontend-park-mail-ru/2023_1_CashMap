@@ -30,6 +30,7 @@ export default class EditPostView {
 
 	_addPagesElements() {
 		this._exitBtn = document.getElementById('js-exit-btn');
+		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._text = document.getElementById('js-edit-post-textarea');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
@@ -47,6 +48,10 @@ export default class EditPostView {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		});
+
+		this._settingsBtn.addEventListener('click', () => {
+            Router.go('/settings', false);
+        });
 
 		this._editBtn.addEventListener('click', () => {
 			console.log(this._text.value, window.history.state);
