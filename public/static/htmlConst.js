@@ -80,7 +80,7 @@ export const settingsConst = {
         jsIdError: 'js-city-error'},
       { help: 'Дата рождения',
         data: '',
-        type: 'date',
+        type: 'text',
         jsIdInput: 'js-birthday-input',
         jsIdError: 'js-birthday-error'},
       { help: 'Статус',
