@@ -10,6 +10,7 @@ class Ajax {
             signOut: '/auth/logout',
             check: '/auth/check',
             getProfile: '/api/user/profile',
+            editProfile: '/api/user/profile/edit',
 
             feed: '/api/feed',
             userPosts: '/api/posts/profile',
@@ -70,6 +71,11 @@ class Ajax {
         } else {
             return this._request(this._apiUrl.getProfile + `?link=${link}`, this._requestType.GET);
         }
+    }
+
+    async editProfile(avatar, firstName, lastName, email, city, birthday, status) {
+        let body = {first_name: firstName, last_name: lastName, email: email, birthday: birthday, status:status};
+        return this._request(this._apiUrl.editProfile, this._requestType.PATCH, JSON.stringify({body}));
     }
 
     async checkAuth() {
