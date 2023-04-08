@@ -38,7 +38,7 @@ export const actionPost = {
                 author_link,
                 owner_link,
                 show_author,
-                text
+                text,
             },
         });
     },
