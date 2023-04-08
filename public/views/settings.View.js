@@ -2,18 +2,15 @@ import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
 import {sideBarConst, headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
-import {actionPost} from "../actions/actionPost.js";
-import postsStore from "../stores/postsStore.js";
 
-export default class ProfileView {
+export default class SetingsView {
 	constructor() {
 		this._addHandlebarsPartial();
 
-		this._jsId = 'profile';
+		this._jsId = 'settings';
 		this.curPage = false;
-		this.init = false;
+        this.init = false;
 
-		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
@@ -21,14 +18,9 @@ export default class ProfileView {
 		Handlebars.registerPartial('inputField', Handlebars.templates.inputField)
 		Handlebars.registerPartial('button', Handlebars.templates.button)
 		Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar)
-		Handlebars.registerPartial('header', Handlebars.templates.header);
+		Handlebars.registerPartial('header', Handlebars.templates.header)
 		Handlebars.registerPartial('menuItem', Handlebars.templates.menuItem)
-		Handlebars.registerPartial('profileCard', Handlebars.templates.profileCard)
-		Handlebars.registerPartial('postArea', Handlebars.templates.postArea)
-		Handlebars.registerPartial('post', Handlebars.templates.post)
-		Handlebars.registerPartial('createPost', Handlebars.templates.createPost)
-		Handlebars.registerPartial('commentArea', Handlebars.templates.commentArea)
-		Handlebars.registerPartial('comment', Handlebars.templates.comment)
+		Handlebars.registerPartial('settingsPath', Handlebars.templates.settingsPath)
 	}
 
 	_addPagesElements() {
@@ -67,25 +59,21 @@ export default class ProfileView {
 
 	updatePage() {
 		if (this.curPage) {
-			//alert('profile');
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
-				console.log(4444444)
 				this._render();
 			}
 		}
 	}
 
 	showPage() {
-		//alert('show profile')
 		if (userStore.user.isAuth === false) {
 			console.log(userStore.user.isAuth);
 			Router.go('/signIn');
 		} else {
 			actionUser.getUserInfo();
 			actionPost.getPostsByUser('id1', 10);
-			console.log(11133311)
 			this._render();
 		}
 	}
@@ -94,7 +82,7 @@ export default class ProfileView {
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
 
-		const template = Handlebars.templates.profile;
+		const template = Handlebars.templates.settings;
 		Router.rootElement.innerHTML = template({
 			sideBarData: sideBarConst,
 			headerData: header,
