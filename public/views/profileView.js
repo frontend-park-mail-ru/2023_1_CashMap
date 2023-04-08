@@ -41,20 +41,42 @@ export default class ProfileView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+
+		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
+		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
+		this._createPosts = document.getElementById('js-create-post');
 	}
 
 	_addPagesListener() {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
-		})
+		});
 
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends', false);
-		})
+		});
 
 		this._newsItem.addEventListener('click', () => {
 			Router.go('/feed', false);
-		})
+		});
+
+		for (let i = 0; i < this._editPosts.length; i++) {
+			this._editPosts[i].addEventListener('click', () => {
+				const postId = this._editPosts[i].getAttribute("data-id");
+				Router.go('/editPost', false, postId);
+			});
+		}
+
+		for (let i = 0; i < this._deletePosts.length; i++) {
+			this._deletePosts[i].addEventListener('click', () => {
+				const postId = this._deletePosts[i].getAttribute("data-id");
+				actionPost.deletePost(Number(postId));
+			});
+		}
+
+		this._createPosts.addEventListener('click', () => {
+			Router.go('/createPost', false);
+		});
 	}
 
 	remove() {

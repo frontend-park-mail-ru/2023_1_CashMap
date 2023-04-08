@@ -2,6 +2,7 @@ import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
+import userStore from "./userStore.js";
 
 class friendsStore {
     constructor() {
@@ -67,7 +68,9 @@ class friendsStore {
                     friend.city = 'город не указан';
                 }
             });
+
             this.friends = response.body.friends;
+            console.log(this.friends);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -81,17 +84,21 @@ class friendsStore {
         const request = await Ajax.getUsers(count, offset);
         const response = await request.json();
 
+        this.users = [];
         if (request.status === 200) {
-            response.body.friends.forEach((friend) => {
-                friend.isFriend = true;
-                if (!friend.avatar) {
-                    friend.avatar = headerConst.avatarDefault;
+            response.body.profiles.forEach((user) => {
+                if (!user.avatar) {
+                    user.avatar = headerConst.avatarDefault;
                 }
-                if (!friend.city) {
-                    friend.city = 'город не указан';
+                if (!user.city) {
+                    user.city = 'город не указан';
+                }
+                if (user.user_link !== userStore.user.user_link) {
+                    this.users.push(user);
                 }
             });
-            this.users = response.body.users;
+
+            console.log(this.users);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -124,7 +131,7 @@ class friendsStore {
         const request = await Ajax.sub(link);
 
         if (request.status === 200) {
-            alert(request.message);
+            alert('done');
             //ToDo: добавить в локальную шляпу
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -139,6 +146,7 @@ class friendsStore {
         const request = await Ajax.unsub(link);
 
         if (request.status === 200) {
+            alert('done');
             //ToDo: добавить в локальную шляпу
         } else if (request.status === 401) {
             actionUser.signOut();

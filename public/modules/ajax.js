@@ -20,7 +20,7 @@ class Ajax {
             editPost: '/api/posts/edit',
 
             getFriends: '/api/user/friends',
-            getUsers: '/api/user/awdawdawdawdawdawd',
+            getUsers: '/api/user/all',
             getSub: '/api/user/sub',
             reject: '/api/user/reject',
             sub: '/api/user/sub',
