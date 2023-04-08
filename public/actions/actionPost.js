@@ -9,6 +9,14 @@ export const actionPost = {
             lastPostDate,
         });
     },
+    getPostsById(id, count, lastPostDate) {
+        Dispatcher.dispatch({
+            actionName: 'getPostById',
+            id,
+            count,
+            lastPostDate,
+        });
+    },
     getPostsByCommunity(community_link, count, lastPostDate) {
         Dispatcher.dispatch({
             actionName: 'getPosts',
@@ -17,10 +25,10 @@ export const actionPost = {
             lastPostDate,
         });
     },
-    deletePost(post_id) {
+    deletePost(postId) {
         Dispatcher.dispatch({
             actionName: 'deletePost',
-            post_id,
+            postId,
         });
     },
     createPostUser(author_link, owner_link, show_author, text) {
@@ -45,10 +53,11 @@ export const actionPost = {
             },
         });
     },
-    editPost(data) {
+    editPost(text, postId) {
         Dispatcher.dispatch({
             actionName: 'editPost',
-            data: data,
+            text,
+            postId,
         });
     },
 };

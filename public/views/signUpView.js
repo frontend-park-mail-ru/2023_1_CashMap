@@ -2,7 +2,7 @@ import {actionUser} from "../actions/actionUser.js";
 import Validation from "../modules/validation.js";
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {logoDataSignUp, signUpData} from "../static/htmlConst.js";
+import {logoDataSignIn, logoDataSignUp, signInData, signUpData} from "../static/htmlConst.js";
 
 export default class SignUpView {
     constructor() {
@@ -10,6 +10,7 @@ export default class SignUpView {
 
         this._jsId = 'sign-up';
         this.curPage = false;
+        this.init = true;
 
         this._validateFirstName = false;
         this._validateLastName = false;
@@ -55,7 +56,7 @@ export default class SignUpView {
         });
 
         this._logBtn.addEventListener('click', (e) => {
-            Router.go('/signIn');
+            Router.go('/signIn', false);
         });
 
 
@@ -80,6 +81,11 @@ export default class SignUpView {
         document.getElementById(this._jsId)?.remove();
     }
 
+    showPage() {
+        /*this.init = true;
+        actionUser.checkAuth();*/
+    }
+
     updatePage() {
         if (this.curPage) {
             if (userStore.user.isAuth) {
@@ -90,15 +96,19 @@ export default class SignUpView {
         }
     }
 
-    _render() {
-        const template = Handlebars.templates.signUp;
-        Router.rootElement.innerHTML = template({
+    _preRender() {
+        this._template = Handlebars.templates.signUp;
+
+        this._context = {
             logoData: logoDataSignUp,
             signUpData: signUpData
-        });
+        }
+    }
 
+    _render() {
+        this._preRender();
+        Router.rootElement.innerHTML = this._template(this._context);
         this._addPagesElements();
-
         this._addPagesListener();
     }
 }

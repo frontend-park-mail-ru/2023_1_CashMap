@@ -1,7 +1,7 @@
- <div class="edit-post background-color-menu border-radius box-shadow-create-post" id="edit-post">
+ <div class="edit-post background-color-menu border-radius box-shadow-create-post" id="{{ id }}">
     <div class="edit-post__body">
         <img src="{{avatar}}" class="edit-post__body-img">
-        <textarea class="edit-post__body-text font-color-text font-size-16 font-MailSansRoman" placeholder="Добавить запись">{{text}}</textarea>
+        <textarea class="edit-post__body-text font-color-text font-size-16 font-MailSansRoman" placeholder="Добавить запись" id="js-edit-post-textarea">{{text}}</textarea>
     </div>
     <div class="edit-post__options">
         <div class="hover-pic margin-auto" style="grid-column: 6;">
