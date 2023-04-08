@@ -32,6 +32,7 @@ export default class FeedView {
 
 	_addPagesElements() {
 		this._exitBtn = document.getElementById('js-exit-btn');
+		this._settingsBtn = document.getElementById('js-settings-btn');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
@@ -50,6 +51,10 @@ export default class FeedView {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		});
+
+		this._settingsBtn.addEventListener('click', () => {
+            Router.go('/settings', false);
+        });
 
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends', false);

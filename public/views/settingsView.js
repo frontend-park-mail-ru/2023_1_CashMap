@@ -1,9 +1,9 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst} from "../static/htmlConst.js";
+import {sideBarConst, headerConst, settingsConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 
-export default class SetingsView {
+export default class SettingsView {
 	constructor() {
 		this._addHandlebarsPartial();
 
@@ -16,6 +16,7 @@ export default class SetingsView {
 
 	_addHandlebarsPartial() {
 		Handlebars.registerPartial('inputField', Handlebars.templates.inputField)
+		Handlebars.registerPartial('inputSettings', Handlebars.templates.inputSettings)
 		Handlebars.registerPartial('button', Handlebars.templates.button)
 		Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar)
 		Handlebars.registerPartial('header', Handlebars.templates.header)
@@ -25,6 +26,7 @@ export default class SetingsView {
 
 	_addPagesElements() {
 		this._exitBtn = document.getElementById('js-exit-btn');
+		this._settingsBtn = document.getElementById('js-settings-btn');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
@@ -39,6 +41,10 @@ export default class SetingsView {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		})
+
+		this._settingsBtn.addEventListener('click', () => {
+            Router.go('/settings', false);
+        });
 
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends');
@@ -72,8 +78,7 @@ export default class SetingsView {
 			console.log(userStore.user.isAuth);
 			Router.go('/signIn');
 		} else {
-			actionUser.getUserInfo();
-			actionPost.getPostsByUser('id1', 10);
+			actionUser.getProfile();
 			this._render();
 		}
 	}
@@ -82,31 +87,21 @@ export default class SetingsView {
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
 
+		let settings = settingsConst;
+		console.log(userStore.user.firstName);
+		settings['avatar'] = userStore.user.avatar;
+		settings['inputFields'][0]['data'] = userStore.user.firstName;
+		settings['inputFields'][1]['data'] = userStore.user.lastName;
+		settings['inputFields'][2]['data'] = userStore.user.email; // этого немного нет в сторе((
+		settings['inputFields'][3]['data'] = userStore.user.city; // этого тоже нет 
+		settings['inputFields'][4]['data'] = userStore.user.birthday;
+		settings['inputFields'][5]['data'] = userStore.user.status;
+
 		const template = Handlebars.templates.settings;
 		Router.rootElement.innerHTML = template({
 			sideBarData: sideBarConst,
 			headerData: header,
-			//profileData: userStore.user,
-			profileData: {
-                id: 1,
-				avatar: 'static/img/post_icons/profile_image.svg',
-				firstName: 'Карина',
-				lastName: 'Анохина',
-				status: 'Это мой статус)))',
-				birthday: '01.01.2000'
-            },
-			// this.user = {
-			// 	isAuth: false,
-			// 	errorAuth: '',
-			// 	errorReg: '',
-	
-			// 	link: null,
-			// 	firstName: null,
-			// 	lastName: null,
-			// 	email: null,
-			// 	avatar: null,
-			// };
-			postAreaData: {createPostData: {avatar: userStore.user.avatar}, postList: postsStore.posts},
+			settingsPathData: settingsConst,
 		});
 
 		this._addPagesElements();
