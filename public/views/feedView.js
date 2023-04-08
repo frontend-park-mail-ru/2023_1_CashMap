@@ -14,7 +14,7 @@ export default class FeedView {
 		this.init = false;
 
 		postsStore.registerCallback(this.updatePage.bind(this));
-		userStore.registerCallback(this.updatePageProfile.bind(this));
+		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	_addHandlebarsPartial() {
@@ -30,14 +30,6 @@ export default class FeedView {
 		Handlebars.registerPartial('comment', Handlebars.templates.comment);
 	}
 
-	/*{text: 'Моя страница', jsId: 'js-side-bar-my-page', iconPath: 'static/img/nav_icons/profile.svg', hoveredIconPath: 'static/img/nav_icons/profile_hover.svg', notifies: 1},
-        {text: 'Новости', jsId: 'js-side-bar-news', iconPath: 'static/img/nav_icons/news.svg', hoveredIconPath: 'static/img/nav_icons/news_hover.svg', notifies: 0},
-        {text: 'Мессенджер', jsId: 'js-side-bar-msg', iconPath: 'static/img/nav_icons/messenger.svg', hoveredIconPath: 'static/img/nav_icons/messenger_hover.svg', notifies: 7},
-        {text: 'Фотографии', jsId: 'js-side-bar-photo', iconPath: 'static/img/nav_icons/photos.svg', hoveredIconPath: 'static/img/nav_icons/photos_hover.svg', notifies: 0},
-        {text: 'Друзья', jsId: 'js-side-bar-friends', iconPath: 'static/img/nav_icons/friends.svg', hoveredIconPath: 'static/img/nav_icons/friends_hover.svg', notifies: 0},
-        {text: 'Сообщества', jsId: 'js-side-bar-groups', iconPath: 'static/img/nav_icons/groups.svg', hoveredIconPath: 'static/img/nav_icons/groups_hover.svg', notifies: 0},
-        {text: 'Закладки', jsId: 'js-side-bar-bookmarks', i*/
-
 	_addPagesElements() {
 		this._exitBtn = document.getElementById('js-exit-btn');
 
@@ -48,33 +40,43 @@ export default class FeedView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+
+		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
+		this._createPosts = document.getElementById('js-create-post');
 	}
 
 	_addPagesListener() {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
-		})
+		});
 
 		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends');
-		})
+			Router.go('/friends', false);
+		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/profile');
-		})
+			Router.go('/profile', false);
+		});
 
-		this._newsItem.addEventListener('click', () => {
-			Router.go('/feed');
-		})
-
-		window.onload = function() {
-			actionUser.getProfile();
-			actionPost.getPostsByUser(userStore.user.user_link, 10);
+		for (let i = 0; i < this._editPosts.length; i++) {
+			this._editPosts[i].addEventListener('click', () => {
+				const postId = this._editPosts[i].getAttribute("data-id");
+				Router.go('/editPost', false, postId);
+			});
 		}
+
+		this._createPosts.addEventListener('click', () => {
+			Router.go('/createPost', false);
+		});
 	}
 
 	remove() {
 		document.getElementById(this._jsId)?.remove();
+	}
+
+	showPage() {
+		this.init = true;
+		actionUser.getProfile(() => { actionPost.getPostsByUser(userStore.user.user_link, 15); });
 	}
 
 	updatePage() {
@@ -82,42 +84,27 @@ export default class FeedView {
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
-				if (this.init === false) {
-					actionUser.getProfile();
-				}
 				this._render();
 			}
 		}
 	}
 
-	updatePageProfile() {
-		if (this.curPage) {
-			if (!userStore.user.isAuth) {
-				Router.go('/signIn');
-			} else {
-				actionPost.getPostsByUser(userStore.user.user_link, 10);
-			}
+	_preRender() {
+		this._template = Handlebars.templates.feed;
+
+		let header = headerConst;
+		header['avatar'] = userStore.user.avatar;
+		this._context = {
+			sideBarData: sideBarConst,
+			headerData: header,
+			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
 		}
 	}
 
 	_render() {
-		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
-
-		const template = Handlebars.templates.feed;
-		Router.rootElement.innerHTML = template({
-			sideBarData: sideBarConst,
-
-			headerData: header,
-
-			postAreaData: {createPostData: {avatar: userStore.user.avatar}, postList: postsStore.posts},
-		});
-
+		this._preRender();
+		Router.rootElement.innerHTML = this._template(this._context);
 		this._addPagesElements();
-
 		this._addPagesListener();
-
-		this.init = true;
 	}
-
 }

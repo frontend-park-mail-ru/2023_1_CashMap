@@ -37,28 +37,38 @@ export default class FriendsView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+
+		this._addFr = document.getElementsByClassName('js-add-friend');
 	}
 
 	_addPagesListener() {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
-		})
-
-		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends');
-		})
+		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/profile');
-		})
+			Router.go('/profile', false);
+		});
 
 		this._newsItem.addEventListener('click', () => {
-			Router.go('/feed');
-		})
+			Router.go('/feed', false);
+		});
+
+		/*this._addFr.addEventListener('click', () => {
+			const dataId = this._addFr.getAttribute('data-id');
+			console.log(dataId);
+
+			actionFriends.unsub('id2');
+		});*/
 	}
 
 	remove() {
 		document.getElementById(this._jsId)?.remove();
+	}
+
+	showPage() {
+		this.init = true;
+		actionUser.getProfile(() => { actionFriends.getFriends(userStore.user.user_link, 15, 0); });
 	}
 
 	updatePage() {
@@ -66,27 +76,27 @@ export default class FriendsView {
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
-				if (this.init === false) {
-					actionFriends.getFriends(userStore.user.user_link, 15, 0);
-				}
 				this._render();
 			}
 		}
 	}
 
-	_render() {
+	_preRender() {
+		this._template = Handlebars.templates.friends;
+
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
-
-		const template = Handlebars.templates.friends;
-		Router.rootElement.innerHTML = template({
+		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 			friendsData: friendsStore.friends,
-		});
+		}
+	}
 
+	_render() {
+		this._preRender();
+		Router.rootElement.innerHTML = this._template(this._context);
 		this._addPagesElements();
-
 		this._addPagesListener();
 	}
 

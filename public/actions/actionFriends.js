@@ -9,9 +9,40 @@ export const actionFriends = {
             offset,
         });
     },
-    createSub(data) {
+    getSubscriptions(link, count, offset) {
         Dispatcher.dispatch({
-            actionName: 'createSub',
+            actionName: 'getSub',
+            type: 'out',
+            link,
+            count,
+            offset,
+        });
+    },
+    getSubscribers(link, count, offset) {
+        Dispatcher.dispatch({
+            actionName: 'getSub',
+            type: 'in',
+            link,
+            count,
+            offset,
+        });
+    },
+    sub(link) {
+        Dispatcher.dispatch({
+            actionName: 'sub',
+            link,
+        });
+    },
+    unsub(link) {
+        Dispatcher.dispatch({
+            actionName: 'unsub',
+            link,
+        });
+    },
+    reject(link) {
+        Dispatcher.dispatch({
+            actionName: 'reject',
+            link,
         });
     },
 };

@@ -1,15 +1,15 @@
 <div class="post background-color-post border-radius post-padding">
     <div class="post-profile">
-        <img class="post-profile__avatar" src="{{ senderPhoto }}">
-        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots"> {{ sender_name }} </span>
-        <span class="post-profile__date font-InterMedium font-size-12 font-color-gray-text"> {{ date }} </span>
+        <img class="post-profile__avatar" src="{{ sender_photo }}">
+        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots"> {{ sender_first_name }} {{ sender_last_name }} </span>
+        <span class="post-profile__date font-InterMedium font-size-12 font-color-gray-text"> {{ creation_date }} </span>
         <img class="post-profile__dots margin-auto" src="static/img/post_icons/post_menu.svg">
 
         <div class="post-menu post-menu-size post-menu-position background-color-profile-menu border-radius-btn-input box-shadow-profile-menu">
-            <div class="post-menu-item hover-block border-radius-btn-input margin-auto" id="js-delete-post">
+            <div class="post-menu-item-delete hover-block border-radius-btn-input margin-auto" data-id="{{ id }}">
                 <span class="menu-item__text font-size-15 font-MailSansRoman margin-auto"> Удалить запись </span>
             </div>
-            <div class="post-menu-item hover-block border-radius-btn-input margin-auto" id="js-edit-post">
+            <div class="post-menu-item-edit hover-block border-radius-btn-input margin-auto" data-id="{{ id }}">
                 <span class="menu-item__text font-size-15 font-MailSansRoman margin-auto"> Редактировать </span>
             </div>
         </div>
@@ -24,7 +24,7 @@
         </div>
         <div class="post-buttons-comment">
             <img class="post-buttons__icon" src="static/img/post_icons/comment.svg">
-            <span class="comment__count font-InterMedium font-size-15 font-color-gray-icon"> 0 <!--{{ commentsCount }}--> </span>
+            <span class="comment__count font-InterMedium font-size-15 font-color-gray-icon"> {{ comments_count }} </span>
         </div>
         <div class="post-buttons-bookmark">
             <img class="post-buttons__icon" src="static/img/post_icons/bookmark.svg">

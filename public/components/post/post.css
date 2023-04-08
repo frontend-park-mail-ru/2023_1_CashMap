@@ -74,7 +74,10 @@
 .post-menu:hover {
     display: grid;
 }
-.post-menu-item {
+.post-menu-item-edit {
+    cursor: pointer;
+}
+.post-menu-item-delete {
     cursor: pointer;
 }
 
