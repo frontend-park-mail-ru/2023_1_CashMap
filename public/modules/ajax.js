@@ -26,6 +26,13 @@ class Ajax {
             reject: '/api/user/reject',
             sub: '/api/user/sub',
             unsub: '/api/user/unsub',
+
+
+            chatCheck: '/api/im/chat/check',
+            chatCreate: '/api/im/chat/create',
+            getChats: '/api/im/chats',
+            getMsg: '/api/im/messages',
+            sendMsg: '/api/im/send',
         }
 
         this._requestType = {
@@ -147,6 +154,28 @@ class Ajax {
     async reject(link) {
         let body = {user_link: link};
         return this._request(this._apiUrl.reject, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async getChats(count = 0, lastPostDate = 0) {
+        return this._request(this._apiUrl.getChats + `?batch_size=${count}&offset=${lastPostDate}`, this._requestType.GET);
+    }
+
+    async getChatsMsg(chatId, count, lastPostDate) {
+        return this._request(this._apiUrl.getMsg + `?chat_id=${chatId}&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
+    }
+
+    async chatCheck(link) {
+        return this._request(this._apiUrl.chatCheck + `?user_link=${link}`, this._requestType.GET);
+    }
+
+    async msgSend(id, text, userLink) {
+        let body = {chat_id: Number(id), message_content_type: "string", reply_to: 0, text_content: text, user_link: userLink};
+        return this._request(this._apiUrl.sendMsg, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async chatCreate(users) {
+        let body = {user_links: users};
+        return this._request(this._apiUrl.chatCreate, this._requestType.POST, JSON.stringify({body}));
     }
 }
 

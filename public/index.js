@@ -11,6 +11,7 @@ import EditPostView from "./views/editPostView.js";
 import CreatePostView from "./views/createPostView.js";
 import userStore from "./stores/userStore.js";
 import SettingsView from "./views/settingsView.js";
+import MessagesView from "./views/messagesView.js";
 
 
 const Views = {
@@ -22,6 +23,7 @@ const Views = {
     EditPostView: new EditPostView(),
     CreatePostView: new CreatePostView(),
     SettingsView: new SettingsView(),
+    MessagesView: new MessagesView(),
 };
 
 Router.registerPage('/', Views.FeedView);
@@ -33,6 +35,7 @@ Router.registerPage('/profile', Views.ProfileView);
 Router.registerPage('/editPost', Views.EditPostView);
 Router.registerPage('/createPost', Views.CreatePostView);
 Router.registerPage('/settings', Views.SettingsView);
+Router.registerPage('/message', Views.MessagesView);
 
 actionUser.checkAuth(() => { Router.init() });
 
