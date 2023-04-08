@@ -14,7 +14,7 @@ class Router {
             this.currentPage.remove();
             this.currentPage.curPage = false;
         }
-
+        console.log(url);
         if (this._pages[url]) {
             this.currentPage = this._pages[url];
             this.currentPage.curPage = true;

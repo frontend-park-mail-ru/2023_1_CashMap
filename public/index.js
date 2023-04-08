@@ -17,6 +17,7 @@ const Views = {
     SignUpView: new SignUpView(),
     FriendsView: new FriendsView(),
     ProfileView: new ProfileView(),
+    EditPostView: new EditPostView(),
     CreatePostView: new CreatePostView(),
 };
 
