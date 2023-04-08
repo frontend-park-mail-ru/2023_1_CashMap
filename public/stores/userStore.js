@@ -124,7 +124,7 @@ class userStore {
             alert('error getUserInfo')
         }
 
-        if (callback()) {
+        if (callback) {
             callback();
         }
         this._refreshStore();

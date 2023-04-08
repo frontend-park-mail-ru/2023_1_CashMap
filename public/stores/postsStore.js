@@ -70,11 +70,14 @@ class postsStore {
                     post.comments_count = 0;
                 }
                 if (post.creation_date) {
-                    post.creation_date = "ToDo: парсить дату"
+                    const date = new Date(post.creation_date);
+                    post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
                 }
                 post.avatar = userStore.user.avatar;
 
                 this.posts.push(post);
+
+                console.log(this.posts);
             });
             this.posts = response.body.posts;
             console.log(this.posts);
