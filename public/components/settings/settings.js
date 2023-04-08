@@ -30,32 +30,41 @@ export default class Settings {
                 inputFields:
                     [
                     { help: 'Имя',
+                      data: 'Карина',
                       type: 'text',
                       jsIdInput: 'js-first-name-input',
                       jsIdError: 'js-first-name-error'},
                     { help: 'Фамилия',
+                      data: 'Анохина',
                       type: 'text',
                       jsIdInput: 'js-last-name-input',
                       jsIdError: 'js-last-name-error'},
                     { help: 'Электронная почта',
+                      data: 'qwe@bk.ru',
                       type: 'email',
                       jsIdInput: 'js-email-input',
                       jsIdError: 'js-email-error'},
                     { help: 'Город',
+                      data: 'Москва',
                       type: 'text',
                       jsIdInput: 'js-city-input',
                       jsIdError: 'js-city-error'},
                     { help: 'Дата рождения',
+                      data: '17.05.2001',
                       type: 'date',
                       jsIdInput: 'js-birthday-input',
                       jsIdError: 'js-birthday-error'},
                     { help: 'Статус',
+                      data: 'Это мой статус)',
                       type: 'text',
                       jsIdInput: 'js-status-input',
                       jsIdError: 'js-status-error'}
                     ],
                 buttonInfo: { text: 'Сохранить',
                     jsId: 'js-settings-save-btn'},
+                menuInfo: [
+                    {text: 'Основные', jsId: 'js-menu-main'},
+                    {text: 'Безопасность', jsId: 'js-menu-safety'}]
 			},
 		};
 	}
@@ -68,6 +77,8 @@ export default class Settings {
 		Handlebars.registerPartial('header', Handlebars.templates.header)
 		Handlebars.registerPartial('menuItem', Handlebars.templates.menuItem)
 		Handlebars.registerPartial('settingsPath', Handlebars.templates.settingsPath)
+		Handlebars.registerPartial('inputSettings', Handlebars.templates.inputSettings)
+
 
 		const template = Handlebars.templates.settings;
 		this.#parent.innerHTML = template(this.#config);
