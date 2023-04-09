@@ -1,7 +1,7 @@
 <div class="post background-color-post border-radius post-padding">
     <div class="post-profile">
-        <img class="post-profile__avatar" src="{{ sender_photo }}">
-        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots"> {{ sender_first_name }} {{ sender_last_name }} </span>
+        <img class="post-profile__avatar" src="{{ owner_info.url }}">
+        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots"> {{ owner_info.first_name }} {{ owner_info.last_name }} </span>
         <span class="post-profile__date font-InterMedium font-size-12 font-color-gray-text"> {{ creation_date }} </span>
         <img class="post-profile__dots margin-auto" src="static/img/post_icons/post_menu.svg">
 

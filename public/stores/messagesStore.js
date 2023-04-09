@@ -54,6 +54,16 @@ class messagesStore {
         if (request.status === 200) {
             const response = await request.json();
             this.chats = response.body.chats;
+
+            this.chats.forEach((chat) => {
+                chat.members.forEach((member) => {
+                    if (!member.url) {
+                        member.url = headerConst.avatarDefault;
+                    }
+                });
+
+            });
+
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -70,8 +80,12 @@ class messagesStore {
             const response = await request.json();
             this.messages = response.body.messages;
             this.messages.forEach((message) => {
+                if (!message.sender_info.url) {
+                    message.sender_info.url = headerConst.avatarDefault;
+                }
                 message.creation_date = new Date(message.creation_date).toLocaleDateString();
             });
+
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

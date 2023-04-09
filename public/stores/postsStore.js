@@ -57,14 +57,8 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
             response.body.posts.forEach((post) => {
-                if (!post.sender_photo) {
-                    post.sender_photo = headerConst.avatarDefault;
-                }
-                if (!post.sender_first_name) {
-                    post.sender_first_name = 'ToDo:';
-                }
-                if (!post.sender_last_name) {
-                    post.sender_last_name = 'Переделать-ручку получения постов';
+                if (!post.owner_info.url) {
+                    post.owner_info.url = headerConst.avatarDefault;
                 }
                 if (!post.comments) {
                     post.comments_count = 0;
@@ -76,6 +70,8 @@ class postsStore {
                 post.avatar = userStore.user.avatar;
 
                 this.posts.push(post);
+
+                console.log(this.posts);
             });
             this.posts = response.body.posts;
         } else if (request.status === 401) {
