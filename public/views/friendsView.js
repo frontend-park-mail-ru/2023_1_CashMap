@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst} from "../static/htmlConst.js";
+import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
@@ -37,6 +37,7 @@ export default class FriendsView {
 		this._msgItem = document.getElementById('js-side-bar-msg');
 		this._photoItem = document.getElementById('js-side-bar-photo');
 		this._friendsItem = document.getElementById('js-side-bar-friends');
+		this._friendsItem.style.color = activeColor;
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 
