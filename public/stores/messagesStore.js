@@ -82,7 +82,9 @@ class messagesStore {
         const request = await Ajax.chatCheck(userLink);
 
         if (request.status === 200) {
-            console.log(request);
+            const response = await request.json();
+            localStorage.setItem('hasChat', response.body.has_dialog);
+            console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

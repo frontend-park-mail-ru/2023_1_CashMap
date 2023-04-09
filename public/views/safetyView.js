@@ -66,15 +66,19 @@ export default class SafetyView {
 
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends');
-		})
+		});
+
+		this._msgItem.addEventListener('click', () => {
+			Router.go('/message', false);
+		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/profile');
-		})
+			Router.go('/myPage');
+		});
 
 		this._newsItem.addEventListener('click', () => {
 			Router.go('/feed');
-		})
+		});
 
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validatePassword && this._validatePasswordNew && this._validatePasswordRepeat) {

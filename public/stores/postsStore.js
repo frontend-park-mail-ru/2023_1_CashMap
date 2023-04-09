@@ -120,7 +120,16 @@ class postsStore {
         const request = await Ajax.deletePost(postId);
 
         if (request.status === 200) {
-            alert('done');
+            let index = -1;
+            for (let i = 0; i < this.posts.length; i++) {
+                if (this.posts[i].id === postId) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                this.posts.splice(index, 1);
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -134,7 +143,16 @@ class postsStore {
         const request = await Ajax.editPost(text, postId);
 
         if (request.status === 200) {
-            alert('done');
+            let index = -1;
+            for (let i = 0; i < this.posts.length; i++) {
+                if (this.posts[i].id === postId) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                this.posts[index].text_content = text;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

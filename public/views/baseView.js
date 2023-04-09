@@ -71,7 +71,7 @@ export default class BaseView {
 
 
         this._myPageItem.addEventListener('click', () => {
-            Router.go('/profile', false);
+            Router.go('/myPage', false);
         });
 
         this._newsItem.addEventListener('click', () => {

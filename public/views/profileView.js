@@ -63,6 +63,10 @@ export default class ProfileView {
             Router.go('/settings', false);
         });
 
+		this._msgItem.addEventListener('click', () => {
+			Router.go('/message', false);
+		});
+
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends', false);
 		});

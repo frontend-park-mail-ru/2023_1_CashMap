@@ -5,6 +5,7 @@ import {actionUser} from "../actions/actionUser.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
 import {actionPost} from "../actions/actionPost.js";
+import {actionMessage} from "../actions/actionMessage.js";
 
 export default class FriendsView {
 	constructor() {
@@ -57,7 +58,11 @@ export default class FriendsView {
         });
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/profile', false);
+			Router.go('/myPage', false);
+		});
+
+		this._msgItem.addEventListener('click', () => {
+			Router.go('/message', false);
 		});
 
 		this._newsItem.addEventListener('click', () => {
@@ -89,6 +94,14 @@ export default class FriendsView {
 			this._goToMsg[i].addEventListener('click', () => {
 				const userId = this._goToMsg[i].getAttribute("data-id");
 				// ToDo: переход в чат с пользователем userId
+				/*actionMessage.chatCheck(userId, () => {
+					if (localStorage.getItem('hasChat')) {
+						localStorage.setItem('chatId', )
+						Router.go('/chat');
+					} else {
+						a
+					}
+				});*/
 			});
 		}
 	}
@@ -113,8 +126,7 @@ export default class FriendsView {
 	}
 
 	_preRender() {
-		let u = friendsStore.users;
-
+		const res = [...friendsStore.friends, ...friendsStore.users];
 
 		this._template = Handlebars.templates.friends;
 		let header = headerConst;
@@ -122,7 +134,7 @@ export default class FriendsView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			friendsData: friendsStore.friends,
+			friendsData: res,
 		}
 	}
 

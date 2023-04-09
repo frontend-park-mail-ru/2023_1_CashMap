@@ -65,7 +65,7 @@ export default class SettingsView {
 	_addPagesListener() {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
-		})
+		});
 
 		this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);
@@ -77,11 +77,15 @@ export default class SettingsView {
 
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends');
-		})
+		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/profile');
-		})
+			Router.go('/myPage');
+		});
+
+		this._msgItem.addEventListener('click', () => {
+			Router.go('/message', false);
+		});
 
 		this._newsItem.addEventListener('click', () => {
 			Router.go('/feed');

@@ -131,8 +131,16 @@ class friendsStore {
         const request = await Ajax.sub(link);
 
         if (request.status === 200) {
-            alert('done');
-            //ToDo: добавить в локальную шляпу
+            let index = -1;
+            for (let i = 0; i < this.users.length; i++) {
+                if (this.users[i].user_link === link) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                this.friends.push(this.friends[index]);
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -146,8 +154,16 @@ class friendsStore {
         const request = await Ajax.unsub(link);
 
         if (request.status === 200) {
-            alert('done');
-            //ToDo: добавить в локальную шляпу
+            let index = -1;
+            for (let i = 0; i < this.friends.length; i++) {
+                if (this.friends[i].user_link === link) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                this.friends.splice(index, 1);
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

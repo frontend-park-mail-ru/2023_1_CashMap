@@ -66,7 +66,7 @@ export default class FeedView {
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/profile', false);
+			Router.go('/myPage', false);
 		});
 
 		for (let i = 0; i < this._editPosts.length; i++) {
