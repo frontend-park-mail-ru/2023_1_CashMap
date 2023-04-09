@@ -112,7 +112,7 @@ export default class FriendsView {
 
 	showPage() {
 		this.init = true;
-		actionUser.getProfile(() => { actionFriends.getFriends(userStore.user.user_link, 15, 0); actionFriends.getUsers(15, 0); });
+		actionUser.getProfile(() => { actionFriends.getFriends(userStore.user.user_link, 15, 0); actionFriends.getNotFriends(15, 0); });
 	}
 
 	updatePage() {
