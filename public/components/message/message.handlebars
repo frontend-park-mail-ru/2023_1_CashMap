@@ -1,17 +1,17 @@
 <div class="message js-go-chat" data-id="{{ chat_id }}">
     <div class="message__info">
-        <img src="{{friendPhoto}}" class="message__friend-avatar">
+        <img src="{{ url }}" class="message__friend-avatar">
         <div class="message__block message__block_flex-start">
-            <div class="message__text">{{firstName}} {{lastName}}</div>
-            <div class="message__text message__text_grey">{{text}}</div>
+            <div class="message__text">{{ first_name }} {{ last_name }}</div>
+            <div class="message__text message__text_grey">{{ text }}</div>
         </div>
     </div>
     <div class="message__block">
-        <div class="message__date">{{date}}</div>
-        {{#if isUnread}}
-            {{#if isMuted}}
+        <div class="message__date">{{ date }}</div>
+        {{#if isUnread }}
+            {{#if isMuted }}
             <div class="message__status message__status_muted"> </div>
-            {{else}}
+            {{ else }}
             <div class="message__status"> </div>
             {{/if}}
         {{/if}}

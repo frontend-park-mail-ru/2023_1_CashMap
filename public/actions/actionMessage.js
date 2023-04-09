@@ -30,10 +30,11 @@ export const actionMessage = {
             text,
         });
     },
-    chatCreate(userLinks) {
+    chatCreate(userLinks, callback) {
         Dispatcher.dispatch({
             actionName: 'chatCreate',
             userLinks,
+            callback,
         });
     },
 };

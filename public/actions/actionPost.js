@@ -9,6 +9,13 @@ export const actionPost = {
             lastPostDate,
         });
     },
+    getFriendsPosts(count, lastPostDate) {
+        Dispatcher.dispatch({
+            actionName: 'getFriendsPosts',
+            count,
+            lastPostDate,
+        });
+    },
     getPostsById(id, count, lastPostDate) {
         Dispatcher.dispatch({
             actionName: 'getPostById',

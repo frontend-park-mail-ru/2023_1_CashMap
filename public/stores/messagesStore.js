@@ -41,7 +41,7 @@ class messagesStore {
                 await this._msgSend(action.chatId, action.text);
                 break;
             case 'chatCreate':
-                await this._chatCreate(action.userLinks);
+                await this._chatCreate(action.userLinks, action.callback);
                 break;
             default:
                 return;
@@ -54,6 +54,21 @@ class messagesStore {
         if (request.status === 200) {
             const response = await request.json();
             this.chats = response.body.chats;
+
+            this.chats.forEach((chat) => {
+                chat.members.forEach((member) => {
+                    if (!member.url) {
+                        member.url = headerConst.avatarDefault;
+                    }
+                    if (member.link !== userStore.user.user_link) {
+                        chat.url = member.url;
+                        chat.first_name = member.first_name;
+                        chat.last_name = member.last_name;
+                    }
+                });
+
+            });
+
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -70,8 +85,12 @@ class messagesStore {
             const response = await request.json();
             this.messages = response.body.messages;
             this.messages.forEach((message) => {
+                if (!message.sender_info.url) {
+                    message.sender_info.url = headerConst.avatarDefault;
+                }
                 message.creation_date = new Date(message.creation_date).toLocaleDateString();
             });
+
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -86,7 +105,11 @@ class messagesStore {
 
         if (request.status === 200) {
             const response = await request.json();
-            localStorage.setItem('hasChat', response.body.has_dialog);
+            if (response.body.has_dialog) {
+                localStorage.setItem('chatFriendId', response.body.chat_id);
+            } else {
+                localStorage.removeItem('chatFriendId');
+            }
             console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -113,18 +136,21 @@ class messagesStore {
         this._refreshStore();
     }
 
-    async _chatCreate(userLinks) {
+    async _chatCreate(userLinks, callback) {
         const request = await Ajax.chatCreate(userLinks);
 
         if (request.status === 200) {
-            alert('done');
+            const response = await request.json();
+            localStorage.setItem('chatId', response.body.chat.chat_id);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
             alert('chatCreate error');
         }
 
-        this._refreshStore();
+        if (callback) {
+            callback();
+        }
     }
 }
 

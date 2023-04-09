@@ -93,15 +93,19 @@ export default class FriendsView {
 		for (let i = 0; i < this._goToMsg.length; i++) {
 			this._goToMsg[i].addEventListener('click', () => {
 				const userId = this._goToMsg[i].getAttribute("data-id");
-				// ToDo: переход в чат с пользователем userId
-				/*actionMessage.chatCheck(userId, () => {
-					if (localStorage.getItem('hasChat')) {
-						localStorage.setItem('chatId', )
+				actionMessage.chatCheck(userId, () => {
+					if (localStorage.getItem('chatFriendId')) {
+						localStorage.setItem('chatId', localStorage.getItem('chatFriendId'));
 						Router.go('/chat');
 					} else {
-						a
+						actionMessage.chatCreate(userId, () => {
+							if (localStorage.getItem('chatId')) {
+								alert(3);
+								Router.go('/chat');
+							}
+						});
 					}
-				});*/
+				});
 			});
 		}
 	}
@@ -112,7 +116,7 @@ export default class FriendsView {
 
 	showPage() {
 		this.init = true;
-		actionUser.getProfile(() => { actionFriends.getFriends(userStore.user.user_link, 15, 0); actionFriends.getUsers(15, 0); });
+		actionUser.getProfile(() => { actionFriends.getFriends(userStore.user.user_link, 15, 0); actionFriends.getNotFriends(15, 0); });
 	}
 
 	updatePage() {
@@ -126,7 +130,7 @@ export default class FriendsView {
 	}
 
 	_preRender() {
-		const res = [...friendsStore.friends, ...friendsStore.users];
+		const res = [...friendsStore.friends, ...friendsStore.notFriends];
 
 		this._template = Handlebars.templates.friends;
 		let header = headerConst;

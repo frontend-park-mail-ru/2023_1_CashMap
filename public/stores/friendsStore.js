@@ -9,6 +9,7 @@ class friendsStore {
         this._callbacks = [];
 
         this.friends = [];
+        this.notFriends = [];
         this.users = [];
 
         this.subscribers = [];
@@ -33,6 +34,9 @@ class friendsStore {
         switch (action.actionName) {
             case 'getFriends':
                 await this._getFriends(action.link, action.count, action.offset);
+                break;
+            case 'getNotFriends':
+                await this._getNotFriends(action.link, action.count, action.offset);
                 break;
             case 'getUsers':
                 await this._getUsers(action.count, action.offset);
@@ -70,7 +74,33 @@ class friendsStore {
             });
 
             this.friends = response.body.friends;
-            console.log(this.friends);
+            console.log(response.body);
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('error');
+        }
+
+        this._refreshStore();
+    }
+
+    async _getNotFriends(link, count, offset) {
+        const request = await Ajax.getNotFriends(link, count, offset);
+        const response = await request.json();
+
+        if (request.status === 200) {
+            response.body.profiles.forEach((friend) => {
+                friend.isFriend = false;
+                if (!friend.avatar) {
+                    friend.avatar = headerConst.avatarDefault;
+                }
+                if (!friend.city) {
+                    friend.city = 'город не указан';
+                }
+            });
+
+            this.notFriends = response.body.profiles;
+            console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

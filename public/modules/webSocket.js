@@ -1,5 +1,6 @@
 import Ajax from "./ajax.js";
 import messagesStore from "../stores/messagesStore.js";
+import {headerConst} from "../static/htmlConst.js";
 
 class WebSock {
     constructor() {
@@ -15,6 +16,10 @@ class WebSock {
 
         this._socket.onmessage = function(event) {
             const response = JSON.parse(event.data);
+            response.creation_date = new Date(response.creation_date).toLocaleDateString();
+            if (!response.sender_info.url) {
+                response.sender_info.url = headerConst.avatarDefault;
+            }
             messagesStore.messages.push(response);
             messagesStore._refreshStore();
         };

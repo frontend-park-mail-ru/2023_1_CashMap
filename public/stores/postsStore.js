@@ -11,6 +11,7 @@ class postsStore {
         this._callbacks = [];
 
         this.posts = [];
+        this.friendsPosts = [];
         this.curPost = null;
         this.curPostId = null;
 
@@ -33,6 +34,9 @@ class postsStore {
         switch (action.actionName) {
             case 'getPosts':
                 await this._getPosts(action.userLink, action.count, action.lastPostDate);
+                break;
+            case 'getFriendsPosts':
+                await this._getFriendsPosts(action.count, action.lastPostDate);
                 break;
             case 'getPostById':
                 await this._getPostsById(action.id, action.count, action.lastPostDate);
@@ -57,14 +61,8 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
             response.body.posts.forEach((post) => {
-                if (!post.sender_photo) {
-                    post.sender_photo = headerConst.avatarDefault;
-                }
-                if (!post.sender_first_name) {
-                    post.sender_first_name = 'ToDo:';
-                }
-                if (!post.sender_last_name) {
-                    post.sender_last_name = 'Переделать-ручку получения постов';
+                if (!post.owner_info.url) {
+                    post.owner_info.url = headerConst.avatarDefault;
                 }
                 if (!post.comments) {
                     post.comments_count = 0;
@@ -76,8 +74,43 @@ class postsStore {
                 post.avatar = userStore.user.avatar;
 
                 this.posts.push(post);
+
+                console.log(this.posts);
             });
             this.posts = response.body.posts;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('getPosts error');
+        }
+
+        this._refreshStore();
+    }
+
+    async _getFriendsPosts(count, lastPostDate) {
+        const request = await Ajax.getFriendsPosts(count, lastPostDate);
+
+        if (request.status === 200) {
+            const response = await request.json();
+            console.log(response);
+            response.body.posts.forEach((post) => {
+                if (!post.owner_info.url) {
+                    post.owner_info.url = headerConst.avatarDefault;
+                }
+                if (!post.comments) {
+                    post.comments_count = 0;
+                }
+                if (post.creation_date) {
+                    const date = new Date(post.creation_date);
+                    post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                }
+                post.avatar = userStore.user.avatar;
+
+                this.posts.push(post);
+
+                console.log(this.posts);
+            });
+            this.friendsPosts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

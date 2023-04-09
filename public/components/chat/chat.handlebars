@@ -1,4 +1,4 @@
-<div class="chat" id="{{ chat }}">
+<div class="chat" id="{{ chat_id }}">
     <div class="chat__header">
         <div class="chat__header-icon" id="js-back-to-messages-btn">
             <input type="image" class="chat__header-img" src="static/img/back.svg">
@@ -6,8 +6,8 @@
         </div>
 
         <div class="chat__header-info">
-            <img src="{{ user.avatar }}" class="chat__header-info-avatar">
-            <div class="chat__header-info-text">{{ firstName }} {{ lastName }}</div>
+            <img src="{{ user.url }}" class="chat__header-info-avatar">
+            <div class="chat__header-info-text">{{ user.first_name }} {{ user.last_name }}</div>
         </div>
 
         <div class="chat__header-image"><img src="static/img/post_icons/post_menu.svg"></div>

@@ -84,7 +84,7 @@ export default class ChatView {
 		this.init = true;
 		const chatId = localStorage.getItem('chatId');
 		if (chatId) {
-			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,15); });
+			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,15); actionMessage.getChats(15); });
 		} else {
 			Router.goBack();
 		}
@@ -101,16 +101,24 @@ export default class ChatView {
 	}
 
 	_preRender() {
+		console.log(messagesStore.chats);
+
 		let curChat = null;
 		messagesStore.chats.forEach((chat) => {
-			if (chat.id === localStorage.getItem('chatId')) {
+			if (String(chat.chat_id) === localStorage.getItem('chatId')) {
 				curChat = chat;
 			}
 		});
 
-		console.log(messagesStore.chats);
-		console.log(curChat);
-		// if (curChat.users)
+		let secondUser = null;
+		if (curChat) {
+			secondUser = curChat.members[0];
+			if (curChat.members[0].link === userStore.user.user_link) {
+				secondUser = curChat.members[1];
+			}
+		}
+
+		console.log(curChat, secondUser);
 
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
@@ -119,7 +127,7 @@ export default class ChatView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {messages: messagesStore.messages, user: userStore.user, chat: curChat},
+			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat},
 		}
 	}
 

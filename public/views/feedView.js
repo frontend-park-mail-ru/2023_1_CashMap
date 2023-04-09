@@ -95,7 +95,7 @@ export default class FeedView {
 
 	showPage() {
 		this.init = true;
-		actionUser.getProfile(() => { actionPost.getPostsByUser(userStore.user.user_link, 15); });
+		actionUser.getProfile(() => { actionPost.getFriendsPosts(15); });
 	}
 
 	updatePage() {
@@ -116,7 +116,7 @@ export default class FeedView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
+			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.friendsPosts},
 		}
 	}
 

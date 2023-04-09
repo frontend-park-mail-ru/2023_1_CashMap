@@ -33,6 +33,7 @@
 @import "components/inputSettings/inputSettings.css";
 @import "components/editPost/editPost.css";
 @import "components/editPostPage/editPostPage.css";
+@import "components/notFound/notFound.css";
 
 @font-face {
     font-family: Limelight; /* Имя шрифта */
