@@ -57,6 +57,10 @@ export default class FeedView {
             Router.go('/settings', false);
         });
 
+		this._msgItem.addEventListener('click', () => {
+            Router.go('/message', false);
+        });
+
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends', false);
 		});
@@ -75,7 +79,7 @@ export default class FeedView {
 		for (let i = 0; i < this._deletePosts.length; i++) {
 			this._deletePosts[i].addEventListener('click', () => {
 				const postId = this._deletePosts[i].getAttribute("data-id");
-				actionPost.deletePost(postId);
+				actionPost.deletePost(Number(postId));
 			});
 		}
 

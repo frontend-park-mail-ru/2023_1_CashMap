@@ -41,8 +41,10 @@ export default class FriendsView {
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 
+		this._goToProfile = document.getElementsByClassName('friend-menu-item-page');
+		this._goToMsg = document.getElementsByClassName('js-friend-go-msg');
+		this._deleteUser = document.getElementsByClassName('friend-menu-item-delete');
 		this._addUser = document.getElementsByClassName('js-friend-add');
-		this._deleteUser = document.getElementsByClassName('js-friend-delete');
 	}
 
 	_addPagesListener() {
@@ -75,6 +77,20 @@ export default class FriendsView {
 				actionFriends.unsub(userId);
 			});
 		}
+
+		for (let i = 0; i < this._goToProfile.length; i++) {
+			this._deleteUser[i].addEventListener('click', () => {
+				const userId = this._deleteUser[i].getAttribute("data-id");
+				// ToDo: переход в профиль пользователя userId
+			});
+		}
+
+		for (let i = 0; i < this._goToMsg.length; i++) {
+			this._goToMsg[i].addEventListener('click', () => {
+				const userId = this._goToMsg[i].getAttribute("data-id");
+				// ToDo: переход в чат с пользователем userId
+			});
+		}
 	}
 
 	remove() {
@@ -83,7 +99,7 @@ export default class FriendsView {
 
 	showPage() {
 		this.init = true;
-		actionUser.getProfile(() => { actionFriends.getFriends(userStore.user.user_link, 15, 0); });
+		actionUser.getProfile(() => { actionFriends.getFriends(userStore.user.user_link, 15, 0); actionFriends.getUsers(15, 0); });
 	}
 
 	updatePage() {
@@ -98,7 +114,6 @@ export default class FriendsView {
 
 	_preRender() {
 		this._template = Handlebars.templates.friends;
-
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
 		this._context = {

@@ -3,6 +3,8 @@ import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
+import Router from "../modules/router.js";
+import {actionPost} from "../actions/actionPost.js";
 
 class postsStore {
     constructor() {
@@ -68,13 +70,17 @@ class postsStore {
                     post.comments_count = 0;
                 }
                 if (post.creation_date) {
-                    post.creation_date = "ToDo: парсить дату"
+                    const date = new Date(post.creation_date);
+                    post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
                 }
                 post.avatar = userStore.user.avatar;
 
                 this.posts.push(post);
+
+                console.log(this.posts);
             });
             this.posts = response.body.posts;
+            console.log(this.posts);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -105,7 +111,7 @@ class postsStore {
         const request = await Ajax.createPost(data);
 
         if (request.status === 200) {
-            alert('done')
+            actionPost.getPostsByUser(userStore.user.user_link, 15);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

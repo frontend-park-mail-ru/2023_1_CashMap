@@ -12,6 +12,7 @@ import CreatePostView from "./views/createPostView.js";
 import userStore from "./stores/userStore.js";
 import SettingsView from "./views/settingsView.js";
 import SafetyView from "./views/safetyView.js";
+import MessagesView from "./views/messagesView.js";
 
 
 const Views = {
@@ -24,6 +25,7 @@ const Views = {
     CreatePostView: new CreatePostView(),
     SettingsView: new SettingsView(),
     SafetyView: new SafetyView(),
+    MessagesView: new MessagesView(),
 };
 
 Router.registerPage('/', Views.FeedView);
@@ -36,6 +38,7 @@ Router.registerPage('/editPost', Views.EditPostView);
 Router.registerPage('/createPost', Views.CreatePostView);
 Router.registerPage('/settings', Views.SettingsView);
 Router.registerPage('/safety', Views.SafetyView);
+Router.registerPage('/message', Views.MessagesView);
 
 actionUser.checkAuth(() => { Router.init() });
 

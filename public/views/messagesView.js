@@ -2,7 +2,8 @@ import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
 import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
-import {actionMessages} from "../actions/actionMessages.js";
+import friendsStore from "../stores/friendsStore.js";
+import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";
 
 export default class MessagesView {
@@ -44,7 +45,7 @@ export default class MessagesView {
 	_addPagesListener() {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
-		})
+		});
 
 		this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);
@@ -52,19 +53,24 @@ export default class MessagesView {
 
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends');
-		})
+		});
 
 		this._myPageItem.addEventListener('click', () => {
 			Router.go('/profile');
-		})
+		});
 
 		this._newsItem.addEventListener('click', () => {
 			Router.go('/feed');
-		})
+		});
 	}
 
 	remove() {
 		document.getElementById(this._jsId)?.remove();
+	}
+
+	showPage() {
+		this.init = true;
+		actionUser.getProfile(() => { actionMessage.getChats(15); });
 	}
 
 	updatePage() {
@@ -72,28 +78,26 @@ export default class MessagesView {
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
-				if (this.init === false) {
-					actionMessages.getMessages(userStore.user.user_link, 15, 0);
-				}
 				this._render();
 			}
 		}
 	}
 
-	_render() {
+	_preRender() {
+		this._template = Handlebars.templates.messages;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
-
-		const template = Handlebars.templates.messages;
-		Router.rootElement.innerHTML = template({
+		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			messagesData: messagesStore.messages,
-		});
-
-		this._addPagesElements();
-
-		this._addPagesListener();
+			messagesData: messagesStore.chats,
+		}
 	}
 
+	_render() {
+		this._preRender();
+		Router.rootElement.innerHTML = this._template(this._context);
+		this._addPagesElements();
+		this._addPagesListener();
+	}
 }
