@@ -12,7 +12,8 @@ class WebSock {
             throw new Error('Ошибка: браузер не поддерживает WebSocket');
         }
 
-        this._socket = new WebSocket("ws://127.0.0.1:8080/api/ws");
+        //this._socket = new WebSocket("ws://127.0.0.1:8080/api/ws");
+        this._socket = new WebSocket("ws://95.163.212.121:8080/api/ws");
 
         this._socket.onmessage = function(event) {
             const response = JSON.parse(event.data);
