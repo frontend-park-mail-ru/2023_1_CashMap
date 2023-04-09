@@ -1,7 +1,7 @@
 import userStore from "../stores/userStore.js";
 import Validation from "../modules/validation.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, settingsConst} from "../static/htmlConst.js";
+import {sideBarConst, headerConst, settingsConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 
 export default class SettingsView {
@@ -12,9 +12,9 @@ export default class SettingsView {
 		this.curPage = false;
         this.init = false;
 
-		this._validateFirstName = false;
-        this._validateLastName = false;
-        this._validateEmail = false;
+		this._validateFirstName = true;
+        this._validateLastName = true;
+        this._validateEmail = true;
 
 		userStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
@@ -33,6 +33,9 @@ export default class SettingsView {
 	_addPagesElements() {
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
+		this._settingsBtn = document.getElementById('js-menu-main');
+		this._safetyBtn = document.getElementById('js-menu-safety');
+		this._settingsBtn.style.color = activeColor;
 
 		this._dropZone = document.getElementById('js-drop-zone');
 		this._dropContent = document.getElementById('js-drop-content');
@@ -66,6 +69,10 @@ export default class SettingsView {
 
 		this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);
+        });
+
+		this._safetyBtn.addEventListener('click', () => {
+            Router.go('/safety', false);
         });
 
 		this._friendsItem.addEventListener('click', () => {
@@ -103,17 +110,9 @@ export default class SettingsView {
 		}
 
 		this._saveBtn.addEventListener('click', () => {
-			console.log(this._firstNameField.value, window.history.state);
-			console.log(this._lastNameField.value, window.history.state);
-			console.log(this._emailField.value, window.history.state);
-			console.log(this._cityField.value, window.history.state);
-			console.log(this._birthdayField.value, window.history.state);
-			console.log(this._statusField.value, window.history.state);
-			console.log(this._dropContent.src, window.history.state);
-
 			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
-                actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, city: this._cityField.value, birthday: this._birthdayField.value, status: this._statusField.value});
-				//Router.goBack();
+                actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, city: this._cityField.value, status: this._statusField.value});
+				//actionUser.getProfile();    тут обновить надо, иначе данные не меняются
 			}
 		});
 
@@ -143,22 +142,8 @@ export default class SettingsView {
 	}
 
 	showPage() {
-		// this.init = true;
-		// actionUser.getProfile(() => {
-		// 	if (window.history.state) {
-		// 		actionPost.getPostsById(window.history.state, 1);
-		// 	} else {
-		// 		Router.goBack();
-		// 	}
-		// }); //так потом сделать 
-
-		if (userStore.user.isAuth === false) {
-			console.log(userStore.user.isAuth);
-			Router.go('/signIn');
-		} else {
-			actionUser.getProfile();
-			this._render();
-		}
+		this.init = true;
+		actionUser.getProfile();
 	}
 
 	_preRender() {
@@ -176,7 +161,6 @@ export default class SettingsView {
 		settings['inputFields'][3]['data'] = userStore.user.city; // этого нет в сторе
 		settings['inputFields'][4]['data'] = userStore.user.birthday;
 		settings['inputFields'][5]['data'] = userStore.user.status;
-
 
 		this._context = {
 			sideBarData: sideBarConst,
