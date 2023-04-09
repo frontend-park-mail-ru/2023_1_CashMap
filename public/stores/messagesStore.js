@@ -69,6 +69,9 @@ class messagesStore {
         if (request.status === 200) {
             const response = await request.json();
             this.messages = response.body.messages;
+            this.messages.forEach((message) => {
+                message.creation_date = new Date(message.creation_date).toLocaleDateString();
+            });
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

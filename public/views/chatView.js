@@ -104,17 +104,11 @@ export default class ChatView {
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
-
-		messagesStore.messages.forEach((message) => {
-			console.log('qqqqq ', message.creation_date); //что-то туплю/// каждый элемент 2 раза борабатывается ;/
-			message.creation_date = new Date(message.creation_date).toLocaleDateString();
-			console.log('wwww ', message.creation_date);
-		})
-
+		
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {messages: this._messages, user: userStore.user, chat: localStorage.getItem('chatId')},
+			chatData: {messages: messagesStore.messages, user: userStore.user, chat: localStorage.getItem('chatId')},
 		}
 	}
 
