@@ -76,11 +76,8 @@ class postsStore {
                 post.avatar = userStore.user.avatar;
 
                 this.posts.push(post);
-
-                console.log(this.posts);
             });
             this.posts = response.body.posts;
-            console.log(this.posts);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -96,8 +93,6 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
             this.curPost = response.body.posts[0];
-
-            console.log(this.curPost);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

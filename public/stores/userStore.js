@@ -109,10 +109,18 @@ class userStore {
             this.user.user_link = response.body.profile.user_link;
             this.user.firstName = response.body.profile.first_name;
             this.user.lastName = response.body.profile.last_name;
-            this.user.birthday = response.body.profile.birthday;
             this.user.status = response.body.profile.status;
-            this.user.lastActive = response.body.profile.last_active;
             this.user.email = response.body.profile.email;
+
+            if (response.body.profile.last_active) {
+                const date = new Date(response.body.profile.last_active);
+                this.user.lastActive = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+            }
+
+            if (response.body.profile.birthday) {
+                const date = new Date(response.body.profile.birthday);
+                this.user.birthday = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+            }
 
             if (!this.user.status) {
                 this.user.status = 'статус не задан'

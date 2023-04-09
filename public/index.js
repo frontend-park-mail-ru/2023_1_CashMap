@@ -13,6 +13,9 @@ import userStore from "./stores/userStore.js";
 import SettingsView from "./views/settingsView.js";
 import SafetyView from "./views/safetyView.js";
 import MessagesView from "./views/messagesView.js";
+import ChatView from "./views/chatView.js";
+import WebSock from "./modules/webSocket.js";
+import messagesStore from "./stores/messagesStore.js";
 
 
 const Views = {
@@ -26,6 +29,7 @@ const Views = {
     SettingsView: new SettingsView(),
     SafetyView: new SafetyView(),
     MessagesView: new MessagesView(),
+    ChatView: new ChatView(),
 };
 
 Router.registerPage('/', Views.FeedView);
@@ -39,9 +43,12 @@ Router.registerPage('/createPost', Views.CreatePostView);
 Router.registerPage('/settings', Views.SettingsView);
 Router.registerPage('/safety', Views.SafetyView);
 Router.registerPage('/message', Views.MessagesView);
+Router.registerPage('/chat', Views.ChatView);
 
 actionUser.checkAuth(() => { Router.init() });
 
 //actionPost.createPostUser(userStore.user.link, userStore.user.link, true, text);
 //actionPost.createPostUser(userStore.user.link, userStore.user.link, true, text);
+
+WebSock.open();
 

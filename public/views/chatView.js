@@ -2,8 +2,9 @@ import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
 import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
-import {actionMessages} from "../actions/actionMessages.js";
+import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";
+import {actionPost} from "../actions/actionPost.js";
 
 export default class ChatView {
 	constructor() {
@@ -39,12 +40,15 @@ export default class ChatView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+
+		this._sendMsg = document.getElementById('js-send-msg');
+		this._msg = document.getElementById('js-msg-input');
 	}
 
 	_addPagesListener() {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
-		})
+		});
 
 		this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);
@@ -52,19 +56,33 @@ export default class ChatView {
 
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends');
-		})
+		});
 
 		this._myPageItem.addEventListener('click', () => {
 			Router.go('/profile');
-		})
+		});
 
 		this._newsItem.addEventListener('click', () => {
 			Router.go('/feed');
-		})
+		});
+
+		this._sendMsg.addEventListener('click', () => {
+			actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
+		});
 	}
 
 	remove() {
 		document.getElementById(this._jsId)?.remove();
+	}
+
+	showPage() {
+		this.init = true;
+		const chatId = localStorage.getItem('chatId');
+		if (chatId) {
+			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,15); });
+		} else {
+			Router.goBack();
+		}
 	}
 
 	updatePage() {
@@ -72,51 +90,26 @@ export default class ChatView {
 			if (!userStore.user.isAuth) {
 				Router.go('/signIn');
 			} else {
-				if (this.init === false) {
-					actionMessages.getMessages(userStore.user.user_link, 15, 0);
-				}
 				this._render();
 			}
 		}
 	}
 
-	_render() {
+	_preRender() {
+		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
-
-		const template = Handlebars.templates.chatPage;
-		Router.rootElement.innerHTML = template({
+		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {
-				id: 1,
-				friendPhoto: 'static/img/post_icons/profile_image.svg',
-				firstName: 'Карина',
-				lastName: 'Анохина',
-				messages: [ {
-                    id: 1,
-                    friendPhoto: 'static/img/post_icons/user_photo.svg',
-                    text: 'Привет) Как дела?',
-                    time: '13:30'
-                },
-                {
-                    id: 2,
-                    friendPhoto: 'static/img/post_icons/profile_image.svg',
-                    text: 'Привет, хорошо. У тебя как? Чем занимаешься?',
-                    time: '13:31'
-                },
-                {
-                    id: 3,
-                    friendPhoto: 'static/img/post_icons/user_photo.svg',
-                    text: 'У меня супер! делаю проект....',
-                    time: '13:35'
-                }]
-			}
-		});
-
-		this._addPagesElements();
-
-		this._addPagesListener();
+			chatData: {messages: messagesStore.messages, user: userStore.user, chat: localStorage.getItem('chatId')},
+		}
 	}
 
+	_render() {
+		this._preRender();
+		Router.rootElement.innerHTML = this._template(this._context);
+		this._addPagesElements();
+		this._addPagesListener();
+	}
 }
