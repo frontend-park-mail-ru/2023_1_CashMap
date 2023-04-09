@@ -1,7 +1,10 @@
 <div class="chatItem" id="{{ id }}">
     <div class="chatItem__info">
-        <img src="{{ friendPhoto }}" class="chatItem__img">
-        <div class="chatItem__text">{{ text_content }}</div>
+        <img src="{{ sender_info.url }}" class="chatItem__img">
+        <div class="chatItem__info-text">
+            <div class="chatItem__text chatItem__text_little">{{sender_info.first_name}}</div>
+            <div class="chatItem__text">{{ text_content }}</div>
+        </div>
     </div>
     <div class="chatItem__text chatItem__text_little">{{ creation_date }}</div>
 </div>
