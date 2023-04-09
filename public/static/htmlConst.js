@@ -1,3 +1,5 @@
+export const activeColor = "#B95DD9"
+
 export const sideBarConst = {
     logoImgPath: 'static/img/logo.svg',
     logoText: 'Depeche',
@@ -91,6 +93,30 @@ export const settingsConst = {
       ],
   buttonInfo: { text: 'Сохранить',
       jsId: 'js-settings-save-btn'},
+  menuInfo: [
+      {text: 'Основные', jsId: 'js-menu-main'},
+      {text: 'Безопасность', jsId: 'js-menu-safety'}]
+}
+
+export const safetyConst = {
+  header: 'Смена пароля',
+  inputFields:
+      [
+      { help: 'Введите старый пароль',
+        type: 'text',
+        jsIdInput: 'js-password-input',
+        jsIdError: 'js-password-error'},
+      { help: 'Введите новый пароль',
+        type: 'text',
+        jsIdInput: 'js-new-password-input',
+        jsIdError: 'js-new-password-error'},
+      { help: 'Повторите пароль',
+        type: 'email',
+        jsIdInput: 'js-repeat-password-input',
+        jsIdError: 'js-repeat-password-error'},
+      ],
+  buttonInfo: { text: 'Изменить пароль',
+      jsId: 'js-change-password-btn'},
   menuInfo: [
       {text: 'Основные', jsId: 'js-menu-main'},
       {text: 'Безопасность', jsId: 'js-menu-safety'}]

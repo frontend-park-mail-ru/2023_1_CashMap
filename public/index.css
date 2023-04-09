@@ -27,6 +27,7 @@
 @import "components/chatPage/chatPage.css";
 @import "components/profileCard/profileCard.css";
 @import "components/profile/profile.css";
+@import "components/safety/safety.css";
 @import "components/settings/settings.css";
 @import "components/settingsPath/settingsPath.css";
 @import "components/inputSettings/inputSettings.css";
@@ -145,6 +146,9 @@
 }
 .font-Comfortaa {
     font-family: Comfortaa, sans-serif;
+}
+.font-Montserrat {
+    font-family: Montserrat, sans-serif;
 }
 
 .font-size-10 {

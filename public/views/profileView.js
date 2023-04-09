@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst} from "../static/htmlConst.js";
+import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
@@ -37,6 +37,7 @@ export default class ProfileView {
 		this._profileSettingsBtn = document.getElementById('js-profile-settings-btn');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
+		this._myPageItem.style.color = activeColor;
 		this._newsItem = document.getElementById('js-side-bar-news');
 		this._msgItem = document.getElementById('js-side-bar-msg');
 		this._photoItem = document.getElementById('js-side-bar-photo');
