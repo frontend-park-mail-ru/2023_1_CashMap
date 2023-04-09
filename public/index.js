@@ -16,6 +16,7 @@ import MessagesView from "./views/messagesView.js";
 import ChatView from "./views/chatView.js";
 import WebSock from "./modules/webSocket.js";
 import messagesStore from "./stores/messagesStore.js";
+import NotFoundView from "./views/notFoundView.js";
 
 
 const Views = {
@@ -30,6 +31,7 @@ const Views = {
     SafetyView: new SafetyView(),
     MessagesView: new MessagesView(),
     ChatView: new ChatView(),
+    NotFoundView: new NotFoundView(),
 };
 
 Router.registerPage('/', Views.FeedView);
@@ -45,11 +47,9 @@ Router.registerPage('/settings', Views.SettingsView);
 Router.registerPage('/safety', Views.SafetyView);
 Router.registerPage('/message', Views.MessagesView);
 Router.registerPage('/chat', Views.ChatView);
+Router.registerPage('/404', Views.NotFoundView);
 
 actionUser.checkAuth(() => { Router.init() });
-
-//actionPost.createPostUser(userStore.user.link, userStore.user.link, true, text);
-//actionPost.createPostUser(userStore.user.link, userStore.user.link, true, text);
 
 WebSock.open();
 

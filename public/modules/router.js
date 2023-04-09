@@ -33,7 +33,7 @@ class Router {
             }
 
         } else {
-            alert('page not found');
+            this._pages['/404'].showPage();
         }
     }
 

@@ -18,7 +18,7 @@ export const actionFriends = {
     },
     getNotFriends(count, offset) {
         Dispatcher.dispatch({
-            actionName: 'getUsers',
+            actionName: 'getNotFriends',
             count,
             offset,
         });

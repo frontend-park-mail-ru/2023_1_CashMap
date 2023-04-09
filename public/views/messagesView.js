@@ -94,6 +94,8 @@ export default class MessagesView {
 	}
 
 	_preRender() {
+		let secondUser = null;
+
 		this._template = Handlebars.templates.messages;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;

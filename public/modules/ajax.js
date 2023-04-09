@@ -21,6 +21,7 @@ class Ajax {
             editPost: '/api/posts/edit',
 
             getFriends: '/api/user/friends',
+            getNotFriends: '/api/user/rand',
             getUsers: '/api/user/all',
             getSub: '/api/user/sub',
             reject: '/api/user/reject',
@@ -100,6 +101,14 @@ class Ajax {
         }
     }
 
+    async getFriendsPosts(count, lastPostDate) {
+        if (lastPostDate) {
+            return this._request(this._apiUrl.feed + `?&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
+        } else {
+            return this._request(this._apiUrl.feed + `?&batch_size=${count}`, this._requestType.GET);
+        }
+    }
+
     async getPostById(id, count, lastPostDate) {
         if (lastPostDate) {
             return this._request(this._apiUrl.userPostById + `?post_id=${id}&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
@@ -134,6 +143,10 @@ class Ajax {
 
     async getFriends(link, count, offset= 0) {
         return this._request(this._apiUrl.getFriends + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async getNotFriends(link, count, offset= 0) {
+        return this._request(this._apiUrl.getNotFriends + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
     async getUsers(count, offset= 0) {
@@ -181,7 +194,7 @@ class Ajax {
     }
 
     async chatCreate(users) {
-        let body = {user_links: users};
+        let body = {user_links: [users]};
         return this._request(this._apiUrl.chatCreate, this._requestType.POST, JSON.stringify({body}));
     }
 }

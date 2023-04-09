@@ -22,6 +22,8 @@ class userStore {
             lastActive: null,
         };
 
+        this.profile = null;
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 

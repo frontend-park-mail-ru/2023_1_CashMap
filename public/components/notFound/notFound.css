@@ -1,0 +1,21 @@
+.not-found {
+    display: grid;
+    height: 100vh;
+
+    grid-template-rows: 20% 30% 30% 20%;
+    grid-template-columns: 15% 70% 15%;
+}
+.not-found__code {
+    grid-column: 2;
+    grid-row: 2;
+
+    text-align: center;
+    font-size: 80px;
+}
+.not-found__text {
+    grid-column: 2;
+    grid-row: 3;
+
+    text-align: center;
+    font-size: 90px;
+}
