@@ -1,6 +1,6 @@
 .chatItem {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
     width: 100%;
     justify-content: space-between;
@@ -8,7 +8,7 @@
 
 .chatItem__info {
     display: flex;
-    align-items: center;
+    align-items: flex-start;;
     gap: 16px;
 }
 
@@ -26,4 +26,9 @@
 .chatItem__text_little {
     font-size: var(--font-size-13);
     font-family: InterMedium;
+}
+
+.chatItem__info-text {
+    display: flex;
+     flex-direction: column;
 }

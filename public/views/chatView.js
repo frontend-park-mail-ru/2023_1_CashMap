@@ -31,6 +31,7 @@ export default class ChatView {
 	_addPagesElements() {
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
+		this._backBtn = document.getElementById('js-back-to-messages-btn');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
@@ -52,6 +53,10 @@ export default class ChatView {
 
 		this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);
+        });
+
+		this._backBtn.addEventListener('click', () => {
+            Router.go('/message', false);
         });
 
 		this._friendsItem.addEventListener('click', () => {
@@ -99,6 +104,7 @@ export default class ChatView {
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
+		
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
