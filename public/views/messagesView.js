@@ -39,6 +39,8 @@ export default class MessagesView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+
+		this._goToMsg = document.getElementsByClassName('js-go-chat');
 	}
 
 	_addPagesListener() {
@@ -61,6 +63,14 @@ export default class MessagesView {
 		this._newsItem.addEventListener('click', () => {
 			Router.go('/feed');
 		});
+
+		for (let i = 0; i < this._goToMsg.length; i++) {
+			this._goToMsg[i].addEventListener('click', () => {
+				const chatId = this._goToMsg[i].getAttribute("data-id");
+				localStorage.setItem('chatId', chatId);
+				Router.go('/chat');
+			});
+		}
 	}
 
 	remove() {

@@ -54,8 +54,10 @@ export default class EditPostView {
         });
 
 		this._editBtn.addEventListener('click', () => {
-			console.log(this._text.value, window.history.state);
-			actionPost.editPost(this._text.value, window.history.state);
+			const postId = localStorage.getItem('editPostId');
+			if (postId) {
+				actionPost.editPost(this._text.value, postId);
+			}
 			Router.goBack();
 		});
 
@@ -79,8 +81,9 @@ export default class EditPostView {
 	showPage() {
 		this.init = true;
 		actionUser.getProfile(() => {
-			if (window.history.state) {
-				actionPost.getPostsById(window.history.state, 1);
+			const postId = localStorage.getItem('editPostId');
+			if (postId) {
+				actionPost.getPostsById(postId, 1);
 			} else {
 				Router.goBack();
 			}

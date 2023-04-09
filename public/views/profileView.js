@@ -73,7 +73,8 @@ export default class ProfileView {
 		for (let i = 0; i < this._editPosts.length; i++) {
 			this._editPosts[i].addEventListener('click', () => {
 				const postId = this._editPosts[i].getAttribute("data-id");
-				Router.go('/editPost', false, postId);
+				localStorage.setItem('editPostId', postId);
+				Router.go('/editPost', false);
 			});
 		}
 

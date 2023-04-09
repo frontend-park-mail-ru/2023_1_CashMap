@@ -23,12 +23,11 @@ export const actionMessage = {
             callback,
         });
     },
-    msgSend(chatId, text, userLink) {
+    msgSend(chatId, text) {
         Dispatcher.dispatch({
             actionName: 'msgSend',
             chatId,
             text,
-            userLink,
         });
     },
     chatCreate(userLinks) {

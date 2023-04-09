@@ -38,7 +38,7 @@ class messagesStore {
                 await this._chatCheck(action.userLink, action.callback);
                 break;
             case 'msgSend':
-                await this._msgSend(action.chatId, action.text, action.userLink);
+                await this._msgSend(action.chatId, action.text);
                 break;
             case 'chatCreate':
                 await this._chatCreate(action.userLinks);
@@ -54,8 +54,6 @@ class messagesStore {
         if (request.status === 200) {
             const response = await request.json();
             this.chats = response.body.chats;
-
-            console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -71,8 +69,6 @@ class messagesStore {
         if (request.status === 200) {
             const response = await request.json();
             this.messages = response.body.messages;
-
-            console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -98,11 +94,11 @@ class messagesStore {
         }
     }
 
-    async _msgSend(chatId, text, userLink) {
-        const request = await Ajax.msgSend(chatId, text, userLink);
+    async _msgSend(chatId, text) {
+        const request = await Ajax.msgSend(chatId, text);
 
         if (request.status === 200) {
-            alert('done');
+            console.log(this.messages);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

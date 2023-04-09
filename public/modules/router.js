@@ -9,7 +9,7 @@ class Router {
         this._pages[url] = view;
     }
 
-    go(url, replace = true, data = null) {
+    go(url, replace = true) {
         if (this.currentPage) {
             this.currentPage.remove();
             this.currentPage.curPage = false;
@@ -26,9 +26,9 @@ class Router {
 
             if (window.location.pathname + window.location.search !== url) {
                 if (replace) {
-                    window.history.replaceState(data, null, url);
+                    window.history.replaceState(null, null, url);
                 } else {
-                    window.history.pushState(data, null, url);
+                    window.history.pushState(null, null, url);
                 }
             }
 
@@ -48,9 +48,7 @@ class Router {
 
     freePages() {
         for (let i = 0; i < this._pages.length; i++) {
-            console.log(this._pages[i].init);
             this._pages[i].init = false;
-            console.log(this._pages[i].init);
         }
     }
 }
