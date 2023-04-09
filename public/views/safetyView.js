@@ -13,6 +13,7 @@ export default class SafetyView {
         this.init = false;
 
 		this._validatePassword = true;
+		this._validatePasswordNew = false;
         this._validatePasswordRepeat = true;
 
 		userStore.registerCallback(this.updatePage.bind(this));
@@ -76,7 +77,7 @@ export default class SafetyView {
 		})
 
 		this._saveBtn.addEventListener('click', () => {
-			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
+			if (this._validatePassword && this._validatePasswordNew && this._validatePasswordRepeat) {
                 actionUser.editProfile({password: this._passwordNewField.value});
 			}
 		});
@@ -86,7 +87,8 @@ export default class SafetyView {
         });
 
 		this._passwordNewField.addEventListener('change', (e) => {
-            this._validatePassword = Validation.validation(this._passwordNewField, this._passwordErrorField, 'password');
+			console.log(123123)
+            this._validatePasswordNew = Validation.validation(this._passwordNewField, this._passwordNewErrorField, 'password');
         });
 
         this._passwordRepeatField.addEventListener('change', (e) => {

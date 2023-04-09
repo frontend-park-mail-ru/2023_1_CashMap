@@ -1,6 +1,9 @@
 .input-block {
     display: grid;
     grid-template: 70% 2% 28%/ 100%;
+
+    height: var(--btn-input-height);
+    width: 100%;
 }
 .input-block__field {
     outline:none;
