@@ -16,7 +16,7 @@ class WebSock {
         this._socket.onmessage = function(event) {
             const response = JSON.parse(event.data);
             messagesStore.messages.push(response);
-            console.log(response);
+            messagesStore._refreshStore();
         };
     }
 

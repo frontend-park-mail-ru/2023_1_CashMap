@@ -112,7 +112,6 @@ export default class SettingsView {
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
                 actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, city: this._cityField.value, status: this._statusField.value});
-				//actionUser.getProfile();    тут обновить надо, иначе данные не меняются
 			}
 		});
 

@@ -113,6 +113,9 @@ export default class FriendsView {
 	}
 
 	_preRender() {
+		let u = friendsStore.users;
+
+
 		this._template = Handlebars.templates.friends;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
