@@ -64,7 +64,7 @@ export default class ChatView {
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/profile');
+			Router.go('/myPage');
 		});
 
 		this._newsItem.addEventListener('click', () => {
@@ -101,6 +101,17 @@ export default class ChatView {
 	}
 
 	_preRender() {
+		let curChat = null;
+		messagesStore.chats.forEach((chat) => {
+			if (chat.id === localStorage.getItem('chatId')) {
+				curChat = chat;
+			}
+		});
+
+		console.log(messagesStore.chats);
+		console.log(curChat);
+		// if (curChat.users)
+
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
@@ -108,7 +119,7 @@ export default class ChatView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {messages: messagesStore.messages, user: userStore.user, chat: localStorage.getItem('chatId')},
+			chatData: {messages: messagesStore.messages, user: userStore.user, chat: curChat},
 		}
 	}
 

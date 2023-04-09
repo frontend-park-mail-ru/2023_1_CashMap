@@ -70,11 +70,15 @@ export default class CreatePostView {
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/profile', false);
+			Router.go('/myPage', false);
 		});
 
 		this._newsItem.addEventListener('click', () => {
 			Router.go('/feed', false);
+		});
+
+		this._msgItem.addEventListener('click', () => {
+			Router.go('/message', false);
 		});
 
 		this._friendsItem.addEventListener('click', () => {
