@@ -12,8 +12,8 @@ export default class SettingsView {
 		this.curPage = false;
 
 		this._validateFirstName = true;
-        this._validateLastName = true;
-        this._validateEmail = true;
+		this._validateLastName = true;
+		this._validateEmail = true;
 
 		userStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
@@ -39,15 +39,15 @@ export default class SettingsView {
 		this._dropZone = document.getElementById('js-drop-zone');
 		this._dropContent = document.getElementById('js-drop-content');
 		this._firstNameField = document.getElementById('js-first-name-input');
-        this._firstNameErrorField = document.getElementById('js-first-name-error');
-        this._lastNameField = document.getElementById('js-last-name-input');
-        this._lastNameErrorField = document.getElementById('js-last-name-error');
+		this._firstNameErrorField = document.getElementById('js-first-name-error');
+		this._lastNameField = document.getElementById('js-last-name-input');
+		this._lastNameErrorField = document.getElementById('js-last-name-error');
 		this._cityField = document.getElementById('js-city-input');
-        this._cityErrorField = document.getElementById('js-city-error');
+		this._cityErrorField = document.getElementById('js-city-error');
 		this._birthdayField = document.getElementById('js-birthday-input');
-        this._birthdayErrorField = document.getElementById('js-birthday-error');
+		this._birthdayErrorField = document.getElementById('js-birthday-error');
 		this._statusField = document.getElementById('js-status-input');
-        this._statusErrorField = document.getElementById('js-status-error');
+		this._statusErrorField = document.getElementById('js-status-error');
 		this._saveBtn = document.getElementById('js-settings-save-btn');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
@@ -65,12 +65,12 @@ export default class SettingsView {
 		});
 
 		this._settingsBtn.addEventListener('click', () => {
-            Router.go('/settings', false);
-        });
+			Router.go('/settings', false);
+		});
 
 		this._safetyBtn.addEventListener('click', () => {
-            Router.go('/safety', false);
-        });
+			Router.go('/safety', false);
+		});
 
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends');
@@ -90,37 +90,37 @@ export default class SettingsView {
 
 		if (window.FileList && window.File) {
 			this._dropZone.addEventListener('dragover', event => {
-			  event.stopPropagation();
-			  event.preventDefault();
-			  event.dataTransfer.dropEffect = 'copy';
+				event.stopPropagation();
+				event.preventDefault();
+				event.dataTransfer.dropEffect = 'copy';
 			});
 			
 			this._dropZone.addEventListener('drop', event => {
-			  this._dropContent.innerHTML = '';
-			  event.stopPropagation();
-			  event.preventDefault();
-			  const files = event.dataTransfer.files;
+				this._dropContent.innerHTML = '';
+				event.stopPropagation();
+				event.preventDefault();
+				const files = event.dataTransfer.files;
 
-			  this._reader.readAsDataURL(files[0]);
-			
-			  this._reader.addEventListener('load', (event) => {
-				this._dropContent.src = event.target.result;
-			  });
+				this._reader.readAsDataURL(files[0]);
+				
+				this._reader.addEventListener('load', (event) => {
+					this._dropContent.src = event.target.result;
+				});
 			}); 
 		}
 
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
-          actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
+			actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
 			}
 		});
 
 		this._firstNameField.addEventListener('change', (e) => {
-            this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName');
-        });
-        this._lastNameField.addEventListener('change', (e) => {
-            this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName');
-        });
+			this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName');
+		});
+		this._lastNameField.addEventListener('change', (e) => {
+			this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName');
+		});
 	}
 
 	remove() {

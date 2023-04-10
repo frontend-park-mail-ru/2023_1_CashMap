@@ -1,6 +1,14 @@
 import Dispatcher from "../dispatcher/dispatcher.js";
 
+/**
+ * action-ы для работы с сообщениями 
+ */
 export const actionMessage = {
+    /**
+     * action для получения списка чата пользователей
+     * @param {*} count - количестко возвращаемых чатов
+     * @param {*} lastPostDate - дата, после которой получаются чаты
+     */
     getChats(count, lastPostDate) {
         Dispatcher.dispatch({
             actionName: 'getChats',
@@ -8,6 +16,12 @@ export const actionMessage = {
             lastPostDate,
         });
     },
+    /**
+     * action для получения сообщений конкретного чата
+     * @param {*} chatId - id чата
+     * @param {*} count - количество возвращаемых сообщений
+     * @param {*} lastPostDate - дата, после которой получаются сообщения
+     */
     getChatsMsg(chatId, count, lastPostDate) {
         Dispatcher.dispatch({
             actionName: 'getChatsMsg',
@@ -16,6 +30,10 @@ export const actionMessage = {
             lastPostDate,
         });
     },
+    /**
+     * action для проверки наличия чата с конктретным пользователем
+     * @param {*} userLink - ссылка на пользователя, с которым проверяем наличие чата
+     */
     chatCheck(userLink, callback) {
         Dispatcher.dispatch({
             actionName: 'chatCheck',
@@ -23,6 +41,11 @@ export const actionMessage = {
             callback,
         });
     },
+    /**
+     * action для отправки сообщения в чат
+     * @param {*} chatId - id чата
+     * @param {*} text - текст отправляемого сообщения
+     */
     msgSend(chatId, text) {
         Dispatcher.dispatch({
             actionName: 'msgSend',
@@ -30,6 +53,10 @@ export const actionMessage = {
             text,
         });
     },
+    /**
+     * action для создания нового чата
+     * @param {*} userLinks - ссылки на поьзователей-участников чата
+     */
     chatCreate(userLinks, callback) {
         Dispatcher.dispatch({
             actionName: 'chatCreate',
