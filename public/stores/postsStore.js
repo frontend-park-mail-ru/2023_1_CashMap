@@ -141,7 +141,27 @@ class postsStore {
         const request = await Ajax.createPost(data);
 
         if (request.status === 200) {
-            actionPost.getPostsByUser(userStore.user.user_link, 15);
+            const response = await request.json();
+            const p = response.body.posts[0];
+
+            console.log(p);
+
+            p.isMyPost = true;
+            p.owner_info = {};
+            p.owner_info.url = userStore.user.avatar;
+            p.owner_info.first_name = userStore.user.firstName;
+            p.owner_info.last_name = userStore.user.lastName;
+            p.owner_info.link = userStore.user.user_link;
+            if (!p.comments) {
+                p.comments_count = 0;
+            }
+            if (p.creation_date) {
+                const date = new Date(p.creation_date);
+                p.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+            }
+            p.avatar = userStore.user.avatar;
+            this.posts.unshift(p);
+
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
