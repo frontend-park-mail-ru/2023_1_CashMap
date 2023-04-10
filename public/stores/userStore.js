@@ -100,7 +100,6 @@ class userStore {
 
         if (request.status === 200) {
             this.user.isAuth = false;
-            Router.freePages();
         }
         this._refreshStore();
     }

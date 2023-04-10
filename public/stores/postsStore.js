@@ -3,8 +3,6 @@ import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
-import Router from "../modules/router.js";
-import {actionPost} from "../actions/actionPost.js";
 
 class postsStore {
     constructor() {
@@ -13,7 +11,6 @@ class postsStore {
         this.posts = [];
         this.friendsPosts = [];
         this.curPost = null;
-        this.curPostId = null;
 
         Dispatcher.register(this._fromDispatch.bind(this));
     }

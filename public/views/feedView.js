@@ -72,7 +72,7 @@ export default class FeedView {
 			this._editPosts[i].addEventListener('click', () => {
 				const postId = this._editPosts[i].getAttribute("data-id");
 				localStorage.setItem('editPostId', postId);
-				Router.go('/editPost', false);
+				Router.go('/editPost', true);
 			});
 		}
 

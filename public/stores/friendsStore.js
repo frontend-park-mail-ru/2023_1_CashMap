@@ -185,10 +185,6 @@ class friendsStore {
             if (index > -1) {
                 this.friends.push(this.friends[index]);
             }
-            actionFriends.getFriends(userStore.user.user_link, 15, 0);
-            actionFriends.getNotFriends(15, 0);
-            actionFriends.getSubscribers(userStore.user.user_link, 15);
-            actionFriends.getSubscriptions(userStore.user.user_link, 15);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -212,10 +208,6 @@ class friendsStore {
             if (index > -1) {
                 this.friends.splice(index, 1);
             }
-            actionFriends.getFriends(userStore.user.user_link, 15, 0);
-            actionFriends.getNotFriends(15, 0);
-            actionFriends.getSubscribers(userStore.user.user_link, 15);
-            actionFriends.getSubscriptions(userStore.user.user_link, 15);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

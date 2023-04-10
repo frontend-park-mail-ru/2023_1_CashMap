@@ -10,6 +10,7 @@ class Router {
     }
 
     go(url, replace = true) {
+        console.log(`go ${window.location.pathname + window.location.search} ${url}`);
         if (this.currentPage) {
             this.currentPage.remove();
             this.currentPage.curPage = false;
@@ -23,8 +24,10 @@ class Router {
             if (window.location.pathname + window.location.search !== url) {
                 if (replace) {
                     window.history.replaceState(null, null, url);
+                    console.log(`replace ${window.location.pathname + window.location.search} ${url}`);
                 } else {
                     window.history.pushState(null, null, url);
+                    console.log(`push ${window.location.pathname + window.location.search} ${url}`);
                 }
             }
 
@@ -34,16 +37,17 @@ class Router {
     }
 
     goBack() {
+        console.log(`back1 ${window.location.pathname + window.location.search}`);
         window.history.back();
-        this.go(window.location.pathname + window.location.search, true);
+        console.log(`back2 ${window.location.pathname + window.location.search}`);
     }
 
     init() {
-        this.go(window.location.pathname + window.location.search);
-    }
+        this.go(window.location.pathname + window.location.search, true);
 
-    freePages() {
-
+        window.addEventListener("popstate", () => {
+            this.go(window.location.pathname + window.location.search, false);
+        });
     }
 }
 
