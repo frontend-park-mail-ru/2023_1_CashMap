@@ -68,6 +68,7 @@ export default class SignInView {
     updatePage() {
         if (this.curPage) {
             if (userStore.user.isAuth) {
+                actionUser.getProfile();
                 Router.go('/feed');
                 return;
             }

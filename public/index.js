@@ -52,4 +52,3 @@ Router.registerPage('/404', Views.NotFoundView);
 actionUser.checkAuth(() => { Router.init() });
 
 WebSock.open();
-

@@ -89,6 +89,7 @@ export default class SignUpView {
     updatePage() {
         if (this.curPage) {
             if (userStore.user.isAuth) {
+                actionUser.getProfile();
                 Router.go('/feed');
             } else {
                 this._render();

@@ -1,17 +1,35 @@
 import Router from "../modules/router.js";
-import {logoDataSignUp, signUpData} from "../static/htmlConst";
-import {actionUser} from "../actions/actionUser";
-import userStore from "../stores/userStore";
+import {actionUser} from "../actions/actionUser.js";
+import userStore from "../stores/userStore.js";
 
+
+/**
+ * Базовый класс View
+ */
 export default class BaseView {
+    /**
+     * Конструктор базового класса view. Содержит подключение компонентов Handlebars,
+     * и информацию о странице отрисовки.
+     */
     constructor() {
-        this._addHandlebarsPartial();
+        this.addHandlebarsPartial();
+        this.addStore();
 
-        this._jsId = 'sign-up';
         this.curPage = false;
+        this.init = false;
     }
 
-    _addHandlebarsPartial() {
+    /**
+     * @private метод, отправляющий callback, которые вызываются при изменении определенных Store.
+     */
+    addStore() {
+
+    }
+
+    /**
+     * @private метод, подключающий необходимые компоненты к классу.
+     */
+    addHandlebarsPartial() {
         Handlebars.registerPartial('button', Handlebars.templates.button);
         Handlebars.registerPartial('buttonDefault', Handlebars.templates.buttonDefault);
         Handlebars.registerPartial('chat', Handlebars.templates.chat);
@@ -47,7 +65,10 @@ export default class BaseView {
         Handlebars.registerPartial('signUpPath', Handlebars.templates.signUpPath);
     }
 
-    _addPagesElements() {
+    /**
+     * @private метод, добавляющий на страницу базовые элементы.
+     */
+    addPagesElements() {
         this._exitBtn = document.getElementById('js-exit-btn');
         this._settingsBtn = document.getElementById('js-settings-btn');
 
@@ -60,7 +81,10 @@ export default class BaseView {
         this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
     }
 
-    _addPagesListener() {
+    /**
+     * @private метод, добавляющий на страницу события базовых элементов.
+     */
+    addPagesListener() {
         this._exitBtn.addEventListener('click', () => {
             actionUser.signOut();
         });
@@ -69,9 +93,12 @@ export default class BaseView {
             Router.go('/settings', false);
         });
 
-
         this._myPageItem.addEventListener('click', () => {
             Router.go('/myPage', false);
+        });
+
+        this._msgItem.addEventListener('click', () => {
+            Router.go('/message', false);
         });
 
         this._newsItem.addEventListener('click', () => {
@@ -83,28 +110,40 @@ export default class BaseView {
         });
     }
 
+    /**
+     * Метод, удаляющий текущую страницу.
+     */
     remove() {
         document.getElementById(this._jsId)?.remove();
     }
 
+    /**
+     * Метод, вызываемый callback при изменении store, от которых он зависит.
+     */
     updatePage() {
         if (this.curPage) {
             if (!userStore.user.isAuth) {
                 Router.go('/signIn');
             } else {
-                this._render();
+                this.render();
             }
         }
     }
 
+    /**
+     * @private метод, задающий контекст отрисовки конкретной вьюхи.
+     */
     _preRender() {
 
     }
 
-    _render() {
+    /**
+     * @private метод отрисовки страницы.
+     */
+    render() {
         this._preRender();
         Router.rootElement.innerHTML = this._template(this._context);
-        this._addPagesElements();
-        this._addPagesListener();
+        this.addPagesElements();
+        this.addPagesListener();
     }
 }
