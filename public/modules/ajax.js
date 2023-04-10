@@ -144,6 +144,13 @@ class Ajax {
         return this._request(this._apiUrl.check, this._requestType.GET);
     }
 
+    /**
+     * метод, отправляющий запрос на получение постов
+     * @param {String} userLink - ссылка на пользователя 
+     * @param {Number} count - количество постов для получения
+     * @param {Date} lastPostDate - дата, после которой выбираются посты
+     * @returns {Object} - тело ответа
+     */
     async getPosts(userLink, count, lastPostDate) {
         if (lastPostDate) {
             return this._request(this._apiUrl.userPosts + `?owner_link=${userLink}&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
@@ -152,6 +159,12 @@ class Ajax {
         }
     }
 
+    /**
+     * метод, отправляющий запрос на получение постов друзей
+     * @param {Number} count - количество постов для получения
+     * @param {Date} lastPostDate - дата, после которой выбираются посты
+     * @returns {Object} - тело ответа
+     */
     async getFriendsPosts(count, lastPostDate) {
         if (lastPostDate) {
             return this._request(this._apiUrl.feed + `?&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
