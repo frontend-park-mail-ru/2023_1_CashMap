@@ -97,10 +97,12 @@ export default class FriendsView {
 					if (localStorage.getItem('chatFriendId')) {
 						localStorage.setItem('chatId', localStorage.getItem('chatFriendId'));
 						Router.go('/chat');
+						actionMessage.getChatsMsg(localStorage.getItem('chatId'),15);
 					} else {
 						actionMessage.chatCreate(userId, () => {
 							if (localStorage.getItem('chatId')) {
 								Router.go('/chat');
+								actionMessage.getChatsMsg(localStorage.getItem('chatId'),15);
 							}
 						});
 					}
