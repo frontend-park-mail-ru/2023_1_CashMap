@@ -200,6 +200,10 @@ class postsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на удаление поста
+     * @param {Number} postId - id поста
+     */
     async _deletePost(postId) {
         const request = await Ajax.deletePost(postId);
 
@@ -223,6 +227,11 @@ class postsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на изменение поста
+     * @param {Text} text - текст поста
+     * @param {Number} postId - id поста
+     */
     async _editPost(text, postId) {
         const request = await Ajax.editPost(text, postId);
 

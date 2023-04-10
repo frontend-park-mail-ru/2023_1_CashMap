@@ -3,7 +3,14 @@ const MIN_PASSWORD_LENGTH = 8;
 const MAX_NAME_LENGTH = 30;
 
 
+/**
+ * класс, реализующий валидацию форм
+ */
 class Validation {
+	/**
+     * @constructor
+     * конструктор метода
+     */
 	constructor() {
 		this.validateFunc = {
 			password: this._validatePasswordAuth,
@@ -14,6 +21,13 @@ class Validation {
 		}
 	}
 
+	/**
+	 * метод для валидации
+	 * @param {String} inputField - поле ввода 
+	 * @param {String} errorField - поле ошибки
+	 * @param {String} type - тип проверки
+	 * @returns 
+	 */
 	validation(inputField, errorField, type) {
 		const validationRes = this.validateFunc[type](inputField.value);
 
@@ -32,6 +46,12 @@ class Validation {
 		}
 	}
 
+	/**
+     * @private метод, валидирующий пароль при авторизации
+     * @param {String} password пароль для валидации
+	 * @return {Boolean} статус
+     * @return {String | null} сообщение об ошибке
+     */
 	_validatePasswordAuth(password) {
 		if (password.length < 8) {
 			return {
@@ -56,6 +76,12 @@ class Validation {
 		};
 	}
 
+	/**
+     * @private метод, валидирующий пароль
+     * @param {String} password пароль для валидации
+	 * @return {Boolean} статус
+     * @return {String | null} сообщение об ошибке
+     */
 	_validatePassword(password) {
 		if (!(password instanceof String) && typeof(password) != 'string') {
 			return {
@@ -130,6 +156,12 @@ class Validation {
 		};
 	}
 
+	/**
+     * @private метод, валидирующий почту
+     * @param {String} email email для валидации
+	 * @return {Boolean} статус
+     * @return {String | null} сообщение об ошибке
+     */
 	_validateEmail(email) {
 		if (email.length === 0) {
 			return {
@@ -159,6 +191,12 @@ class Validation {
 		}
 	}
 
+	/**
+     * @private метод, валидирующий имя
+     * @param {String} name имя для валидации
+	 * @return {Boolean} статус
+     * @return {String | null} сообщение об ошибке
+     */
 	_validateName(name) {
 		if (!(name instanceof String) && typeof(name) != 'string') {
 			return {
@@ -195,6 +233,12 @@ class Validation {
 		}
 	}
 
+	/**
+     * @private метод, валидирующий фамилию
+     * @param {String} surname имя для валидации
+	 * @return {Boolean} статус
+     * @return {String | null} сообщение об ошибке
+     */
 	_validateSurname(surname) {
 		if (!(surname instanceof String) && typeof(surname) != 'string') {
 			return {
@@ -231,6 +275,13 @@ class Validation {
 		}
 	}
 
+	/**
+     * @private метод, сравнивающий два пароля
+     * @param {String} password1 первый пароль
+	 * @param {String} password2 второй пароль
+	 * @return {Boolean} статус
+     * @return {String | null} сообщение об ошибке
+     */
 	_validateTwoPasswords(password1, password2) {
 		if (password2.length === 0) {
 			return {
