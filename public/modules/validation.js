@@ -1,6 +1,6 @@
 const MAX_PASSWORD_LENGTH = 100;
 const MIN_PASSWORD_LENGTH = 8;
-const MIN_LETTERS_IN_PASSWORD_COEF = 0.4;
+const MAX_NAME_LENGTH = 30;
 
 
 class Validation {
@@ -88,14 +88,9 @@ class Validation {
 
 		let hasUpperCaseChars = false;
 		let hasDigits = false;
-		let hasSpeacialChars = false;
-		let lettersNumber = 0;
 		for (const char of password) {
 
-			// проверка на букву
 			if (char.match(/[a-zA-Z]/i) != null) {
-				lettersNumber++;
-
 				// проверка на врехний регистр
 				if (char === char.toUpperCase()) {
 					hasUpperCaseChars = true;
@@ -107,19 +102,6 @@ class Validation {
 				hasDigits = true;
 			}
 
-			// провекра на спец. символы
-			if (char.match(/^[^0-9a-zA-Z]+$/) != null) {
-				hasSpeacialChars = true;
-			}
-
-			// проверка на кириллицу
-			if (char.match(/[а-яА-Я]/i) != null) {
-				return {
-					status: false,
-					error: 'Кириллица в пароле не допускается'
-				};
-			}
-
 			if (char === ' ') {
 				return {
 					status: false,
@@ -128,21 +110,6 @@ class Validation {
 			}
 
 		}
-
-		if ((lettersNumber / password.length) < MIN_LETTERS_IN_PASSWORD_COEF) {
-			return {
-				status: false,
-				error: 'Слишком мало букв в пароле'
-			};
-		}
-
-		if (!hasSpeacialChars) {
-			return {
-				status: false,
-				error: 'Пароль должен содержать хотя бы один специальный символ'
-			};
-		}
-
 
 		if (!hasDigits) {
 			return {
@@ -207,6 +174,13 @@ class Validation {
 			};
 		}
 
+		if (name.length > MAX_NAME_LENGTH) {
+			return {
+				status: false,
+				error: 'Имя слишком длинное'
+			};
+		}
+
 		for (const char of name) {
 			if (char.match(/[a-zA-Zа-яА-Я]/i) == null) {
 				return {
@@ -233,6 +207,13 @@ class Validation {
 			return {
 				status: false,
 				error: 'Введите фамилию'
+			};
+		}
+
+		if (surname.length > MAX_NAME_LENGTH) {
+			return {
+				status: false,
+				error: 'Фамилия слишком длинная'
 			};
 		}
 

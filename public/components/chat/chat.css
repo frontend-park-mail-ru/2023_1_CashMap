@@ -87,6 +87,7 @@
 
 .chat__footer-icon {
     height: 100%;
+    cursor: pointer;
 }
 
 .chat__footer-icon input:nth-child(2) {
