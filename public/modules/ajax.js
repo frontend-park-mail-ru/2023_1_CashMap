@@ -1,4 +1,11 @@
+/**
+ * класс, реализующий работу запроса
+ */
 class Ajax {
+    /**
+     * @constructor
+     * конструктор метода
+     */
     constructor() {
         //this._backendUrl = 'http://127.0.0.1';
         this._backendUrl = 'http://95.163.212.121';
@@ -44,6 +51,13 @@ class Ajax {
         }
     }
 
+    /**
+     * @private метод для работы запроса
+     * @param {String} apiUrlType - url запроса
+     * @param {String} requestType - тип запроса
+     * @param {Object} body - тело запроса
+     * @returns {Object} - тело ответа
+     */
     _request(apiUrlType, requestType, body) {
         const requestUrl = this._backendUrl + ':' + this._backendPort + apiUrlType;
 
@@ -61,20 +75,43 @@ class Ajax {
         });
     }
 
+    /**
+     * метод, отправляющий запрос на вход в систему
+     * @param {String} email - почта пользователя 
+     * @param {String} password - пароль пользователя
+     * @returns {Object} - тело ответа
+     */
     async signIn(email, password) {
         let body = {email: email, password: password};
         return this._request(this._apiUrl.signIn, this._requestType.POST, JSON.stringify({body}));
     }
 
+    /**
+     * метод, отправляющий запрос на регистрацию в системе
+     * @param {String} firstName - имя пользователя 
+     * @param {String} lastName - фамилия пользователя
+     * @param {String} email - почта пользователя 
+     * @param {String} password - пароль пользователя
+     * @returns {Object} - тело ответа
+     */
     async signUp(firstName, lastName, email, password) {
         let body = {first_name: firstName, last_name: lastName, email: email, password: password};
         return this._request(this._apiUrl.signUp, this._requestType.POST, JSON.stringify({body}));
     }
 
+    /**
+     * метод, отправляющий запрос на выход из системы
+     * @returns {Object} - тело ответа
+     */
     async signOut() {
         return this._request(this._apiUrl.signOut, this._requestType.POST);
     }
 
+    /**
+     * метод, отправляющий запрос на получение информации о пользователе
+     * @param {String} link - ссылка пользователя
+     * @returns {Object} - тело ответа
+     */
     async getProfile(link) {
         if (link === undefined) {
             return this._request(this._apiUrl.getProfile, this._requestType.GET);
@@ -83,11 +120,26 @@ class Ajax {
         }
     }
 
+    /**
+     * метод, отправляющий запрос на редактирование пользователя
+     * @param {String} avatar - аватарка пользователя 
+     * @param {String} firstName - имя пользователя 
+     * @param {String} lastName - фамилия пользователя
+     * @param {String} email - почта пользователя 
+     * @param {String} city - город пользователя
+     * @param {String} birthday - день рождения пользователя 
+     * @param {String} status - статус пользователя
+     * @returns {Object} - тело ответа
+     */
     async editProfile(avatar, firstName, lastName, email, city, birthday, status) {
         let body = {first_name: firstName, last_name: lastName, email: email, birthday: birthday, status:status};
         return this._request(this._apiUrl.editProfile, this._requestType.PATCH, JSON.stringify({body}));
     }
 
+    /**
+     * метод, отправляющий запрос на проверку авторизации пользователя
+     * @returns {Object} - тело ответа
+     */
     async checkAuth() {
         return this._request(this._apiUrl.check, this._requestType.GET);
     }
