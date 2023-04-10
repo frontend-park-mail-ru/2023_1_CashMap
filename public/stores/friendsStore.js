@@ -5,7 +5,14 @@ import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import {actionFriends} from "../actions/actionFriends.js";
 
+/**
+ * класс, хранящий информацию о друзьях
+ */
 class friendsStore {
+    /**
+     * @constructor
+     * конструктор класса 
+     */
     constructor() {
         this._callbacks = [];
 
@@ -19,10 +26,17 @@ class friendsStore {
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
+    /**
+     * Метод, регистрирующий callback
+     * @param {*} callback - callback
+     */
     registerCallback(callback) {
         this._callbacks.push(callback);
     }
 
+    /**
+     * Метод, реализующий обновление хранилища
+     */
     _refreshStore() {
         this._callbacks.forEach((callback) => {
             if (callback) {
@@ -31,6 +45,10 @@ class friendsStore {
         });
     }
 
+    /**
+     * Метод, реализующий реакцию на рассылку диспетчера
+     * @param {action} action - действие, которое будет обработано
+     */
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'getFriends':
