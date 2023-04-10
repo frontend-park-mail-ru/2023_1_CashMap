@@ -1,17 +1,6 @@
 import Dispatcher from "../dispatcher/dispatcher.js";
 
 export const actionUser = {
-<<<<<<< HEAD
-    setState(str) {
-        Dispatcher.dispatch({
-            actionName: 'set',
-            text: str,
-        });
-    },
-    getState() {
-        Dispatcher.dispatch({
-            actionName: 'get',
-=======
     signIn(data) {
         Dispatcher.dispatch({
             actionName: 'signIn',
@@ -46,7 +35,6 @@ export const actionUser = {
         Dispatcher.dispatch({
             actionName: 'editProfile',
             data: data,
->>>>>>> main
         });
     },
 };

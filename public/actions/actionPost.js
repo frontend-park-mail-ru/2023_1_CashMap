@@ -1,17 +1,6 @@
 import Dispatcher from "../dispatcher/dispatcher.js";
 
 export const actionPost = {
-<<<<<<< HEAD
-    setState(str) {
-        Dispatcher.dispatch({
-            actionName: 'set',
-            text: str,
-        });
-    },
-    getState() {
-        Dispatcher.dispatch({
-            actionName: 'get',
-=======
     getPostsByUser(userLink, count, lastPostDate) {
         Dispatcher.dispatch({
             actionName: 'getPosts',
@@ -76,7 +65,6 @@ export const actionPost = {
             actionName: 'editPost',
             text,
             postId,
->>>>>>> main
         });
     },
 };

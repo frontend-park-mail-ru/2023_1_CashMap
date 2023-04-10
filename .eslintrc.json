@@ -18,5 +18,8 @@
         "@typescript-eslint"
     ],
     "rules": {
+    },
+    "globals": {
+        "Handlebars": "readonly"
     }
 }
