@@ -1,0 +1,42 @@
+<div class="chat" id="{{ chat_id }}">
+    <div class="chat__header">
+        <div class="chat__header-icon" id="js-back-to-messages-btn">
+            <input type="image" class="chat__header-img" src="static/img/back.svg">
+            <input type="image" class="chat__header-img" src="static/img/back_hover.svg">
+        </div>
+
+        <div class="chat__header-info">
+            <img src="{{ user.url }}" class="chat__header-info-avatar">
+            <div class="chat__header-info-text">{{ user.first_name }} {{ user.last_name }}</div>
+        </div>
+
+        <div class="chat__header-image"><img src="static/img/post_icons/post_menu.svg"></div>
+    </div>
+
+    <div class="chat__body">
+        {{#each messages }}
+            {{> chatItem this }}
+        {{/each}}
+    </div>
+
+    <div class="chat__footer">
+        <textarea class="chat__footer-input" placeholder="Написать сообщение" id="js-msg-input"></textarea>
+
+        <div class="chat__footer-icon">
+            <input type="image" src="static/img/post_icons/photo.svg">
+            <input type="image" src="static/img/post_icons/photo_hover.svg">
+        </div>
+
+        <div class="chat__footer-icon">
+            <input type="image" src="static/img/post_icons/smile.svg">
+            <input type="image" src="static/img/post_icons/smile_hover.svg">
+        </div>
+
+        <div class="chat__footer-icon" id="js-send-msg">
+            <input type="image" src="static/img/post_icons/send.svg">
+            <input type="image" src="static/img/post_icons/send_hover.svg">
+        </div>
+    </div>
+    <div class="chat__photos"></div>
+
+</div>
