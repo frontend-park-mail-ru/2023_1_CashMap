@@ -89,6 +89,7 @@ class friendsStore {
         const request = await Ajax.getNotFriends(link, count, offset);
         const response = await request.json();
 
+        this.notFriends = [];
         if (request.status === 200) {
             response.body.profiles.forEach((friend) => {
                 friend.isFriend = false;
@@ -98,9 +99,9 @@ class friendsStore {
                 if (!friend.city) {
                     friend.city = 'город не указан';
                 }
+                this.notFriends.push(friend);
             });
 
-            this.notFriends = response.body.profiles;
             console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();

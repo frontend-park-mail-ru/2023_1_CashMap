@@ -3,7 +3,9 @@
         <img class="post-profile__avatar" src="{{ owner_info.url }}">
         <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots"> {{ owner_info.first_name }} {{ owner_info.last_name }} </span>
         <span class="post-profile__date font-InterMedium font-size-12 font-color-gray-text"> {{ creation_date }} </span>
-        <img class="post-profile__dots margin-auto" src="static/img/post_icons/post_menu.svg">
+        {{#if isMyPost}}
+            <img class="post-profile__dots margin-auto" src="static/img/post_icons/post_menu.svg">
+        {{/if}}
 
         <div class="post-menu post-menu-size post-menu-position background-color-profile-menu border-radius-btn-input box-shadow-profile-menu">
             <div class="post-menu-item-delete hover-block border-radius-btn-input margin-auto" data-id="{{ id }}">

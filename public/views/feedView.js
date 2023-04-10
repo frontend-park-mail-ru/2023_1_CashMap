@@ -87,6 +87,17 @@ export default class FeedView {
 		this._createPosts.addEventListener('click', () => {
 			Router.go('/createPost', false);
 		});
+
+		/*window.addEventListener('scroll', function() {
+			let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+
+			// если пользователь прокрутил достаточно далеко (< 100px до конца)
+			if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
+				// добавим больше данных
+				//document.body.insertAdjacentHTML("beforeend", `<p>Дата: ${new Date()}</p>`);
+				console.log('добавить');
+			}
+		});*/
 	}
 
 	remove() {

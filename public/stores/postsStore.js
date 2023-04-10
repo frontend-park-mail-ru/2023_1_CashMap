@@ -61,6 +61,7 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
             response.body.posts.forEach((post) => {
+                post.isMyPost = true;
                 if (!post.owner_info.url) {
                     post.owner_info.url = headerConst.avatarDefault;
                 }
@@ -94,6 +95,7 @@ class postsStore {
             const response = await request.json();
             console.log(response);
             response.body.posts.forEach((post) => {
+                post.isMyPost = false;
                 if (!post.owner_info.url) {
                     post.owner_info.url = headerConst.avatarDefault;
                 }
