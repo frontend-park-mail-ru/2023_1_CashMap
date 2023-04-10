@@ -1,0 +1,27 @@
+<div class="settings-path">
+    <div class="settingsPath">
+        <div class="settingsPath__photo">
+            <img src="{{avatar}}" class="settingsPath__avatar" id="js-drop-content">
+            <div class="settingsPath__div" id="js-drop-zone">
+                <img class="settingsPath__div-img" src="static/img/upload.svg">
+                <div class="settingsPath__div-text" type="file">Загрузить новую фотографию профиля</div>
+                {{!-- <input type="file" name="photo" multiple accept="image/*,image/jpeg"> --}}
+            </div>
+        </div>
+
+        {{#each inputFields}}
+            {{> inputSettings this}}
+        {{/each}}
+
+        <div class="settings-path__button">
+            {{> buttonDefault buttonInfo}}
+        </div>
+    </div>
+    <div class="menu-settings border-radius-btn-input background-color-profile-menu box-shadow-create-post">
+        {{#each menuInfo}}
+            <div class="menu-settings-item hover-block border-radius-btn-input" style="cursor: pointer;" id="{{ this.jsId }}">
+                <span class="menu-item__text font-size-15 font-InterMedium"> {{ this.text }} </span>
+            </div>
+        {{/each}}
+    </div>
+</div>

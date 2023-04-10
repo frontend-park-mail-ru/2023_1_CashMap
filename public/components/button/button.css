@@ -1,7 +1,8 @@
 .button {
-    width: 280px;
+    width: 100%;
     height: 40px;
     border: none;
+    cursor: pointer;
 }
 .button__text {
     display: inline-grid;

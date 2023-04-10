@@ -1,46 +1,91 @@
+import userStore from "../stores/userStore.js";
+import {actionUser} from "../actions/actionUser.js";
+import Validation from "../modules/validation.js";
+import Router from "../modules/router.js";
+import {logoDataSignIn, signInData} from "../static/htmlConst.js";
+
 export default class SignInView {
+    constructor() {
+        this._addHandlebarsPartial();
 
-    #config
-    #parent
+        this._jsId = 'sign-in';
+        this.curPage = false;
 
-    constructor(parent) {
+        this._validateEmail = false;
+        this._validatePassword = false;
+
+        userStore.registerCallback(this.updatePage.bind(this))
+    }
+
+    _addHandlebarsPartial() {
         Handlebars.registerPartial('logoPath', Handlebars.templates.logoPath);
         Handlebars.registerPartial('signInPath', Handlebars.templates.signInPath);
         Handlebars.registerPartial('button', Handlebars.templates.button);
         Handlebars.registerPartial('inputField', Handlebars.templates.inputField);
-
-        this.#parent = parent;
-
-        this.#config = {
-            logoData: {
-                logoImgPath: 'static/img/logo.svg',
-                backgroundImgPath: 'static/img/background_right.svg',
-                logoText: 'Depeche',
-                logoTagline: 'Сервис для общения',
-            },
-            signInData: {
-                title: 'Авторизация',
-                inputFields: [{ help: 'Электронная почта',
-                    type: 'email',
-                    jsIdInput: 'js-email-input',
-                    jsIdError: 'js-email-error'},
-                    { help: 'Пароль',
-                        type: 'password',
-                        jsIdInput: 'js-password-input',
-                        jsIdError: 'js-password-error'}],
-                buttonInfo: { text: 'Войти',
-                    jsId: 'js-sign-in-btn'},
-                errorInfo: { jsId: 'js-sign-in-error' },
-                link: { text:'У вас еще нет аккаунта? Зарегистрироваться',
-                    jsId: 'js-create-account-btn'},
-                linkInfo: 'После успешной регистрации вы получите доступ ко всем функциям Depeche',
-            },
-        };
     }
 
-    render() {
-        const template = Handlebars.templates.signIn;
-        this.#parent.innerHTML = template(this.#config);
+    _addPagesElements() {
+        this._emailField = document.getElementById('js-email-input');
+        this._emailErrorField = document.getElementById('js-email-error');
+        this._passwordField = document.getElementById('js-password-input');
+        this._passwordErrorField = document.getElementById('js-password-error');
+        this._error = document.getElementById('js-sign-in-error');
+        this._authBtn = document.getElementById('js-sign-in-btn')
+        this._newBtn = document.getElementById('js-create-account-btn')
+
+        this._error.textContent = userStore.user.errorAuth;
     }
 
+    _addPagesListener() {
+        this._authBtn.addEventListener('click', (e) => {
+            if (this._validatePassword && this._validateEmail) {
+                actionUser.signIn({email: this._emailField.value, password: this._passwordField.value});
+            }
+        });
+
+        this._newBtn.addEventListener('click', (e) => {
+            Router.go('/signUp', false);
+        });
+
+        this._emailField.addEventListener('change', (e) => {
+            this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email');
+        });
+        this._passwordField.addEventListener('change', (e) => {
+            this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password');
+        });
+    }
+
+    remove() {
+        document.getElementById(this._jsId)?.remove();
+    }
+
+    showPage() {
+        actionUser.checkAuth();
+    }
+
+    updatePage() {
+        if (this.curPage) {
+            if (userStore.user.isAuth) {
+                Router.go('/feed');
+                return;
+            }
+            this._render();
+        }
+    }
+
+    _preRender() {
+        this._template = Handlebars.templates.signIn;
+
+        this._context = {
+            logoData: logoDataSignIn,
+            signInData: signInData
+        }
+    }
+
+    _render() {
+        this._preRender();
+        Router.rootElement.innerHTML = this._template(this._context);
+        this._addPagesElements();
+        this._addPagesListener();
+    }
 }

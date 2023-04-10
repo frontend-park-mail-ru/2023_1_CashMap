@@ -1,9 +1,22 @@
+import userStore from "../stores/userStore.js";
+import Router from "../modules/router.js";
+import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
+import {actionUser} from "../actions/actionUser.js";
+import {actionPost} from "../actions/actionPost.js";
+import postsStore from "../stores/postsStore.js";
+
 export default class FeedView {
+	constructor() {
+		this._addHandlebarsPartial();
 
-	#config
-	#parent
+		this._jsId = 'feed';
+		this.curPage = false;
 
-	constructor(parent, posts) {
+		postsStore.registerCallback(this.updatePage.bind(this));
+		userStore.registerCallback(this.updatePage.bind(this));
+	}
+
+	_addHandlebarsPartial() {
 		Handlebars.registerPartial('inputField', Handlebars.templates.inputField);
 		Handlebars.registerPartial('button', Handlebars.templates.button);
 		Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar);
@@ -14,40 +27,101 @@ export default class FeedView {
 		Handlebars.registerPartial('createPost', Handlebars.templates.createPost);
 		Handlebars.registerPartial('commentArea', Handlebars.templates.commentArea);
 		Handlebars.registerPartial('comment', Handlebars.templates.comment);
-
-		this.#parent = parent;
-
-		this.#config = {
-			sideBarData: {
-				logoImgPath: 'static/img/logo.svg',
-				logoText: 'Depeche',
-				menuItemList: [
-					{text: 'Моя страница', jsId: 'js-side-bar-my-page', iconPath: 'static/img/nav_icons/profile.svg', hoveredIconPath: 'static/img/nav_icons/profile_hover.svg', notifies: 1},
-					{text: 'Новости', jsId: 'js-side-bar-news', iconPath: 'static/img/nav_icons/news.svg', hoveredIconPath: 'static/img/nav_icons/news_hover.svg', notifies: 0},
-					{text: 'Мессенджер', jsId: 'js-side-bar-msg', iconPath: 'static/img/nav_icons/messenger.svg', hoveredIconPath: 'static/img/nav_icons/messenger_hover.svg', notifies: 7},
-					{text: 'Фотографии', jsId: 'js-side-bar-photo', iconPath: 'static/img/nav_icons/photos.svg', hoveredIconPath: 'static/img/nav_icons/photos_hover.svg', notifies: 0},
-					{text: 'Друзья', jsId: 'js-side-bar-friends', iconPath: 'static/img/nav_icons/friends.svg', hoveredIconPath: 'static/img/nav_icons/friends_hover.svg', notifies: 0},
-					{text: 'Сообщества', jsId: 'js-side-bar-groups', iconPath: 'static/img/nav_icons/groups.svg', hoveredIconPath: 'static/img/nav_icons/groups_hover.svg', notifies: 0},
-					{text: 'Закладки', jsId: 'js-side-bar-bookmarks', iconPath: 'static/img/nav_icons/bookmarks.svg', hoveredIconPath: 'static/img/nav_icons/bookmarks_hover.svg', notifies: 11}]
-			},
-			headerData: {
-				profileUrl: '#',
-				avatar: 'static/img/post_icons/profile_image.svg',
-				exitButton: { text: 'Выход', jsId: 'js-exit-btn', iconPath: 'static/img/exit.svg', hoveredIconPath: 'static/img/exit_hover.svg'},
-				settingsButton: { text: 'Настройки', jsId: 'js-settings-btn', iconPath: 'static/img/settings.svg', hoveredIconPath: 'static/img/settings_hover.svg'},
-			},
-			postAreaData: {
-				createPostData: { avatar: 'static/img/post_icons/profile_image.svg' },
-				postList: posts,
-			},
-		};
-
-		console.log(posts);
 	}
 
-	render() {
-		const template = Handlebars.templates.feed;
-		this.#parent.innerHTML = template(this.#config);
+	_addPagesElements() {
+		this._exitBtn = document.getElementById('js-exit-btn');
+		this._settingsBtn = document.getElementById('js-settings-btn');
+
+		this._myPageItem = document.getElementById('js-side-bar-my-page');
+		this._newsItem = document.getElementById('js-side-bar-news');
+		this._newsItem.style.color = activeColor;
+		this._msgItem = document.getElementById('js-side-bar-msg');
+		this._photoItem = document.getElementById('js-side-bar-photo');
+		this._friendsItem = document.getElementById('js-side-bar-friends');
+		this._groupsItem = document.getElementById('js-side-bar-groups');
+		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+
+		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
+		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
+		this._createPosts = document.getElementById('js-create-post');
 	}
 
+	_addPagesListener() {
+		this._exitBtn.addEventListener('click', () => {
+			actionUser.signOut();
+		});
+
+		this._settingsBtn.addEventListener('click', () => {
+            Router.go('/settings', false);
+        });
+
+		this._msgItem.addEventListener('click', () => {
+            Router.go('/message', false);
+        });
+
+		this._friendsItem.addEventListener('click', () => {
+			Router.go('/friends', false);
+		});
+
+		this._myPageItem.addEventListener('click', () => {
+			Router.go('/myPage', false);
+		});
+
+		for (let i = 0; i < this._editPosts.length; i++) {
+			this._editPosts[i].addEventListener('click', () => {
+				const postId = this._editPosts[i].getAttribute("data-id");
+				localStorage.setItem('editPostId', postId);
+				Router.go('/editPost', false);
+			});
+		}
+
+		for (let i = 0; i < this._deletePosts.length; i++) {
+			this._deletePosts[i].addEventListener('click', () => {
+				const postId = this._deletePosts[i].getAttribute("data-id");
+				actionPost.deletePost(Number(postId));
+			});
+		}
+
+		this._createPosts.addEventListener('click', () => {
+			Router.go('/createPost', false);
+		});
+	}
+
+	remove() {
+		document.getElementById(this._jsId)?.remove();
+	}
+
+	showPage() {
+		actionUser.getProfile(() => { actionPost.getFriendsPosts(15); });
+	}
+
+	updatePage() {
+		if (this.curPage) {
+			if (!userStore.user.isAuth) {
+				Router.go('/signIn');
+			} else {
+				this._render();
+			}
+		}
+	}
+
+	_preRender() {
+		this._template = Handlebars.templates.feed;
+
+		let header = headerConst;
+		header['avatar'] = userStore.user.avatar;
+		this._context = {
+			sideBarData: sideBarConst,
+			headerData: header,
+			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.friendsPosts},
+		}
+	}
+
+	_render() {
+		this._preRender();
+		Router.rootElement.innerHTML = this._template(this._context);
+		this._addPagesElements();
+		this._addPagesListener();
+	}
 }

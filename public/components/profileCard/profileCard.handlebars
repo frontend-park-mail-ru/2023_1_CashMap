@@ -1,0 +1,22 @@
+<div class="profileCard">
+    <div class="profileCard__header" style="background-image: url( static/img/profile_background.svg )">
+        <button class="profileCard__button" data-action="message">
+            <div class="profileCard__button-text">
+                Изменить обложку
+            </div>
+        </button>
+    </div>
+    <div class="profileCard__body">
+        <div class="profileCard__info">
+            <img src="{{ avatar }}" class="profileCard__info-img">
+            <div class="profileCard__info-data">
+                <div class="profileCard__info-text profileCard__info-text_header">{{ firstName }} {{ lastName }}</div>
+                <div class="profileCard__info-text">{{ status }}</div>
+                <div class="profileCard__info-text profileCard__info-text_little"> в сети: {{ lastActive }} </div>
+            </div>
+        </div>
+        <button class="profileCard__button profileCard__button_grey" data-action="message" data-id="{{ user_link }}">
+            <div class="profileCard__button-text" id="js-profile-settings-btn"> Редактировать </div>
+        </button>
+    </div>
+</div>
