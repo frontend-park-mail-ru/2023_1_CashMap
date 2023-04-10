@@ -2,7 +2,6 @@ import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 import {headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
-import Router from "../modules/router.js";
 import WebSock from "../modules/webSocket.js";
 
 class userStore {

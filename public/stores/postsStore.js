@@ -72,8 +72,6 @@ class postsStore {
                 post.avatar = userStore.user.avatar;
 
                 this.posts.push(post);
-
-                console.log(this.posts);
             });
             this.posts = response.body.posts;
         } else if (request.status === 401) {
@@ -90,7 +88,6 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
-            console.log(response);
             response.body.posts.forEach((post) => {
                 post.isMyPost = false;
                 if (!post.owner_info.url) {
@@ -106,8 +103,6 @@ class postsStore {
                 post.avatar = userStore.user.avatar;
 
                 this.posts.push(post);
-
-                console.log(this.posts);
             });
             this.friendsPosts = response.body.posts;
         } else if (request.status === 401) {
@@ -140,8 +135,6 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
             const p = response.body.posts[0];
-
-            console.log(p);
 
             p.isMyPost = true;
             p.owner_info = {};

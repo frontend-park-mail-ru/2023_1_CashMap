@@ -10,7 +10,6 @@ export default class SignUpView {
 
         this._jsId = 'sign-up';
         this.curPage = false;
-        this.init = true;
 
         this._validateFirstName = false;
         this._validateLastName = false;
@@ -82,8 +81,7 @@ export default class SignUpView {
     }
 
     showPage() {
-        /*this.init = true;
-        actionUser.checkAuth();*/
+        actionUser.checkAuth();
     }
 
     updatePage() {
