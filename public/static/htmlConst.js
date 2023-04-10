@@ -70,11 +70,11 @@ export const settingsConst = {
         type: 'text',
         jsIdInput: 'js-last-name-input',
         jsIdError: 'js-last-name-error'},
-      { help: 'Электронная почта',
+      /*{ help: 'Электронная почта',
         data: '',
         type: 'email',
         jsIdInput: 'js-email-input',
-        jsIdError: 'js-email-error'},
+        jsIdError: 'js-email-error'},*/
       { help: 'Город',
         data: '',
         type: 'text',

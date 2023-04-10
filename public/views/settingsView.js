@@ -43,8 +43,8 @@ export default class SettingsView {
         this._firstNameErrorField = document.getElementById('js-first-name-error');
         this._lastNameField = document.getElementById('js-last-name-input');
         this._lastNameErrorField = document.getElementById('js-last-name-error');
-        this._emailField = document.getElementById('js-email-input');
-        this._emailErrorField = document.getElementById('js-email-error');
+        /*this._emailField = document.getElementById('js-email-input');
+        this._emailErrorField = document.getElementById('js-email-error');*/
 		this._cityField = document.getElementById('js-city-input');
         this._cityErrorField = document.getElementById('js-city-error');
 		this._birthdayField = document.getElementById('js-birthday-input');
@@ -115,7 +115,7 @@ export default class SettingsView {
 
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
-                actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, city: this._cityField.value, status: this._statusField.value});
+                actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, /*email: this._emailField.value,*/ city: this._cityField.value, status: this._statusField.value});
 			}
 		});
 
@@ -125,9 +125,9 @@ export default class SettingsView {
         this._lastNameField.addEventListener('change', (e) => {
             this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName');
         });
-        this._emailField.addEventListener('change', (e) => {
+        /*this._emailField.addEventListener('change', (e) => {
             this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email');
-        });
+        });*/
 	}
 
 	remove() {
@@ -160,10 +160,10 @@ export default class SettingsView {
 		settings['avatar'] = userStore.user.avatar;
 		settings['inputFields'][0]['data'] = userStore.user.firstName;
 		settings['inputFields'][1]['data'] = userStore.user.lastName;
-		settings['inputFields'][2]['data'] = userStore.user.email;
-		settings['inputFields'][3]['data'] = userStore.user.city; // этого нет в сторе
-		settings['inputFields'][4]['data'] = userStore.user.birthday;
-		settings['inputFields'][5]['data'] = userStore.user.status;
+		//settings['inputFields'][2]['data'] = userStore.user.email;
+		settings['inputFields'][2]['data'] = userStore.user.city; // этого нет в сторе
+		settings['inputFields'][3]['data'] = userStore.user.birthday;
+		settings['inputFields'][4]['data'] = userStore.user.status;
 
 		this._context = {
 			sideBarData: sideBarConst,

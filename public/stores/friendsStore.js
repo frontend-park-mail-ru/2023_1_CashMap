@@ -3,6 +3,7 @@ import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
+import {actionFriends} from "../actions/actionFriends.js";
 
 class friendsStore {
     constructor() {
@@ -144,9 +145,21 @@ class friendsStore {
 
         if (request.status === 200) {
             if (type === 'in') {
-                this.subscribers = response.body;
+                this.subscribers = response.body.subs;
+                this.subscribers.forEach((sub) => {
+                    if (!sub.avatar) {
+                        sub.avatar = headerConst.avatarDefault;
+                    }
+                    sub.isFriend = false;
+                });
             } else {
-                this.subscriptions = response.body;
+                this.subscriptions = response.body.subs;
+                this.subscriptions.forEach((sub) => {
+                    if (!sub.avatar) {
+                        sub.avatar = headerConst.avatarDefault;
+                    }
+                    sub.isFriend = true;
+                });
             }
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -171,6 +184,10 @@ class friendsStore {
             if (index > -1) {
                 this.friends.push(this.friends[index]);
             }
+            actionFriends.getFriends(userStore.user.user_link, 15, 0);
+            actionFriends.getNotFriends(15, 0);
+            actionFriends.getSubscribers(userStore.user.user_link, 15);
+            actionFriends.getSubscriptions(userStore.user.user_link, 15);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -194,6 +211,10 @@ class friendsStore {
             if (index > -1) {
                 this.friends.splice(index, 1);
             }
+            actionFriends.getFriends(userStore.user.user_link, 15, 0);
+            actionFriends.getNotFriends(15, 0);
+            actionFriends.getSubscribers(userStore.user.user_link, 15);
+            actionFriends.getSubscriptions(userStore.user.user_link, 15);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

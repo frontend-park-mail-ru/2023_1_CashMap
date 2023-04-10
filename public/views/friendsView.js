@@ -100,7 +100,6 @@ export default class FriendsView {
 					} else {
 						actionMessage.chatCreate(userId, () => {
 							if (localStorage.getItem('chatId')) {
-								alert(3);
 								Router.go('/chat');
 							}
 						});
@@ -116,7 +115,12 @@ export default class FriendsView {
 
 	showPage() {
 		this.init = true;
-		actionUser.getProfile(() => { actionFriends.getFriends(userStore.user.user_link, 15, 0); actionFriends.getNotFriends(15, 0); });
+		actionUser.getProfile(() => {
+			actionFriends.getFriends(userStore.user.user_link, 15, 0);
+			actionFriends.getNotFriends(15, 0);
+			actionFriends.getSubscribers(userStore.user.user_link, 15);
+			actionFriends.getSubscriptions(userStore.user.user_link, 15);
+		});
 	}
 
 	updatePage() {
@@ -130,7 +134,7 @@ export default class FriendsView {
 	}
 
 	_preRender() {
-		const res = [...friendsStore.friends, ...friendsStore.notFriends];
+		const res = [...friendsStore.friends, ...friendsStore.notFriends, ...friendsStore.subscribers, ...friendsStore.subscriptions];
 
 		this._template = Handlebars.templates.friends;
 		let header = headerConst;

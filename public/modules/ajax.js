@@ -49,7 +49,7 @@ class Ajax {
         //console.log(requestUrl);
 
         let a = {}
-        if (requestType === 'DELETE') {
+        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create') {
             a = {'content-type': 'application/json',}
         }
 
@@ -154,7 +154,7 @@ class Ajax {
     }
 
     async getSub(type, link, count, offset = 0) {
-        return this._request(this._apiUrl.getSub + `?type=${type}link=${link}&count=${count}&offset=${offset}`, this._requestType.GET);
+        return this._request(this._apiUrl.getSub + `?type=${type}&link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
     async sub(link) {

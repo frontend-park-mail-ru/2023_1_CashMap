@@ -38,9 +38,7 @@ class Router {
     }
 
     goBack() {
-        alert(window.location.pathname + window.location.search);
         window.history.back();
-        alert(window.location.pathname + window.location.search);
         this.go(window.location.pathname + window.location.search, true);
     }
 
