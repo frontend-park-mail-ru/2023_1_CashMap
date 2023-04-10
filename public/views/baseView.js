@@ -81,7 +81,7 @@ export default class BaseView {
     }
 
     /**
-     * @private метод, добавляющий на страницу события базовых элементов.
+     * метод, добавляющий на страницу события базовых элементов.
      */
     addPagesListener() {
         this._exitBtn.addEventListener('click', () => {
@@ -114,6 +114,7 @@ export default class BaseView {
      */
     remove() {
         document.getElementById(this._jsId)?.remove();
+        //ToDo: снимать лисенеры
     }
 
     /**

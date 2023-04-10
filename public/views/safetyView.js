@@ -90,7 +90,6 @@ export default class SafetyView {
         });
 
 		this._passwordNewField.addEventListener('change', (e) => {
-			console.log(123123)
             this._validatePasswordNew = Validation.validation(this._passwordNewField, this._passwordNewErrorField, 'password');
         });
 

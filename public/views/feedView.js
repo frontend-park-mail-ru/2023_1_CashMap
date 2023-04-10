@@ -72,7 +72,7 @@ export default class FeedView {
 			this._editPosts[i].addEventListener('click', () => {
 				const postId = this._editPosts[i].getAttribute("data-id");
 				localStorage.setItem('editPostId', postId);
-				Router.go('/editPost', true);
+				Router.go('/editPost', false);
 			});
 		}
 
@@ -86,17 +86,6 @@ export default class FeedView {
 		this._createPosts.addEventListener('click', () => {
 			Router.go('/createPost', false);
 		});
-
-		/*window.addEventListener('scroll', function() {
-			let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
-
-			// если пользователь прокрутил достаточно далеко (< 100px до конца)
-			if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
-				// добавим больше данных
-				//document.body.insertAdjacentHTML("beforeend", `<p>Дата: ${new Date()}</p>`);
-				console.log('добавить');
-			}
-		});*/
 	}
 
 	remove() {

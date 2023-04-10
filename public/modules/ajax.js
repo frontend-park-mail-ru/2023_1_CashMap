@@ -1,7 +1,7 @@
 class Ajax {
     constructor() {
-        //this._backendUrl = 'http://127.0.0.1';
-        this._backendUrl = 'http://95.163.212.121';
+        this._backendUrl = 'http://127.0.0.1';
+        //this._backendUrl = 'http://95.163.212.121';
         this._backendPort = '8080';
 
         this._apiUrl = {
@@ -46,7 +46,6 @@ class Ajax {
 
     _request(apiUrlType, requestType, body) {
         const requestUrl = this._backendUrl + ':' + this._backendPort + apiUrlType;
-        //console.log(requestUrl);
 
         let a = {}
         if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create') {

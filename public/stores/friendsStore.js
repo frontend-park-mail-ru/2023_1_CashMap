@@ -175,16 +175,10 @@ class friendsStore {
         const request = await Ajax.sub(link);
 
         if (request.status === 200) {
-            let index = -1;
-            for (let i = 0; i < this.users.length; i++) {
-                if (this.users[i].user_link === link) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index > -1) {
-                this.friends.push(this.friends[index]);
-            }
+            actionFriends.getFriends(userStore.user.user_link, 15, 0);
+            actionFriends.getNotFriends(15, 0);
+            actionFriends.getSubscribers(userStore.user.user_link, 15);
+            actionFriends.getSubscriptions(userStore.user.user_link, 15);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -198,16 +192,10 @@ class friendsStore {
         const request = await Ajax.unsub(link);
 
         if (request.status === 200) {
-            let index = -1;
-            for (let i = 0; i < this.friends.length; i++) {
-                if (this.friends[i].user_link === link) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index > -1) {
-                this.friends.splice(index, 1);
-            }
+            actionFriends.getFriends(userStore.user.user_link, 15, 0);
+            actionFriends.getNotFriends(15, 0);
+            actionFriends.getSubscribers(userStore.user.user_link, 15);
+            actionFriends.getSubscriptions(userStore.user.user_link, 15);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

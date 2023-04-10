@@ -1,6 +1,6 @@
-let MAX_PASSWORD_LENGTH = 100;
-let MIN_PASSWORD_LENGTH = 8;
-let MAX_NAME_LENGTH = 30;
+const MAX_PASSWORD_LENGTH = 100;
+const MIN_PASSWORD_LENGTH = 8;
+const MAX_NAME_LENGTH = 30;
 
 
 class Validation {
@@ -40,10 +40,10 @@ class Validation {
 			};
 		}
 
-		password.trim()
+		password.trim();
 
 		for (const symbol of password) {
-			if (symbol == ' ') {
+			if (symbol === ' ') {
 				return {
 					status: false,
 					error: 'Пробелы в пароле недопустимы'
@@ -65,7 +65,7 @@ class Validation {
 		}
 
 
-		if (password.length == 0) {
+		if (password.length === 0) {
 			return {
 				status: false,
 				error: 'Введите пароль'
@@ -92,7 +92,7 @@ class Validation {
 
 			if (char.match(/[a-zA-Z]/i) != null) {
 				// проверка на врехний регистр
-				if (char == char.toUpperCase()) {
+				if (char === char.toUpperCase()) {
 					hasUpperCaseChars = true;
 				}
 			}
@@ -102,7 +102,7 @@ class Validation {
 				hasDigits = true;
 			}
 
-			if (char == ' ') {
+			if (char === ' ') {
 				return {
 					status: false,
 					error: 'Пробелы в пароле не допускаются'
@@ -131,7 +131,7 @@ class Validation {
 	}
 
 	_validateEmail(email) {
-		if (email.length == 0) {
+		if (email.length === 0) {
 			return {
 				status: false,
 				error: 'Введите электронную почту'
@@ -167,7 +167,7 @@ class Validation {
 			};
 		}
 
-		if (name.length == 0) {
+		if (name.length === 0) {
 			return {
 				status: false,
 				error: 'Введите имя'
@@ -203,7 +203,7 @@ class Validation {
 			};
 		}
 
-		if (surname.length == 0) {
+		if (surname.length === 0) {
 			return {
 				status: false,
 				error: 'Введите фамилию'
@@ -232,7 +232,7 @@ class Validation {
 	}
 
 	_validateTwoPasswords(password1, password2) {
-		if (password2.length == 0) {
+		if (password2.length === 0) {
 			return {
 				status: false,
 				error: 'Введите пароль'

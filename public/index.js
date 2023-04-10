@@ -11,7 +11,6 @@ import SettingsView from "./views/settingsView.js";
 import SafetyView from "./views/safetyView.js";
 import MessagesView from "./views/messagesView.js";
 import ChatView from "./views/chatView.js";
-import WebSock from "./modules/webSocket.js";
 import NotFoundView from "./views/notFoundView.js";
 
 
