@@ -12,9 +12,9 @@
     position: relative;
 }
 
-.friend:hover {
+/* .friend:hover {
     background-color: var(--background-item-hovered);
-}
+} */
 
 .friend__avatar {
     width: 80px;
@@ -106,10 +106,10 @@
 }
 .friend-menu-item-delete {
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .friend-menu-size {
-    width: 14%;
     height: 50px;
 }
 .friend-menu-position {

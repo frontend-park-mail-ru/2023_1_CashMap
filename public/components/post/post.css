@@ -37,6 +37,7 @@
 }
 .post-buttons__icon {
     margin: auto;
+    cursor: pointer;
 }
 .post-buttons-like {
     grid-column: 2;
@@ -77,13 +78,14 @@
 }
 .post-menu-item-edit {
     cursor: pointer;
+    white-space: nowrap;
 }
 .post-menu-item-delete {
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .post-menu-size {
-    width: 14%;
     height: 50px;
 }
 .post-menu-position {

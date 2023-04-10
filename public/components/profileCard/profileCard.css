@@ -35,6 +35,7 @@
     font-family: InterMedium;
     font-size: var(--font-size-15);
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .profileCard__button_grey {
@@ -74,6 +75,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+    max-width: 400px;
 }
 
 .profileCard__info-text {
