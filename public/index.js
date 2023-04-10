@@ -5,17 +5,13 @@ import FeedView from "./views/feedView.js";
 import FriendsView from "./views/friendsView.js";
 import ProfileView from "./views/profileView.js";
 import {actionUser} from "./actions/actionUser.js";
-import {actionPost} from "./actions/actionPost.js";
-import {actionFriends} from "./actions/actionFriends.js";
 import EditPostView from "./views/editPostView.js";
 import CreatePostView from "./views/createPostView.js";
-import userStore from "./stores/userStore.js";
 import SettingsView from "./views/settingsView.js";
 import SafetyView from "./views/safetyView.js";
 import MessagesView from "./views/messagesView.js";
 import ChatView from "./views/chatView.js";
 import WebSock from "./modules/webSocket.js";
-import messagesStore from "./stores/messagesStore.js";
 import NotFoundView from "./views/notFoundView.js";
 
 
@@ -50,5 +46,3 @@ Router.registerPage('/chat', Views.ChatView);
 Router.registerPage('/404', Views.NotFoundView);
 
 actionUser.checkAuth(() => { Router.init() });
-
-WebSock.open();

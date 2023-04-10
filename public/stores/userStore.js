@@ -3,6 +3,7 @@ import Ajax from "../modules/ajax.js";
 import {headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import Router from "../modules/router.js";
+import WebSock from "../modules/webSocket.js";
 
 class userStore {
     constructor() {
@@ -70,6 +71,7 @@ class userStore {
         if (request.status === 200) {
             this.user.errorAuth = '';
             this.user.isAuth = true;
+            WebSock.open();
         } else {
             const response = await request.json();
             this.user.errorAuth = response.message;
@@ -84,6 +86,7 @@ class userStore {
         if (request.status === 200) {
             this.user.errorReg = '';
             this.user.isAuth = true;
+            WebSock.open();
         } else {
             const response = await request.json();
             this.user.errorReg = response.message;
@@ -148,6 +151,7 @@ class userStore {
 
         if (request.status === 200) {
             this.user.isAuth = true;
+            WebSock.open();
         } else {
             this.user.isAuth = false;
         }

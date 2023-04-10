@@ -69,6 +69,8 @@ class messagesStore {
 
             });
 
+            console.log(this.chats);
+
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

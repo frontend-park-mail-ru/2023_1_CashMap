@@ -69,6 +69,7 @@ export default class MessagesView {
 			this._goToMsg[i].addEventListener('click', () => {
 				const chatId = this._goToMsg[i].getAttribute("data-id");
 				localStorage.setItem('chatId', chatId);
+				actionMessage.getChatsMsg(chatId,15);
 				Router.go('/chat');
 			});
 		}

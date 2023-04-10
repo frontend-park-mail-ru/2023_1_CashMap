@@ -1,6 +1,7 @@
 import Ajax from "./ajax.js";
 import messagesStore from "../stores/messagesStore.js";
 import {headerConst} from "../static/htmlConst.js";
+import userStore from "../stores/userStore.js";
 
 class WebSock {
     constructor() {
@@ -12,8 +13,10 @@ class WebSock {
             throw new Error('Ошибка: браузер не поддерживает WebSocket');
         }
 
-        //this._socket = new WebSocket("ws://127.0.0.1:8080/api/ws");
-        this._socket = new WebSocket("ws://95.163.212.121:8080/api/ws");
+        if (!this._socket && userStore.user.isAuth) {
+            //this._socket = new WebSocket("ws://127.0.0.1:8080/api/ws");
+            this._socket = new WebSocket("ws://95.163.212.121:8080/api/ws");
+        }
 
         this._socket.onmessage = function(event) {
             const response = JSON.parse(event.data);
@@ -21,7 +24,10 @@ class WebSock {
             if (!response.sender_info.url) {
                 response.sender_info.url = headerConst.avatarDefault;
             }
-            messagesStore.messages.push(response);
+
+            if (localStorage.getItem('chatId') === String(response.chat_id)) {
+                messagesStore.messages.push(response);
+            }
             messagesStore._refreshStore();
         };
     }
