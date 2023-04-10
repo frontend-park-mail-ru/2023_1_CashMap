@@ -10,7 +10,6 @@ export default class SettingsView {
 
 		this._jsId = 'settings';
 		this.curPage = false;
-        this.init = false;
 
 		this._validateFirstName = true;
         this._validateLastName = true;
@@ -145,7 +144,6 @@ export default class SettingsView {
 	}
 
 	showPage() {
-		this.init = true;
 		actionUser.getProfile();
 	}
 

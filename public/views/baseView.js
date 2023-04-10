@@ -16,7 +16,6 @@ export default class BaseView {
         this.addStore();
 
         this.curPage = false;
-        this.init = false;
     }
 
     /**

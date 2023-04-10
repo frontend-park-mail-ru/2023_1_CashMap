@@ -143,6 +143,7 @@ class userStore {
         if (callback) {
             callback();
         }
+
         this._refreshStore();
     }
 
@@ -156,7 +157,11 @@ class userStore {
             this.user.isAuth = false;
         }
 
-        callback();
+        if (callback) {
+            callback();
+        }
+
+        this._refreshStore();
     }
 
     async _editProfile(data) {

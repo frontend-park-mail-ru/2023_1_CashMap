@@ -11,7 +11,6 @@ export default class FeedView {
 
 		this._jsId = 'feed';
 		this.curPage = false;
-		this.init = false;
 
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
@@ -105,7 +104,6 @@ export default class FeedView {
 	}
 
 	showPage() {
-		this.init = true;
 		actionUser.getProfile(() => { actionPost.getFriendsPosts(15); });
 	}
 

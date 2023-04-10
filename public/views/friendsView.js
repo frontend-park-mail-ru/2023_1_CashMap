@@ -13,7 +13,6 @@ export default class FriendsView {
 
 		this._jsId = 'friends';
 		this.curPage = false;
-		this.init = false;
 
 		friendsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
@@ -116,7 +115,6 @@ export default class FriendsView {
 	}
 
 	showPage() {
-		this.init = true;
 		actionUser.getProfile(() => {
 			actionFriends.getFriends(userStore.user.user_link, 15, 0);
 			actionFriends.getNotFriends(15, 0);

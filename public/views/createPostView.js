@@ -41,10 +41,9 @@ export default class CreatePostView extends BaseView {
 	}
 
 	showPage() {
-		this.init = true;
 		actionUser.getProfile(() => {
-			if (window.history.state) {
-				actionPost.getPostsById(window.history.state, 1);
+			if (localStorage.getItem('chatId')) {
+				actionPost.getPostsById(localStorage.getItem('chatId'), 1);
 			} else {
 				Router.goBack();
 			}

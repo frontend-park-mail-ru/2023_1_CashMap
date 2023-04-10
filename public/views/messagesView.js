@@ -12,7 +12,6 @@ export default class MessagesView {
 
 		this._jsId = 'messages';
 		this.curPage = false;
-		this.init = false;
 
 		messagesStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
@@ -80,7 +79,6 @@ export default class MessagesView {
 	}
 
 	showPage() {
-		this.init = true;
 		actionUser.getProfile(() => { actionMessage.getChats(15); });
 	}
 

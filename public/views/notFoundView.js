@@ -7,7 +7,6 @@ export default class NotFoundView {
 
 		this._jsId = 'not-found';
 		this.curPage = false;
-		this.init = false;
 	}
 
 	_addHandlebarsPartial() {

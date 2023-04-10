@@ -38,7 +38,6 @@ export default class ChatView extends BaseView {
 	}
 
 	showPage() {
-		this.init = true;
 		const chatId = localStorage.getItem('chatId');
 		if (chatId) {
 			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,15); actionMessage.getChats(15); });

@@ -11,7 +11,6 @@ export default class ProfileView {
 
 		this._jsId = 'profile';
 		this.curPage = false;
-		this.init = false;
 
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
@@ -100,7 +99,6 @@ export default class ProfileView {
 	}
 
 	showPage() {
-		this.init = true;
 		actionUser.getProfile(() => { actionPost.getPostsByUser(userStore.user.user_link, 15); });
 	}
 

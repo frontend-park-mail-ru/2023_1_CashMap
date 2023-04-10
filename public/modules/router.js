@@ -18,11 +18,7 @@ class Router {
         if (this._pages[url]) {
             this.currentPage = this._pages[url];
             this.currentPage.curPage = true;
-            if (this.currentPage.init) {
-                this.currentPage.updatePage();
-            } else {
-                this.currentPage.showPage();
-            }
+            this.currentPage.showPage();
 
             if (window.location.pathname + window.location.search !== url) {
                 if (replace) {
@@ -47,9 +43,7 @@ class Router {
     }
 
     freePages() {
-        for (let i = 0; i < this._pages.length; i++) {
-            this._pages[i].init = false;
-        }
+
     }
 }
 

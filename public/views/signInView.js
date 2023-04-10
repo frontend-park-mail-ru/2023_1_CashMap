@@ -3,7 +3,6 @@ import {actionUser} from "../actions/actionUser.js";
 import Validation from "../modules/validation.js";
 import Router from "../modules/router.js";
 import {logoDataSignIn, signInData} from "../static/htmlConst.js";
-import {actionPost} from "../actions/actionPost.js";
 
 export default class SignInView {
     constructor() {
@@ -11,7 +10,6 @@ export default class SignInView {
 
         this._jsId = 'sign-in';
         this.curPage = false;
-        this.init = true;
 
         this._validateEmail = false;
         this._validatePassword = false;
@@ -62,15 +60,12 @@ export default class SignInView {
     }
 
     showPage() {
-        /*this.init = true;
-        actionUser.checkAuth();*/
+        actionUser.checkAuth();
     }
 
     updatePage() {
         if (this.curPage) {
             if (userStore.user.isAuth) {
-                console.log('auth');
-                actionUser.getProfile(() => { actionPost.getPostsByUser(userStore.user.user_link, 15); });
                 Router.go('/feed');
                 return;
             }

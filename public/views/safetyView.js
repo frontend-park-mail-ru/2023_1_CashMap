@@ -10,7 +10,6 @@ export default class SafetyView {
 
 		this._jsId = 'safety';
 		this.curPage = false;
-        this.init = false;
 
 		this._validatePassword = true;
 		this._validatePasswordNew = false;
@@ -115,7 +114,6 @@ export default class SafetyView {
 	}
 
 	showPage() {
-		this.init = true;
 		actionUser.getProfile();
 	}
 

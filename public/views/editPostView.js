@@ -11,7 +11,6 @@ export default class EditPostView {
 
 		this._jsId = 'edit-post';
 		this.curPage = false;
-		this.init = false;
 
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
@@ -93,7 +92,6 @@ export default class EditPostView {
 	}
 
 	showPage() {
-		this.init = true;
 		actionUser.getProfile(() => {
 			const postId = localStorage.getItem('editPostId');
 			if (postId) {
