@@ -41,13 +41,7 @@ export default class CreatePostView extends BaseView {
 	}
 
 	showPage() {
-		actionUser.getProfile(() => {
-			if (localStorage.getItem('chatId')) {
-				actionPost.getPostsById(localStorage.getItem('chatId'), 1);
-			} else {
-				Router.goBack();
-			}
-		});
+		actionUser.getProfile();
 	}
 
 	_preRender() {
