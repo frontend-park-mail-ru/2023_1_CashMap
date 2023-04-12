@@ -61,9 +61,10 @@ class Ajax {
     _request(apiUrlType, requestType, body) {
         const requestUrl = this._backendUrl + ':' + this._backendPort + apiUrlType;
 
-        let a = {}
+        let a = {};
+        a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
         if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create') {
-            a = {'content-type': 'application/json',}
+            a['content-type'] = 'application/json';
         }
 
         return fetch(requestUrl, {
