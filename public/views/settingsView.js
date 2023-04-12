@@ -3,6 +3,8 @@ import Validation from "../modules/validation.js";
 import Router from "../modules/router.js";
 import {sideBarConst, headerConst, settingsConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
+import {actionImg} from "../actions/actionImg.js";
+import imgStore from "../stores/imgStore.js";
 
 export default class SettingsView {
 	constructor() {
@@ -17,6 +19,8 @@ export default class SettingsView {
 
 		userStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
+
+		this._fileList = null;
 	}
 
 	_addHandlebarsPartial() {
@@ -88,30 +92,33 @@ export default class SettingsView {
 			Router.go('/feed');
 		})
 
-		if (window.FileList && window.File) {
-			this._dropZone.addEventListener('dragover', event => {
-			  event.stopPropagation();
-			  event.preventDefault();
-			  event.dataTransfer.dropEffect = 'copy';
-			});
-			
-			this._dropZone.addEventListener('drop', event => {
-			  this._dropContent.innerHTML = '';
-			  event.stopPropagation();
-			  event.preventDefault();
-			  const files = event.dataTransfer.files;
+		const dropArea = document.getElementById('js-drop-zone');
 
-			  this._reader.readAsDataURL(files[0]);
-			
-			  this._reader.addEventListener('load', (event) => {
+		dropArea.addEventListener('dragover', (event) => {
+			event.preventDefault();
+		});
+
+		dropArea.addEventListener('drop', (event) => {
+			event.preventDefault();
+
+			this._fileList = event.dataTransfer.files[0];
+
+			this._dropContent.innerHTML = '';
+			this._reader.readAsDataURL(this._fileList);
+			this._reader.addEventListener('load', (event) => {
 				this._dropContent.src = event.target.result;
-			  });
-			}); 
-		}
+			});
+		});
 
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
-          actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
+				if (this._fileList) {
+					actionImg.uploadImg(this._fileList, (newUrl) => {
+						actionUser.editProfile({avatar: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
+					});
+				} else {
+					actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
+				}
 			}
 		});
 
