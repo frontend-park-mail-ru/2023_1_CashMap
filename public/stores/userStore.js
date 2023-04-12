@@ -68,6 +68,11 @@ class userStore {
         const request = await Ajax.signIn(data.email, data.password);
 
         if (request.status === 200) {
+            const csrfToken = request.headers.get('X-Csrf-Token');
+            if (csrfToken) {
+                localStorage.setItem('X-Csrf-Token', csrfToken);
+            }
+
             this.user.errorAuth = '';
             this.user.isAuth = true;
             WebSock.open();
@@ -83,8 +88,14 @@ class userStore {
         const request = await Ajax.signUp(data.firstName, data.lastName, data.email, data.password);
 
         if (request.status === 200) {
+            const csrfToken = request.headers.get('X-Csrf-Token');
+            if (csrfToken) {
+                localStorage.setItem('X-Csrf-Token', csrfToken);
+            }
+
             this.user.errorReg = '';
             this.user.isAuth = true;
+            console.log(`token signup: ${request}`);
             WebSock.open();
         } else {
             const response = await request.json();
@@ -99,6 +110,10 @@ class userStore {
 
         if (request.status === 200) {
             this.user.isAuth = false;
+
+            if (localStorage.getItem('X-Csrf-Token')) {
+                localStorage.removeItem('X-Csrf-Token');
+            }
         }
         this._refreshStore();
     }
@@ -149,6 +164,11 @@ class userStore {
         const request = await Ajax.checkAuth();
 
         if (request.status === 200) {
+            const csrfToken = request.headers.get('X-Csrf-Token');
+            if (csrfToken) {
+                localStorage.setItem('X-Csrf-Token', csrfToken);
+            }
+
             this.user.isAuth = true;
             WebSock.open();
         } else {
