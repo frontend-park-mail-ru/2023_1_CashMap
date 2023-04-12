@@ -57,6 +57,7 @@ export default class SettingsView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+		this._saveInfo = document.getElementById('js-save-info');
 	}
 
 	_addPagesListener() {
@@ -111,7 +112,8 @@ export default class SettingsView {
 
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
-			actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
+				actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
+				this._saveInfo.textContent = 'Изменения сохранены';
 			}
 		});
 

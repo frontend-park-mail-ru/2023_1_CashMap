@@ -48,6 +48,7 @@ export default class SafetyView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+		this._saveInfo = document.getElementById('js-save-password-info');
 	}
 
 	_addPagesListener() {
@@ -82,6 +83,7 @@ export default class SafetyView {
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validatePassword && this._validatePasswordNew && this._validatePasswordRepeat) {
                 actionUser.editProfile({password: this._passwordNewField.value});
+				this._saveInfo.textContent = 'Изменения сохранены';
 			}
 		});
 
