@@ -182,14 +182,13 @@ class userStore {
     }
 
     async _editProfile(data) {
-        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.email, data.city, data.birthday, data.status);
-        if (request.status === 200 || request.status === 500) {
+        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.city, data.birthday, data.status);
+        if (request.status === 200  || request.status === 500) {
             if (data.avatar) {
                 this.user.avatar = data.avatar;
             }
             this.user.firstName = data.firstName;
             this.user.lastName = data.lastName;
-            this.user.email = data.email;
             this.user.city = data.city;
             this.user.birthday = data.birthday;
             this.user.status = data.status;

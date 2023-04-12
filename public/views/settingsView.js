@@ -117,7 +117,7 @@ export default class SettingsView {
 						actionUser.editProfile({avatar: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
 					});
 				} else {
-					actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
+					actionUser.editProfile({firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
 				}
 			}
 		});

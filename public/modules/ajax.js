@@ -88,8 +88,9 @@ class Ajax {
         }
     }
 
-    async editProfile(avatar, firstName, lastName, email, city, birthday, status) {
-        let body = {avatar: avatar, first_name: firstName, last_name: lastName, email: email, birthday: birthday, status:status};
+    async editProfile(avatar, firstName, lastName, city, birthday, status) {
+        let body = {avatar: avatar, first_name: firstName, last_name: lastName, birthday: birthday, status:status};
+        // ToDo: city прокидывать
         return this._request(this._apiUrl.editProfile, this._requestType.PATCH, JSON.stringify({body}));
     }
 
