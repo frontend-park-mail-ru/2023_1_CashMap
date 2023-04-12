@@ -95,7 +95,6 @@ class userStore {
 
             this.user.errorReg = '';
             this.user.isAuth = true;
-            console.log(`token signup: ${request}`);
             WebSock.open();
         } else {
             const response = await request.json();

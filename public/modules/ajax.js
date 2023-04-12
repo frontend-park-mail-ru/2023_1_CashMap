@@ -1,12 +1,9 @@
 class Ajax {
     constructor() {
         //this.backendHostname = '127.0.0.1';
-        this._hostname = '95.163.212.121';
+        this.backendHostname = '95.163.212.121';
         this.backendPort = '8080';
-
         this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
-        console.log(this._backendUrl);
-
 
         this._apiUrl = {
             signIn: '/auth/sign-in',
