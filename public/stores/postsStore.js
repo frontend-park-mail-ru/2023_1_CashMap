@@ -57,22 +57,24 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
-            response.body.posts.forEach((post) => {
-                post.isMyPost = true;
-                if (!post.owner_info.url) {
-                    post.owner_info.url = headerConst.avatarDefault;
-                }
-                if (!post.comments) {
-                    post.comments_count = 0;
-                }
-                if (post.creation_date) {
-                    const date = new Date(post.creation_date);
-                    post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
-                }
-                post.avatar = userStore.user.avatar;
+            if (response.body.posts) {
+                response.body.posts.forEach((post) => {
+                    post.isMyPost = true;
+                    if (!post.owner_info.url) {
+                        post.owner_info.url = headerConst.avatarDefault;
+                    }
+                    if (!post.comments) {
+                        post.comments_count = 0;
+                    }
+                    if (post.creation_date) {
+                        const date = new Date(post.creation_date);
+                        post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
+                    }
+                    post.avatar = userStore.user.avatar;
 
-                this.posts.push(post);
-            });
+                    this.posts.push(post);
+                });
+            }
             this.posts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -88,22 +90,24 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
-            response.body.posts.forEach((post) => {
-                post.isMyPost = false;
-                if (!post.owner_info.url) {
-                    post.owner_info.url = headerConst.avatarDefault;
-                }
-                if (!post.comments) {
-                    post.comments_count = 0;
-                }
-                if (post.creation_date) {
-                    const date = new Date(post.creation_date);
-                    post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
-                }
-                post.avatar = userStore.user.avatar;
+            if (response.body.posts) {
+                response.body.posts.forEach((post) => {
+                    post.isMyPost = false;
+                    if (!post.owner_info.url) {
+                        post.owner_info.url = headerConst.avatarDefault;
+                    }
+                    if (!post.comments) {
+                        post.comments_count = 0;
+                    }
+                    if (post.creation_date) {
+                        const date = new Date(post.creation_date);
+                        post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
+                    }
+                    post.avatar = userStore.user.avatar;
 
-                this.posts.push(post);
-            });
+                    this.posts.push(post);
+                });
+            }
             this.friendsPosts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
