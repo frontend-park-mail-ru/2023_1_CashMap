@@ -11,7 +11,7 @@ export const actionFriends = {
     /**
      * action для получения списка друзей по ссылке пользователя
      * @param {*} link - ссылка пользователя
-     * @param {*} count - количество возвращаемых друзей
+     * @param {} count - количество возвращаемых друзей
      * @param {*} offset - смещение
      */
     getFriends(link, count, offset) {

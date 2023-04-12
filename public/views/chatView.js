@@ -6,6 +6,9 @@ import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";
 import BaseView from "./baseView.js";
 
+/**
+ * класс, описывающий страницу чата ext install docthis
+ */
 export default class ChatView extends BaseView {
 	constructor() {
 		super();
@@ -19,6 +22,7 @@ export default class ChatView extends BaseView {
 		messagesStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
+
 
 	addPagesElements() {
 		super.addPagesElements();
