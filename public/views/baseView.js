@@ -21,6 +21,7 @@ export default class BaseView {
     /**
      * @private метод, отправляющий callback, которые вызываются при изменении определенных Store.
      */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     addStore() {
 
     }
@@ -133,6 +134,7 @@ export default class BaseView {
     /**
      * @private метод, задающий контекст отрисовки конкретной вьюхи.
      */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     _preRender() {
 
     }

@@ -64,13 +64,14 @@
     width: 55%;
 }
 .header-position {
-    left: 28.6%;
-    top: 32px;
+    left: 25%;
+    padding: 32px 17% 10px 3.6%;
+    z-index: 2;
 }
 .profile-menu-size {
     height: 100px;
 }
 .profile-menu-position {
-    left: 83%;
-    top: 60%;
+    left: 63%;
+    top: 70%;
 }

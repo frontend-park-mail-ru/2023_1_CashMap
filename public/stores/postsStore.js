@@ -4,7 +4,14 @@ import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 
+/**
+ * класс, хранящий информацию о постах
+ */
 class postsStore {
+    /**
+     * @constructor
+     * конструктор класса 
+     */
     constructor() {
         this._callbacks = [];
 
@@ -15,10 +22,17 @@ class postsStore {
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
+    /**
+     * Метод, регистрирующий callback
+     * @param {*} callback - callback
+     */
     registerCallback(callback) {
         this._callbacks.push(callback);
     }
 
+    /**
+     * Метод, реализующий обновление хранилища
+     */
     _refreshStore() {
         this._callbacks.forEach((callback) => {
             if (callback) {
@@ -27,6 +41,10 @@ class postsStore {
         });
     }
 
+    /**
+     * Метод, реализующий реакцию на рассылку диспетчера
+     * @param {action} action - действие, которое будет обработано
+     */
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'getPosts':
@@ -52,6 +70,12 @@ class postsStore {
         }
     }
 
+    /**
+     * Метод, реализующий реакцию на получение постов 
+     * @param {String} userLink - ссылка пользователя
+     * @param {Number} count - количество возвращаемых постов
+     * @param {Date} lastPostDate - дата, после которой возвращаются посты
+     */
     async _getPosts(userLink, count, lastPostDate) {
         const request = await Ajax.getPosts(userLink, count, lastPostDate);
 
@@ -85,6 +109,11 @@ class postsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на получение постов друзей 
+     * @param {Number} count - количество возвращаемых постов
+     * @param {Date} lastPostDate - дата, после которой возвращаются посты
+     */
     async _getFriendsPosts(count, lastPostDate) {
         const request = await Ajax.getFriendsPosts(count, lastPostDate);
 
@@ -118,6 +147,12 @@ class postsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на получение постов по id
+     * @param {Number} id - id поста
+     * @param {Number} count - количество возвращаемых постов
+     * @param {Date} lastPostDate - дата, после которой возвращаются посты
+     */
     async _getPostsById(id, count, lastPostDate) {
         const request = await Ajax.getPostById(id, count, lastPostDate);
 
@@ -133,6 +168,10 @@ class postsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на создание поста
+     * @param {Date} data - данные для поста
+     */
     async _createPost(data) {
         const request = await Ajax.createPost(data);
 
@@ -165,6 +204,10 @@ class postsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на удаление поста
+     * @param {Number} postId - id поста
+     */
     async _deletePost(postId) {
         const request = await Ajax.deletePost(postId);
 
@@ -188,6 +231,11 @@ class postsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на изменение поста
+     * @param {Text} text - текст поста
+     * @param {Number} postId - id поста
+     */
     async _editPost(text, postId) {
         const request = await Ajax.editPost(text, postId);
 

@@ -5,7 +5,14 @@ import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import {actionFriends} from "../actions/actionFriends.js";
 
+/**
+ * класс, хранящий информацию о друзьях
+ */
 class friendsStore {
+    /**
+     * @constructor
+     * конструктор класса 
+     */
     constructor() {
         this._callbacks = [];
 
@@ -19,10 +26,17 @@ class friendsStore {
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
+    /**
+     * Метод, регистрирующий callback
+     * @param {*} callback - callback
+     */
     registerCallback(callback) {
         this._callbacks.push(callback);
     }
 
+    /**
+     * Метод, реализующий обновление хранилища
+     */
     _refreshStore() {
         this._callbacks.forEach((callback) => {
             if (callback) {
@@ -31,6 +45,10 @@ class friendsStore {
         });
     }
 
+    /**
+     * Метод, реализующий реакцию на рассылку диспетчера
+     * @param {action} action - действие, которое будет обработано
+     */
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'getFriends':
@@ -59,6 +77,12 @@ class friendsStore {
         }
     }
 
+    /**
+     * Метод, реализующий реакцию на получение списка друзей
+     * @param {String} link - ссылка пользователя
+     * @param {Number} count - количество получаемых друзей
+     * @param {Number} offset - смещение
+     */
     async _getFriends(link, count, offset) {
         const request = await Ajax.getFriends(link, count, offset);
         const response = await request.json();
@@ -84,6 +108,12 @@ class friendsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на получение пользователей, которые не являются друзьями
+     * @param {String} link - ссылка пользователя
+     * @param {Number} count - количество получаемых друзей
+     * @param {Number} offset - смещение
+     */
     async _getNotFriends(link, count, offset) {
         const request = await Ajax.getNotFriends(link, count, offset);
         const response = await request.json();
@@ -110,6 +140,11 @@ class friendsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на получение пользователей
+     * @param {Number} count - количество получаемых пользователей
+     * @param {Number} offset - смещение
+     */
     async _getUsers(count, offset) {
         const request = await Ajax.getUsers(count, offset);
         const response = await request.json();
@@ -137,6 +172,13 @@ class friendsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на получение подписок
+     * @param {String} type - тип подписки
+     * @param {String} link - ссылка пользователя
+     * @param {Number} count - количество получаемых подписок
+     * @param {Number} offset - смещение
+     */
     async _getSub(type, link, count, offset) {
         const request = await Ajax.getSub(type, link, count, offset);
         const response = await request.json();
@@ -168,6 +210,10 @@ class friendsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на подписку
+     * @param {String} link - ссылка на пользователя
+     */
     async _sub(link) {
         const request = await Ajax.sub(link);
 
@@ -185,6 +231,10 @@ class friendsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на отмену подписки
+     * @param {String} link - ссылка на пользователя
+     */
     async _unsub(link) {
         const request = await Ajax.unsub(link);
 
@@ -202,6 +252,10 @@ class friendsStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на отмену заявки
+     * @param {String} link - ссылка на пользователя
+     */
     async _reject(link) {
         const request = await Ajax.reject(link);
 

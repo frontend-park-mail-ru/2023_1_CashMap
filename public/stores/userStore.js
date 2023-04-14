@@ -4,7 +4,14 @@ import {headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import WebSock from "../modules/webSocket.js";
 
+/**
+ * класс, хранящий информацию о друзьях
+ */
 class userStore {
+    /**
+     * @constructor
+     * конструктор класса 
+     */
     constructor() {
         this._callbacks = [];
         this.user = {
@@ -27,10 +34,17 @@ class userStore {
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
+    /**
+     * Метод, регистрирующий callback
+     * @param {*} callback - callback
+     */
     registerCallback(callback) {
         this._callbacks.push(callback);
     }
 
+    /**
+     * Метод, реализующий обновление хранилища
+     */
     _refreshStore() {
         this._callbacks.forEach((callback) => {
             if (callback) {
@@ -39,6 +53,10 @@ class userStore {
         });
     }
 
+    /**
+     * Метод, реализующий реакцию на рассылку диспетчера
+     * @param {action} action - действие, которое будет обработано
+     */
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'signIn':
@@ -64,6 +82,10 @@ class userStore {
         }
     }
 
+    /**
+     * Метод, реализующий реакцию на вход
+     * @param {Object} data - данные для входа
+     */
     async _signIn(data) {
         const request = await Ajax.signIn(data.email, data.password);
 
@@ -84,6 +106,10 @@ class userStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на регистрацию
+     * @param {Object} data - данные для входа
+     */
     async _signUp(data) {
         const request = await Ajax.signUp(data.firstName, data.lastName, data.email, data.password);
 
@@ -104,6 +130,9 @@ class userStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на выход
+     */
     async _signOut() {
         const request = await Ajax.signOut();
 
@@ -117,6 +146,10 @@ class userStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на получение информации о пользователе
+     * @param {String} link - ссылка на пользователя
+     */
     async _getProfile(callback, link) {
         const request = await Ajax.getProfile(link);
         const response = await request.json();
@@ -159,6 +192,9 @@ class userStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на проверку авторизации пользователя
+     */
     async _checkAuth(callback) {
         const request = await Ajax.checkAuth();
 
@@ -181,6 +217,10 @@ class userStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на изменение информации о пользователе
+     * @param {Object} data - данные пользователя
+     */
     async _editProfile(data) {
         const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.city, data.birthday, data.status);
         if (request.status === 200  || request.status === 500) {

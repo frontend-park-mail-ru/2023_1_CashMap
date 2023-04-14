@@ -4,7 +4,14 @@ import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 
+/**
+ * класс, хранящий информацию о сообщениях
+ */
 class messagesStore {
+    /**
+     * @constructor
+     * конструктор класса 
+     */
     constructor() {
         this._callbacks = [];
 
@@ -14,10 +21,17 @@ class messagesStore {
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
+    /**
+     * Метод, регистрирующий callback
+     * @param {*} callback - callback
+     */
     registerCallback(callback) {
         this._callbacks.push(callback);
     }
 
+    /**
+     * Метод, реализующий обновление хранилища
+     */
     _refreshStore() {
         this._callbacks.forEach((callback) => {
             if (callback) {
@@ -26,6 +40,10 @@ class messagesStore {
         });
     }
 
+    /**
+     * Метод, реализующий реакцию на рассылку диспетчера
+     * @param {action} action - действие, которое будет обработано
+     */
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'getChats':
@@ -48,6 +66,11 @@ class messagesStore {
         }
     }
 
+    /**
+     * Метод, реализующий реакцию на получение чатов
+     * @param {Number} count - количество получаемых чатов
+     * @param {Date} lastPostDate - дата, после которой выбираются посты
+     */
     async _getChats(count, lastPostDate) {
         const request = await Ajax.getChats(count, lastPostDate);
 
@@ -77,6 +100,12 @@ class messagesStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на получение сообщений конкретного чата
+     * @param {Number} chatId - id чата
+     * @param {Number} count - количество получаемых сообщений
+     * @param {Date} lastPostDate - дата, после которой выбираются сообщения
+     */
     async _getChatsMsg(chatId, count, lastPostDate) {
         const request = await Ajax.getChatsMsg(chatId, count, lastPostDate);
 
@@ -99,6 +128,10 @@ class messagesStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на проверку чата пользователя
+     * @param {String} userLink - сслыка на пользователя 
+     */
     async _chatCheck(userLink, callback) {
         const request = await Ajax.chatCheck(userLink);
 
@@ -120,6 +153,10 @@ class messagesStore {
         }
     }
 
+    /**
+     * Метод, реализующий реакцию на запрос об отправке сообщения
+     * @param {Number} chatId - id чата
+     */
     async _msgSend(chatId, text) {
         const request = await Ajax.msgSend(chatId, text);
 
@@ -134,6 +171,10 @@ class messagesStore {
         this._refreshStore();
     }
 
+    /**
+     * Метод, реализующий реакцию на запрос о создании чата
+     * @param {*} userLinks - id пользователей чата
+     */
     async _chatCreate(userLinks, callback) {
         const request = await Ajax.chatCreate(userLinks);
 
