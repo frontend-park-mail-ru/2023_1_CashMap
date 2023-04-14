@@ -2,7 +2,7 @@ import {actionUser} from "../actions/actionUser.js";
 import Validation from "../modules/validation.js";
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {logoDataSignIn, logoDataSignUp, signInData, signUpData} from "../static/htmlConst.js";
+import {logoDataSignUp, signUpData} from "../static/htmlConst.js";
 
 export default class SignUpView {
     constructor() {
@@ -48,30 +48,30 @@ export default class SignUpView {
     }
 
     _addPagesListener() {
-        this._regBtn.addEventListener('click', (e) => {
+        this._regBtn.addEventListener('click', () => {
             if (this._validateFirstName && this._validateLastName && this._validateEmail && this._validatePassword && this._validatePasswordRepeat) {
                 actionUser.signUp({firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, password: this._passwordField.value});
             }
         });
 
-        this._logBtn.addEventListener('click', (e) => {
+        this._logBtn.addEventListener('click', () => {
             Router.go('/signIn', false);
         });
 
 
-        this._firstNameField.addEventListener('change', (e) => {
+        this._firstNameField.addEventListener('change', () => {
             this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName');
         });
-        this._lastNameField.addEventListener('change', (e) => {
+        this._lastNameField.addEventListener('change', () => {
             this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName');
         });
-        this._emailField.addEventListener('change', (e) => {
+        this._emailField.addEventListener('change', () => {
             this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email');
         });
-        this._passwordField.addEventListener('change', (e) => {
+        this._passwordField.addEventListener('change', () => {
             this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password');
         });
-        this._passwordRepeatField.addEventListener('change', (e) => {
+        this._passwordRepeatField.addEventListener('change', () => {
             //this._validatePasswordRepeat = Validation.validation(this._passwordRepeatField, this._passwordRepeatErrorField, 'secondPassword');
         });
     }
