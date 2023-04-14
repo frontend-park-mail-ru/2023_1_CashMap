@@ -241,6 +241,7 @@ class postsStore {
 
         if (request.status === 200) {
             let index = -1;
+            //console.log(this.posts);
             for (let i = 0; i < this.posts.length; i++) {
                 if (this.posts[i].id === postId) {
                     index = i;
