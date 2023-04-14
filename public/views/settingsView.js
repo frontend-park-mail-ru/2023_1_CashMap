@@ -115,12 +115,7 @@ export default class SettingsView {
 			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
 				let birthday;
 				if (this._birthdayField.value) {
-					console.log(this._birthdayField.value);
-					console.log(typeof(this._birthdayField.value));
-
 					birthday = new Date(this._birthdayField.value).toISOString();
-	
-					console.log(birthday);
 				}
 				if (this._fileList) {
 					actionImg.uploadImg(this._fileList, (newUrl) => {
