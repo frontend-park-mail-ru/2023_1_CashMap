@@ -136,9 +136,8 @@ class Ajax {
      * @param {String} status - статус пользователя
      * @returns {Object} - тело ответа
      */
-    async editProfile(avatar, firstName, lastName, city, birthday, status) {
-        let body = {avatar: avatar, first_name: firstName, last_name: lastName, birthday: birthday, status:status};
-        // ToDo: city прокидывать
+    async editProfile(avatar, firstName, lastName, bio, birthday, status) {
+        let body = {avatar: avatar, first_name: firstName, last_name: lastName, bio: bio, birthday: birthday, status:status};
         return this._request(this._apiUrl.editProfile, this._requestType.PATCH, JSON.stringify({body}));
     }
 

@@ -46,8 +46,8 @@ export default class SettingsView {
 		this._firstNameErrorField = document.getElementById('js-first-name-error');
 		this._lastNameField = document.getElementById('js-last-name-input');
 		this._lastNameErrorField = document.getElementById('js-last-name-error');
-		this._cityField = document.getElementById('js-city-input');
-		this._cityErrorField = document.getElementById('js-city-error');
+		this._bioField = document.getElementById('js-bio-input');
+		this._bioErrorField = document.getElementById('js-bio-error');
 		this._birthdayField = document.getElementById('js-birthday-input');
 		this._birthdayErrorField = document.getElementById('js-birthday-error');
 		this._statusField = document.getElementById('js-status-input');
@@ -63,7 +63,7 @@ export default class SettingsView {
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 		this._saveInfo = document.getElementById('js-save-info');
     
-    const dropArea = document.getElementById('js-drop-zone');
+     	this._dropArea = document.getElementById('js-drop-zone');
 	}
 
 	_addPagesListener() {
@@ -95,11 +95,11 @@ export default class SettingsView {
 			Router.go('/feed');
 		})
 
-		dropArea.addEventListener('dragover', (event) => {
+		this._dropArea.addEventListener('dragover', (event) => {
 			event.preventDefault();
 		});
 
-		dropArea.addEventListener('drop', (event) => {
+		this._dropArea.addEventListener('drop', (event) => {
 			event.preventDefault();
 
 			this._fileList = event.dataTransfer.files[0];
@@ -113,12 +113,21 @@ export default class SettingsView {
 
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
+				let birthday;
+				if (this._birthdayField.value) {
+					console.log(this._birthdayField.value);
+					console.log(typeof(this._birthdayField.value));
+
+					birthday = new Date(this._birthdayField.value).toISOString();
+	
+					console.log(birthday);
+				}
 				if (this._fileList) {
 					actionImg.uploadImg(this._fileList, (newUrl) => {
-						actionUser.editProfile({avatar: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
+						actionUser.editProfile({avatar: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value, birthday: birthday, status: this._statusField.value});
 					});
 				} else {
-					actionUser.editProfile({firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
+					actionUser.editProfile({firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value,  birthday: birthday, status: this._statusField.value});
 				}
 			}
 		});
@@ -159,8 +168,12 @@ export default class SettingsView {
 		settings['avatar'] = userStore.user.avatar;
 		settings['inputFields'][0]['data'] = userStore.user.firstName;
 		settings['inputFields'][1]['data'] = userStore.user.lastName;
-		settings['inputFields'][2]['data'] = userStore.user.city; // этого нет в сторе
-		settings['inputFields'][3]['data'] = userStore.user.birthday;
+		settings['inputFields'][2]['data'] = userStore.user.bio;
+		if (userStore.user.birthday) {
+			settings['inputFields'][3]['data'] = userStore.user.birthday.substr(0, 10);
+		} else {
+			settings['inputFields'][3]['data'] = 'Дата не указана';
+		}
 		settings['inputFields'][4]['data'] = userStore.user.status;
 
 		this._context = {

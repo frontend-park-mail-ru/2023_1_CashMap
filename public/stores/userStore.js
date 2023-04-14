@@ -24,6 +24,7 @@ class userStore {
             firstName: null,
             lastName: null,
             avatar: null,
+            bio: null,
             birthday: null,
             status: null,
             lastActive: null,
@@ -159,6 +160,7 @@ class userStore {
             this.user.user_link = response.body.profile.user_link;
             this.user.firstName = response.body.profile.first_name;
             this.user.lastName = response.body.profile.last_name;
+            this.user.bio = response.body.profile.bio;
             this.user.status = response.body.profile.status;
             this.user.email = response.body.profile.email;
 
@@ -168,8 +170,9 @@ class userStore {
             }
 
             if (response.body.profile.birthday) {
-                const date = new Date(response.body.profile.birthday);
-                this.user.birthday = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                //const date = new Date(response.body.profile.birthday);
+                //this.user.birthday = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                this.user.birthday = response.body.profile.birthday;
             }
 
             if (!this.user.status) {
@@ -222,14 +225,14 @@ class userStore {
      * @param {Object} data - данные пользователя
      */
     async _editProfile(data) {
-        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.city, data.birthday, data.status);
+        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.bio, data.birthday, data.status);
         if (request.status === 200  || request.status === 500) {
             if (data.avatar) {
                 this.user.avatar = data.avatar;
             }
             this.user.firstName = data.firstName;
             this.user.lastName = data.lastName;
-            this.user.city = data.city;
+            this.user.bio = data.bio;
             this.user.birthday = data.birthday;
             this.user.status = data.status;
         } else if (request.status === 401) {
