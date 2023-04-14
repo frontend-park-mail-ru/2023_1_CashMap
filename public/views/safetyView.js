@@ -87,15 +87,15 @@ export default class SafetyView {
 			}
 		});
 
-		this._passwordField.addEventListener('change', (e) => {
+		this._passwordField.addEventListener('change', () => {
 			//todo: проверить, что ввели верный пароль действующий
         });
 
-		this._passwordNewField.addEventListener('change', (e) => {
+		this._passwordNewField.addEventListener('change', () => {
             this._validatePasswordNew = Validation.validation(this._passwordNewField, this._passwordNewErrorField, 'password');
         });
 
-        this._passwordRepeatField.addEventListener('change', (e) => {
+        this._passwordRepeatField.addEventListener('change', () => {
             //this._validatePasswordRepeat = Validation.validation(this._passwordRepeatField, this._passwordRepeatErrorField, 'secondPassword');
         });
 	}

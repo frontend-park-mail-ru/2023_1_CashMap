@@ -4,7 +4,6 @@ import Router from "../modules/router.js";
 import {sideBarConst, headerConst, settingsConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionImg} from "../actions/actionImg.js";
-import imgStore from "../stores/imgStore.js";
 
 export default class SettingsView {
 	constructor() {
@@ -62,8 +61,7 @@ export default class SettingsView {
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 		this._saveInfo = document.getElementById('js-save-info');
-    
-     	this._dropArea = document.getElementById('js-drop-zone');
+		this._dropArea = document.getElementById('js-drop-zone');
 	}
 
 	_addPagesListener() {
@@ -127,10 +125,10 @@ export default class SettingsView {
 			}
 		});
 
-		this._firstNameField.addEventListener('change', (e) => {
+		this._firstNameField.addEventListener('change', () => {
 			this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName');
 		});
-		this._lastNameField.addEventListener('change', (e) => {
+		this._lastNameField.addEventListener('change', () => {
 			this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName');
 		});
 	}
