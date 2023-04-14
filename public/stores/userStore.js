@@ -121,7 +121,6 @@ class userStore {
 
             this.user.errorReg = '';
             this.user.isAuth = true;
-            console.log(`token signup: ${request}`);
             WebSock.open();
         } else {
             const response = await request.json();
@@ -223,12 +222,13 @@ class userStore {
      * @param {Object} data - данные пользователя
      */
     async _editProfile(data) {
-        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.email, data.city, data.birthday, data.status);
-        if (request.status === 200) {
-            //this.user.avatar = data.avatar;
+        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.city, data.birthday, data.status);
+        if (request.status === 200  || request.status === 500) {
+            if (data.avatar) {
+                this.user.avatar = data.avatar;
+            }
             this.user.firstName = data.firstName;
             this.user.lastName = data.lastName;
-            this.user.email = data.email;
             this.user.city = data.city;
             this.user.birthday = data.birthday;
             this.user.status = data.status;

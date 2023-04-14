@@ -24,6 +24,7 @@
 }
 .notification__icon {
     margin: auto;
+    padding: 10px;
 }
 .profile {
     grid-column: 5;

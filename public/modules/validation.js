@@ -220,7 +220,7 @@ class Validation {
 		}
 
 		for (const char of name) {
-			if (char.match(/[a-zA-Zа-яА-Я]/i) == null) {
+			if (char.match(/[a-zA-Zа-яА-ЯЁё]/i) == null) {
 				return {
 					status: false,
 					error: 'Имя должно содержать буквенные символы'

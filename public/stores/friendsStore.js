@@ -99,7 +99,6 @@ class friendsStore {
             });
 
             this.friends = response.body.friends;
-            console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -132,7 +131,6 @@ class friendsStore {
                 this.notFriends.push(friend);
             });
 
-            console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -165,7 +163,6 @@ class friendsStore {
                 }
             });
 
-            console.log(this.users);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

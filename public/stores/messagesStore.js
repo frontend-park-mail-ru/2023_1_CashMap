@@ -91,9 +91,6 @@ class messagesStore {
                 });
 
             });
-
-            console.log(this.chats);
-
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -145,7 +142,6 @@ class messagesStore {
             } else {
                 localStorage.removeItem('chatFriendId');
             }
-            console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -165,7 +161,7 @@ class messagesStore {
         const request = await Ajax.msgSend(chatId, text);
 
         if (request.status === 200) {
-            console.log(this.messages);
+
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
