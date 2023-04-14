@@ -138,6 +138,8 @@ class userStore {
         const request = await Ajax.signOut();
 
         if (request.status === 200) {
+            this.user.errorAuth = '';
+            this.user.errorReg = '';
             this.user.isAuth = false;
 
             if (localStorage.getItem('X-Csrf-Token')) {
