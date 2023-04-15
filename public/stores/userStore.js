@@ -228,7 +228,7 @@ class userStore {
      */
     async _editProfile(data) {
         const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.bio, data.birthday, data.status);
-        if (request.status === 200  || request.status === 500) {
+        if (request.status === 200) {
             if (data.avatar) {
                 this.user.avatar = data.avatar;
             }
