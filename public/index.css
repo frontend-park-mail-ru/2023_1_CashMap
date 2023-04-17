@@ -76,6 +76,7 @@
     --post-padding: 20px;
 
     --profile-img-size: 35px;
+    --header-icon-size: 25px;
     --notification-img-size: 24px;
     --input-widgets-size: 25px;
 
@@ -295,6 +296,10 @@
     width: var(--profile-img-size, 35px);
     height: var(--profile-img-size, 35px);
 }
+.header-icon {
+    width: var(--header-icon-size, 22px);
+    height: var(--header-icon-size, 22px);
+}
 
 .margin-auto {
     margin: auto;
@@ -311,7 +316,7 @@
     display: none;
 }
 .hover-pic:hover img:nth-child(2) {
-    display: block;
+    display: inline-block;
 }
 
 .opacity-pic {
@@ -322,6 +327,12 @@
     white-space: nowrap; /* Запрещаем перенос строк */
     overflow: hidden; /* Обрезаем все, что не помещается в область */
     text-overflow: ellipsis; /* Добавляем многоточие */
+}
+
+.avatar-form {
+    object-fit: cover;
+    border-radius: 50%;
+    /*overflow: hidden;*/
 }
 
 body, html, #root {

@@ -24,6 +24,12 @@
     width: 100%;
 }
 
+.settings-path__info {
+    display: inline-grid;
+    align-items: center;
+    text-align: center;
+}
+
 .settingsPath__avatar {
     width: 100px;
     height: 100px;

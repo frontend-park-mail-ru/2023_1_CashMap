@@ -3,6 +3,7 @@ import Validation from "../modules/validation.js";
 import Router from "../modules/router.js";
 import {sideBarConst, headerConst, settingsConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
+import {actionImg} from "../actions/actionImg.js";
 
 export default class SettingsView {
 	constructor() {
@@ -17,6 +18,8 @@ export default class SettingsView {
 
 		userStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
+
+		this._fileList = null;
 	}
 
 	_addHandlebarsPartial() {
@@ -42,8 +45,8 @@ export default class SettingsView {
 		this._firstNameErrorField = document.getElementById('js-first-name-error');
 		this._lastNameField = document.getElementById('js-last-name-input');
 		this._lastNameErrorField = document.getElementById('js-last-name-error');
-		this._cityField = document.getElementById('js-city-input');
-		this._cityErrorField = document.getElementById('js-city-error');
+		this._bioField = document.getElementById('js-bio-input');
+		this._bioErrorField = document.getElementById('js-bio-error');
 		this._birthdayField = document.getElementById('js-birthday-input');
 		this._birthdayErrorField = document.getElementById('js-birthday-error');
 		this._statusField = document.getElementById('js-status-input');
@@ -57,6 +60,8 @@ export default class SettingsView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+		this._saveInfo = document.getElementById('js-save-info');
+		this._dropArea = document.getElementById('js-drop-zone');
 	}
 
 	_addPagesListener() {
@@ -88,37 +93,42 @@ export default class SettingsView {
 			Router.go('/feed');
 		})
 
-		if (window.FileList && window.File) {
-			this._dropZone.addEventListener('dragover', event => {
-				event.stopPropagation();
-				event.preventDefault();
-				event.dataTransfer.dropEffect = 'copy';
-			});
-			
-			this._dropZone.addEventListener('drop', event => {
-				this._dropContent.innerHTML = '';
-				event.stopPropagation();
-				event.preventDefault();
-				const files = event.dataTransfer.files;
+		this._dropArea.addEventListener('dragover', (event) => {
+			event.preventDefault();
+		});
 
-				this._reader.readAsDataURL(files[0]);
-				
-				this._reader.addEventListener('load', (event) => {
-					this._dropContent.src = event.target.result;
-				});
-			}); 
-		}
+		this._dropArea.addEventListener('drop', (event) => {
+			event.preventDefault();
+
+			this._fileList = event.dataTransfer.files[0];
+
+			this._dropContent.innerHTML = '';
+			this._reader.readAsDataURL(this._fileList);
+			this._reader.addEventListener('load', (event) => {
+				this._dropContent.src = event.target.result;
+			});
+		});
 
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
-			actionUser.editProfile({avatar: this._dropContent.src, firstName: this._firstNameField.value, lastName: this._lastNameField.value, city: this._cityField.value, status: this._statusField.value});
+				let birthday;
+				if (this._birthdayField.value) {
+					birthday = new Date(this._birthdayField.value).toISOString();
+				}
+				if (this._fileList) {
+					actionImg.uploadImg(this._fileList, (newUrl) => {
+						actionUser.editProfile({avatar: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value, birthday: birthday, status: this._statusField.value});
+					});
+				} else {
+					actionUser.editProfile({firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value,  birthday: birthday, status: this._statusField.value});
+				}
 			}
 		});
 
-		this._firstNameField.addEventListener('change', (e) => {
+		this._firstNameField.addEventListener('change', () => {
 			this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName');
 		});
-		this._lastNameField.addEventListener('change', (e) => {
+		this._lastNameField.addEventListener('change', () => {
 			this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName');
 		});
 	}
@@ -151,8 +161,12 @@ export default class SettingsView {
 		settings['avatar'] = userStore.user.avatar;
 		settings['inputFields'][0]['data'] = userStore.user.firstName;
 		settings['inputFields'][1]['data'] = userStore.user.lastName;
-		settings['inputFields'][2]['data'] = userStore.user.city; // этого нет в сторе
-		settings['inputFields'][3]['data'] = userStore.user.birthday;
+		settings['inputFields'][2]['data'] = userStore.user.bio;
+		if (userStore.user.birthday) {
+			settings['inputFields'][3]['data'] = userStore.user.birthday.substr(0, 10);
+		} else {
+			settings['inputFields'][3]['data'] = 'Дата не указана';
+		}
 		settings['inputFields'][4]['data'] = userStore.user.status;
 
 		this._context = {

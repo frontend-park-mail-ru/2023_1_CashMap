@@ -7,9 +7,10 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this._backendUrl = 'http://127.0.0.1';
-        this._backendUrl = 'http://95.163.212.121';
-        this._backendPort = '8080';
+        //this.backendHostname = '127.0.0.1';
+        this.backendHostname = '95.163.212.121';
+        this.backendPort = '8080';
+        this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
 
         this._apiUrl = {
             signIn: '/auth/sign-in',
@@ -41,6 +42,9 @@ class Ajax {
             getChats: '/api/im/chats',
             getMsg: '/api/im/messages',
             sendMsg: '/api/im/send',
+
+            uploadImg: '/static/upload',
+            deleteImg: '/static/delete',
         }
 
         this._requestType = {
@@ -59,11 +63,12 @@ class Ajax {
      * @returns {Object} - тело ответа
      */
     _request(apiUrlType, requestType, body) {
-        const requestUrl = this._backendUrl + ':' + this._backendPort + apiUrlType;
+        const requestUrl = this._backendUrl + apiUrlType;
 
-        let a = {}
+        let a = {};
+        a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
         if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create') {
-            a = {'content-type': 'application/json',}
+            a['Content-Type'] = 'application/json';
         }
 
         return fetch(requestUrl, {
@@ -131,8 +136,8 @@ class Ajax {
      * @param {String} status - статус пользователя
      * @returns {Object} - тело ответа
      */
-    async editProfile(avatar, firstName, lastName, email, city, birthday, status) {
-        let body = {first_name: firstName, last_name: lastName, email: email, birthday: birthday, status:status};
+    async editProfile(avatar, firstName, lastName, bio, birthday, status) {
+        let body = {avatar: avatar, first_name: firstName, last_name: lastName, bio: bio, birthday: birthday, status:status};
         return this._request(this._apiUrl.editProfile, this._requestType.PATCH, JSON.stringify({body}));
     }
 
@@ -260,6 +265,13 @@ class Ajax {
     async chatCreate(users) {
         let body = {user_links: [users]};
         return this._request(this._apiUrl.chatCreate, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async uploadImg(data) {
+        let formData = new FormData();
+        formData.append("attachments", data);
+
+        return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData);
     }
 }
 

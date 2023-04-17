@@ -1,6 +1,7 @@
 import messagesStore from "../stores/messagesStore.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "../stores/userStore.js";
+import Ajax from "./ajax.js";
 
 /**
  * класс для работы с web сокетами
@@ -12,6 +13,7 @@ class WebSock {
      */
     constructor() {
         this._socket = null;
+        this._url = 'ws://' + Ajax.backendHostname + ':' + Ajax.backendPort + '/api/ws';
     }
 
     /**
@@ -23,8 +25,8 @@ class WebSock {
         }
 
         if (!this._socket && userStore.user.isAuth) {
-            //this._socket = new WebSocket("ws://127.0.0.1:8080/api/ws");
-            this._socket = new WebSocket("ws://95.163.212.121:8080/api/ws");
+            this._socket = new WebSocket(this._url);
+            //this._socket = new WebSocket("ws://95.163.212.121:8080/api/ws");
         }
 
         this._socket.onmessage = function(event) {

@@ -24,6 +24,7 @@ class userStore {
             firstName: null,
             lastName: null,
             avatar: null,
+            bio: null,
             birthday: null,
             status: null,
             lastActive: null,
@@ -90,6 +91,11 @@ class userStore {
         const request = await Ajax.signIn(data.email, data.password);
 
         if (request.status === 200) {
+            const csrfToken = request.headers.get('X-Csrf-Token');
+            if (csrfToken) {
+                localStorage.setItem('X-Csrf-Token', csrfToken);
+            }
+
             this.user.errorAuth = '';
             this.user.isAuth = true;
             WebSock.open();
@@ -109,6 +115,11 @@ class userStore {
         const request = await Ajax.signUp(data.firstName, data.lastName, data.email, data.password);
 
         if (request.status === 200) {
+            const csrfToken = request.headers.get('X-Csrf-Token');
+            if (csrfToken) {
+                localStorage.setItem('X-Csrf-Token', csrfToken);
+            }
+
             this.user.errorReg = '';
             this.user.isAuth = true;
             WebSock.open();
@@ -127,7 +138,13 @@ class userStore {
         const request = await Ajax.signOut();
 
         if (request.status === 200) {
+            this.user.errorAuth = '';
+            this.user.errorReg = '';
             this.user.isAuth = false;
+
+            if (localStorage.getItem('X-Csrf-Token')) {
+                localStorage.removeItem('X-Csrf-Token');
+            }
         }
         this._refreshStore();
     }
@@ -145,6 +162,7 @@ class userStore {
             this.user.user_link = response.body.profile.user_link;
             this.user.firstName = response.body.profile.first_name;
             this.user.lastName = response.body.profile.last_name;
+            this.user.bio = response.body.profile.bio;
             this.user.status = response.body.profile.status;
             this.user.email = response.body.profile.email;
 
@@ -154,8 +172,9 @@ class userStore {
             }
 
             if (response.body.profile.birthday) {
-                const date = new Date(response.body.profile.birthday);
-                this.user.birthday = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                //const date = new Date(response.body.profile.birthday);
+                //this.user.birthday = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                this.user.birthday = response.body.profile.birthday;
             }
 
             if (!this.user.status) {
@@ -185,6 +204,11 @@ class userStore {
         const request = await Ajax.checkAuth();
 
         if (request.status === 200) {
+            const csrfToken = request.headers.get('X-Csrf-Token');
+            if (csrfToken) {
+                localStorage.setItem('X-Csrf-Token', csrfToken);
+            }
+
             this.user.isAuth = true;
             WebSock.open();
         } else {
@@ -203,13 +227,14 @@ class userStore {
      * @param {Object} data - данные пользователя
      */
     async _editProfile(data) {
-        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.email, data.city, data.birthday, data.status);
+        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.bio, data.birthday, data.status);
         if (request.status === 200) {
-            //this.user.avatar = data.avatar;
+            if (data.avatar) {
+                this.user.avatar = data.avatar;
+            }
             this.user.firstName = data.firstName;
             this.user.lastName = data.lastName;
-            this.user.email = data.email;
-            this.user.city = data.city;
+            this.user.bio = data.bio;
             this.user.birthday = data.birthday;
             this.user.status = data.status;
         } else if (request.status === 401) {

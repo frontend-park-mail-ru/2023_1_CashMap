@@ -12,6 +12,7 @@ import SafetyView from "./views/safetyView.js";
 import MessagesView from "./views/messagesView.js";
 import ChatView from "./views/chatView.js";
 import NotFoundView from "./views/notFoundView.js";
+import imgStore from "./stores/imgStore.js";
 
 
 const Views = {

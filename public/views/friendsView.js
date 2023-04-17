@@ -4,7 +4,6 @@ import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
-import {actionPost} from "../actions/actionPost.js";
 import {actionMessage} from "../actions/actionMessage.js";
 
 export default class FriendsView {
@@ -82,12 +81,12 @@ export default class FriendsView {
 			});
 		}
 
-		for (let i = 0; i < this._goToProfile.length; i++) {
-			this._deleteUser[i].addEventListener('click', () => {
-				const userId = this._deleteUser[i].getAttribute("data-id");
+		/*for (let i = 0; i < this._goToProfile.length; i++) {
+			this._goToProfile[i].addEventListener('click', () => {
+				const userId = this._goToProfile[i].getAttribute("data-id");
 				// ToDo: переход в профиль пользователя userId
 			});
-		}
+		}*/
 
 		for (let i = 0; i < this._goToMsg.length; i++) {
 			this._goToMsg[i].addEventListener('click', () => {

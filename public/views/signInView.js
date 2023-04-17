@@ -37,20 +37,20 @@ export default class SignInView {
     }
 
     _addPagesListener() {
-        this._authBtn.addEventListener('click', (e) => {
+        this._authBtn.addEventListener('click', () => {
             if (this._validatePassword && this._validateEmail) {
                 actionUser.signIn({email: this._emailField.value, password: this._passwordField.value});
             }
         });
 
-        this._newBtn.addEventListener('click', (e) => {
+        this._newBtn.addEventListener('click', () => {
             Router.go('/signUp', false);
         });
 
-        this._emailField.addEventListener('change', (e) => {
+        this._emailField.addEventListener('change', () => {
             this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email');
         });
-        this._passwordField.addEventListener('change', (e) => {
+        this._passwordField.addEventListener('change', () => {
             this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password');
         });
     }

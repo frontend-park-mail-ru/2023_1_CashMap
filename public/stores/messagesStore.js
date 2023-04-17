@@ -91,9 +91,6 @@ class messagesStore {
                 });
 
             });
-
-            console.log(this.chats);
-
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -145,7 +142,6 @@ class messagesStore {
             } else {
                 localStorage.removeItem('chatFriendId');
             }
-            console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -160,15 +156,14 @@ class messagesStore {
     /**
      * Метод, реализующий реакцию на запрос об отправке сообщения
      * @param {Number} chatId - id чата
+     * @param {String} text - текст сообщения
      */
     async _msgSend(chatId, text) {
         const request = await Ajax.msgSend(chatId, text);
 
-        if (request.status === 200) {
-            console.log(this.messages);
-        } else if (request.status === 401) {
+        if (request.status === 401) {
             actionUser.signOut();
-        } else {
+        } else if (request.status !== 200) {
             alert('msgSend error');
         }
 

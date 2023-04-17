@@ -1,4 +1,3 @@
-import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
 
 export default class NotFoundView {

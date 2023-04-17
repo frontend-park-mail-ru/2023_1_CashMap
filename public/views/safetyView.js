@@ -48,6 +48,7 @@ export default class SafetyView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+		this._saveInfo = document.getElementById('js-save-password-info');
 	}
 
 	_addPagesListener() {
@@ -82,18 +83,19 @@ export default class SafetyView {
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validatePassword && this._validatePasswordNew && this._validatePasswordRepeat) {
                 actionUser.editProfile({password: this._passwordNewField.value});
+				this._saveInfo.textContent = 'Изменения сохранены';
 			}
 		});
 
-		this._passwordField.addEventListener('change', (e) => {
+		this._passwordField.addEventListener('change', () => {
 			//todo: проверить, что ввели верный пароль действующий
         });
 
-		this._passwordNewField.addEventListener('change', (e) => {
+		this._passwordNewField.addEventListener('change', () => {
             this._validatePasswordNew = Validation.validation(this._passwordNewField, this._passwordNewErrorField, 'password');
         });
 
-        this._passwordRepeatField.addEventListener('change', (e) => {
+        this._passwordRepeatField.addEventListener('change', () => {
             //this._validatePasswordRepeat = Validation.validation(this._passwordRepeatField, this._passwordRepeatErrorField, 'secondPassword');
         });
 	}
