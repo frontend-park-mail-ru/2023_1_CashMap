@@ -56,7 +56,7 @@ class Validation {
 		if (password.length < 8) {
 			return {
 				status: false,
-				error: `Пароль должен быть длинее ${MIN_PASSWORD_LENGTH} символов`
+				error: `Пароль должен быть длиннее ${MIN_PASSWORD_LENGTH} символов`
 			};
 		}
 
@@ -101,7 +101,7 @@ class Validation {
 		if (password.length < MIN_PASSWORD_LENGTH) {
 			return {
 				status: false,
-				error: `Пароль должен быть длинее ${MIN_PASSWORD_LENGTH} символов`
+				error: `Пароль должен быть длиннее ${MIN_PASSWORD_LENGTH} символов`
 			};
 		}
 
