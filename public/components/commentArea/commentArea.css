@@ -13,4 +13,5 @@
 }
 .create-comment__input {
     outline:none;
+    padding: 0px 10px;
 }

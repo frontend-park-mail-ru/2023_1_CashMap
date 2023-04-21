@@ -80,7 +80,6 @@
 
 .profileCard__info-text {
     color: var(--font-color-gray-text);
-    font-family: Inter;
     font-size: var(--font-size-15);
 }
 .profileCard__info-text_header {
