@@ -38,7 +38,7 @@ export default class SignInView {
             if (this._validatePassword && this._validateEmail) {
                 actionUser.signIn({email: this._emailField.value, password: this._passwordField.value});
             } else {
-                userStore.user.errorAuth = 'Необходимо заполнить корректно все поля';
+                userStore.user.errorAuth = 'Заполните корректно все поля';
                 this._render();
             }
         });
