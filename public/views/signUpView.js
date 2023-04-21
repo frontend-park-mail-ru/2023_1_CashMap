@@ -48,7 +48,7 @@ export default class SignUpView {
             if (this._validateFirstName && this._validateLastName && this._validateEmail && this._validatePassword && this._validatePasswordRepeat) {
                 actionUser.signUp({firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, password: this._passwordField.value});
             } else {
-                userStore.user.errorReg = 'Необходимо заполнить корректно все поля';
+                userStore.user.errorReg = 'Заполните корректно все поля';
                 this._render();
             }
         });
