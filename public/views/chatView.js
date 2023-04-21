@@ -10,6 +10,7 @@ export default class ChatView extends BaseView {
 	constructor() {
 		super();
 		this._jsId = 'chat';
+		this._curMsg = '';
 	}
 
 	/**
@@ -33,7 +34,9 @@ export default class ChatView extends BaseView {
             Router.go('/message', false);
         });
 		this._sendMsg.addEventListener('click', () => {
+			localStorage.setItem('curMsg', '');
 			actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
+			this._msg.value = '';
 		});
 	}
 
@@ -65,11 +68,11 @@ export default class ChatView extends BaseView {
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
-		
+
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat},
+			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg')},
 		}
 	}
 }
