@@ -8,10 +8,11 @@
 }
 .create-comment {
     display: grid;
-    grid-template-columns: 35px 12fr 5% 5% 1fr;
+    grid-template-columns: 35px 0px 12fr auto auto 0px auto;
     grid-column-gap: 8px;
 }
 .create-comment__input {
     outline:none;
+    grid-column: 3;
     padding: 0px 10px;
 }

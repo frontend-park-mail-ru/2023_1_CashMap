@@ -21,6 +21,7 @@
     width: 100%;
     padding: 0px 10px;
     resize: none;
+    max-height: 400px;
 }
 
 .edit-post__options {

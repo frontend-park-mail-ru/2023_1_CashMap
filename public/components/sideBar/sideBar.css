@@ -2,7 +2,7 @@
     position: fixed;
     display: grid;
     grid-template-rows: 31px 35px 35px 1fr;
-    grid-template-columns: 30% 60% 10%;
+    grid-template-columns: 1fr 1fr 14px;
 }
 .logo-block {
     grid-row: 2;

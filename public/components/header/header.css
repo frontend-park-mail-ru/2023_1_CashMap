@@ -2,7 +2,8 @@
     position: fixed;
 
     display: grid;
-    grid-template-columns: 66% 19.8% 3.3% 2.7% 8.2%;
+    grid-template-columns: 1fr 19.8% auto 2% auto;
+    min-width: 390.5px;
 }
 .search-area {
     grid-column: 1;
@@ -29,14 +30,14 @@
 .profile {
     grid-column: 5;
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: auto 8px auto;
 }
 .profile__icon {
     grid-column: 1;
 }
 .profile__menu-icon {
     margin: auto;
-    grid-column: 2;
+    grid-column: 3;
 }
 .profile-menu {
     position: absolute;
