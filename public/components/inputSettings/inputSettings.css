@@ -6,21 +6,25 @@
 }
 .input-block-settings__field {
     outline:none;
-    border: none;
+    border: 1px solid transparent;
     padding-left: 10px;
     padding-right: 10px;
 
     grid-row: 3;
     grid-column: 1;
 }
+.input-block-settings__field[type='date'] {
+    padding-top: 8px; 
+}
+
 .input-block-settings__field-correct {
     border: none;
-    background: var(--background-color-input, #E9E9E9);
 }
+
 .input-block-settings__field-incorrect {
-    border: 1px solid var(--font-color-error, #D5534D);
-    background: var(--background-color-error, #FFEBEB);
+    border-color: var(--font-color-error, #D5534D);
 }
+
 .input-block-settings__error {
     grid-row: 5;
     grid-column: 1;

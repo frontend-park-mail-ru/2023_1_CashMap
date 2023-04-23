@@ -48,10 +48,10 @@ export default class SignInView {
         });
 
         this._emailField.addEventListener('change', () => {
-            this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email');
+            this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email', 'default');
         });
         this._passwordField.addEventListener('change', () => {
-            this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password');
+            this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password', 'default');
         });
     }
 

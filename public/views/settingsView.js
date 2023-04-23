@@ -126,10 +126,10 @@ export default class SettingsView {
 		});
 
 		this._firstNameField.addEventListener('change', () => {
-			this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName');
+			this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName', 'settings');
 		});
 		this._lastNameField.addEventListener('change', () => {
-			this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName');
+			this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName', 'settings');
 		});
 	}
 

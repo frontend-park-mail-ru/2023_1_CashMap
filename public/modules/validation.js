@@ -28,20 +28,28 @@ class Validation {
 	 * @param {String} type - тип проверки
 	 * @returns 
 	 */
-	validation(inputField, errorField, type) {
+	validation(inputField, errorField, type, style) {
 		const validationRes = this.validateFunc[type](inputField.value);
 
 		if (validationRes.status === false) {
 			errorField.textContent = validationRes.error;
-			inputField.classList.remove('input-block__field-correct');
-			inputField.classList.add('input-block__field-incorrect');
-
+			if (style === 'default') {
+				inputField.classList.remove('input-block__field-correct');
+				inputField.classList.add('input-block__field-incorrect');
+			} else {
+				inputField.classList.remove('input-block-settings__field-correct');
+				inputField.classList.add('input-block-settings__field-incorrect');
+			}
 			return false;
 		} else {
 			errorField.textContent = '';
-			inputField.classList.add('input-block__field-correct');
-			inputField.classList.remove('input-block__field-incorrect');
-
+			if (style === 'default') {
+				inputField.classList.add('input-block__field-correct');
+				inputField.classList.remove('input-block__field-incorrect');
+			} else {
+				inputField.classList.add('input-block-settings__field-correct');
+				inputField.classList.remove('input-block-settings__field-incorrect');
+			}
 			return true;
 		}
 	}
