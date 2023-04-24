@@ -1,6 +1,6 @@
 .header {
     position: fixed;
-
+    align-items: center;
     display: grid;
     grid-template-columns: 1fr 19.8% auto 2% auto;
     min-width: 390.5px;
@@ -10,6 +10,7 @@
     mix-blend-mode: normal;
 
     display: grid;
+    height: 38px;
     grid-template-columns: 30px 1fr;
 }
 .search-area__icon {
@@ -19,18 +20,15 @@
     margin-right: 10px;
 }
 
-
-.notification {
-    grid-column: 3;
-}
 .notification__icon {
     margin: auto;
     padding: 10px;
+    grid-column: 3;
 }
 .profile {
     grid-column: 5;
     display: grid;
-    grid-template-columns: auto 8px auto;
+    grid-template-columns: auto auto;
 }
 .profile__icon {
     grid-column: 1;
@@ -38,10 +36,12 @@
 .profile__menu-icon {
     margin: auto;
     grid-column: 3;
+    padding: 8px;
+    cursor: pointer;
 }
 .profile-menu {
     position: absolute;
-    margin-top: 10px;
+    margin-top: 18px;
 
     padding: 12px;
 
@@ -73,6 +73,84 @@
     height: 100px;
 }
 .profile-menu-position {
-    left: 63%;
+    right: 22.5%;
+    top: 70%;
+}
+.header {
+    position: fixed;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 19.8% auto 2% auto;
+    min-width: 390.5px;
+}
+.search-area {
+    grid-column: 1;
+    mix-blend-mode: normal;
+
+    display: grid;
+    height: 38px;
+    grid-template-columns: 30px 1fr;
+}
+.search-area__icon {
+    margin: auto;
+}
+.search-area__input {
+    margin-right: 10px;
+}
+
+.notification__icon {
+    margin: auto;
+    padding: 10px;
+    grid-column: 3;
+}
+.profile {
+    grid-column: 5;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.profile__icon {
+    grid-column: 1;
+}
+.profile__menu-icon {
+    margin: auto;
+    grid-column: 3;
+    padding: 20px 8px;
+    cursor: pointer;
+}
+.profile-menu {
+    position: absolute;
+    margin-top: 18px;
+
+    padding: 12px;
+
+    display: none;
+    grid-template-rows: 1fr 1fr;
+}
+.profile:hover .profile-menu {
+    display: grid;
+}
+.profile-menu:hover {
+    display: grid;
+}
+.profile-menu-item {
+    cursor: pointer;
+
+    display: grid;
+    grid-template-columns: 8px 26px 8px 48px 41px;
+}
+
+.header-size {
+    width: 55%;
+}
+.header-position {
+    left: 25%;
+    padding: 32px 17% 10px 3.6%;
+    z-index: 2;
+}
+.profile-menu-size {
+    height: 100px;
+}
+.profile-menu-position {
+    right: 22.5%;
     top: 70%;
 }
