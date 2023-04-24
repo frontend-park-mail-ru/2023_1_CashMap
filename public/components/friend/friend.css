@@ -95,7 +95,6 @@
 }
 
 .friend__button_white {
-    background-color: var(--background-color-menu);
     color: var(--font-color-gray-text);
     text-overflow: ellipsis;
     font-weight: bolder;

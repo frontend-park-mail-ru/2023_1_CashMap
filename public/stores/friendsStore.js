@@ -121,7 +121,6 @@ class friendsStore {
         this.notFriends = [];
         if (request.status === 200) {
             response.body.profiles.forEach((friend) => {
-                friend.isFriend = false;
                 friend.isUser = true;
                 if (!friend.avatar) {
                     friend.avatar = headerConst.avatarDefault;
@@ -191,7 +190,6 @@ class friendsStore {
                     if (!sub.avatar) {
                         sub.avatar = headerConst.avatarDefault;
                     }
-                    sub.isFriend = false;
                     sub.isSubscriber = true;
                 });
             } else {
@@ -200,7 +198,6 @@ class friendsStore {
                     if (!sub.avatar) {
                         sub.avatar = headerConst.avatarDefault;
                     }
-                    sub.isFriend = false;
                     sub.isSubscription = true;
                 });
             }
