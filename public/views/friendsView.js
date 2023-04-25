@@ -148,6 +148,10 @@ export default class FriendsView extends BaseView {
 			Router.go('/findFriends', false);
 		});
 
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
+        });
+
 		for (let i = 0; i < this._addUser.length; i++) {
 			this._addUser[i].addEventListener('click', () => {
 				const userId = this._addUser[i].getAttribute("data-id");
