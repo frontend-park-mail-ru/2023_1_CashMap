@@ -16,16 +16,32 @@
         <div class="friend__img"><img src="static/img/post_icons/post_menu.svg"></div>
 
         <div class="friend-menu friend-menu-size friend-menu-position background-color-profile-menu border-radius-btn-input box-shadow-profile-menu">
-            <div class="friend-menu-item-delete hover-block border-radius-btn-input margin-auto" data-id="{{ user_link }}">
+            <div class="friend-menu-item friend-menu-item-delete hover-block border-radius-btn-input margin-auto" data-id="{{ user_link }}">
                 <span class="friend-item__text font-size-15 font-MailSansRoman margin-auto"> Удалить из друзей </span>
             </div>
-            <div class="friend-menu-item-page hover-block border-radius-btn-input margin-auto" data-id="{{ user_link }}">
+            <div class="friend-menu-item friend-menu-item-page hover-block border-radius-btn-input margin-auto" data-id="{{ user_link }}">
                 <span class="friend-item__text font-size-15 font-MailSansRoman margin-auto"> Страница </span>
             </div>
         </div>
-    {{else}}
+    {{/if}}
+    {{#if isUser}}
         <button class="friend__button friend__button_grey js-friend-add" data-id="{{ user_link }}">
             <div class="friend__button-text"> Добавить в друзья </div>
         </button>
+    {{/if}}
+    {{#if isSubscription}}
+        <button class="friend__button friend__button_grey js-friend-unsub" data-id="{{ user_link }}">
+            <div class="friend__button-text"> Отписаться </div>
+        </button>
+    {{/if}}
+    {{#if isSubscriber}}
+        <div class="friend__buttons">
+            <button class="friend__button friend__button_grey js-friend-add" data-id="{{ user_link }}">
+                <div class="friend__button-text"> Добавить в друзья </div>
+            </button>
+            <button class="friend__button friend__button-two friend__button_white background-color-menu js-friend-delete" data-id="{{ user_link }}">
+                <div class="friend__button-text"> Отклонить </div>
+            </button>
+        </div>
     {{/if}}
 </div>
