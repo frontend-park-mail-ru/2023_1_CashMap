@@ -15,7 +15,6 @@
 .friend:hover .friend__name{
     color: var(--font-color-post-sender);
 }
-
 .friend__avatar {
     width: 80px;
     height: 80px;
@@ -61,6 +60,7 @@
 }
 
 .friend__button {
+    width: min-content;
     text-align: center;
     cursor: pointer;
 
@@ -82,6 +82,7 @@
     font-weight: bolder;
     font-family: InterMedium;
     font-size: var(--font-size-15);
+    white-space: nowrap;
 }
 
 .friend__button_grey:hover {
@@ -99,6 +100,7 @@
     font-weight: bolder;
     font-family: InterMedium;
     font-size: var(--font-size-15);
+    white-space: nowrap;
 }
 
 .friend__button_white:hover {
