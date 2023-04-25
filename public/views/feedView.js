@@ -4,9 +4,11 @@ import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
+import BaseView from "./baseView.js";
 
-export default class FeedView {
+export default class FeedView extends BaseView {
 	constructor() {
+		super();
 		this._addHandlebarsPartial();
 
 		this._jsId = 'feed';
@@ -32,6 +34,7 @@ export default class FeedView {
 	_addPagesElements() {
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
@@ -68,6 +71,10 @@ export default class FeedView {
 			Router.go('/myPage', false);
 		});
 
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
+        });
+
 		for (let i = 0; i < this._editPosts.length; i++) {
 			this._editPosts[i].addEventListener('click', () => {
 				const postId = this._editPosts[i].getAttribute("data-id");
@@ -93,7 +100,9 @@ export default class FeedView {
 	}
 
 	showPage() {
-		actionUser.getProfile(() => { actionPost.getFriendsPosts(15); });
+		actionUser.getProfile(() => { 
+			actionPost.getFriendsPosts(15); 
+			actionPost.getPostsByUser(userStore.user.user_link, 15)});
 	}
 
 	updatePage() {
@@ -114,7 +123,7 @@ export default class FeedView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.friendsPosts},
+			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: [...postsStore.friendsPosts, ...postsStore.posts]},
 		}
 	}
 

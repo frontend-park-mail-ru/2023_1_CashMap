@@ -34,6 +34,7 @@ export default class ProfileView {
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._profileSettingsBtn = document.getElementById('js-profile-settings-btn');
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._myPageItem.style.color = activeColor;
@@ -56,6 +57,10 @@ export default class ProfileView {
 
 		this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);
+        });
+
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
         });
 
 		this._profileSettingsBtn.addEventListener('click', () => {

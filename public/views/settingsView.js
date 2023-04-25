@@ -38,6 +38,7 @@ export default class SettingsView {
 		this._settingsBtn = document.getElementById('js-menu-main');
 		this._safetyBtn = document.getElementById('js-menu-safety');
 		this._settingsBtn.style.color = activeColor;
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 
 		this._dropZone = document.getElementById('js-drop-zone');
 		this._dropContent = document.getElementById('js-drop-content');
@@ -92,6 +93,10 @@ export default class SettingsView {
 		this._newsItem.addEventListener('click', () => {
 			Router.go('/feed');
 		})
+
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
+        });
 
 		this._dropArea.addEventListener('dragover', (event) => {
 			event.preventDefault();
