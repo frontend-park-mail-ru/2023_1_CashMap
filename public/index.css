@@ -56,6 +56,11 @@
 }
 
 @font-face {
+    font-family: MailSansRomanRegular; /* Имя шрифта */
+    src: url(static/fonts/MailSansRoman-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
     font-family: Comfortaa; /* Имя шрифта */
     src: url(static/fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
 }
@@ -145,6 +150,9 @@
 }
 .font-MailSansRoman {
     font-family: MailSansRoman, sans-serif;
+}
+.font-MailSansRomanRegular {
+    font-family: MailSansRomanRegular, sans-serif;
 }
 .font-Comfortaa {
     font-family: Comfortaa, sans-serif;
