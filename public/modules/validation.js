@@ -56,7 +56,7 @@ class Validation {
 		if (password.length < 8) {
 			return {
 				status: false,
-				error: 'Пароль слишком короткий'
+				error: `Пароль должен быть длиннее ${MIN_PASSWORD_LENGTH} символов`
 			};
 		}
 
@@ -101,14 +101,14 @@ class Validation {
 		if (password.length < MIN_PASSWORD_LENGTH) {
 			return {
 				status: false,
-				error: 'Пароль слишком короткий'
+				error: `Пароль должен быть длиннее ${MIN_PASSWORD_LENGTH} символов`
 			};
 		}
 
 		if (password.length > MAX_PASSWORD_LENGTH) {
 			return {
 				status: false,
-				error: 'Пароль слишком длинный'
+				error: `Пароль должен быть короче ${MAX_PASSWORD_LENGTH} символов`
 			};
 		}
 
@@ -215,7 +215,7 @@ class Validation {
 		if (name.length > MAX_NAME_LENGTH) {
 			return {
 				status: false,
-				error: 'Имя слишком длинное'
+				error: `Имя должно быть короче ${MAX_NAME_LENGTH} символов`
 			};
 		}
 
@@ -257,7 +257,7 @@ class Validation {
 		if (surname.length > MAX_NAME_LENGTH) {
 			return {
 				status: false,
-				error: 'Фамилия слишком длинная'
+				error: `Фамилия должна быть короче ${MAX_NAME_LENGTH} символов`
 			};
 		}
 
