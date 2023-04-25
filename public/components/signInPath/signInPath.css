@@ -28,7 +28,6 @@
     grid-column: 2;
 }
 .input-table__error-info {
-    display: inline-grid;
     align-items: center;
     text-align: center;
 }

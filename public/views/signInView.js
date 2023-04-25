@@ -29,17 +29,17 @@ export default class SignInView {
         this._emailErrorField = document.getElementById('js-email-error');
         this._passwordField = document.getElementById('js-password-input');
         this._passwordErrorField = document.getElementById('js-password-error');
-        this._error = document.getElementById('js-sign-in-error');
         this._authBtn = document.getElementById('js-sign-in-btn')
         this._newBtn = document.getElementById('js-create-account-btn')
-
-        this._error.textContent = userStore.user.errorAuth;
     }
 
     _addPagesListener() {
         this._authBtn.addEventListener('click', () => {
             if (this._validatePassword && this._validateEmail) {
                 actionUser.signIn({email: this._emailField.value, password: this._passwordField.value});
+            } else {
+                userStore.user.errorAuth = 'Заполните корректно все поля';
+                this._render();
             }
         });
 
@@ -57,6 +57,7 @@ export default class SignInView {
 
     remove() {
         document.getElementById(this._jsId)?.remove();
+        userStore.user.errorAuth = '';
     }
 
     showPage() {
@@ -76,9 +77,17 @@ export default class SignInView {
     _preRender() {
         this._template = Handlebars.templates.signIn;
 
+        if (userStore.user.errorAuth) {
+            signInData.errorInfo['errorText'] = userStore.user.errorAuth;
+            signInData.errorInfo['errorClass'] = 'display-inline-grid';
+        } else {
+            signInData.errorInfo['errorText'] = '';
+            signInData.errorInfo['errorClass'] = 'display-none';
+        }
+
         this._context = {
             logoData: logoDataSignIn,
-            signInData: signInData
+            signInData: signInData,
         }
     }
 
