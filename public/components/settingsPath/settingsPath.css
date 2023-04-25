@@ -18,9 +18,8 @@
 }
 
 .settingsPath__photo {
-    display: flex;
-    justify-content: space-between;
-    gap: 47px;
+    display: grid;
+    grid-template-columns: 100px 10% 1fr;
     width: 100%;
 }
 
@@ -41,9 +40,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    grid-column: 3;
     gap: 10px;
+    padding: 0px 12px;
 
-    width: 353px;
     height: 100px;
 
     border: 1px dashed #DEDEE9;

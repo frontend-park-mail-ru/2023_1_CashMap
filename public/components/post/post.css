@@ -66,7 +66,6 @@
 
 .post-menu {
     position: absolute;
-    right: 0;
     margin-top: 16px;
     padding: 12px;
 
@@ -94,6 +93,7 @@
 
 .post-menu-position {
     top: 20%;
+    right: 0;
 }
 
 .post-hover img:nth-child(2) {
