@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
+import {sideBarConst, headerConst, friendsMenuInfo, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
@@ -32,8 +32,27 @@ export default class FriendsView extends BaseView {
 	_addPagesElements() {
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
-		this._feedBtn = document.getElementById('js-logo-go-feed');
+		this._friendsBtn = document.getElementById('js-menu-friends');
+		this._subscribersBtn = document.getElementById('js-menu-subscribers');
+		this._subscriptionsBtn = document.getElementById('js-menu-subscriptions');
+		this._findFriendsBtn = document.getElementById('js-menu-find-friends');
 
+		switch (window.location.pathname) {
+			case '/friends':
+				this._friendsBtn.style.color = activeColor;
+				break;
+			case '/subscribers':
+				this._subscribersBtn.style.color = activeColor;
+				break;
+			case '/subscriptions':
+				this._subscriptionsBtn.style.color = activeColor;
+				break;
+			case '/findFriends':
+				this._findFriendsBtn.style.color = activeColor;
+				break;
+		}
+
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
 		this._msgItem = document.getElementById('js-side-bar-msg');
@@ -45,8 +64,10 @@ export default class FriendsView extends BaseView {
 
 		this._goToProfile = document.getElementsByClassName('friend-menu-item-page');
 		this._goToMsg = document.getElementsByClassName('js-friend-go-msg');
-		this._deleteUser = document.getElementsByClassName('friend-menu-item-delete');
+		this._deleteFriend = document.getElementsByClassName('friend-menu-item-delete');
 		this._addUser = document.getElementsByClassName('js-friend-add');
+		this._unsubUser = document.getElementsByClassName('js-friend-unsub');
+		this._deleteUser = document.getElementsByClassName('js-friend-delete');
 	}
 
 	_addPagesListener() {
@@ -70,6 +91,25 @@ export default class FriendsView extends BaseView {
 			Router.go('/feed', false);
 		});
 
+		this._friendsBtn.addEventListener('click', () => {
+			Router.go('/friends', false);
+		});
+
+		this._subscribersBtn.addEventListener('click', () => {
+			this._subscribersBtn.style.color = activeColor;
+			Router.go('/subscribers', false);
+		});
+
+		this._subscriptionsBtn.addEventListener('click', () => {
+			this._subscriptionsBtn.style.color = activeColor;
+			Router.go('/subscriptions', false);
+		});
+
+		this._findFriendsBtn.addEventListener('click', () => {
+			this._findFriendsBtn.style.color = activeColor;
+			Router.go('/findFriends', false);
+		});
+
 		this._feedBtn.addEventListener('click', () => {
             Router.go('/feed', false);
         });
@@ -81,10 +121,24 @@ export default class FriendsView extends BaseView {
 			});
 		}
 
+		for (let i = 0; i < this._deleteFriend.length; i++) {
+			this._deleteFriend[i].addEventListener('click', () => {
+				const userId = this._deleteFriend[i].getAttribute("data-id");
+				actionFriends.unsub(userId);
+			});
+		}
+
+		for (let i = 0; i < this._unsubUser.length; i++) {
+			this._unsubUser[i].addEventListener('click', () => {
+				const userId = this._unsubUser[i].getAttribute("data-id");
+				actionFriends.unsub(userId);
+			});
+		}
+
 		for (let i = 0; i < this._deleteUser.length; i++) {
 			this._deleteUser[i].addEventListener('click', () => {
 				const userId = this._deleteUser[i].getAttribute("data-id");
-				actionFriends.unsub(userId);
+				actionFriends.reject(userId); //пока не работает
 			});
 		}
 
@@ -140,15 +194,37 @@ export default class FriendsView extends BaseView {
 	}
 
 	_preRender() {
-		const res = [...friendsStore.friends, ...friendsStore.notFriends, ...friendsStore.subscribers, ...friendsStore.subscriptions];
-
 		this._template = Handlebars.templates.friends;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
+
+		let res;
+		let info;
+		switch (window.location.pathname) {
+			case '/friends':
+				res = friendsStore.friends;
+				info = 'У вас пока нет друзей';
+				break;
+			case '/subscribers':
+				res = friendsStore.subscribers;
+				info = 'у вас пока нет подписчиков'
+				break;
+			case '/subscriptions':
+				res = friendsStore.subscriptions;
+				info = 'у вас пока нет подписок'
+				break;
+			case '/findFriends':
+				res = friendsStore.notFriends;
+				break;
+		}
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 			friendsData: res,
+			textInfo: {
+				textInfo: info,
+			},
+			menuInfo: friendsMenuInfo,
 		}
 	}
 

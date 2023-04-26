@@ -2,7 +2,7 @@ import {actionUser} from "../actions/actionUser.js";
 import Validation from "../modules/validation.js";
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {logoDataSignUp, signUpData} from "../static/htmlConst.js";
+import { logoDataSignUp, signInData, signUpData } from "../static/htmlConst.js";
 
 export default class SignUpView {
     constructor() {
@@ -38,19 +38,18 @@ export default class SignUpView {
         this._passwordErrorField = document.getElementById('js-password-error');
         this._passwordRepeatField = document.getElementById('js-repeat-password-input');
         this._passwordRepeatErrorField = document.getElementById('js-repeat-password-error');
-        this._error = document.getElementById('js-sign-up-error');
 
-        this._regBtn = document.getElementById('js-sign-up-btn')
-        this._logBtn = document.getElementById('js-have-account-btn')
-
-        this._error.textContent = userStore.user.errorReg;
-
+        this._regBtn = document.getElementById('js-sign-up-btn');
+        this._logBtn = document.getElementById('js-have-account-btn');
     }
 
     _addPagesListener() {
         this._regBtn.addEventListener('click', () => {
             if (this._validateFirstName && this._validateLastName && this._validateEmail && this._validatePassword && this._validatePasswordRepeat) {
                 actionUser.signUp({firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, password: this._passwordField.value});
+            } else {
+                userStore.user.errorReg = 'Заполните корректно все поля';
+                this._render();
             }
         });
 
@@ -78,6 +77,7 @@ export default class SignUpView {
 
     remove() {
         document.getElementById(this._jsId)?.remove();
+        userStore.user.errorReg = '';
     }
 
     showPage() {
@@ -98,9 +98,17 @@ export default class SignUpView {
     _preRender() {
         this._template = Handlebars.templates.signUp;
 
+        if (userStore.user.errorReg) {
+            signUpData.errorInfo['errorText'] = userStore.user.errorReg;
+            signUpData.errorInfo['errorClass'] = 'display-inline-grid';
+        } else {
+            signUpData.errorInfo['errorText'] = '';
+            signUpData.errorInfo['errorClass'] = 'display-none';
+        }
+
         this._context = {
             logoData: logoDataSignUp,
-            signUpData: signUpData
+            signUpData: signUpData,
         }
     }
 

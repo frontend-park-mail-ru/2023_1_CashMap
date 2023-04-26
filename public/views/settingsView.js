@@ -14,7 +14,7 @@ export default class SettingsView {
 
 		this._validateFirstName = true;
 		this._validateLastName = true;
-		this._validateEmail = true;
+		this._validateStatus = true;
 
 		userStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
@@ -135,6 +135,9 @@ export default class SettingsView {
 		});
 		this._lastNameField.addEventListener('change', () => {
 			this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName', 'settings');
+		});
+		this._statusField.addEventListener('change', () => {
+			this._validateStatus = Validation.validation(this._statusField, this._statusErrorField, 'userStatus', 'settings');
 		});
 	}
 
