@@ -2,21 +2,26 @@
     min-height: 100vh;
     display: grid;
     grid-template-columns: 25% 3.6% 55% 16.4%;
-    grid-template-rows: 32px 38px 32px 70px 1fr 32px;
-    background: var(--background-color-feed);
+    grid-template-rows: 32px 38px 32px 1fr 32px;
 }
 
-.friends__search {
+.friends__info {
+    display: grid;
+    grid-template-columns: 66% 8% 26%;
     grid-column: 3;
     grid-row: 4;
+    min-width: 390.5px;
 }
 
 .friends__nav-list {
     display: flex;
     flex-direction: column;
-    /* align-items: flex-start;
-    padding: 0px; */
     gap: 10px;
+}
+
+.menu-friends {
     grid-column: 3;
-    grid-row: 5;
+    grid-row: 1;
+    height: min-content;
+    padding: 16px;
 }

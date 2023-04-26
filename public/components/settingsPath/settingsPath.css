@@ -1,12 +1,13 @@
 .settings-path {
     display: grid;
-    grid-template-columns: 66% 10% 24%;
+    grid-template-columns: 66% 8% 26%;
+    min-width: 390.5px;
 }
 
 .menu-settings {
     grid-column: 3;
     grid-row: 1;
-    height: 62px;
+    height: min-content;
     padding: 16px;
 }
 

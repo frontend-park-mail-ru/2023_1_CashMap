@@ -8,11 +8,9 @@
 }
 
 .edit-post__body {
-    display: flex;
-    align-items: flex-start;
-    padding: 0px 0px 12px;
-    gap: 10px;
     width: 100%;
+    display: grid;
+    grid-template-columns: 35px 8px 1fr;
 }
 
 .edit-post__body-text {
@@ -22,6 +20,7 @@
     padding: 0px 10px;
     resize: none;
     max-height: 400px;
+    grid-column: 3;
 }
 
 .edit-post__options {

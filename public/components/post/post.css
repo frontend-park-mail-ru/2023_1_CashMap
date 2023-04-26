@@ -30,7 +30,8 @@
     cursor: pointer;
 }
 .post-text {
-    white-space: pre-line;  /* ToDo: ультра мега гипер сверх гига не уверен в этом месте */
+    white-space: pre-line;
+    overflow: scroll;
 }
 .post-media {
 

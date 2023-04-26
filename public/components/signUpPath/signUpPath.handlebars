@@ -8,9 +8,9 @@
 
             {{> button buttonInfo}}
 
-            <span class="input-table__error-info font-MailSansRoman font-size-19 font-color-error" id="{{ errorInfo.jsId }}"></span>
+            <span class="input-table__error-info font-MailSansRoman font-size-19 font-color-error {{ errorInfo.errorClass }}" id="{{ errorInfo.jsId }}"> {{ errorInfo.errorText }} </span>
 
-            <a class="input-table__link font-MailSansRoman font-size-16 font-color-info" id="{{ link.jsId }}"> {{ link.text }} </a>
+            <a class="input-table__link font-MailSansRoman font-size-16 font-color-info cursor-pointer" id="{{ link.jsId }}"> {{ link.text }} </a>
         </div>
     </div>
 </div>
