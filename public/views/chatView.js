@@ -30,6 +30,9 @@ export default class ChatView extends BaseView {
 
 		this._msg.focus();
 
+		this._f = document.getElementById('js-1');
+		this._f.scrollTop = this._f.scrollHeight;
+
 		let textarea = document.getElementsByTagName('textarea');
 
 		textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;overflow-y:hidden;');
