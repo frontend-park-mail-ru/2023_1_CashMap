@@ -17,7 +17,6 @@ export default class SettingsView {
 		this._validateStatus = true;
 		this._validateBio = true;
 		this._validateBirthday = true;
-
 		userStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
 
