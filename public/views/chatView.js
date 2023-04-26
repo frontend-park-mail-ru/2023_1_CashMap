@@ -66,7 +66,7 @@ export default class ChatView extends BaseView {
 		});
 
 		this._msg.addEventListener("keydown", function(event) {
-			if ((event.key === "Enter" || event.ctrlKey) && !event.shiftKey) {
+			if (event.key === "Enter" && !event.shiftKey) {
 				event.preventDefault();
 				document.getElementById("js-send-msg").click();
 			}
