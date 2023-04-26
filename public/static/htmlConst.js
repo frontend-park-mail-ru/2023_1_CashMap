@@ -1,4 +1,7 @@
-export const activeColor = "#B95DD9"
+export const activeColor = "#B95DD9";
+
+export const maxTextStrings = 3;
+export const maxTextLength = 150;
 
 export const sideBarConst = {
     logoImgPath: 'static/img/logo.svg',
@@ -121,3 +124,9 @@ export const safetyConst = {
       {text: 'Основные', jsId: 'js-menu-main'},
       {text: 'Безопасность', jsId: 'js-menu-safety'}]
 }
+
+export const friendsMenuInfo = [
+  {text: 'Друзья', jsId: 'js-menu-friends'},
+  {text: 'Подписчики', jsId: 'js-menu-subscribers'},
+  {text: 'Подписки', jsId: 'js-menu-subscriptions'},
+  {text: 'Поиск друзей', jsId: 'js-menu-find-friends'}]

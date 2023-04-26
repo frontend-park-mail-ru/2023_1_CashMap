@@ -343,6 +343,17 @@
     /*overflow: hidden;*/
 }
 
+.display-none {
+    display: none;
+}
+.display-inline-grid {
+    display: inline-grid;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 body, html, #root {
     margin: 0;
     min-height: 100vh;

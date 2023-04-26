@@ -12,7 +12,7 @@ import SafetyView from "./views/safetyView.js";
 import MessagesView from "./views/messagesView.js";
 import ChatView from "./views/chatView.js";
 import NotFoundView from "./views/notFoundView.js";
-import imgStore from "./stores/imgStore.js";
+import imgStore from "./stores/imgStore.js"; /* НЕ УДАЛЯТЬ!!! */
 
 
 const Views = {
@@ -35,6 +35,9 @@ Router.registerPage('/feed', Views.FeedView);
 Router.registerPage('/signIn', Views.SignInView);
 Router.registerPage('/signUp', Views.SignUpView);
 Router.registerPage('/friends', Views.FriendsView);
+Router.registerPage('/subscribers', Views.FriendsView);
+Router.registerPage('/subscriptions', Views.FriendsView);
+Router.registerPage('/findFriends', Views.FriendsView);
 Router.registerPage('/myPage', Views.ProfileView);
 Router.registerPage('/user', Views.ProfileView);
 Router.registerPage('/editPost', Views.EditPostView);
