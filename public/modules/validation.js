@@ -1,6 +1,7 @@
 const MAX_PASSWORD_LENGTH = 100;
 const MIN_PASSWORD_LENGTH = 8;
 const MAX_NAME_LENGTH = 30;
+const MAX_STATUS_LENGTH = 30;
 
 
 /**
@@ -18,6 +19,7 @@ class Validation {
 			firstName: this._validateName,
 			lastName: this._validateSurname,
 			secondPassword: this._validateTwoPasswords,
+			userStatus: this._validateStatus,
 		}
 	}
 
@@ -64,7 +66,7 @@ class Validation {
 		if (password.length < 8) {
 			return {
 				status: false,
-				error: 'Пароль слишком короткий'
+				error: `Пароль должен быть длиннее ${MIN_PASSWORD_LENGTH} символов`
 			};
 		}
 
@@ -109,14 +111,14 @@ class Validation {
 		if (password.length < MIN_PASSWORD_LENGTH) {
 			return {
 				status: false,
-				error: 'Пароль слишком короткий'
+				error: `Пароль должен быть длиннее ${MIN_PASSWORD_LENGTH} символов`
 			};
 		}
 
 		if (password.length > MAX_PASSWORD_LENGTH) {
 			return {
 				status: false,
-				error: 'Пароль слишком длинный'
+				error: `Пароль должен быть короче ${MAX_PASSWORD_LENGTH} символов`
 			};
 		}
 
@@ -223,7 +225,7 @@ class Validation {
 		if (name.length > MAX_NAME_LENGTH) {
 			return {
 				status: false,
-				error: 'Имя слишком длинное'
+				error: `Имя должно быть короче ${MAX_NAME_LENGTH} символов`
 			};
 		}
 
@@ -265,7 +267,7 @@ class Validation {
 		if (surname.length > MAX_NAME_LENGTH) {
 			return {
 				status: false,
-				error: 'Фамилия слишком длинная'
+				error: `Фамилия должна быть короче ${MAX_NAME_LENGTH} символов`
 			};
 		}
 
@@ -276,6 +278,39 @@ class Validation {
 					error: 'Фамилия должна содержать буквенные символы'
 				};
 			}
+		}
+
+		return {
+			status: true,
+		}
+	}
+
+	/**
+     * @private метод, валидирующий статус
+     * @param {String} userStatus статус для валидации
+	 * @return {Boolean} статус
+     * @return {String | null} сообщение об ошибке
+     */
+	_validateStatus(userStatus) {
+		if (!(userStatus instanceof String) && typeof(userStatus) != 'string') {
+			return {
+				status: false,
+				error: 'Недопустимый формат данных'
+			};
+		}
+
+		if (userStatus.length === 0) {
+			return {
+				status: false,
+				error: 'Введите статус'
+			};
+		}
+
+		if (userStatus.length > MAX_STATUS_LENGTH) {
+			return {
+				status: false,
+				error: `Статус должен быть короче ${MAX_STATUS_LENGTH} символов`
+			};
 		}
 
 		return {
