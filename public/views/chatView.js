@@ -27,6 +27,8 @@ export default class ChatView extends BaseView {
 		this._sendMsg = document.getElementById('js-send-msg');
 		this._msg = document.getElementById('js-msg-input');
 
+		this._msg.focus();
+
 		let textarea = document.getElementsByTagName('textarea');
 
 		textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;overflow-y:hidden;');
@@ -42,11 +44,19 @@ export default class ChatView extends BaseView {
 		super.addPagesListener();
 		this._backBtn.addEventListener('click', () => {
             Router.go('/message', false);
-        });
+		});
+
 		this._sendMsg.addEventListener('click', () => {
 			localStorage.setItem('curMsg', '');
 			actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
 			this._msg.value = '';
+		});
+
+		this._msg.addEventListener("keypress", function(event) {
+			if (event.key === "Enter" && !event.shiftKey) {
+				event.preventDefault();
+				document.getElementById("js-send-msg").click();
+			}
 		});
 	}
 
