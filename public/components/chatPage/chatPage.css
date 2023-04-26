@@ -9,4 +9,6 @@
 .chat__elem {
     grid-column: 3;
     grid-row: 4/6;
+
+    min-width: 390.5px;
 }
