@@ -121,3 +121,9 @@ export const safetyConst = {
       {text: 'Основные', jsId: 'js-menu-main'},
       {text: 'Безопасность', jsId: 'js-menu-safety'}]
 }
+
+export const friendsMenuInfo = [
+  {text: 'Друзья', jsId: 'js-menu-friends'},
+  {text: 'Подписчики', jsId: 'js-menu-subscribers'},
+  {text: 'Подписки', jsId: 'js-menu-subscriptions'},
+  {text: 'Поиск друзей', jsId: 'js-menu-find-friends'}]
