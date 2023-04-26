@@ -25,6 +25,7 @@ export default class ChatView extends BaseView {
 		super.addPagesElements();
 		this._backBtn = document.getElementById('js-back-to-messages-btn');
 		this._sendMsg = document.getElementById('js-send-msg');
+		this._sendMsgBlock = document.getElementById('js-send-msg-block');
 		this._msg = document.getElementById('js-msg-input');
 
 		this._msg.focus();
@@ -47,13 +48,25 @@ export default class ChatView extends BaseView {
 		});
 
 		this._sendMsg.addEventListener('click', () => {
-			localStorage.setItem('curMsg', '');
-			actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
-			this._msg.value = '';
+			if (this._msg.value.length) {
+				localStorage.setItem('curMsg', '');
+				actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
+				this._msg.value = '';
+			}
 		});
 
-		this._msg.addEventListener("keypress", function(event) {
-			if (event.key === "Enter" && !event.shiftKey) {
+		this._msg.addEventListener('input', (event) => {
+			if (event.target.value.length) {
+				this._sendMsg.classList.remove('display-none');
+				this._sendMsgBlock.classList.add('display-none');
+			} else {
+				this._sendMsg.classList.add('display-none');
+				this._sendMsgBlock.classList.remove('display-none');
+			}
+		});
+
+		this._msg.addEventListener("keydown", function(event) {
+			if ((event.key === "Enter" || event.ctrlKey) && !event.shiftKey) {
 				event.preventDefault();
 				document.getElementById("js-send-msg").click();
 			}

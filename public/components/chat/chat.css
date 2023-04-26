@@ -65,7 +65,6 @@
     display: flex;
     align-items: flex-start;
     align-items: center;
-    /*padding: 8px 0px 4px;*/
     gap: 16px;
     width: 100%; 
 }
@@ -86,6 +85,11 @@
 
     width: 100%;
     resize: none;
+}
+
+.block {
+    margin-top: 20px;
+    height: 100%;
 }
 
 .chat__footer-icon {
