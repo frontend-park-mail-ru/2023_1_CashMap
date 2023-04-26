@@ -42,7 +42,7 @@ export default class EditPostView {
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 
 		this._editBtn = document.getElementById('js-edit-post-btn');
-		var textarea = document.getElementsByTagName('textarea');
+		let textarea = document.getElementsByTagName('textarea');
 
 		textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;overflow-y:hidden;');
 		textarea[0].addEventListener("input", OnInput, false);

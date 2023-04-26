@@ -26,6 +26,16 @@ export default class ChatView extends BaseView {
 		this._backBtn = document.getElementById('js-back-to-messages-btn');
 		this._sendMsg = document.getElementById('js-send-msg');
 		this._msg = document.getElementById('js-msg-input');
+
+		let textarea = document.getElementsByTagName('textarea');
+
+		textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;overflow-y:hidden;');
+		textarea[0].addEventListener("input", OnInput, false);
+
+		function OnInput() {
+			this.style.height = 'auto';
+			this.style.height = (this.scrollHeight) + 'px';
+		}
 	}
 
 	addPagesListener() {

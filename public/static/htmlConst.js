@@ -23,13 +23,13 @@ export const logoDataSignIn = {
     logoImgPath: 'static/img/logo.svg',
     backgroundImgPath: 'static/img/background_right.svg',
     logoText: 'Depeche',
-    logoTagline: 'Сервис для общения',
+    logoTagline: 'Твоя социальная сеть 💩',
 };
 export const logoDataSignUp = {
     logoImgPath: 'static/img/logo.svg',
     backgroundImgPath: 'static/img/background_left.svg',
     logoText: 'Depeche',
-    logoTagline: 'Сервис для общения',
+    logoTagline: 'Твоя социальная сеть 💩',
 };
 
 export const signInData = {

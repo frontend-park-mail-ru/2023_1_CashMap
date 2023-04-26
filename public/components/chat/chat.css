@@ -33,15 +33,16 @@
 }
 
 .chat__header-info {
-    display: flex;
     align-items: center;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: 35px 8px 1fr;
 }
 
 .chat__header-info-text {
     font-family: 'InterMedium';
-	font-size: var(--font-size-16);
+    font-size: var(--font-size-16);
     color: var(--font-color-post-sender);
+    grid-column: 3;
 }
 
 .chat__header-image {
@@ -65,22 +66,26 @@
     display: flex;
     align-items: flex-start;
     align-items: center;
-    padding: 8px 0px 4px;
+    /*padding: 8px 0px 4px;*/
     gap: 16px;
     width: 100%; 
 }
 
-.chat__footer-input {
-    background: transparent;
-	border: none;
-	font-family: 'InterMedium';
-	font-size: var(--font-size-15);
-    color: var(--font-color-gray-text);
+.foo {
+    display: flex;
+    gap: 16px;
+
     background-color: var(--background-color-feed);
-	height: 35px;
+
+    padding: 10px 10px 0 10px;
     width: 100%;
-    border-radius: 8px;
-    padding: 0px 10px;
+}
+
+.chat__footer-input {
+    min-height: 35px;
+    max-height: 200px;
+
+    width: 100%;
     resize: none;
 }
 

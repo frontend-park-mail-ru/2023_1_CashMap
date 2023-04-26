@@ -20,19 +20,21 @@
     </div>
 
     <div class="chat__footer">
-        <textarea class="chat__footer-input" placeholder="Написать сообщение" id="js-msg-input">{{ curMsg }}</textarea>
+        <div class="foo border-radius">
+            <textarea class="chat__footer-input border-radius font-InterMedium font-size-15 font-color-gray-text background-color-feed border-none" placeholder="Написать сообщение" id="js-msg-input">{{ curMsg }}</textarea>
 
-        <div class="chat__footer-icon">
-            <input type="image" src="static/img/post_icons/photo.svg">
-            <input type="image" src="static/img/post_icons/photo_hover.svg">
+            <div class="chat__footer-icon">
+                <input type="image" src="static/img/post_icons/photo.svg">
+                <input type="image" src="static/img/post_icons/photo_hover_msg.svg">
+            </div>
+
+            <div class="chat__footer-icon">
+                <input type="image" src="static/img/post_icons/smile.svg">
+                <input type="image" src="static/img/post_icons/smile_hover_msg.svg">
+            </div>
         </div>
 
-        <div class="chat__footer-icon">
-            <input type="image" src="static/img/post_icons/smile.svg">
-            <input type="image" src="static/img/post_icons/smile_hover.svg">
-        </div>
-
-        <div class="chat__footer-icon" id="js-send-msg">
+        <div class="chat__footer-icon" style="margin-top: 20px" id="js-send-msg">
             <input type="image" src="static/img/post_icons/send.svg">
             <input type="image" src="static/img/post_icons/send_hover.svg">
         </div>
