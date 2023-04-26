@@ -55,8 +55,8 @@
     align-items: flex-start;
     gap: 16px;
     height: 100%;
-    width: 100%; 
-    overflow: auto;
+    width: 100%;
+    overflow: scroll;
 }
 
 .chat__body::-webkit-scrollbar { width: 0; } /* чтобы не был виден scrollbar */
