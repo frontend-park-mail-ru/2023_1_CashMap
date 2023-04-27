@@ -106,7 +106,6 @@ export default class ProfileView {
 				let shortText;
 
 				if (text.length > maxTextLength) {
-					console.log(maxTextLength)
 					shortText = text.slice(0, maxTextLength) + '...';
 				} else {
 					const ind = text.indexOf('\n', text.indexOf('\n', text.indexOf('\n') + 1) + 1);
