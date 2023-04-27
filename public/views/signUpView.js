@@ -59,19 +59,19 @@ export default class SignUpView {
 
 
         this._firstNameField.addEventListener('change', () => {
-            this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName');
+            this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName', 'default');
         });
         this._lastNameField.addEventListener('change', () => {
-            this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName');
+            this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName', 'default');
         });
         this._emailField.addEventListener('change', () => {
-            this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email');
+            this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email', 'default');
         });
         this._passwordField.addEventListener('change', () => {
-            this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password');
+            this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password', 'default');
         });
         this._passwordRepeatField.addEventListener('change', () => {
-            //this._validatePasswordRepeat = Validation.validation(this._passwordRepeatField, this._passwordRepeatErrorField, 'secondPassword');
+            //this._validatePasswordRepeat = Validation.validation(this._passwordRepeatField, this._passwordRepeatErrorField, 'secondPassword', 'default');
         });
     }
 

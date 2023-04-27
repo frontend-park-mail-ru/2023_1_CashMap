@@ -1,4 +1,7 @@
-export const activeColor = "#B95DD9"
+export const activeColor = "#B95DD9";
+
+export const maxTextStrings = 3;
+export const maxTextLength = 150;
 
 export const sideBarConst = {
     logoImgPath: 'static/img/logo.svg',
