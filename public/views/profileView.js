@@ -58,12 +58,14 @@ export default class ProfileView {
 		});
 
 		this._settingsBtn.addEventListener('click', () => {
-				Router.go('/settings', false);
+			Router.go('/settings', false);
 		});
 
-		/*this._profileSettingsBtn.addEventListener('click', () => {
+		if (this._profileSettingsBtn) {
+			this._profileSettingsBtn.addEventListener('click', () => {
 				Router.go('/settings', false);
-		});*/
+			});
+		}
 
 		this._msgItem.addEventListener('click', () => {
 			Router.go('/message', false);
@@ -96,24 +98,26 @@ export default class ProfileView {
 			Router.go('/createPost', false);
 		});
 
-		this._goMsg.addEventListener('click', () => {
-			const userId = this._goMsg.getAttribute("data-id");
-			alert(userId)
-			actionMessage.chatCheck(userId, () => {
-				if (localStorage.getItem('chatFriendId')) {
-					localStorage.setItem('chatId', localStorage.getItem('chatFriendId'));
-					Router.go('/chat');
-					actionMessage.getChatsMsg(localStorage.getItem('chatId'),15);
-				} else {
-					actionMessage.chatCreate(userId, () => {
-						if (localStorage.getItem('chatId')) {
-							Router.go('/chat');
-							actionMessage.getChatsMsg(localStorage.getItem('chatId'),15);
-						}
-					});
-				}
+		if (this._goMsg) {
+			this._goMsg.addEventListener('click', () => {
+				const userId = this._goMsg.getAttribute("data-id");
+				alert(userId)
+				actionMessage.chatCheck(userId, () => {
+					if (localStorage.getItem('chatFriendId')) {
+						localStorage.setItem('chatId', localStorage.getItem('chatFriendId'));
+						Router.go('/chat');
+						actionMessage.getChatsMsg(localStorage.getItem('chatId'), 15);
+					} else {
+						actionMessage.chatCreate(userId, () => {
+							if (localStorage.getItem('chatId')) {
+								Router.go('/chat');
+								actionMessage.getChatsMsg(localStorage.getItem('chatId'), 15);
+							}
+						});
+					}
+				});
 			});
-		});
+		}
 	}
 
 	remove() {
