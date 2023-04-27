@@ -115,7 +115,7 @@ export default class SettingsView {
 		});
 
 		this._saveBtn.addEventListener('click', () => {
-			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
+			if (this._validateFirstName && this._validateLastName) {
 				let birthday;
 				if (this._birthdayField.value) {
 					birthday = new Date(this._birthdayField.value).toISOString();
