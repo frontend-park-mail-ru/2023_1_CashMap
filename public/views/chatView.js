@@ -10,6 +10,7 @@ export default class ChatView extends BaseView {
 	constructor() {
 		super();
 		this._jsId = 'chat';
+		this._curMsg = '';
 	}
 
 	/**
@@ -24,23 +25,61 @@ export default class ChatView extends BaseView {
 		super.addPagesElements();
 		this._backBtn = document.getElementById('js-back-to-messages-btn');
 		this._sendMsg = document.getElementById('js-send-msg');
+		this._sendMsgBlock = document.getElementById('js-send-msg-block');
 		this._msg = document.getElementById('js-msg-input');
+
+		this._msg.focus();
+
+		this._f = document.getElementById('js-1');
+		this._f.scrollTop = this._f.scrollHeight;
+
+		let textarea = document.getElementsByTagName('textarea');
+
+		textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;overflow-y:hidden;');
+		textarea[0].addEventListener("input", OnInput, false);
+
+		function OnInput() {
+			this.style.height = 'auto';
+			this.style.height = (this.scrollHeight) + 'px';
+		}
 	}
 
 	addPagesListener() {
 		super.addPagesListener();
 		this._backBtn.addEventListener('click', () => {
             Router.go('/message', false);
-        });
+		});
+
 		this._sendMsg.addEventListener('click', () => {
-			actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
+			if (this._msg.value.length) {
+				localStorage.setItem('curMsg', '');
+				actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
+				this._msg.value = '';
+			}
+		});
+
+		this._msg.addEventListener('input', (event) => {
+			if (event.target.value.length) {
+				this._sendMsg.classList.remove('display-none');
+				this._sendMsgBlock.classList.add('display-none');
+			} else {
+				this._sendMsg.classList.add('display-none');
+				this._sendMsgBlock.classList.remove('display-none');
+			}
+		});
+
+		this._msg.addEventListener("keydown", function(event) {
+			if (event.key === "Enter" && !event.shiftKey) {
+				event.preventDefault();
+				document.getElementById("js-send-msg").click();
+			}
 		});
 	}
 
 	showPage() {
 		const chatId = localStorage.getItem('chatId');
 		if (chatId) {
-			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,15); actionMessage.getChats(15); });
+			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,50); actionMessage.getChats(15); });
 		} else {
 			Router.goBack();
 		}
@@ -65,11 +104,11 @@ export default class ChatView extends BaseView {
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
-		
+
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat},
+			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg')},
 		}
 	}
 }
