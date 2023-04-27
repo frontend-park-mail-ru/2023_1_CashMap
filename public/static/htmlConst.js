@@ -1,7 +1,9 @@
-export const activeColor = "#B95DD9";
+export const activeColor = '#B95DD9';
 
 export const maxTextStrings = 3;
 export const maxTextLength = 150;
+
+export const maxBirthday = '2017-01-01';
 
 export const sideBarConst = {
     logoImgPath: 'static/img/logo.svg',

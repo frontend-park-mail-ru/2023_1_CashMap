@@ -1,7 +1,10 @@
+import { maxBirthday } from "../static/htmlConst.js";
+
 const MAX_PASSWORD_LENGTH = 100;
 const MIN_PASSWORD_LENGTH = 8;
 const MAX_NAME_LENGTH = 30;
 const MAX_STATUS_LENGTH = 30;
+const MAX_BIO_LENGTH = 200;
 
 
 /**
@@ -20,6 +23,8 @@ class Validation {
 			lastName: this._validateSurname,
 			secondPassword: this._validateTwoPasswords,
 			userStatus: this._validateStatus,
+			bio: this._validateBio,
+			birthday: this._validateBirthday,
 		}
 	}
 
@@ -310,6 +315,51 @@ class Validation {
 			return {
 				status: false,
 				error: `Статус должен быть короче ${MAX_STATUS_LENGTH} символов`
+			};
+		}
+
+		return {
+			status: true,
+		}
+	}
+
+	/**
+     * @private метод, валидирующий био
+     * @param {String} bio био для валидации
+	 * @return {Boolean} статус
+     * @return {String | null} сообщение об ошибке
+     */
+	_validateBio(bio) {
+		if (!(bio instanceof String) && typeof(bio) != 'string') {
+			return {
+				status: false,
+				error: 'Недопустимый формат данных'
+			};
+		}
+
+		if (bio.length > MAX_BIO_LENGTH) {
+			return {
+				status: false,
+				error: `Информация должна быть короче ${MAX_BIO_LENGTH} символов`
+			};
+		}
+
+		return {
+			status: true,
+		}
+	}
+
+	/**
+     * @private метод, валидирующий день рождения
+     * @param {String} birthday день рождения для валидации
+	 * @return {Boolean} статус
+     * @return {String | null} сообщение об ошибке
+     */
+	_validateBirthday(birthday) {
+		if (birthday > maxBirthday) {
+			return {
+				status: false,
+				error: `Год рождения не должен превышать ${maxBirthday.slice(0, 4)}`
 			};
 		}
 
