@@ -81,9 +81,16 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
+            console.log(response);
+
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
-                    post.isMyPost = true;
+                    if (userLink === userStore.user.user_link) {
+                        post.isMyPost = true;
+                    } else {
+                        post.isMyPost = false;
+                    }
+
                     if (!post.owner_info.url) {
                         post.owner_info.url = headerConst.avatarDefault;
                     }
