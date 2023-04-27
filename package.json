@@ -25,12 +25,18 @@
     "handlebars": "^4.7.7"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/plugin-transform-runtime": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
+    "babel-loader": "^9.1.2",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.7",
+    "webpack": "^5.81.0",
+    "webpack-cli": "^5.0.2",
     "websocket": "^1.0.34"
   }
 }
