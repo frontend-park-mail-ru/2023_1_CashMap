@@ -5,8 +5,12 @@
         {{> search}}
     </div>
     <div class="messages__nav-list">
+      {{#if messagesData}}
         {{#each messagesData}}
-            {{> message this}}
+          {{> message this}}
         {{/each}}
+      {{else}}
+        {{> friendNotFound textInfo}}
+      {{/if}}
     </div>
 </div>

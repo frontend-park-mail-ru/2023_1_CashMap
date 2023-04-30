@@ -103,6 +103,9 @@ export default class MessagesView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
+			textInfo: {
+				textInfo: 'У вас пока нет чатов',
+			},
 			messagesData: messagesStore.chats,
 		}
 	}
