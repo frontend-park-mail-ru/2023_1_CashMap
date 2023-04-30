@@ -32,6 +32,7 @@ export default class SafetyView {
 		this._settingsBtn = document.getElementById('js-menu-main');
 		this._safetyBtn = document.getElementById('js-menu-safety');
 		this._safetyBtn.style.color = activeColor;
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 
 		this._passwordField = document.getElementById('js-password-input');
         this._passwordErrorField = document.getElementById('js-password-error');
@@ -80,6 +81,10 @@ export default class SafetyView {
 			Router.go('/feed');
 		});
 
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
+        });
+
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validatePassword && this._validatePasswordNew && this._validatePasswordRepeat) {
                 actionUser.editProfile({password: this._passwordNewField.value});
@@ -92,11 +97,11 @@ export default class SafetyView {
         });
 
 		this._passwordNewField.addEventListener('change', () => {
-            this._validatePasswordNew = Validation.validation(this._passwordNewField, this._passwordNewErrorField, 'password');
+            this._validatePasswordNew = Validation.validation(this._passwordNewField, this._passwordNewErrorField, 'password', 'settings');
         });
 
         this._passwordRepeatField.addEventListener('change', () => {
-            //this._validatePasswordRepeat = Validation.validation(this._passwordRepeatField, this._passwordRepeatErrorField, 'secondPassword');
+            //this._validatePasswordRepeat = Validation.validation(this._passwordRepeatField, this._passwordRepeatErrorField, 'secondPassword', 'settings');
         });
 	}
 

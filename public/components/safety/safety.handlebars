@@ -8,7 +8,9 @@
                 <div class="safety__header font-size-23 font-Montserrat">{{safetyPathData.header}}</div>
 
                 {{#each safetyPathData.inputFields}}
-                    {{> inputField this}}
+                    <div class="safety__input-field">
+                        {{> inputField this}}
+                    </div>
                 {{/each}}
 
                 <div class="settings-path__button">

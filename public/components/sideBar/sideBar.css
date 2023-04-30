@@ -2,12 +2,13 @@
     position: fixed;
     display: grid;
     grid-template-rows: 31px 35px 35px 1fr;
-    grid-template-columns: 30% 60% 10%;
+    grid-template-columns: 1fr 1fr 14px;
 }
 .logo-block {
     grid-row: 2;
     grid-column: 2;
     display: grid;
+    cursor: pointer;
 
     grid-template-columns: 8px 35px 8px 132px 8px;
 }

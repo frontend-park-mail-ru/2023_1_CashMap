@@ -20,11 +20,12 @@ export default class CreatePostView extends BaseView {
 	addPagesElements() {
 		super.addPagesElements();
 		this._text = document.getElementById('js-edit-post-textarea');
+		this._text.focus();
 
 		this._editBtn = document.getElementById('js-edit-post-btn');
 
 		var textarea = document.getElementsByTagName('textarea');
-		textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;overflow-y:hidden;');
+		textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;');
 		textarea[0].addEventListener("input", OnInput, false);
 		function OnInput() {
 			this.style.height = 'auto';

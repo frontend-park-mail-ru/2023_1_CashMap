@@ -29,6 +29,7 @@ export default class MessagesView {
 	_addPagesElements() {
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
@@ -62,6 +63,10 @@ export default class MessagesView {
 		this._newsItem.addEventListener('click', () => {
 			Router.go('/feed');
 		});
+
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
+        });
 
 		for (let i = 0; i < this._goToMsg.length; i++) {
 			this._goToMsg[i].addEventListener('click', () => {

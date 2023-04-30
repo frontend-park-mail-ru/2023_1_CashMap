@@ -5,7 +5,7 @@
 .post-profile {
     display: grid;
     position: relative;
-    grid-template-columns: 0 4.6% 1% 84.5% 7.8% 2.1% 0;
+    grid-template-columns: 0 35px 16px 1fr 26px 0;
     grid-template-rows: 10% 40% 8% 26% 16%;
 }
 .post-profile__avatar {
@@ -22,49 +22,52 @@
     grid-row: 4;
 }
 .post-profile__dots {
-    grid-column: 6;
+    grid-column: 5;
     grid-row: 1/6;
+    padding: 16px 10px;
+    top: -10px;
+    position: relative;
+    cursor: pointer;
 }
 .post-text {
-    white-space: pre-line;  /* ToDo: ультра мега гипер сверх гига не уверен в этом месте */
+    white-space: pre-line;
+    overflow: auto;
 }
 .post-media {
 
 }
 .post-buttons {
-    display: grid;
-    grid-template-columns: 0 6% 6% 6%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 .post-buttons__icon {
     margin: auto;
     cursor: pointer;
 }
 .post-buttons-like {
-    grid-column: 2;
-    display: grid;
-    grid-template-columns: 50% 50%;
+    display: flex;
+    gap: 6px;
 }
 .like__count {
     display: inline-grid;
     align-items: center;
-    text-align: center;
 }
 .post-buttons-comment {
-    grid-column: 3;
-    display: grid;
-    grid-template-columns: 50% 50%;
+    display: flex;
+    gap: 6px;
 }
 .comment__count {
     display: inline-grid;
     align-items: center;
-    text-align: center;
 }
 .post-buttons-bookmark {
-    grid-column: 4;
+    margin-top: 4px;
 }
+
 .post-menu {
     position: absolute;
-    margin-top: 10px;
+    margin-top: 16px;
     padding: 12px;
 
     display: none;
@@ -79,16 +82,27 @@
 .post-menu-item-edit {
     cursor: pointer;
     white-space: nowrap;
+    text-align: center;
+    padding: 8px;
 }
 .post-menu-item-delete {
     cursor: pointer;
     white-space: nowrap;
+    text-align: center;
+    padding: 8px;
 }
 
-.post-menu-size {
-    height: 50px;
-}
 .post-menu-position {
-    left: 85%;
     top: 20%;
+    right: 0;
+}
+
+.post-hover img:nth-child(2) {
+    display: none;
+}
+.post-hover:hover img:nth-child(1) {
+    display: none;
+}
+.post-hover:hover img:nth-child(2) {
+    display: inline-block;
 }
