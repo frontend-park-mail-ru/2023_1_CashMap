@@ -2,6 +2,7 @@ import messagesStore from "../stores/messagesStore.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "../stores/userStore.js";
 import Ajax from "./ajax.js";
+import chatView from "../views/chatView.js";
 
 /**
  * класс для работы с web сокетами
@@ -38,6 +39,7 @@ class WebSock {
 
             if (localStorage.getItem('chatId') === String(response.chat_id)) {
                 messagesStore.messages.push(response);
+                localStorage.setItem('curMsg', document.getElementById('js-msg-input').value);
             }
             messagesStore._refreshStore();
         };

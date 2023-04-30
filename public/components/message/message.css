@@ -22,8 +22,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    padding: 0px;
     gap: 8px;
+    grid-column: 3;
 }
 
 .message__block_flex-start {
@@ -31,10 +31,9 @@
 }
 
 .message__info {
-    display: flex;
     align-items: center;
-    padding: 0px;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: 50px 8px 1fr;
 }
 
 .message__text {

@@ -135,12 +135,10 @@ class userStore {
     async _signOut() {
         const request = await Ajax.signOut();
 
-        if (request.status === 200) {
-            this.user.isAuth = false;
+        this.user.isAuth = false;
 
-            if (localStorage.getItem('X-Csrf-Token')) {
-                localStorage.removeItem('X-Csrf-Token');
-            }
+        if (localStorage.getItem('X-Csrf-Token')) {
+            localStorage.removeItem('X-Csrf-Token');
         }
         this._refreshStore();
     }
