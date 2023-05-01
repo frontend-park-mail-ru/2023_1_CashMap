@@ -68,6 +68,10 @@ export default class FeedView extends BaseView {
 			Router.go('/friends', false);
 		});
 
+		this._groupsItem.addEventListener('click', () => {
+			Router.go('/groups', false);
+		});
+
 		this._myPageItem.addEventListener('click', () => {
 			Router.go('/myPage', false);
 		});
