@@ -21,6 +21,6 @@
 .menu-friends {
     grid-column: 3;
     grid-row: 1;
-    height: 138px;
+    height: min-content;
     padding: 16px;
 }
