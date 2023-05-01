@@ -36,6 +36,12 @@ class Ajax {
             sub: '/api/user/sub',
             unsub: '/api/user/unsub',
 
+            getGroups: '/api/user/groups',
+            getUserGroups: '/api/user/userGroups',
+            getNotGroups: '/api/user/rand',
+            getPopularGroups: '/api/user/popularGroups',
+            sub: '/api/group/sub',
+            unsub: '/api/group/unsub',
 
             chatCheck: '/api/im/chat/check',
             chatCreate: '/api/im/chat/create',
@@ -239,6 +245,40 @@ class Ajax {
     async reject(link) {
         let body = {user_link: link};
         return this._request(this._apiUrl.reject, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async getGroups(link, count, offset= 0) {
+        return this._request(this._apiUrl.getGroups + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async getUserGroups(link, count, offset = 0) {
+        return this._request(this._apiUrl.getUserGroups + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async getNotGroups(link, count, offset = 0) {
+        return this._request(this._apiUrl.getNotGroups + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async getPopularGroups(count, offset = 0) {
+        return this._request(this._apiUrl.getPopularGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    // async getNotFriends(link, count, offset= 0) {
+    //     return this._request(this._apiUrl.getNotFriends + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    // }
+
+    // async getUsers(count, offset= 0) {
+    //     return this._request(this._apiUrl.getUsers + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    // }
+
+    async sub(link) {
+        let body = {group_link: link};
+        return this._request(this._apiUrl.sub, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async unsub(link) {
+        let body = {group_link: link};
+        return this._request(this._apiUrl.unsub, this._requestType.POST, JSON.stringify({body}));
     }
 
     async getChats(count = 0, lastPostDate = 0) {
