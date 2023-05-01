@@ -1,0 +1,75 @@
+.groupItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: auto;
+    padding: 14px 20px;
+    background-color: var(--background-color-menu);
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+}
+
+.groupItem:hover .groupItem__name{
+    color: var(--font-color-post-sender);
+}
+
+.groupItem__avatar {
+    width: 80px;
+    height: 80px;
+}
+
+.groupItem__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 6px;
+}
+
+.groupItem__name {
+    color: var(--font-color-nav);
+    text-overflow: ellipsis;
+    font-weight: bolder;
+    font-family: MailSansRoman;
+    font-size: var(--font-size-19);
+}
+
+.groupItem__text {
+    color: var(--font-color-gray-text);
+    font-size: var(--font-size-15);
+    font-family: InterMedium;
+}
+
+.groupItem__info {
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    gap: 14px;
+}
+
+.groupItem__img {
+    display: flex;
+    padding: 16px 10px;
+    gap: 10px;
+    top: -10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.groupItem:has(.friend__button_grey:hover) .groupItem__name{
+    color: var(--font-color-nav);
+}
+
+.groupItem__img:hover + .friend-menu {
+    display: grid;
+}
+
+.groupItem:has(.groupItem__img:hover) .groupItem__name{
+    color: var(--font-color-nav);
+}
+
+.groupItem:has(.friend-menu:hover) .groupItem__name{
+    color: var(--font-color-nav);
+}
