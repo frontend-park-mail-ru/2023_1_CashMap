@@ -1,4 +1,5 @@
-export const activeColor = "#B95DD9"
+export const activeColor = '#B95DD9';
+export const groupAvatarDefault = 'static/img/post_icons/profile_image.svg';
 
 export const sideBarConst = {
     logoImgPath: 'static/img/logo.svg',
@@ -127,3 +128,9 @@ export const friendsMenuInfo = [
   {text: 'Подписчики', jsId: 'js-menu-subscribers'},
   {text: 'Подписки', jsId: 'js-menu-subscriptions'},
   {text: 'Поиск друзей', jsId: 'js-menu-find-friends'}]
+
+  export const groupsMenuInfo = [
+    {text: 'Мои сообщества', jsId: 'js-menu-groups'},
+    {text: 'Управление', jsId: 'js-menu-user-groups'},
+    {text: 'Поиск сообществ', jsId: 'js-menu-find-groups'},
+    {text: 'Популярные сообщества', jsId: 'js-menu-popular-groups'}]
