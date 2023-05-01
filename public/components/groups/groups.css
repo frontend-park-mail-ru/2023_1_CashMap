@@ -1,0 +1,26 @@
+.groups {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 25% 3.6% 55% 16.4%;
+    grid-template-rows: 32px 38px 32px 1fr 32px;
+}
+
+.groups__info {
+    display: grid;
+    grid-template-columns: 66% 8% 26%;
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.groups__nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-groups {
+    grid-column: 3;
+    grid-row: 1;
+    height: min-content;
+    padding: 16px;
+}
