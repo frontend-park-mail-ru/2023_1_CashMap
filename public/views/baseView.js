@@ -44,6 +44,8 @@ export default class BaseView {
         Handlebars.registerPartial('friend', Handlebars.templates.friend);
         Handlebars.registerPartial('friendNotFound', Handlebars.templates.friendNotFound);
         Handlebars.registerPartial('friends', Handlebars.templates.friends);
+        Handlebars.registerPartial('groupItem', Handlebars.templates.groupItem);
+        Handlebars.registerPartial('groups', Handlebars.templates.groups);
         Handlebars.registerPartial('header', Handlebars.templates.header);
         Handlebars.registerPartial('inputField', Handlebars.templates.inputField);
         Handlebars.registerPartial('inputSettings', Handlebars.templates.inputSettings);
@@ -107,6 +109,10 @@ export default class BaseView {
 
         this._friendsItem.addEventListener('click', () => {
             Router.go('/friends', false);
+        });
+
+        this._groupsItem.addEventListener('click', () => {
+            Router.go('/groups', false);
         });
     }
 

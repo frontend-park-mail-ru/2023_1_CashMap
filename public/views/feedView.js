@@ -64,6 +64,10 @@ export default class FeedView {
 			Router.go('/friends', false);
 		});
 
+		this._groupsItem.addEventListener('click', () => {
+			Router.go('/groups', false);
+		});
+
 		this._myPageItem.addEventListener('click', () => {
 			Router.go('/myPage', false);
 		});

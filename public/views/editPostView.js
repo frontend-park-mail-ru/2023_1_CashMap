@@ -85,6 +85,10 @@ export default class EditPostView {
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends', false);
 		});
+
+		this._groupsItem.addEventListener('click', () => {
+			Router.go('/groups', false);
+		});
 	}
 
 	remove() {
