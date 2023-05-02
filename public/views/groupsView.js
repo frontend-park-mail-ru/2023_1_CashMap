@@ -86,6 +86,12 @@ export default class GroupsView extends BaseView {
 		}
 
 		this._addGroupBtn.addEventListener('click', () => {
+			let privacy;
+			if (this._selectField.value == 'Открытая группа') {
+				privacy = 'open';
+			} else {
+				privacy = 'close';
+			}
 			actionGroup.createGroup({title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._checkboxField.checked});
 			alert('OK');
 			Router.go('/manageGroups', false);
