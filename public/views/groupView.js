@@ -83,6 +83,10 @@ export default class GroupView extends BaseView {
 			}
 		}
 
+		this._groupSettingsBtn.addEventListener('click', () => {
+			Router.go('/settingsGroup', false);
+		});
+
 	}
 
 	showPage(search) {

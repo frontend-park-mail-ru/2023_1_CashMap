@@ -82,7 +82,7 @@ export default class GroupView extends BaseView {
 	}
 
 	showPage() {
-		actionGroup.getGroup();
+		actionGroups.getGroup();
 	}
 
 	_preRender() {
