@@ -12,7 +12,7 @@
     grid-row: 4;
 
     display: grid;
-    grid-template-columns: 66% 8% 26%;
+    grid-template-columns: 66% 6% 28%;
     min-width: 390.5px;
 }
 
@@ -31,4 +31,19 @@
     align-items: flex-start;
     padding: 16px;
     gap: 10px;
+
+    margin-bottom: 16px;
+}
+
+.group__info_more {
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.group__info_more:hover {
+    background-color: var(--background-color-feed);
 }

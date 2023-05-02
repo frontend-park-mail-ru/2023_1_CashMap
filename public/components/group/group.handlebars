@@ -9,8 +9,26 @@
             {{> postArea postAreaData}}
         </div>
         <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
-            <p class="font-color-post-sender font-MailSansRoman font-size-16">Подробная информация</p>
+            <div class="font-color-post-sender font-MailSansRoman font-size-16">Подробная информация</div>
             <div class="group__info_text font-color-gray-text font-InterMedium font-size-13">{{goupData.info}}</div>
+        </div>
+
+        <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
+            <div class="font-color-post-sender font-MailSansRoman font-size-16">Подписчики</div>
+            {{#each goupData.subList}}
+                {{> subscriber this}}
+            {{/each}}
+            <div class="group__info_more border-radius-btn-input">
+                <div class="font-color-gray-text font-InterMedium font-size-15" id="js-show-subscribers">Показать всех</div>
+                <img src="static/img/show.svg" class="">
+            </div>
+        </div>
+
+        <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
+            <div class="font-color-post-sender font-MailSansRoman font-size-16">Контакты</div>
+            {{#each goupData.manageList}}
+                {{> subscriber this}}
+            {{/each}}
         </div>
     </div>
 </div>
