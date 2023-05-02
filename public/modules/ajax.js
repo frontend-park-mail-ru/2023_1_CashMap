@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.backendHostname = '127.0.0.1';
-        this.backendHostname = '95.163.212.121';
+        this.backendHostname = '127.0.0.1';
+        //this.backendHostname = '95.163.212.121';
         this.backendPort = '8080';
         this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
 
@@ -36,10 +36,11 @@ class Ajax {
             sub: '/api/user/sub',
             unsub: '/api/user/unsub',
 
-            getGroups: '/api/user/groups',
-            getUserGroups: '/api/user/userGroups',
-            getNotGroups: '/api/user/rand',
-            getPopularGroups: '/api/user/popularGroups',
+            getGroups: '/api/group/self',
+            getmanageGroups: '/api/group/manage',
+            getNotGroups: '/api/group/hot',
+            getPopularGroups: '/api/group/hot',
+            createGroup: '/api/group/create',
             sub: '/api/group/sub',
             unsub: '/api/group/unsub',
 
@@ -247,29 +248,34 @@ class Ajax {
         return this._request(this._apiUrl.reject, this._requestType.POST, JSON.stringify({body}));
     }
 
-    async getGroups(link, count, offset= 0) {
-        return this._request(this._apiUrl.getGroups + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    async getGroups(count, offset= 0) {
+        return this._request(this._apiUrl.getGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
-    async getUserGroups(link, count, offset = 0) {
-        return this._request(this._apiUrl.getUserGroups + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    async getmanageGroups(count, offset = 0) {
+        return this._request(this._apiUrl.getmanageGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
-    async getNotGroups(link, count, offset = 0) {
-        return this._request(this._apiUrl.getNotGroups + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    async getNotGroups(count, offset = 0) {
+        return this._request(this._apiUrl.getNotGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
     async getPopularGroups(count, offset = 0) {
         return this._request(this._apiUrl.getPopularGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
-    // async getNotFriends(link, count, offset= 0) {
-    //     return this._request(this._apiUrl.getNotFriends + `?limit=${count}&offset=${offset}`, this._requestType.GET);
-    // }
-
-    // async getUsers(count, offset= 0) {
-    //     return this._request(this._apiUrl.getUsers + `?limit=${count}&offset=${offset}`, this._requestType.GET);
-    // }
+    /**
+     * метод, отправляющий запрос на создание группы
+     * @param {String} title - название группы
+     * @param {String} info - информация о группе
+     * @param {String} privacy - приватность
+     * @param {Boolean} hideOwner - показывать ли создателя группы
+     * @returns {Object} - тело ответа
+     */
+    async createGroup(title, info, privacy, hideOwner) {
+        let body = {title: title, group_info: info, privacy: privacy, hide_owner: hideOwner};
+        return this._request(this._apiUrl.createGroup, this._requestType.POST, JSON.stringify({body}));
+    }
 
     async sub(link) {
         let body = {group_link: link};

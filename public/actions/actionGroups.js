@@ -6,42 +6,36 @@ import Dispatcher from "../dispatcher/dispatcher.js";
 export const actionGroups = {
     /**
      * action для получения списка групп по ссылке пользователя
-     * @param {*} link - ссылка пользователя
      * @param {*} count - количество возвращаемых групп
      * @param {*} offset - смещение
      */
-    getGroups(link, count, offset) {
+    getGroups(count, offset) {
         Dispatcher.dispatch({
             actionName: 'getGroups',
-            link,
             count,
             offset,
         });
     },
     /**
      * action для получения списка групп, созданных пользователем
-     * @param {*} link - ссылка пользователя
      * @param {*} count - количество возвращаемых групп
      * @param {*} offset - смещение
      */
-    getUserGroups(link, count, offset) {
+    getmanageGroups(count, offset) {
         Dispatcher.dispatch({
-            actionName: 'getUserGroups',
-            link,
+            actionName: 'getmanageGroups',
             count,
             offset,
         });
     },
     /**
      * action для получения списка групп, на которые не подписан пользователь
-     * @param {*} link - ссылка пользователя
      * @param {*} count - количество возвращаемых групп
      * @param {*} offset - смещение
      */
-    getNotGroups(link, count, offset) {
+    getNotGroups(count, offset) {
         Dispatcher.dispatch({
             actionName: 'getNotGroups',
-            link,
             count,
             offset,
         });

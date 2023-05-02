@@ -2,8 +2,7 @@ import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {groupAvatarDefault} from "../static/htmlConst.js";
-import userStore from "./userStore.js";
-//import {actionGroups} from "../actions/actionGroups.js";
+import {actionGroups} from "../actions/actionGroups.js";
 
 /**
  * класс, хранящий информацию о группах
@@ -17,7 +16,7 @@ class groupsStore {
         this._callbacks = [];
 
         this.groups = [];
-        this.userGroups = [];
+        this.manageGroups = [];
         this.findGroups = [];
         this.popularGroups = [];
 
@@ -50,13 +49,13 @@ class groupsStore {
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'getGroups':
-                await this._getGroups(action.link, action.count, action.offset);
+                await this._getGroups(action.count, action.offset);
                 break;
-            case 'getUserGroups':
-                await this._getUserGroups(action.link, action.count, action.offset);
+            case 'getmanageGroups':
+                await this._getmanageGroups(action.count, action.offset);
                 break;
             case 'getNotGroups':
-                await this._getNotGroups(action.link, action.count, action.offset);
+                await this._getNotGroups(action.count, action.offset);
                 break;
             case 'getPopularGroups':
                 await this._getPopularGroups(action.count, action.offset);
@@ -77,12 +76,11 @@ class groupsStore {
 
     /**
      * Метод, реализующий реакцию на получение списка групп
-     * @param {String} link - ссылка пользователя
      * @param {Number} count - количество получаемых групп
      * @param {Number} offset - смещение
      */
-    async _getGroups(link, count, offset) {
-        const request = await Ajax.getGroups(link, count, offset);
+    async _getGroups(count, offset) {
+        const request = await Ajax.getGroups(count, offset);
         const response = await request.json();
 
         if (request.status === 200) {
@@ -105,12 +103,11 @@ class groupsStore {
 
     /**
      * Метод, реализующий реакцию на получение групп, созданных пользователем
-     * @param {String} link - ссылка пользователя
      * @param {Number} count - количество получаемых групп
      * @param {Number} offset - смещение
      */
-    async _getUserGroups(link, count, offset) {
-        const request = await Ajax.getUserGroups(link, count, offset);
+    async _getmanageGroups(count, offset) {
+        const request = await Ajax.getmanageGroups(count, offset);
         const response = await request.json();
 
         if (request.status === 200) {
@@ -121,7 +118,7 @@ class groupsStore {
                 }
             });
 
-            this.userGroups = response.body.groups;
+            this.manageGroups = response.body.groups;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -133,12 +130,11 @@ class groupsStore {
 
     /**
      * Метод, реализующий реакцию на получение групп, на которые не подписан пользователь
-     * @param {String} link - ссылка пользователя
      * @param {Number} count - количество получаемых групп
      * @param {Number} offset - смещение
      */
-    async _getNotGroups(link, count, offset) {
-        const request = await Ajax.getNotGroups(link, count, offset);
+    async _getNotGroups(count, offset) {
+        const request = await Ajax.getNotGroups(count, offset);
         const response = await request.json();
 
         if (request.status === 200) {
