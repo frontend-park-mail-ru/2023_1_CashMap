@@ -180,13 +180,10 @@ export default class ProfileView extends BaseView {
 	showPage(search) {
 		if (search.link) {
 			this._userLink = search.link;
+			actionUser.getProfile(() => { actionPost.getPostsByUser(this._userLink, 15); }, this._userLink);
 		} else {
-			this._userLink = userStore.user.user_link;
+			actionUser.getProfile(() => { this._userLink = userStore.user.user_link; Router.go('/user?link=' + userStore.user.user_link, true); });
 		}
-
-		actionUser.getProfile(() => {
-			actionPost.getPostsByUser(this._userLink, 15);
-			}, this._userLink);
 	}
 
 	updatePage() {

@@ -106,13 +106,11 @@ class postsStore {
                         const date = new Date(post.creation_date);
                         post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                     }
-                    post.avatar_url = userStore.user.avatar_url;
+                    post.avatar_url = userStore.userProfile.avatar_url;
 
                     this.posts.push(post);
                 });
             }
-            console.log("psots::")
-            console.log(response.body.posts)
             this.posts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
