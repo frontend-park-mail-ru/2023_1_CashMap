@@ -154,3 +154,26 @@ export const NewGroupConst = {
   buttonInfo: { text: 'Создать сообщество',
       jsId: 'js-add-group-btn'},
 }
+
+export const deleteGroupConst = {
+  buttonInfo: { text: 'Да',
+    jsId: 'js-group-delete-btn'}
+}
+
+export const settingsGroupConst = {
+  avatar: "static/img/post_icons/group_image.svg",
+  inputInfo: 
+  { help: 'Название',
+    data: '',
+    type: 'text',
+    jsIdInput: 'js-title-input',
+    jsIdError: 'js-title-error'},
+  info: '',
+  type: '',
+  showAuthor: '',
+  buttonInfo: { text: 'Сохранить',
+      jsId: 'js-settings-save-btn'},
+  menuInfo: [
+      {text: 'Основные', jsId: 'js-menu-main'},
+      {text: 'Безопасность', jsId: 'js-menu-safety'}]
+}
