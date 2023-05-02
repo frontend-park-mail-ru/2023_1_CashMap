@@ -31,7 +31,7 @@
 }
 .post-text {
     white-space: pre-line;
-    /*overflow: scroll;*/
+    overflow: auto;
 }
 .post-media {
 
@@ -40,10 +40,6 @@
     display: flex;
     align-items: center;
     gap: 16px;
-}
-.post-buttons__icon {
-    margin: auto;
-    cursor: pointer;
 }
 .post-buttons-like {
     display: flex;

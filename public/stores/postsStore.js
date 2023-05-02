@@ -65,6 +65,12 @@ class postsStore {
             case 'editPost':
                 await this._editPost(action.text, action.postId);
                 break;
+            case 'likePost':
+                await this._likePost(action.postId);
+                break;
+            case 'dislikePost':
+                await this._dislikePost(action.postId);
+                break;
             default:
                 return;
         }
@@ -81,6 +87,7 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
+
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
                     post.isMyPost = true;
@@ -124,9 +131,6 @@ class postsStore {
                     post.isMyPost = false;
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
-                    }
-                    if (!post.comments) {
-                        post.comments_count = 0;
                     }
                     if (post.creation_date) {
                         const date = new Date(post.creation_date);
@@ -209,6 +213,7 @@ class postsStore {
      * @param {Number} postId - id поста
      */
     async _deletePost(postId) {
+        alert(postId)
         const request = await Ajax.deletePost(postId);
 
         if (request.status === 200) {
@@ -254,6 +259,85 @@ class postsStore {
             actionUser.signOut();
         } else {
             alert('editPost error');
+        }
+
+        this._refreshStore();
+    }
+    /**
+     * Метод, реализующий лайк поста
+     * @param {Number} postId - id поста
+     */
+    async _likePost(postId) {
+        const request = await Ajax.likePost(postId);
+
+        if (request.status === 200) {
+            const response = await request.json();
+            let index = -1;
+            for (let i = 0; i < this.posts.length; i++) {
+                if (this.posts[i].id === Number(postId)) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                this.posts[index].is_liked = true;
+                this.posts[index].likes_amount = response.body.likes_amount;
+            }
+
+            index = -1;
+            for (let i = 0; i < this.friendsPosts.length; i++) {
+                if (this.friendsPosts[i].id === Number(postId)) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                this.friendsPosts[index].is_liked = true;
+                this.friendsPosts[index].likes_amount = response.body.likes_amount;
+            }
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('likePost error');
+        }
+
+        this._refreshStore();
+    }
+    /**
+     * Метод, реализующий дизлайк поста
+     * @param {Number} postId - id поста
+     */
+    async _dislikePost(postId) {
+        const request = await Ajax.dislikePost(postId);
+
+        if (request.status === 200) {
+            let index = -1;
+            for (let i = 0; i < this.posts.length; i++) {
+                if (this.posts[i].id === Number(postId)) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                this.posts[index].is_liked = false;
+                this.posts[index].likes_amount --;
+            }
+
+            index = -1;
+            for (let i = 0; i < this.friendsPosts.length; i++) {
+                if (this.friendsPosts[i].id === Number(postId)) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                this.friendsPosts[index].is_liked = false;
+                this.friendsPosts[index].likes_amount --;
+            }
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('dislikePost error');
         }
 
         this._refreshStore();
