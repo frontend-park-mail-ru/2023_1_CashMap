@@ -27,6 +27,8 @@ class Ajax {
             createPost: '/api/posts/create',
             deletePost: '/api/posts/delete',
             editPost: '/api/posts/edit',
+            likePost: '/api/posts/like/set',
+            dislikePost: '/api/posts/like/cancel',
 
             getFriends: '/api/user/friends',
             getNotFriends: '/api/user/rand',
@@ -69,7 +71,7 @@ class Ajax {
 
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
-        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create') {
+        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === this._apiUrl.likePost || apiUrlType === this._apiUrl.dislikePost) {
             a['Content-Type'] = 'application/json';
         }
 
@@ -286,6 +288,16 @@ class Ajax {
     async getGlobalSearchResult(searchText, count, offset) {
         let request_url = this._apiUrl.userSearch + `?search_query=${searchText}&batch_size=${count}&offset=${offset}`
         return this._request(request_url, this._requestType.GET);
+    }
+
+    async likePost(id) {
+        let body = {post_id: id};
+        return this._request(this._apiUrl.likePost, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async dislikePost(id) {
+        let body = {post_id: id};
+        return this._request(this._apiUrl.dislikePost, this._requestType.POST, JSON.stringify({body}));
     }
 }
 
