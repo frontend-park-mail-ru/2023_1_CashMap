@@ -45,6 +45,7 @@ export default class BaseView {
         Handlebars.registerPartial('friendNotFound', Handlebars.templates.friendNotFound);
         Handlebars.registerPartial('friends', Handlebars.templates.friends);
         Handlebars.registerPartial('groupItem', Handlebars.templates.groupItem);
+        Handlebars.registerPartial('newGroup', Handlebars.templates.newGroup);
         Handlebars.registerPartial('groups', Handlebars.templates.groups);
         Handlebars.registerPartial('header', Handlebars.templates.header);
         Handlebars.registerPartial('inputField', Handlebars.templates.inputField);

@@ -4,6 +4,7 @@ import SignUpView from "./views/signUpView.js";
 import FeedView from "./views/feedView.js";
 import FriendsView from "./views/friendsView.js";
 import GroupsView from "./views/groupsView.js";
+import GroupView from "./views/groupView.js";
 import ProfileView from "./views/profileView.js";
 import {actionUser} from "./actions/actionUser.js";
 import EditPostView from "./views/editPostView.js";
@@ -22,6 +23,7 @@ const Views = {
     SignUpView: new SignUpView(),
     FriendsView: new FriendsView(),
     GroupsView: new GroupsView(),
+    GroupView: new GroupView(),
     ProfileView: new ProfileView(),
     EditPostView: new EditPostView(),
     CreatePostView: new CreatePostView(),
@@ -37,10 +39,14 @@ Router.registerPage('/feed', Views.FeedView);
 Router.registerPage('/signIn', Views.SignInView);
 Router.registerPage('/signUp', Views.SignUpView);
 Router.registerPage('/friends', Views.FriendsView);
-Router.registerPage('/groups', Views.GroupsView);
 Router.registerPage('/subscribers', Views.FriendsView);
 Router.registerPage('/subscriptions', Views.FriendsView);
 Router.registerPage('/findFriends', Views.FriendsView);
+Router.registerPage('/group', Views.GroupView);
+Router.registerPage('/groups', Views.GroupsView);
+Router.registerPage('/manageGroups', Views.GroupsView);
+Router.registerPage('/findGroups', Views.GroupsView);
+Router.registerPage('/popularGroups', Views.GroupsView);
 Router.registerPage('/myPage', Views.ProfileView);
 Router.registerPage('/user', Views.ProfileView);
 Router.registerPage('/editPost', Views.EditPostView);

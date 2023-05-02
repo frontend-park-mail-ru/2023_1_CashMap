@@ -53,21 +53,6 @@ export default class FriendsView extends BaseView {
 				break;
 		}
 
-		switch (window.location.pathname) {
-			case '/friends':
-				this._friendsBtn.style.color = activeColor;
-				break;
-			case '/subscribers':
-				this._subscribersBtn.style.color = activeColor;
-				break;
-			case '/subscriptions':
-				this._subscriptionsBtn.style.color = activeColor;
-				break;
-			case '/findFriends':
-				this._findFriendsBtn.style.color = activeColor;
-				break;
-		}
-
 		this._feedBtn = document.getElementById('js-logo-go-feed');
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
