@@ -19,14 +19,7 @@ class groupsStore {
         this.findGroups = [];
         this.popularGroups = [];
 
-        this.curGroup = {
-            group_link: null, //
-            title: null,
-            info: null,
-            avatar: null,
-            privacy: null,
-            hideOwner: null,
-        };
+        this.curGroup = {};
 
         Dispatcher.register(this._fromDispatch.bind(this));
     }
@@ -204,6 +197,9 @@ class groupsStore {
         if (request.status === 200) {
             console.log(response.body);
             this.curGroup = response.body.group_info;
+            if (!this.curGroup.avatar) {
+                this.curGroup.avatar = groupAvatarDefault;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -250,6 +246,7 @@ class groupsStore {
             if (data.avatar) {
                 this.curGroup.avatar = data.avatar;
             }
+            this.curGroup.link = data.link;
             this.curGroup.title = data.title;
             this.curGroup.info = data.info;
             this.curGroup.privacy = data.privacy;
