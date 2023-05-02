@@ -1,11 +1,11 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, groupsConst, NewGroupConst, activeColor, groupAvatarDefault} from "../static/htmlConst.js";
-import {actionUser} from "../actions/actionUser.js";
-import {actionGroup} from "../actions/actionGroup.js";
+import { sideBarConst, headerConst, maxTextStrings, maxTextLength } from "../static/htmlConst.js";
 import {actionPost} from "../actions/actionPost.js";
-import groupStore from "../stores/groupStore.js";
 import BaseView from "./baseView.js";
+import postsStore from "../stores/postsStore.js";
+import { actionGroups } from "../actions/actionGroups.js";
+import groupsStore from "../stores/groupsStore.js";
 
 export default class GroupView extends BaseView {
 	constructor() {
@@ -18,7 +18,7 @@ export default class GroupView extends BaseView {
 	 * @private метод, отправляющий callback, которые вызываются при изменении определенных Store.
 	 */
 	addStore() {
-		groupStore.registerCallback(this.updatePage.bind(this));
+		groupsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
@@ -79,29 +79,31 @@ export default class GroupView extends BaseView {
 				});
 			}
 		}
-		
+
 	}
 
 	showPage(search) {
 		if (search.link) {
 			this._groupLink = search.link;
-			actionGroup.getGroup(() => { actionPost.getPostsByCommunity(this._groupLink, 15); }, this._groupLink);
+			alert(this._groupLink);
+			actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, 15); }, this._groupLink);
 		} else {
-			Router.go('/404', false);
+			Router.go('/groups', false);
 		}
 	}
 
 	_preRender() {
-		this._template = Handlebars.templates.group;
+		this._template = Handlebars.templates.groups;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
 
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			
-			groupData: groupStore.group,
-			postAreaData: {createPostData: {avatar: groupStore.group.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
+
+			groupData: groupsStore.curGroup,
+			subData: groupsStore.subByGroup,
+			postAreaData: {createPostData: {avatar: groupsStore.curGroup.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
 		}
 	}
 }

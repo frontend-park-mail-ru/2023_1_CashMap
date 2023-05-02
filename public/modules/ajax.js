@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        this.backendHostname = '127.0.0.1';
-        //this.backendHostname = '95.163.212.121';
+        //this.backendHostname = '127.0.0.1';
+        this.backendHostname = '95.163.212.121';
         this.backendPort = '8080';
         this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
 
@@ -37,12 +37,13 @@ class Ajax {
             unsub: '/api/user/unsub',
 
             getGroups: '/api/group/self',
-            getmanageGroups: '/api/group/manage',
+            getGroupInfo: '/api/group/link/',
+            editGroup: '/api/group/link/',
+            deleteGroup: '/api/group/link/',
+            getManageGroups: '/api/group/manage',
             getNotGroups: '/api/group/hot',
             getPopularGroups: '/api/group/hot',
             createGroup: '/api/group/create',
-            sub: '/api/group/sub',
-            unsub: '/api/group/unsub',
 
             chatCheck: '/api/im/chat/check',
             chatCreate: '/api/im/chat/create',
@@ -172,6 +173,21 @@ class Ajax {
     }
 
     /**
+     * метод, отправляющий запрос на получение постов
+     * @param {String} userLink - ссылка на пользователя
+     * @param {Number} count - количество постов для получения
+     * @param {Date} lastPostDate - дата, после которой выбираются посты
+     * @returns {Object} - тело ответа
+     */
+    async getPostsByCommunity(userLink, count, lastPostDate) {
+        if (lastPostDate) {
+            return this._request(this._apiUrl.communityPosts + `?community_link=${userLink}&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
+        } else {
+            return this._request(this._apiUrl.communityPosts + `?community_link=${userLink}&batch_size=${count}`, this._requestType.GET);
+        }
+    }
+
+    /**
      * метод, отправляющий запрос на получение постов друзей
      * @param {Number} count - количество постов для получения
      * @param {Date} lastPostDate - дата, после которой выбираются посты
@@ -252,8 +268,21 @@ class Ajax {
         return this._request(this._apiUrl.getGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
+    async getGroupInfo(link) {
+        return this._request(this._apiUrl.getGroupInfo + link, this._requestType.GET);
+    }
+
+    async editGroup(link, title, info, avatar, privacy, hideOwner) {
+        let body = {title: title, group_info: info, avatar: avatar, privacy: privacy, hide_owner: hideOwner};
+        return this._request(this._apiUrl.editGroup + link, this._requestType.PATCH, JSON.stringify({body}));
+    }
+
+    async deleteGroup(link) {
+        return this._request(this._apiUrl.deleteGroup + link, this._requestType.PATCH);
+    }
+
     async getmanageGroups(count, offset = 0) {
-        return this._request(this._apiUrl.getmanageGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+        return this._request(this._apiUrl.getManageGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
     async getNotGroups(count, offset = 0) {

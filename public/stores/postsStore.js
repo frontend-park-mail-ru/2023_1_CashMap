@@ -56,6 +56,9 @@ class postsStore {
             case 'getPostById':
                 await this._getPostsById(action.id, action.count, action.lastPostDate);
                 break;
+            case 'getPostsByCommunity':
+                await this._getPostsByCommunity(action.community_link, action.count, action.lastPostDate);
+                break;
             case 'createPost':
                 await this._createPost(action.data);
                 break;
@@ -163,6 +166,24 @@ class postsStore {
             actionUser.signOut();
         } else {
             alert('getPostById error');
+        }
+
+        this._refreshStore();
+    }
+
+    async _getPostsByCommunity(community_link, count, lastPostDate) {
+        const request = await Ajax.getPostsByCommunity(community_link, count, lastPostDate);
+
+        if (request.status === 200) {
+            const response = await request.json();
+
+            console.log(response.body);
+
+            this.posts = response.body;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('getPostsByCommunity error');
         }
 
         this._refreshStore();

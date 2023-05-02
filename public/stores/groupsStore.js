@@ -2,7 +2,6 @@ import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {groupAvatarDefault} from "../static/htmlConst.js";
-import {actionGroups} from "../actions/actionGroups.js";
 
 /**
  * класс, хранящий информацию о группах
@@ -10,7 +9,7 @@ import {actionGroups} from "../actions/actionGroups.js";
 class groupsStore {
     /**
      * @constructor
-     * конструктор класса 
+     * конструктор класса
      */
     constructor() {
         this._callbacks = [];
@@ -19,6 +18,15 @@ class groupsStore {
         this.manageGroups = [];
         this.findGroups = [];
         this.popularGroups = [];
+
+        this.curGroup = {
+            group_link: null, //
+            title: null,
+            info: null,
+            avatar: null,
+            privacy: null,
+            hideOwner: null,
+        };
 
         Dispatcher.register(this._fromDispatch.bind(this));
     }
@@ -51,8 +59,8 @@ class groupsStore {
             case 'getGroups':
                 await this._getGroups(action.count, action.offset);
                 break;
-            case 'getmanageGroups':
-                await this._getmanageGroups(action.count, action.offset);
+            case 'getManageGroups':
+                await this._getManageGroups(action.count, action.offset);
                 break;
             case 'getNotGroups':
                 await this._getNotGroups(action.count, action.offset);
@@ -60,14 +68,17 @@ class groupsStore {
             case 'getPopularGroups':
                 await this._getPopularGroups(action.count, action.offset);
                 break;
-            case 'sub':
-                await this._sub(action.link);
+            case 'getGroupInfo':
+                await this._getGroupInfo(action.callback, action.link);
                 break;
-            case 'unsub':
-                await this._unsub(action.link);
+            case 'createGroup':
+                await this._createGroup(action.data);
                 break;
-            case 'reject':
-                await this._reject(action.link);
+            case 'editGroup':
+                await this._editGroup(action.data);
+                break;
+            case 'deleteGroup':
+                await this._deleteGroup(action.data);
                 break;
             default:
                 return;
@@ -106,7 +117,7 @@ class groupsStore {
      * @param {Number} count - количество получаемых групп
      * @param {Number} offset - смещение
      */
-    async _getmanageGroups(count, offset) {
+    async _getManageGroups(count, offset) {
         const request = await Ajax.getmanageGroups(count, offset);
         const response = await request.json();
 
@@ -182,65 +193,87 @@ class groupsStore {
         this._refreshStore();
     }
 
-    // /**
-    //  * Метод, реализующий реакцию на подписку
-    //  * @param {String} link - ссылка на пользователя
-    //  */
-    // async _sub(link) {
-    //     const request = await Ajax.sub(link);
+    /**
+     * Метод, реализующий получение информации о группе
+     * @param {Object} link - данные группы
+     */
+    async _getGroupInfo(callback, link) {
+        const request = await Ajax.getGroupInfo(link);
+        const response = await request.json();
 
-    //     if (request.status === 200) {
-    //         actionFriends.getFriends(userStore.user.user_link, 15, 0);
-    //         actionFriends.getNotFriends(15, 0);
-    //         actionFriends.getSubscribers(userStore.user.user_link, 15);
-    //         actionFriends.getSubscriptions(userStore.user.user_link, 15);
-    //     } else if (request.status === 401) {
-    //         actionUser.signOut();
-    //     } else {
-    //         alert('error');
-    //     }
+        if (request.status === 200) {
+            this.curGroup = response.body.group;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('getGroup error');
+        }
 
-    //     this._refreshStore();
-    // }
+        if (callback) {
+            callback();
+        }
+    }
 
-    // /**
-    //  * Метод, реализующий реакцию на отмену подписки
-    //  * @param {String} link - ссылка на пользователя
-    //  */
-    // async _unsub(link) {
-    //     const request = await Ajax.unsub(link);
+    /**
+     * Метод, реализующий реакцию на создание группы
+     * @param {Object} data - данные группы
+     */
+    async _createGroup(data) {
+        const request = await Ajax.createGroup(data.title, data.info, data.privacy, data.hideOwner);
 
-    //     if (request.status === 200) {
-    //         actionFriends.getFriends(userStore.user.user_link, 15, 0);
-    //         actionFriends.getNotFriends(15, 0);
-    //         actionFriends.getSubscribers(userStore.user.user_link, 15);
-    //         actionFriends.getSubscriptions(userStore.user.user_link, 15);
-    //     } else if (request.status === 401) {
-    //         actionUser.signOut();
-    //     } else {
-    //         alert('error');
-    //     }
+        if (request.status === 200) {
+            const group = {};
 
-    //     this._refreshStore();
-    // }
+            group.title = data.title;
+            group.info = data.info;
+            group.privacy = data.privacy;
+            group.hideOwner = data.hideOwner;
 
-    // /**
-    //  * Метод, реализующий реакцию на отмену заявки
-    //  * @param {String} link - ссылка на пользователя
-    //  */
-    // async _reject(link) {
-    //     const request = await Ajax.reject(link);
+            this.groups.push(group);
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('createGroup error');
+        }
 
-    //     if (request.status === 200) {
-    //         //ToDo: добавить в локальную шляпу
-    //     } else if (request.status === 401) {
-    //         actionUser.signOut();
-    //     } else {
-    //         alert('error');
-    //     }
+        this._refreshStore();
+    }
+    /**
+     * Метод, реализующий реакцию на изменение информации о группе
+     * @param {Object} data - данные группы
+     */
+    async _editGroup(data) {
+        const request = await Ajax.editGroup(data.link, data.title, data.info, data.avatar, data.privacy, data.hideOwner);
+        if (request.status === 200) {
 
-    //     this._refreshStore();
-    // }
+            if (data.avatar) {
+                this.curGroup.avatar = data.avatar;
+            }
+            this.curGroup.title = data.title;
+            this.curGroup.info = data.info;
+            this.curGroup.privacy = data.privacy;
+            this.curGroup.hideOwner = data.hideOwner;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('editGroup error');
+        }
+
+        this._refreshStore();
+    }
+
+    async _deleteGroup(data) {
+        const request = await Ajax.deleteGroup(data.link);
+        if (request.status === 200) {
+
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('editGroup error');
+        }
+
+        this._refreshStore();
+    }
 }
 
 export default new groupsStore();

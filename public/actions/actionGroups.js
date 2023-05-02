@@ -1,7 +1,7 @@
 import Dispatcher from "../dispatcher/dispatcher.js";
 
 /**
- * action-ы для работы с группами 
+ * action-ы для работы с группами
  */
 export const actionGroups = {
     /**
@@ -23,7 +23,7 @@ export const actionGroups = {
      */
     getmanageGroups(count, offset) {
         Dispatcher.dispatch({
-            actionName: 'getmanageGroups',
+            actionName: 'getManageGroups',
             count,
             offset,
         });
@@ -70,6 +70,43 @@ export const actionGroups = {
         Dispatcher.dispatch({
             actionName: 'unsub',
             link,
+        });
+    },
+    getGroupInfo(callback, link) {
+        Dispatcher.dispatch({
+            actionName: 'getGroupInfo',
+            callback,
+            link,
+        });
+    },
+    /**
+     * action, который используется, чтобы создать группу
+     * @param {*} data - данные группы
+     */
+    createGroup(data) {
+        Dispatcher.dispatch({
+            actionName: 'createGroup',
+            data,
+        });
+    },
+    /**
+     * action для редактирования группы в системе
+     * @param {*} data - данные группы
+     */
+    editGroup(data) {
+        Dispatcher.dispatch({
+            actionName: 'editGroup',
+            data,
+        });
+    },
+    /**
+     * action для удвления группы
+     * @param {*} data - данные группы
+     */
+    deleteGroup(data) {
+        Dispatcher.dispatch({
+            actionName: 'deleteGroup',
+            data,
         });
     },
 };

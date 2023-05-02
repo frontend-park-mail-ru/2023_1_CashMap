@@ -1,11 +1,9 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, groupsConst, NewGroupConst, activeColor, groupAvatarDefault} from "../static/htmlConst.js";
+import {sideBarConst, headerConst, groupsConst, NewGroupConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionGroups} from "../actions/actionGroups.js";
-import {actionGroup} from "../actions/actionGroup.js";
 import groupsStore from "../stores/groupsStore.js";
-import groupStore from "../stores/groupStore.js";
 import BaseView from "./baseView.js";
 
 export default class GroupsView extends BaseView {
@@ -19,7 +17,6 @@ export default class GroupsView extends BaseView {
 	 */
 	addStore() {
 		groupsStore.registerCallback(this.updatePage.bind(this));
-		groupStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
@@ -29,7 +26,7 @@ export default class GroupsView extends BaseView {
 		this._manageGroupsBtn = document.getElementById('js-menu-manage-groups');
 		this._findGroupsBtn = document.getElementById('js-menu-find-groups');
 		this._popularGroupsBtn = document.getElementById('js-menu-popular-groups');
-		
+
 		switch (window.location.pathname) {
 			case '/groups':
 				this._groupsBtn.style.color = activeColor;
@@ -52,13 +49,13 @@ export default class GroupsView extends BaseView {
 		this._selectField = document.getElementById('js-select');
 		this._checkboxField = document.getElementById('js-group-checkbox');
 		this._addGroupBtn = document.getElementById('js-add-group-btn');
-		this._goToGroup = document.getElementsByClassName('groupItem-menu-item-page');
+		this._goToGroup = document.getElementsByClassName('groupItem');
 		this._unsubGroup = document.getElementsByClassName('groupItem-menu-item-delete');
 	}
 
 	addPagesListener() {
 		super.addPagesListener();
-		
+
 		this._groupsBtn.addEventListener('click', () => {
 			Router.go('/groups', false);
 		});
@@ -78,13 +75,6 @@ export default class GroupsView extends BaseView {
 			Router.go('/popularGroups', false);
 		});
 
-		for (let i = 0; i < this._goToGroup.length; i++) {
-			this._goToGroup[i].addEventListener('click', () => {
-				const groupId = this._goToGroup[i].getAttribute("data-id");
-				Router.go('/group?link=' + groupId, false);
-			});
-		}
-
 		this._addGroupBtn.addEventListener('click', () => {
 			let privacy;
 			if (this._selectField.value == 'Открытая группа') {
@@ -92,13 +82,20 @@ export default class GroupsView extends BaseView {
 			} else {
 				privacy = 'close';
 			}
-			actionGroup.createGroup({title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._checkboxField.checked});
+			actionGroups.createGroup({title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._checkboxField.checked});
 			alert('OK');
 			Router.go('/manageGroups', false);
 		});
+
+		for (let i = 0; i < this._goToGroup.length; i++) {
+			this._goToGroup[i].addEventListener('click', () => {
+				const groupId = this._goToGroup[i].getAttribute("data-id");
+				Router.go('/group?link=' + groupId, false);
+			});
+		}
 	}
 
-    showPage() {
+	showPage() {
 		actionUser.getProfile(() => {
 			actionGroups.getGroups(15, 0);
 			actionGroups.getmanageGroups(15, 0);
@@ -112,7 +109,7 @@ export default class GroupsView extends BaseView {
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
 
-        let res;
+		let res;
 		let info;
 		switch (window.location.pathname) {
 			case '/groups':
@@ -126,43 +123,16 @@ export default class GroupsView extends BaseView {
 			case '/findGroups':
 				//res = groupsStore.findGroups;
 				res = groupsStore.manageGroups;
-                info = 'Сообщества не найдены';
+				info = 'Сообщества не найдены';
 				break;
 			case '/popularGroups':
 				//res = groupsStore.popularGroups;
 				res = groupsStore.manageGroups;
-                info = 'Сообщества не найдены';
+				info = 'Сообщества не найдены';
 				break;
 		}
-        let friendsData = [{
-            group_link: 1,
-            avatar: 'static/img/post_icons/profile_image.svg',
-            name: 'Карина',
-            subscribers: 123,
-            isGroup: true
-        },
-        {
-            group_link: 2,
-            avatar: 'static/img/post_icons/profile_image.svg',
-            name: 'Карина',
-            subscribers: 123,
-            isNotGroup: true
-        },
-        {
-            group_link: 3,
-            avatar: 'static/img/post_icons/profile_image.svg',
-            name: 'Карина',
-            subscribers: 123,
-            isGroup: true
-        },
-        {
-            group_link: 4,
-            avatar: 'static/img/post_icons/profile_image.svg',
-            name: 'Карина',
-            subscribers: 123,
-            isGroup: true
-        },
-    ]
+
+		console.log(res);
 
 		this._context = {
 			sideBarData: sideBarConst,
@@ -172,8 +142,8 @@ export default class GroupsView extends BaseView {
 			textInfo: {
 				textInfo: info,
 			},
-            groupsPathData: groupsConst,
-            newGroupData: NewGroupConst,
+			groupsPathData: groupsConst,
+			newGroupData: NewGroupConst,
 		}
 	}
 }
