@@ -64,6 +64,7 @@ export default class BaseView {
         Handlebars.registerPartial('search', Handlebars.templates.search);
         Handlebars.registerPartial('settings', Handlebars.templates.settings);
         Handlebars.registerPartial('settingsPath', Handlebars.templates.settingsPath);
+        Handlebars.registerPartial('settingsPathGroup', Handlebars.templates.settingsPathGroup);
         Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar);
         Handlebars.registerPartial('signIn', Handlebars.templates.signIn);
         Handlebars.registerPartial('signUp', Handlebars.templates.signUp);

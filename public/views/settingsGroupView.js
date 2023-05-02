@@ -11,6 +11,7 @@ export default class GroupView extends BaseView {
 		super();
 		this._jsId = 'settingsGroup';
 
+		this._groupLink = null;
 		this._validateTitle = true;
 		this._validateInfo = true;
 		groupsStore.registerCallback(this.updatePage.bind(this));
@@ -81,8 +82,13 @@ export default class GroupView extends BaseView {
 		
 	}
 
-	showPage() {
-		actionGroups.getGroup();
+	showPage(search) {
+		if (search.link) {
+			this._groupLink = search.link;
+			actionGroups.getGroupInfo(() => {}, this._groupLink);
+		} else {
+			Router.goBack();
+		}
 	}
 
 	_preRender() {
@@ -91,11 +97,11 @@ export default class GroupView extends BaseView {
 		header['avatar'] = userStore.user.avatar;
 
 		let settings = settingsGroupConst;
-		settings['avatar'] = groupStore.group.avatar;
-		settings['inputInfo']['data'] = groupStore.group.title;
-		settings['info'] = groupStore.group.info;
-		settings['type'] = groupStore.group.type;
-		settings['showAuthor'] = groupStore.group.showAuthor;
+		settings['avatar'] = groupsStore.curGroup.avatar;
+		settings['inputInfo']['data'] = groupsStore.curGroup.title;
+		settings['info'] = groupsStore.curGroup.info;
+		settings['type'] = groupsStore.curGroup.privacy;
+		settings['showAuthor'] = groupsStore.curGroup.hideOwner;
 
 		this._context = {
 			sideBarData: sideBarConst,

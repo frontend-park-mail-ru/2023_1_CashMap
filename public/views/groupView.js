@@ -84,7 +84,7 @@ export default class GroupView extends BaseView {
 		}
 
 		this._groupSettingsBtn.addEventListener('click', () => {
-			Router.go('/settingsGroup', false);
+			Router.go('/settingsGroup?link=' + this._groupLink, false);
 		});
 
 	}
@@ -102,7 +102,6 @@ export default class GroupView extends BaseView {
 		this._template = Handlebars.templates.group;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
-
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
