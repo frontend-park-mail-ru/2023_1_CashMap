@@ -176,10 +176,7 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
-
-            console.log(response.body);
-
-            this.posts = response.body;
+            this.posts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

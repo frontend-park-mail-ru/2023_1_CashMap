@@ -76,6 +76,12 @@ class groupsStore {
             case 'getGroupsSub':
                 await this._getGroupsSub(action.link, action.count, action.offset);
                 break;
+            case 'groupSub':
+                await this._groupSub(action.link, action.count, action.offset);
+                break;
+            case 'groupUnsub':
+                await this._groupUnsub(action.link, action.count, action.offset);
+                break;
             default:
                 return;
         }
@@ -202,6 +208,7 @@ class groupsStore {
             if (!this.curGroup.avatar) {
                 this.curGroup.avatar = groupAvatarDefault;
             }
+            console.log(this.curGroup);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
