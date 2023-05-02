@@ -1,4 +1,4 @@
-profileCard {
+.profileCard {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,15 +10,8 @@ profileCard {
     min-width: 350.5px;
 }
 
-.profileCard__header {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    height: 95px;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    padding: 20px;
-    border-radius: 12px 12px 0px 0px;
+.groupCard__header {
+    height: 240px;
 }
 
 .profileCard__header-button {

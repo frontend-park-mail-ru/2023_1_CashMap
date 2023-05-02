@@ -1,0 +1,32 @@
+.deleteGroupElem {
+    display: block;
+}
+
+.deleteGroup-position {
+    width: 515px;
+    height: 150px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -257px;
+    margin-top: -75px;
+}
+
+.deleteGroup-info {
+    width: 100%;
+    justify-content: center;
+}
+
+.deleteGroup__button {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.deleteGroup__button:nth-child(1) {
+    background-color: var(--background-color-feed);
+}
+
+.deletePost_size {
+    width: 150px;
+}
