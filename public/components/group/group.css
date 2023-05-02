@@ -1,4 +1,4 @@
-.profileItem {
+.group {
     min-height: 100vh;
     display: grid;
     grid-template-columns: 25% 3.6% 55% 16.4%;
@@ -7,7 +7,28 @@
     background-repeat: repeat;
 }
 
-.profile__body {
+.group__body {
     grid-column: 3;
     grid-row: 4;
+
+    display: grid;
+    grid-template-columns: 66% 8% 26%;
+    min-width: 390.5px;
+}
+
+.group__card {
+    grid-column: 1/4;
+}
+
+.group__posts {
+    grid-column: 1;
+}
+
+.group__info {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 10px;
 }
