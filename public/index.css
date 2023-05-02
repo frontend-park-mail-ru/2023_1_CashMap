@@ -37,6 +37,7 @@
 @import "components/safety/safety.css";
 @import "components/settings/settings.css";
 @import "components/settingsPath/settingsPath.css";
+@import "components/settingsPathGroup/settingsPathGroup.css";
 @import "components/inputSettings/inputSettings.css";
 @import "components/editPost/editPost.css";
 @import "components/editPostPage/editPostPage.css";
