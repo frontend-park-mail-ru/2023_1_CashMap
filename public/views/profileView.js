@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
+import {sideBarConst, headerConst, activeColor, maxTextStrings, maxTextLength} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
@@ -36,6 +36,7 @@ export default class ProfileView {
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._profileSettingsBtn = document.getElementById('js-profile-settings-btn');
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._myPageItem.style.color = activeColor;
@@ -50,6 +51,7 @@ export default class ProfileView {
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
 		this._createPosts = document.getElementById('js-create-post');
 		this._goMsg = document.getElementById('js-go-msg');
+		this._posts = document.getElementsByClassName('post-text');
 	}
 
 	_addPagesListener() {
@@ -66,6 +68,10 @@ export default class ProfileView {
 				Router.go('/settings', false);
 			});
 		}
+    
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
+        });
 
 		this._msgItem.addEventListener('click', () => {
 			Router.go('/message', false);
@@ -117,6 +123,31 @@ export default class ProfileView {
 					}
 				});
 			});
+
+		for (let i = 0; i < this._posts.length; i++) {
+			const text = this._posts[i].textContent
+			if (text.split('\n').length > maxTextStrings || text.length > maxTextLength) {
+				const post = this._posts[i];
+				let shortText;
+
+				if (text.length > maxTextLength) {
+					shortText = text.slice(0, maxTextLength) + '...';
+				} else {
+					const ind = text.indexOf('\n', text.indexOf('\n', text.indexOf('\n') + 1) + 1);
+					shortText = text.slice(0, ind) + '...';
+				}
+				post.textContent = shortText;
+
+				const openButton = document.createElement('div');
+				openButton.textContent = 'Показать еще';
+				openButton.style.color = '#9747FF';
+				openButton.style.cursor = 'pointer';
+
+				post.appendChild(openButton);
+				openButton.addEventListener('click', function() {
+					post.textContent = text;
+				});
+			}
 		}
 	}
 

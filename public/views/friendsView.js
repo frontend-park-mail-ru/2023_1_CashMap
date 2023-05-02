@@ -5,9 +5,11 @@ import {actionUser} from "../actions/actionUser.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
 import {actionMessage} from "../actions/actionMessage.js";
+import BaseView from "./baseView.js";
 
-export default class FriendsView {
+export default class FriendsView extends BaseView {
 	constructor() {
+		super();
 		this._addHandlebarsPartial();
 
 		this._jsId = 'friends';
@@ -50,6 +52,7 @@ export default class FriendsView {
 				break;
 		}
 
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
 		this._msgItem = document.getElementById('js-side-bar-msg');
@@ -106,6 +109,10 @@ export default class FriendsView {
 			this._findFriendsBtn.style.color = activeColor;
 			Router.go('/findFriends', false);
 		});
+
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
+        });
 
 		for (let i = 0; i < this._addUser.length; i++) {
 			this._addUser[i].addEventListener('click', () => {

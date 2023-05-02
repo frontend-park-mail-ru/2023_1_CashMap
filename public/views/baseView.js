@@ -71,6 +71,7 @@ export default class BaseView {
     addPagesElements() {
         this._exitBtn = document.getElementById('js-exit-btn');
         this._settingsBtn = document.getElementById('js-settings-btn');
+        this._feedBtn = document.getElementById('js-logo-go-feed');
 
         this._myPageItem = document.getElementById('js-side-bar-my-page');
         this._newsItem = document.getElementById('js-side-bar-news');
@@ -91,6 +92,10 @@ export default class BaseView {
 
         this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);
+        });
+ 
+        this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
         });
 
         this._myPageItem.addEventListener('click', () => {

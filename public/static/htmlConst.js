@@ -1,4 +1,9 @@
-export const activeColor = "#B95DD9"
+export const activeColor = '#B95DD9';
+
+export const maxTextStrings = 3;
+export const maxTextLength = 150;
+
+export const maxBirthday = '2017-01-01';
 
 export const sideBarConst = {
     logoImgPath: 'static/img/logo.svg',
@@ -23,13 +28,13 @@ export const logoDataSignIn = {
     logoImgPath: 'static/img/logo.svg',
     backgroundImgPath: 'static/img/background_right.svg',
     logoText: 'Depeche',
-    logoTagline: 'Сервис для общения',
+    logoTagline: 'Твоя социальная сеть',
 };
 export const logoDataSignUp = {
     logoImgPath: 'static/img/logo.svg',
     backgroundImgPath: 'static/img/background_left.svg',
     logoText: 'Depeche',
-    logoTagline: 'Сервис для общения',
+    logoTagline: 'Твоя социальная сеть',
 };
 
 export const signInData = {

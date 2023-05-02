@@ -1,12 +1,13 @@
 .settings-path {
     display: grid;
     grid-template-columns: 66% 8% 26%;
+    min-width: 390.5px;
 }
 
 .menu-settings {
     grid-column: 3;
     grid-row: 1;
-    height: 62px;
+    height: min-content;
     padding: 16px;
 }
 
@@ -18,9 +19,8 @@
 }
 
 .settingsPath__photo {
-    display: flex;
-    justify-content: space-between;
-    gap: 47px;
+    display: grid;
+    grid-template-columns: 100px 10% 1fr;
     width: 100%;
 }
 
@@ -41,9 +41,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    grid-column: 3;
     gap: 10px;
+    padding: 0px 12px;
 
-    width: 353px;
     height: 100px;
 
     border: 1px dashed #DEDEE9;
@@ -57,7 +58,6 @@
 
 .settingsPath__div-text {
     color: var(--font-color-gray-text);
-    font-family: 'Inter';
 	font-size: var(--font-size-15);
 }
 
