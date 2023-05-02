@@ -202,7 +202,8 @@ class groupsStore {
         const response = await request.json();
 
         if (request.status === 200) {
-            this.curGroup = response.body.group;
+            console.log(response.body);
+            this.curGroup = response.body.group_info;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
