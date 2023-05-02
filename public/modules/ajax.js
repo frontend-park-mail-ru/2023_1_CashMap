@@ -271,6 +271,14 @@ class Ajax {
         return this._request(this._apiUrl.getGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
+    async groupSub(link) {
+        return this._request(this._apiUrl.GroupsSub + link, this._requestType.POST);
+    }
+
+    async groupUnsub(link) {
+        return this._request(this._apiUrl.GroupsUnsub + link, this._requestType.POST);
+    }
+
     async getGroupInfo(link) {
         return this._request(this._apiUrl.getGroupInfo + link, this._requestType.GET);
     }

@@ -302,6 +302,32 @@ class groupsStore {
 
         this._refreshStore();
     }
+
+    async _groupSub(data) {
+        const request = await Ajax.groupSub(data.link);
+        if (request.status === 200) {
+            this.curGroup.isSub = true;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('groupSub error');
+        }
+
+        this._refreshStore();
+    }
+
+    async _groupUnsub(data) {
+        const request = await Ajax.groupUnsub(data.link);
+        if (request.status === 200) {
+            this.curGroup.isSub = false;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('groupUnsub error');
+        }
+
+        this._refreshStore();
+    }
 }
 
 export default new groupsStore();

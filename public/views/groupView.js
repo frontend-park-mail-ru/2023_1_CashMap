@@ -6,6 +6,7 @@ import BaseView from "./baseView.js";
 import postsStore from "../stores/postsStore.js";
 import { actionGroups } from "../actions/actionGroups.js";
 import groupsStore from "../stores/groupsStore.js";
+import { actionUser } from "../actions/actionUser.js";
 
 export default class GroupView extends BaseView {
 	constructor() {
@@ -50,9 +51,11 @@ export default class GroupView extends BaseView {
 			});
 		}
 
-		this._createPosts.addEventListener('click', () => {
-			Router.go('/createPost', false);
-		});
+		if (this._createPosts) {
+			this._createPosts.addEventListener('click', () => {
+				Router.go('/createPost', false);
+			});
+		}
 
 		for (let i = 0; i < this._posts.length; i++) {
 			const text = this._posts[i].textContent
@@ -85,8 +88,7 @@ export default class GroupView extends BaseView {
 	showPage(search) {
 		if (search.link) {
 			this._groupLink = search.link;
-			alert(this._groupLink);
-			actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, 15); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink);
+			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, 15); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
 		} else {
 			Router.go('/groups', false);
 		}
