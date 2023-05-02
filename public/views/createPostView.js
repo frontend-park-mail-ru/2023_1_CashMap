@@ -49,12 +49,12 @@ export default class CreatePostView extends BaseView {
 		this._template = Handlebars.templates.editPostPage;
 
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 			editPostData: {
-				avatar: userStore.user.avatar,
+				avatar_url: userStore.user.avatar_url,
 				text: '',
 				buttonData: {
 					text: 'Опубликовать',

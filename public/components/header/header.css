@@ -5,19 +5,44 @@
     grid-template-columns: 66% 1fr auto 2% auto;
     min-width: 390.5px;
 }
+
+.search-area-with-dropdown {
+    position:relative;
+
+    display: grid;
+    grid-template-areas:
+            "input-area"
+            "dropdown-area";
+
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px 1fr;
+}
+
 .search-area {
+    grid-area: input-area;
+
     grid-column: 1;
     mix-blend-mode: normal;
 
     display: grid;
-    height: 38px;
+    grid-template-areas:
+        "search-icon input";
+    height: 40px;
     grid-template-columns: 30px 1fr;
+    grid-template-rows: 40px;
 }
+
 .search-area__icon {
+    grid-area: search-icon;
     margin: auto;
 }
 .search-area__input {
     margin-right: 10px;
+    grid-area: input;
+}
+
+.notification {
+    grid-column: 3;
 }
 
 .notification__icon {

@@ -23,7 +23,7 @@ class userStore {
             user_link: null,
             firstName: null,
             lastName: null,
-            avatar: null,
+            avatar_url: null,
             bio: null,
             birthday: null,
             status: null,
@@ -152,7 +152,7 @@ class userStore {
         const response = await request.json();
 
         if (request.status === 200) {
-            this.user.avatar = response.body.profile.avatar;
+            this.user.avatar_url = response.body.profile.avatar_url;
             this.user.user_link = response.body.profile.user_link;
             this.user.firstName = response.body.profile.first_name;
             this.user.lastName = response.body.profile.last_name;
@@ -175,8 +175,8 @@ class userStore {
                 this.user.status = 'статус не задан'
             }
 
-            if (!this.user.avatar) {
-                this.user.avatar = headerConst.avatarDefault;
+            if (!this.user.avatar_url) {
+                this.user.avatar_url = headerConst.avatarDefault;
             }
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -221,11 +221,12 @@ class userStore {
      * @param {Object} data - данные пользователя
      */
     async _editProfile(data) {
-        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.bio, data.birthday, data.status);
+        const request = await Ajax.editProfile(data.avatar_url, data.firstName, data.lastName, data.bio, data.birthday, data.status);
         if (request.status === 200) {
-            if (data.avatar) {
-                this.user.avatar = data.avatar;
+            if (data.avatar_url) {
+                this.user.avatar_url = data.avatar_url;
             }
+
             this.user.firstName = data.firstName;
             this.user.lastName = data.lastName;
             this.user.bio = data.bio;

@@ -4,8 +4,10 @@ import {sideBarConst, headerConst, friendsMenuInfo, activeColor} from "../static
 import {actionUser} from "../actions/actionUser.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
+import searchStore from "../stores/dropdownSearchStore.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import BaseView from "./baseView.js";
+import {actionSearch} from "../actions/actionSearch.js";
 
 export default class FriendsView extends BaseView {
 	constructor() {
@@ -17,6 +19,7 @@ export default class FriendsView extends BaseView {
 
 		friendsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
+		searchStore.registerCallback(this.updateSearchList.bind(this))
 	}
 
 	_addHandlebarsPartial() {
@@ -30,6 +33,7 @@ export default class FriendsView extends BaseView {
 	}
 
 	_addPagesElements() {
+		super.addPagesElements()
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._friendsBtn = document.getElementById('js-menu-friends');
@@ -68,6 +72,8 @@ export default class FriendsView extends BaseView {
 		this._addUser = document.getElementsByClassName('js-friend-add');
 		this._unsubUser = document.getElementsByClassName('js-friend-unsub');
 		this._deleteUser = document.getElementsByClassName('js-friend-delete');
+
+		this._usersList = document.getElementById("js-users-list");
 	}
 
 	_addPagesListener() {
@@ -168,6 +174,23 @@ export default class FriendsView extends BaseView {
 				});
 			});
 		}
+
+
+		switch (window.location.pathname) {
+			case '/findFriends':
+				this._searchAreaInput.addEventListener('keyup', () => {
+					this.interruptTimer();
+
+					this.startTimer(250, () => {
+						if (this._searchAreaInput.value !== "") {
+							localStorage.setItem("searchQuery", this._searchAreaInput.value);
+							actionSearch.search(this._searchAreaInput.value);
+						}
+					})
+				});
+				break
+
+		}
 	}
 
 	remove() {
@@ -183,6 +206,16 @@ export default class FriendsView extends BaseView {
 		});
 	}
 
+	updateSearchList() {
+		if (this.curPage) {
+			if (!userStore.user.isAuth) {
+				Router.go('/signIn');
+			} else {
+				this._renderNewSearchList();
+			}
+		}
+	}
+
 	updatePage() {
 		if (this.curPage) {
 			if (!userStore.user.isAuth) {
@@ -193,28 +226,18 @@ export default class FriendsView extends BaseView {
 		}
 	}
 
-	_preRender() {
+
+	_renderNewSearchList() {
 		this._template = Handlebars.templates.friends;
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
-
+		header['avatar_url'] = userStore.user.avatar_url;
+		console.log(searchStore.userSearchItems)
 		let res;
 		let info;
 		switch (window.location.pathname) {
-			case '/friends':
-				res = friendsStore.friends;
-				info = 'У вас пока нет друзей';
-				break;
-			case '/subscribers':
-				res = friendsStore.subscribers;
-				info = 'у вас пока нет подписчиков'
-				break;
-			case '/subscriptions':
-				res = friendsStore.subscriptions;
-				info = 'у вас пока нет подписок'
-				break;
 			case '/findFriends':
-				res = friendsStore.notFriends;
+				res = searchStore.userSearchItems;
+				info = 'По данному запросу не найдено людей'
 				break;
 		}
 		this._context = {
@@ -226,6 +249,49 @@ export default class FriendsView extends BaseView {
 			},
 			menuInfo: friendsMenuInfo,
 		}
+
+		Router.rootElement.innerHTML = this._template(this._context);
+		this._addPagesElements();
+		this._addPagesListener();
+		this._searchAreaInput.value = localStorage.getItem("searchQuery");
+		this._searchAreaInput.focus();
+	}
+
+	_preRender() {
+		this._template = Handlebars.templates.friends;
+		let header = headerConst;
+		header['avatar_url'] = userStore.user.avatar_url;
+
+		let res;
+		let info;
+		switch (window.location.pathname) {
+			case '/friends':
+				res = friendsStore.friends;
+				info = 'У вас пока нет друзей';
+				break;
+			case '/subscribers':
+				res = friendsStore.subscribers;
+				info = 'У вас пока нет подписчиков'
+				break;
+			case '/subscriptions':
+				res = friendsStore.subscriptions;
+				info = 'У вас пока нет подписок'
+				break;
+			case '/findFriends':
+				res = friendsStore.notFriends;
+				break;
+		}
+
+		this._context = {
+			sideBarData: sideBarConst,
+			headerData: header,
+			friendsData: res,
+			textInfo: {
+				textInfo: info,
+			},
+			menuInfo: friendsMenuInfo,
+		}
+
 	}
 
 	_render() {
@@ -233,6 +299,15 @@ export default class FriendsView extends BaseView {
 		Router.rootElement.innerHTML = this._template(this._context);
 		this._addPagesElements();
 		this._addPagesListener();
+
+		let query = localStorage.getItem("searchQuery");
+		if (window.location.pathname === "/findFriends" && query != null && query !== "") {
+			this._searchAreaInput.value = query;
+			this._searchAreaInput.focus();
+			actionSearch.search(this._searchAreaInput.value);
+		} else {
+			localStorage.removeItem("searchQuery");
+		}
 	}
 
 }

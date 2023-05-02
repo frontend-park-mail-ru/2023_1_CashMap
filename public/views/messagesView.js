@@ -4,9 +4,11 @@ import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";
+import BaseView from "./baseView.js";
 
-export default class MessagesView {
+export default class MessagesView extends BaseView {
 	constructor() {
+		super();
 		this._addHandlebarsPartial();
 
 		this._jsId = 'messages';
@@ -17,7 +19,7 @@ export default class MessagesView {
 	}
 
 	_addHandlebarsPartial() {
-        Handlebars.registerPartial('inputField', Handlebars.templates.inputField)
+		Handlebars.registerPartial('inputField', Handlebars.templates.inputField)
 		Handlebars.registerPartial('button', Handlebars.templates.button)
 		Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar)
 		Handlebars.registerPartial('header', Handlebars.templates.header)
@@ -27,6 +29,7 @@ export default class MessagesView {
 	}
 
 	_addPagesElements() {
+		super.addPagesElements();
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._feedBtn = document.getElementById('js-logo-go-feed');
@@ -44,13 +47,14 @@ export default class MessagesView {
 	}
 
 	_addPagesListener() {
+		super.addPagesListener();
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		});
 
 		this._settingsBtn.addEventListener('click', () => {
-            Router.go('/settings', false);
-        });
+			Router.go('/settings', false);
+		});
 
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends');
@@ -65,8 +69,8 @@ export default class MessagesView {
 		});
 
 		this._feedBtn.addEventListener('click', () => {
-            Router.go('/feed', false);
-        });
+			Router.go('/feed', false);
+		});
 
 		for (let i = 0; i < this._goToMsg.length; i++) {
 			this._goToMsg[i].addEventListener('click', () => {
@@ -99,7 +103,8 @@ export default class MessagesView {
 	_preRender() {
 		this._template = Handlebars.templates.messages;
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
+		console.log(messagesStore.chats)
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
@@ -108,6 +113,7 @@ export default class MessagesView {
 			},
 			messagesData: messagesStore.chats,
 		}
+		console.log(this._context)
 	}
 
 	_render() {

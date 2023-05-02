@@ -4,9 +4,11 @@ import {sideBarConst, headerConst, activeColor, maxTextStrings, maxTextLength} f
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
+import BaseView from "./baseView.js";
 
-export default class ProfileView {
+export default class ProfileView extends BaseView {
 	constructor() {
+		super();
 		this._addHandlebarsPartial();
 
 		this._jsId = 'profile';
@@ -31,6 +33,7 @@ export default class ProfileView {
 	}
 
 	_addPagesElements() {
+		super.addPagesElements();
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._profileSettingsBtn = document.getElementById('js-profile-settings-btn');
@@ -52,6 +55,7 @@ export default class ProfileView {
 	}
 
 	_addPagesListener() {
+		super.addPagesListener();
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		});
@@ -149,13 +153,15 @@ export default class ProfileView {
 		this._template = Handlebars.templates.profile;
 
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 			profileData: userStore.user,
-			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
+			postAreaData: {createPostData: {avatar_url: userStore.user.avatar_url, jsId: 'js-create-post'}, postList: postsStore.posts},
 		}
+
+		console.log(this._context)
 	}
 
 	_render() {

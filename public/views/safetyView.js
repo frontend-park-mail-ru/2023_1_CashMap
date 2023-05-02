@@ -3,9 +3,11 @@ import Validation from "../modules/validation.js";
 import Router from "../modules/router.js";
 import {sideBarConst, headerConst, safetyConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
+import BaseView from "./baseView.js";
 
-export default class SafetyView {
+export default class SafetyView extends BaseView {
 	constructor() {
+		super();
 		this._addHandlebarsPartial();
 
 		this._jsId = 'safety';
@@ -27,6 +29,7 @@ export default class SafetyView {
 	}
 
 	_addPagesElements() {
+		super.addPagesElements();
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._settingsBtn = document.getElementById('js-menu-main');
@@ -53,6 +56,7 @@ export default class SafetyView {
 	}
 
 	_addPagesListener() {
+		super.addPagesListener();
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		})
@@ -127,7 +131,7 @@ export default class SafetyView {
 		this._template = Handlebars.templates.safety;
 
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 
 		this._context = {
 			sideBarData: sideBarConst,

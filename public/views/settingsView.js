@@ -4,9 +4,11 @@ import Router from "../modules/router.js";
 import {sideBarConst, headerConst, settingsConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionImg} from "../actions/actionImg.js";
+import BaseView from "./baseView.js";
 
-export default class SettingsView {
+export default class SettingsView extends BaseView {
 	constructor() {
+		super();
 		this._addHandlebarsPartial();
 
 		this._jsId = 'settings';
@@ -33,6 +35,7 @@ export default class SettingsView {
 	}
 
 	_addPagesElements() {
+		super.addPagesElements();
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._settingsBtn = document.getElementById('js-menu-main');
@@ -66,6 +69,7 @@ export default class SettingsView {
 	}
 
 	_addPagesListener() {
+		super.addPagesListener();
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		});
@@ -122,7 +126,7 @@ export default class SettingsView {
 				}
 				if (this._fileList) {
 					actionImg.uploadImg(this._fileList, (newUrl) => {
-						actionUser.editProfile({avatar: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value, birthday: birthday, status: this._statusField.value});
+						actionUser.editProfile({avatar_url: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value, birthday: birthday, status: this._statusField.value});
 					});
 				} else {
 					actionUser.editProfile({firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value,  birthday: birthday, status: this._statusField.value});
@@ -163,10 +167,10 @@ export default class SettingsView {
 		this._template = Handlebars.templates.settings;
 
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 
 		let settings = settingsConst;
-		settings['avatar'] = userStore.user.avatar;
+		settings['avatar_url'] = userStore.user.avatar_url;
 		settings['inputFields'][0]['data'] = userStore.user.firstName;
 		settings['inputFields'][1]['data'] = userStore.user.lastName;
 		settings['inputFields'][2]['data'] = userStore.user.bio;

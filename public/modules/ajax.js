@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.backendHostname = '127.0.0.1';
-        this.backendHostname = '95.163.212.121';
+        this.backendHostname = '127.0.0.1';
+        // this.backendHostname = '95.163.212.121';
         this.backendPort = '8080';
         this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
 
@@ -45,6 +45,8 @@ class Ajax {
 
             uploadImg: '/static/upload',
             deleteImg: '/static/delete',
+
+            userSearch: '/api/user/search'
         }
 
         this._requestType = {
@@ -82,7 +84,7 @@ class Ajax {
 
     /**
      * метод, отправляющий запрос на вход в систему
-     * @param {String} email - почта пользователя 
+     * @param {String} email - почта пользователя
      * @param {String} password - пароль пользователя
      * @returns {Object} - тело ответа
      */
@@ -93,9 +95,9 @@ class Ajax {
 
     /**
      * метод, отправляющий запрос на регистрацию в системе
-     * @param {String} firstName - имя пользователя 
+     * @param {String} firstName - имя пользователя
      * @param {String} lastName - фамилия пользователя
-     * @param {String} email - почта пользователя 
+     * @param {String} email - почта пользователя
      * @param {String} password - пароль пользователя
      * @returns {Object} - тело ответа
      */
@@ -127,17 +129,24 @@ class Ajax {
 
     /**
      * метод, отправляющий запрос на редактирование пользователя
-     * @param {String} avatar - аватарка пользователя 
-     * @param {String} firstName - имя пользователя 
+     * @param {String} avatar - аватарка пользователя
+     * @param {String} firstName - имя пользователя
      * @param {String} lastName - фамилия пользователя
-     * @param {String} email - почта пользователя 
+     * @param {String} email - почта пользователя
      * @param {String} city - город пользователя
-     * @param {String} birthday - день рождения пользователя 
+     * @param {String} birthday - день рождения пользователя
      * @param {String} status - статус пользователя
      * @returns {Object} - тело ответа
      */
     async editProfile(avatar, firstName, lastName, bio, birthday, status) {
-        let body = {avatar: avatar, first_name: firstName, last_name: lastName, bio: bio, birthday: birthday, status:status};
+        let body = {
+            avatar_url: avatar,
+            first_name: firstName,
+            last_name: lastName,
+            bio: bio,
+            birthday: birthday,
+            status: status
+        };
         return this._request(this._apiUrl.editProfile, this._requestType.PATCH, JSON.stringify({body}));
     }
 
@@ -151,7 +160,7 @@ class Ajax {
 
     /**
      * метод, отправляющий запрос на получение постов
-     * @param {String} userLink - ссылка на пользователя 
+     * @param {String} userLink - ссылка на пользователя
      * @param {Number} count - количество постов для получения
      * @param {Date} lastPostDate - дата, после которой выбираются посты
      * @returns {Object} - тело ответа
@@ -210,15 +219,15 @@ class Ajax {
         return this._request(this._apiUrl.deletePost, this._requestType.DELETE, JSON.stringify({body}));
     }
 
-    async getFriends(link, count, offset= 0) {
+    async getFriends(link, count, offset = 0) {
         return this._request(this._apiUrl.getFriends + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
-    async getNotFriends(link, count, offset= 0) {
+    async getNotFriends(link, count, offset = 0) {
         return this._request(this._apiUrl.getNotFriends + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
-    async getUsers(count, offset= 0) {
+    async getUsers(count, offset = 0) {
         return this._request(this._apiUrl.getUsers + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
@@ -272,6 +281,11 @@ class Ajax {
         formData.append("attachments", data);
 
         return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData);
+    }
+
+    async getGlobalSearchResult(searchText, count, offset) {
+        let request_url = this._apiUrl.userSearch + `?search_query=${searchText}&batch_size=${count}&offset=${offset}`
+        return this._request(request_url, this._requestType.GET);
     }
 }
 

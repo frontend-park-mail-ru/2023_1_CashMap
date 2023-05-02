@@ -1,0 +1,43 @@
+{{#if userSearchItems}}
+    <div class="search-dropdown-section">
+        <div class="search-dropdown-section__header">
+            <span class="search-dropdown-section__header-title">{{searchDropdownConst.peopleSectionTitle}}</span>
+        </div>
+        <div class="search-dropdown-section__items">
+
+            {{#each userSearchItems}}
+                {{> searchItem this}}
+            {{/each}}
+
+        </div>
+        <div class="search-dropdown-section__show-more-button" id="js-show-more-people">
+            <span class="search-dropdown-section__show-more-text">{{searchDropdownConst.showMoreTitle}}</span>
+            <img class="search-dropdown-section__show-more-icon search-dropdown-section__show-more-icon__hovered" src={{searchDropdownConst.showMoreIconPathHover}}>
+            <img class="search-dropdown-section__show-more-icon search-dropdown-section__show-more-icon__not-hovered" src={{searchDropdownConst.showMoreIconPath}}>
+        </div>
+    </div>
+{{/if}}
+
+{{#if communitySearchItems}}
+    <div class="search-dropdown-section">
+        <div class="search-dropdown-section__header">
+            <span class="search-dropdown-section__header-title">{{searchDropdownConst.communitySectionTitle}}</span>
+        </div>
+        <div class="search-dropdown-section__items">
+            {{#each userSearchItems}}
+                {{> searchItem this}}
+            {{/each}}
+        </div>
+        <div class="search-dropdown-section__show-more-button" id="js-show-more-communities">
+            <span class="search-dropdown-section__show-more-text">{{searchDropdownConst.showMoreTitle}}</span>
+            <img class="search-dropdown-section__show-more-icon search-dropdown-section__show-more-icon__hovered" src={{searchDropdownConst.showMoreIconPathHover}}>
+            <img class="search-dropdown-section__show-more-icon search-dropdown-section__show-more-icon__not-hovered" src={{searchDropdownConst.showMoreIconPath}}>
+        </div>
+    </div>
+{{/if}}
+
+{{#if isEmpty}}
+    <div class="search-dropdown-empty">
+        <span class="search-dropdown-empty__text">{{searchDropdownConst.emptyQueryTitle}}</span>
+    </div>
+{{/if}}

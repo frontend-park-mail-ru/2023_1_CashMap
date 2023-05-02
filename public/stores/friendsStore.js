@@ -90,8 +90,8 @@ class friendsStore {
         if (request.status === 200) {
             response.body.friends.forEach((friend) => {
                 friend.isFriend = true;
-                if (!friend.avatar) {
-                    friend.avatar = headerConst.avatarDefault;
+                if (!friend.avatar_url) {
+                    friend.avatar_url = headerConst.avatarDefault;
                 }
                 if (!friend.city) {
                     friend.city = 'город не указан';
@@ -122,8 +122,8 @@ class friendsStore {
         if (request.status === 200) {
             response.body.profiles.forEach((friend) => {
                 friend.isUser = true;
-                if (!friend.avatar) {
-                    friend.avatar = headerConst.avatarDefault;
+                if (!friend.avatar_url) {
+                    friend.avatar_url = headerConst.avatarDefault;
                 }
                 if (!friend.city) {
                     friend.city = 'город не указан';
@@ -152,8 +152,8 @@ class friendsStore {
         this.users = [];
         if (request.status === 200) {
             response.body.profiles.forEach((user) => {
-                if (!user.avatar) {
-                    user.avatar = headerConst.avatarDefault;
+                if (!user.avatar_url) {
+                    user.avatar_url = headerConst.avatarDefault;
                 }
                 if (!user.city) {
                     user.city = 'город не указан';
@@ -187,18 +187,18 @@ class friendsStore {
             if (type === 'in') {
                 this.subscribers = response.body.subs;
                 this.subscribers.forEach((sub) => {
-                    if (!sub.avatar) {
-                        sub.avatar = headerConst.avatarDefault;
+                    if (!sub.avatar_url) {
+                        sub.avatar_url = headerConst.avatarDefault;
                     }
                     sub.isSubscriber = true;
                 });
             } else {
                 this.subscriptions = response.body.subs;
                 this.subscriptions.forEach((sub) => {
-                    if (!sub.avatar) {
-                        sub.avatar = headerConst.avatarDefault;
+                    if (!sub.avatar_url) {
+                        sub.avatar_url = headerConst.avatarDefault;
                     }
-                    sub.isSubscription = true;
+                    sub.isSubscribed = true;
                 });
             }
         } else if (request.status === 401) {

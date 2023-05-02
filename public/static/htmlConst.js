@@ -60,7 +60,7 @@ export const signUpData = {
 };
 
 export const settingsConst = {
-  avatar: "static/img/post_icons/profile_image.svg",
+  avatar_url: "static/img/post_icons/profile_image.svg",
   inputFields:
       [
       { help: 'Имя',
@@ -130,3 +130,14 @@ export const friendsMenuInfo = [
   {text: 'Подписчики', jsId: 'js-menu-subscribers'},
   {text: 'Подписки', jsId: 'js-menu-subscriptions'},
   {text: 'Поиск друзей', jsId: 'js-menu-find-friends'}]
+
+export const searchDropdownConst = {
+    emptyQueryTitle: 'Ваш запрос не дал результатов',
+    showMoreTitle: 'Показать все результаты',
+    peopleSectionTitle: 'Люди',
+    communitySectionTitle: 'Сообщества',
+    sendMessageIconPath: 'static/img/messenger.svg',
+    sendMessageHoveredIconPath: 'static/img/messenger_hover.svg',
+    showMoreIconPath: 'static/img/show_all.svg',
+    showMoreIconPathHover: 'static/img/show_all_hover.svg',
+}

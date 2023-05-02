@@ -33,6 +33,8 @@ class Router {
             this.currentPage.curPage = false;
         }
 
+
+
         if (this._pages[url]) {
             this.currentPage = this._pages[url];
             this.currentPage.curPage = true;

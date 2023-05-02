@@ -79,17 +79,26 @@ class messagesStore {
             this.chats = response.body.chats;
 
             this.chats.forEach((chat) => {
-                chat.members.forEach((member) => {
-                    if (!member.url) {
-                        member.url = headerConst.avatarDefault;
+                if (chat.members.length === 1) {
+                    if (!chat.members[0].avatar_url) {
+                        chat.members[0].avatar_url = headerConst.avatarDefault;
                     }
-                    if (member.link !== userStore.user.user_link) {
-                        chat.url = member.url;
-                        chat.first_name = member.first_name;
-                        chat.last_name = member.last_name;
-                    }
-                });
+                    chat.avatar_url = chat.members[0].avatar_url;
+                    chat.first_name = chat.members[0].first_name;
+                    chat.last_name = chat.members[0].last_name;
+                } else {
+                    chat.members.forEach((member) => {
+                        if (!member.avatar_url) {
+                            member.avatar_url = headerConst.avatarDefault;
+                        }
 
+                        if (member.user_link !== userStore.user.user_link) {
+                            chat.avatar_url = member.avatar_url;
+                            chat.first_name = member.first_name;
+                            chat.last_name = member.last_name;
+                        }
+                    });
+                }
             });
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -113,8 +122,8 @@ class messagesStore {
             const response = await request.json();
             this.messages = response.body.messages;
             this.messages.forEach((message) => {
-                if (!message.sender_info.url) {
-                    message.sender_info.url = headerConst.avatarDefault;
+                if (!message.sender_info.avatar_url) {
+                    message.sender_info.avatar_url = headerConst.avatarDefault;
                 }
                 message.creation_date = new Date(message.creation_date).toLocaleDateString();
             });

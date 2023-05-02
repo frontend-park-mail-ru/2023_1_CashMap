@@ -1,13 +1,18 @@
 <header class="header header-size header-position background-color-feed">
-    <div class="search-area background-color-header border-radius box-shadow-search-area">
-        <img class="search-area__icon" src="static/img/search.svg">
-        <input class="search-area__input border-none font-InterMedium font-size-12 font-color-gray-text background-color-header" placeholder="Найти">
+    <div class="search-area-with-dropdown" id="js-search-area" tabindex="0">
+        <div class="search-area background-color-header border-radius box-shadow-search-area">
+            <img class="search-area__icon" src="static/img/search.svg">
+            <input class="search-area__input border-none font-InterMedium font-size-12 font-color-gray-text background-color-header" id="js-search-area-input" placeholder="Найти">
+        </div>
+        <div class="search-dropdown background-color-side-bar font-size-15 font-MailSansRoman font-color-gray-text box-shadow-search-area" id="js-search-dropdown">
+            {{> searchDropdown}}
+        </div>
     </div>
 
     <img class="notification__icon header-icon margin-auto" src="static/img/noticeUnread.svg" alt="">
 
     <div class="profile">
-        <img class="profile__icon profile-img-size margin-auto avatar-form" src={{ avatar }}>
+        <img class="profile__icon profile-img-size margin-auto avatar-form" src={{ avatar_url }}>
         <img class="profile__menu-icon" src="static/img/menu.svg">
 
         <div class="profile-menu profile-menu-size profile-menu-position background-color-profile-menu border-radius-btn-input box-shadow-profile-menu">

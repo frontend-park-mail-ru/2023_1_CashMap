@@ -96,14 +96,16 @@ export default class ChatView extends BaseView {
 		let secondUser = null;
 		if (curChat) {
 			secondUser = curChat.members[0];
-			if (curChat.members[0].link === userStore.user.user_link) {
+
+			if (curChat.members[0].user_link === userStore.user.user_link && curChat.members.length !== 1) {
 				secondUser = curChat.members[1];
 			}
+
 		}
 
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 
 		this._context = {
 			sideBarData: sideBarConst,

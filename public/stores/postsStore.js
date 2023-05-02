@@ -84,8 +84,8 @@ class postsStore {
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
                     post.isMyPost = true;
-                    if (!post.owner_info.url) {
-                        post.owner_info.url = headerConst.avatarDefault;
+                    if (!post.owner_info.avatar_url) {
+                        post.owner_info.avatar_url = headerConst.avatarDefault;
                     }
                     if (!post.comments) {
                         post.comments_count = 0;
@@ -94,7 +94,7 @@ class postsStore {
                         const date = new Date(post.creation_date);
                         post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                     }
-                    post.avatar = userStore.user.avatar;
+                    post.avatar_url = userStore.user.avatar_url;
 
                     this.posts.push(post);
                 });
@@ -122,8 +122,8 @@ class postsStore {
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
                     post.isMyPost = false;
-                    if (!post.owner_info.url) {
-                        post.owner_info.url = headerConst.avatarDefault;
+                    if (!post.owner_info.avatar_url) {
+                        post.owner_info.avatar_url = headerConst.avatarDefault;
                     }
                     if (!post.comments) {
                         post.comments_count = 0;
@@ -132,7 +132,7 @@ class postsStore {
                         const date = new Date(post.creation_date);
                         post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                     }
-                    post.avatar = userStore.user.avatar;
+                    post.avatar_url = userStore.user.avatar_url;
 
                     this.posts.push(post);
                 });
@@ -181,7 +181,7 @@ class postsStore {
 
             p.isMyPost = true;
             p.owner_info = {};
-            p.owner_info.url = userStore.user.avatar;
+            p.owner_info.avatar_url = userStore.user.avatar_url;
             p.owner_info.first_name = userStore.user.firstName;
             p.owner_info.last_name = userStore.user.lastName;
             p.owner_info.link = userStore.user.user_link;
@@ -192,7 +192,7 @@ class postsStore {
                 const date = new Date(p.creation_date);
                 p.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
             }
-            p.avatar = userStore.user.avatar;
+            p.avatar_url = userStore.user.avatar_url;
             this.posts.unshift(p);
 
         } else if (request.status === 401) {

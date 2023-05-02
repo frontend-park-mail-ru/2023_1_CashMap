@@ -32,6 +32,7 @@ export default class FeedView extends BaseView {
 	}
 
 	_addPagesElements() {
+		super.addPagesElements();
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._feedBtn = document.getElementById('js-logo-go-feed');
@@ -52,6 +53,7 @@ export default class FeedView extends BaseView {
 	}
 
 	_addPagesListener() {
+		super.addPagesListener();
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		});
@@ -147,11 +149,11 @@ export default class FeedView extends BaseView {
 		this._template = Handlebars.templates.feed;
 
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.friendsPosts},
+			postAreaData: {createPostData: {avatar_url: userStore.user.avatar_url, jsId: 'js-create-post'}, postList: postsStore.friendsPosts},
 		}
 	}
 

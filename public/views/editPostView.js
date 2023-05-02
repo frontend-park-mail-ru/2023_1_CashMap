@@ -4,9 +4,11 @@ import {sideBarConst, headerConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
+import BaseView from "./baseView.js";
 
-export default class EditPostView {
+export default class EditPostView extends BaseView {
 	constructor() {
+		super()
 		this._addHandlebarsPartial();
 
 		this._jsId = 'edit-post';
@@ -28,6 +30,7 @@ export default class EditPostView {
 	}
 
 	_addPagesElements() {
+		super.addPagesElements()
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._text = document.getElementById('js-edit-post-textarea');
@@ -56,6 +59,7 @@ export default class EditPostView {
 	}
 
 	_addPagesListener() {
+		super.addPagesListener()
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		});
@@ -122,12 +126,12 @@ export default class EditPostView {
 		this._template = Handlebars.templates.editPostPage;
 
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 			editPostData: {
-				avatar: userStore.user.avatar,
+				avatar_url: userStore.user.avatar_url,
 				text: postsStore.curPost.text_content,
 				id: postsStore.curPost.id,
 				buttonData: {
@@ -136,6 +140,8 @@ export default class EditPostView {
 				}
 			},
 		}
+
+		console.log(this._context)
 	}
 
 	_render() {
