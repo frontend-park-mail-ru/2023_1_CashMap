@@ -1,5 +1,5 @@
 <div class="profileCard">
-    <div class="profileCard__header" style="background-image: url( static/img/profile_background.svg )">
+    <div class="groupCard__header groupCard__header" style="background-image: url( static/img/profile_background.svg )">
         <button class="profileCard__button" data-action="message">
             <div class="profileCard__button-text">
                 Изменить обложку
@@ -7,12 +7,15 @@
         </button>
     </div>
     <div class="profileCard__body">
-        <div class="profileCard__info">
-            <img src="{{ avatar }}" class="profileCard__info-img avatar-form">
+        <div class="groupCard__info">
+            <div class="profileCard__inf">
+                <div class="groupCard__info-img-wrapper background-color-post "></div>
+                <img src="{{ avatar }}" class="groupCard__info-img avatar-form">
+            </div>
             <div class="profileCard__info-data">
                 <div class="profileCard__info-text profileCard__info-text_header">{{ title }}</div>
                 <div class="profiteCard__info-check">
-                    <img src="static/img/ok.svg" class="profileCard__info-img avatar-form">
+                    <img src="static/img/ok.svg" class="profileCard__info_img avatar-form">
                     <div class="profileCard__info-text font-InterMedium ">Вы подписаны</div>
                 </div>
             </div>

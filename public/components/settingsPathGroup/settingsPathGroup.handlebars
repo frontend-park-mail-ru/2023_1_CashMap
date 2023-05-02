@@ -1,0 +1,50 @@
+<div class="settings-path">
+    <div class="settingsPath">
+        <div class="settingsPath__photo">
+            <img src="{{avatar}}" class="settingsPath__avatar avatar-form" id="js-drop-content">
+            <div class="settingsPath__div" id="js-drop-zone">
+                <img class="settingsPath__div-img" src="static/img/upload.svg">
+                <div class="settingsPath__div-text font-InterRegular" type="file">Загрузить новую фотографию группы</div>
+            </div>
+        </div>
+
+        <div class="settingsGroup__input">
+            {{> inputSettings inputInfo}}
+        </div>
+
+        <div class="newGroup__textarea">
+            <div class="newGroup__textarea__info font-InterRegular font-size-12 font-color-gray-text">Описание</div>
+            <textarea class="newGroup__textarea__field border-radius-btn-input font-InterMedium font-size-14 font-color-gray-text border-none" id="js-info-input">{{data}}</textarea>
+            <div class="newGroup__textarea__error font-InterRegular font-size-12 font-color-error" id="js-info-error"></div>
+        </div>
+
+        <div class="newGroup__select-wrapper">
+            <div class="newGroup__select__info font-InterRegular font-size-12 font-color-gray-text">Тип группы</div>
+            <select class="settingsGroup__select border-radius-btn-input font-InterMedium font-size-14 font-color-gray-text" id="js-type-input">
+                <option>Открытая группа</option>
+                <option>Закрытая группа</option>
+            </select>
+        </div>
+
+        <div class="newGroup__checkbox">
+            <div class="newGroup__checkbox__info font-InterRegular font-size-12 font-color-gray-text">Скрыть создателя группы</div>
+            <input type="checkbox" id="js-showAuthor-input">
+        </div>
+
+        <div class="settings-path__button">
+            {{> buttonDefault buttonInfo}}
+        </div>
+        <span class="settings-path__info font-MailSansRoman font-size-19 font-color-comment-sender" id="js-save-info"></span>
+    </div>
+    <div class="settings__menu-delete">
+        <div class="menu-settings border-radius-btn-input background-color-profile-menu box-shadow-create-post">
+            {{#each menuInfo}}
+                <div class="menu-settings-item hover-block border-radius-btn-input" style="cursor: pointer;" id="{{ this.jsId }}">
+                    <span class="menu-item__text font-size-15 font-InterMedium"> {{ this.text }} </span>
+                </div>
+            {{/each}}
+        </div>
+        {{> buttonDefault buttonDelete}}
+        {{> deleteGroup deleteGroupData}}
+    </div>
+</div>

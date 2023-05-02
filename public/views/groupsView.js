@@ -121,18 +121,14 @@ export default class GroupsView extends BaseView {
 				info = 'У вас пока нет сообществ';
 				break;
 			case '/findGroups':
-				//res = groupsStore.findGroups;
-				res = groupsStore.manageGroups;
-				info = 'Сообщества не найдены';
+				res = groupsStore.findGroups;
+                info = 'Сообщества не найдены';
 				break;
 			case '/popularGroups':
-				//res = groupsStore.popularGroups;
-				res = groupsStore.manageGroups;
-				info = 'Сообщества не найдены';
+				res = groupsStore.popularGroups;
+                info = 'Сообщества не найдены';
 				break;
 		}
-
-		console.log(res);
 
 		this._context = {
 			sideBarData: sideBarConst,

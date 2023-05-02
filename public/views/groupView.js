@@ -83,6 +83,10 @@ export default class GroupView extends BaseView {
 			}
 		}
 
+		this._groupSettingsBtn.addEventListener('click', () => {
+			Router.go('/settingsGroup?link=' + this._groupLink, false);
+		});
+
 	}
 
 	showPage(search) {
@@ -95,10 +99,9 @@ export default class GroupView extends BaseView {
 	}
 
 	_preRender() {
-		this._template = Handlebars.templates.groups;
+		this._template = Handlebars.templates.group;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
-
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,

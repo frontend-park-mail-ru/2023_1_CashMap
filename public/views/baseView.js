@@ -46,7 +46,10 @@ export default class BaseView {
         Handlebars.registerPartial('friends', Handlebars.templates.friends);
         Handlebars.registerPartial('groupItem', Handlebars.templates.groupItem);
         Handlebars.registerPartial('newGroup', Handlebars.templates.newGroup);
+        Handlebars.registerPartial('deleteGroup', Handlebars.templates.deleteGroup);
         Handlebars.registerPartial('groups', Handlebars.templates.groups);
+        Handlebars.registerPartial('group', Handlebars.templates.group);
+        Handlebars.registerPartial('groupCard', Handlebars.templates.groupCard);
         Handlebars.registerPartial('header', Handlebars.templates.header);
         Handlebars.registerPartial('inputField', Handlebars.templates.inputField);
         Handlebars.registerPartial('inputSettings', Handlebars.templates.inputSettings);
@@ -61,6 +64,7 @@ export default class BaseView {
         Handlebars.registerPartial('search', Handlebars.templates.search);
         Handlebars.registerPartial('settings', Handlebars.templates.settings);
         Handlebars.registerPartial('settingsPath', Handlebars.templates.settingsPath);
+        Handlebars.registerPartial('settingsPathGroup', Handlebars.templates.settingsPathGroup);
         Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar);
         Handlebars.registerPartial('signIn', Handlebars.templates.signIn);
         Handlebars.registerPartial('signUp', Handlebars.templates.signUp);
