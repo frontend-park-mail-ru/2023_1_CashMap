@@ -174,6 +174,11 @@ export const settingsGroupConst = {
   buttonInfo: { text: 'Сохранить',
       jsId: 'js-settings-save-btn'},
   menuInfo: [
-      {text: 'Основные', jsId: 'js-menu-main'},
-      {text: 'Безопасность', jsId: 'js-menu-safety'}]
+      {text: 'Настройки', jsId: 'js-menu-main'},
+      {text: 'Подписчики', jsId: 'js-menu-subscribers'},
+      {text: 'Заявки', jsId: 'js-menu-requests'}],
+  buttonDelete: { text: 'Удалить группу',
+      jsId: 'js-delete-group-btn'},
+  deleteGroupData : { text: 'Да',
+      jsId: 'js-group-delete-btn'},
 }

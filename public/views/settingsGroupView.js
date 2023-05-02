@@ -40,6 +40,11 @@ export default class GroupView extends BaseView {
 		this._typeField = document.getElementById('js-type-input');
 		this._showAuthorField = document.getElementById('js-showAuthor-input');
 		this._saveBtn = document.getElementById('js-settings-save-btn');
+
+		this._settingsBtn = document.getElementById('js-menu-main');
+		this._settingsBtn.style.color = activeColor;
+		this._subBtn = document.getElementById('js-menu-subscribers');
+		this._requestsBtn = document.getElementById('js-menu-requests');
 	}
 
 	addPagesListener() {
@@ -97,6 +102,7 @@ export default class GroupView extends BaseView {
 		header['avatar'] = userStore.user.avatar;
 
 		let settings = settingsGroupConst;
+		alert(groupsStore.curGroup.avatar);
 		settings['avatar'] = groupsStore.curGroup.avatar;
 		settings['inputInfo']['data'] = groupsStore.curGroup.title;
 		settings['info'] = groupsStore.curGroup.info;
