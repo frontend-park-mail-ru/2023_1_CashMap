@@ -35,3 +35,21 @@
     height: 80px;
     position: absolute;
 }
+
+.groupCard__button {
+    display: flex; 
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    background-color: var(--background-color-icon);
+    color: var(--background-item-hovered);
+    text-overflow: ellipsis;
+    font-family: InterMedium;
+    font-size: var(--font-size-15);
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.groupCard__button:hover {
+    background-color: var(--font-color-comment-sender);
+}
