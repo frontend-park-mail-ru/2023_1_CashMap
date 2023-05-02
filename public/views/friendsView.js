@@ -180,8 +180,8 @@ export default class FriendsView extends BaseView {
 			case '/findFriends':
 				this._searchAreaInput.addEventListener('keyup', () => {
 					if (this._searchAreaInput.value === "") {
-						console.log(11111)
-						actionFriends.getNotFriends(15, 0);
+						localStorage.removeItem("searchQuery");
+						Router.go('/findFriends');
 						return
 					}
 					this.interruptTimer();
@@ -312,6 +312,7 @@ export default class FriendsView extends BaseView {
 			actionSearch.search(this._searchAreaInput.value);
 		} else {
 			localStorage.removeItem("searchQuery");
+			this._searchAreaInput.focus();
 		}
 	}
 
