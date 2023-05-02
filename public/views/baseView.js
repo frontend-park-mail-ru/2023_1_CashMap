@@ -48,6 +48,8 @@ export default class BaseView {
         Handlebars.registerPartial('newGroup', Handlebars.templates.newGroup);
         Handlebars.registerPartial('deleteGroup', Handlebars.templates.deleteGroup);
         Handlebars.registerPartial('groups', Handlebars.templates.groups);
+        Handlebars.registerPartial('group', Handlebars.templates.group);
+        Handlebars.registerPartial('groupCard', Handlebars.templates.groupCard);
         Handlebars.registerPartial('header', Handlebars.templates.header);
         Handlebars.registerPartial('inputField', Handlebars.templates.inputField);
         Handlebars.registerPartial('inputSettings', Handlebars.templates.inputSettings);

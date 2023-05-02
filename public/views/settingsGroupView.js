@@ -1,9 +1,9 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
 import {sideBarConst, headerConst, settingsGroupConst, activeColor, groupAvatarDefault} from "../static/htmlConst.js";
-import {actionGroup} from "../actions/actionGroup.js";
+import {actionGroups} from "../actions/actionGroups.js";
 import {actionImg} from "../actions/actionImg.js";
-import groupStore from "../stores/groupStore.js";
+import groupsStore from "../stores/groupsStore.js";
 import BaseView from "./baseView.js";
 
 export default class GroupView extends BaseView {
@@ -13,7 +13,7 @@ export default class GroupView extends BaseView {
 
 		this._validateTitle = true;
 		this._validateInfo = true;
-		groupStore.registerCallback(this.updatePage.bind(this));
+		groupsStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
 
 		this._fileList = null;
@@ -23,7 +23,7 @@ export default class GroupView extends BaseView {
 	 * @private метод, отправляющий callback, которые вызываются при изменении определенных Store.
 	 */
 	addStore() {
-		groupStore.registerCallback(this.updatePage.bind(this));
+		groupsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
