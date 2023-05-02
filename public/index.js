@@ -39,6 +39,7 @@ Router.registerPage('/feed', Views.FeedView);
 Router.registerPage('/signIn', Views.SignInView);
 Router.registerPage('/signUp', Views.SignUpView);
 Router.registerPage('/friends', Views.FriendsView);
+Router.registerPage('/groups', Views.GroupsView);
 Router.registerPage('/subscribers', Views.FriendsView);
 Router.registerPage('/subscriptions', Views.FriendsView);
 Router.registerPage('/findFriends', Views.FriendsView);
