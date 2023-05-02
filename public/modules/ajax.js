@@ -44,6 +44,9 @@ class Ajax {
             getNotGroups: '/api/group/hot',
             getPopularGroups: '/api/group/hot',
             createGroup: '/api/group/create',
+            getGroupsSub: '/api/group/link/',
+            GroupsSub: '/api/group/link/',
+            GroupsUnsub: '/api/group/link/',
 
             chatCheck: '/api/im/chat/check',
             chatCreate: '/api/im/chat/create',
@@ -270,6 +273,10 @@ class Ajax {
 
     async getGroupInfo(link) {
         return this._request(this._apiUrl.getGroupInfo + link, this._requestType.GET);
+    }
+
+    async getGroupsSub(link, count, offset = 0) {
+        return this._request(this._apiUrl.getGroupsSub + link + '/subs' + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
     async editGroup(link, title, info, avatar, privacy, hideOwner) {

@@ -56,9 +56,9 @@ export const actionGroups = {
      * action, который используется, чтобы подписаться на группу
      * @param {*} link - ссылка на группу
      */
-    sub(link) {
+    groupSub(link) {
         Dispatcher.dispatch({
-            actionName: 'sub',
+            actionName: 'groupSub',
             link,
         });
     },
@@ -66,9 +66,9 @@ export const actionGroups = {
      * action, который используется, чтобы отписаться от группы
      * @param {*} link - ссылка на группу
      */
-    unsub(link) {
+    groupUnsub(link) {
         Dispatcher.dispatch({
-            actionName: 'unsub',
+            actionName: 'groupUnsub',
             link,
         });
     },
@@ -107,6 +107,20 @@ export const actionGroups = {
         Dispatcher.dispatch({
             actionName: 'deleteGroup',
             data,
+        });
+    },
+    /**
+     * action для получения подписчиков группы
+     * @param {*} link - данные группы
+     * @param {*} count - данные группы
+     * @param {*} offset - данные группы
+     */
+    getGroupsSub(link, count, offset) {
+        Dispatcher.dispatch({
+            actionName: 'getGroupsSub',
+            link,
+            count,
+            offset,
         });
     },
 };

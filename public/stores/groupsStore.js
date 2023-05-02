@@ -73,6 +73,9 @@ class groupsStore {
             case 'deleteGroup':
                 await this._deleteGroup(action.data);
                 break;
+            case 'getGroupsSub':
+                await this._getGroupsSub(action.link, action.count, action.offset);
+                break;
             default:
                 return;
         }
@@ -195,7 +198,6 @@ class groupsStore {
         const response = await request.json();
 
         if (request.status === 200) {
-            console.log(response.body);
             this.curGroup = response.body.group_info;
             if (!this.curGroup.avatar) {
                 this.curGroup.avatar = groupAvatarDefault;
@@ -209,6 +211,27 @@ class groupsStore {
         if (callback) {
             callback();
         }
+    }
+
+    /**
+     * Метод, реализующий получение подписчиков группы
+     * @param {Object} link - данные группы
+     * @param {Object} count - данные группы
+     * @param {Object} offset - данные группы
+     */
+    async _getGroupsSub(link, count, offset) {
+        const request = await Ajax.getGroupsSub(link, count, offset);
+        const response = await request.json();
+
+        if (request.status === 200) {
+            this.curGroup.subList = response.body.profiles;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('getGroup error');
+        }
+
+        this._refreshStore();
     }
 
     /**

@@ -86,7 +86,7 @@ export default class GroupView extends BaseView {
 		if (search.link) {
 			this._groupLink = search.link;
 			alert(this._groupLink);
-			actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, 15); }, this._groupLink);
+			actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, 15); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink);
 		} else {
 			Router.go('/groups', false);
 		}
@@ -102,7 +102,6 @@ export default class GroupView extends BaseView {
 			headerData: header,
 
 			groupData: groupsStore.curGroup,
-			subData: groupsStore.subByGroup,
 			postAreaData: {createPostData: {avatar: groupsStore.curGroup.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
 		}
 	}
