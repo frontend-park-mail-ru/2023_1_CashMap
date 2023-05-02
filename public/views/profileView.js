@@ -14,6 +14,8 @@ export default class ProfileView {
 		this.curPage = false;
 		this._userLink = null;
 
+		this._userLink = null;
+
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
@@ -49,6 +51,8 @@ export default class ProfileView {
 
 		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
+		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
+		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
 		this._createPosts = document.getElementById('js-create-post');
 		this._goMsg = document.getElementById('js-go-msg');
 		this._posts = document.getElementsByClassName('post-text');
@@ -97,6 +101,20 @@ export default class ProfileView {
 			this._deletePosts[i].addEventListener('click', () => {
 				const postId = this._deletePosts[i].getAttribute("data-id");
 				actionPost.deletePost(Number(postId));
+			});
+		}
+
+		for (let i = 0; i < this._likePosts.length; i++) {
+			this._likePosts[i].addEventListener('click', () => {
+				const postId = this._likePosts[i].getAttribute("data-id");
+				actionPost.likePost(Number(postId));
+			});
+		}
+
+		for (let i = 0; i < this._dislikePosts.length; i++) {
+			this._dislikePosts[i].addEventListener('click', () => {
+				const postId = this._dislikePosts[i].getAttribute("data-id");
+				actionPost.dislikePost(Number(postId));
 			});
 		}
 
