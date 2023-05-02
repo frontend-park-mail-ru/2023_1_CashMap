@@ -57,7 +57,7 @@ export default class MessagesView {
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage');
+			Router.go('/user');
 		});
 
 		this._newsItem.addEventListener('click', () => {

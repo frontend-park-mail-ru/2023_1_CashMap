@@ -85,7 +85,7 @@ export default class SettingsView {
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage');
+			Router.go('/user');
 		});
 
 		this._msgItem.addEventListener('click', () => {

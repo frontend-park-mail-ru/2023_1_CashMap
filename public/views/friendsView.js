@@ -80,7 +80,7 @@ export default class FriendsView extends BaseView {
         });
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage', false);
+			Router.go('/user', false);
 		});
 
 		this._msgItem.addEventListener('click', () => {
@@ -142,12 +142,12 @@ export default class FriendsView extends BaseView {
 			});
 		}
 
-		/*for (let i = 0; i < this._goToProfile.length; i++) {
+		for (let i = 0; i < this._goToProfile.length; i++) {
 			this._goToProfile[i].addEventListener('click', () => {
 				const userId = this._goToProfile[i].getAttribute("data-id");
-				// ToDo: переход в профиль пользователя userId
+				Router.go('/user?link=' + userId, false);
 			});
-		}*/
+		}
 
 		for (let i = 0; i < this._goToMsg.length; i++) {
 			this._goToMsg[i].addEventListener('click', () => {

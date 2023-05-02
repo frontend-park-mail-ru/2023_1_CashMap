@@ -77,7 +77,7 @@ export default class EditPostView {
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage', false);
+			Router.go('/user', false);
 		});
 
 		this._newsItem.addEventListener('click', () => {

@@ -30,6 +30,22 @@ class userStore {
             lastActive: null,
         };
 
+        this.userProfile = {
+            isAuth: false,
+            errorAuth: '',
+            errorReg: '',
+
+            email: null,
+            user_link: null,
+            firstName: null,
+            lastName: null,
+            avatar: null,
+            bio: null,
+            birthday: null,
+            status: null,
+            lastActive: null,
+        };
+
         this.profile = null;
 
         Dispatcher.register(this._fromDispatch.bind(this));
@@ -152,31 +168,38 @@ class userStore {
         const response = await request.json();
 
         if (request.status === 200) {
-            this.user.avatar = response.body.profile.avatar;
-            this.user.user_link = response.body.profile.user_link;
-            this.user.firstName = response.body.profile.first_name;
-            this.user.lastName = response.body.profile.last_name;
-            this.user.bio = response.body.profile.bio;
-            this.user.status = response.body.profile.status;
-            this.user.email = response.body.profile.email;
+            let profile = {};
+
+            profile.avatar = response.body.profile.avatar;
+            profile.user_link = response.body.profile.user_link;
+            profile.firstName = response.body.profile.first_name;
+            profile.lastName = response.body.profile.last_name;
+            profile.bio = response.body.profile.bio;
+            profile.status = response.body.profile.status;
+            profile.email = response.body.profile.email;
 
             if (response.body.profile.last_active) {
                 const date = new Date(response.body.profile.last_active);
-                this.user.lastActive = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                profile.lastActive = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
             }
 
             if (response.body.profile.birthday) {
-                //const date = new Date(response.body.profile.birthday);
-                //this.user.birthday = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
-                this.user.birthday = response.body.profile.birthday;
+                profile.birthday = response.body.profile.birthday;
             }
 
-            if (!this.user.status) {
-                this.user.status = 'статус не задан'
+            if (!profile.status) {
+                profile.status = 'статус не задан'
             }
 
-            if (!this.user.avatar) {
-                this.user.avatar = headerConst.avatarDefault;
+            if (!profile.avatar) {
+                profile.avatar = headerConst.avatarDefault;
+            }
+
+            if (!link || link === this.user.user_link) {
+                profile.isAuth = true;
+                this.user = profile;
+            } else {
+                this.userProfile = profile;
             }
         } else if (request.status === 401) {
             actionUser.signOut();
