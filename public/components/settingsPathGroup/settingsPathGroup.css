@@ -4,10 +4,35 @@
     min-width: 390.5px;
 }
 .menu-settings {
+    height: min-content;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.settings__menu-delete {
     grid-column: 3;
     grid-row: 1;
     height: min-content;
-    padding: 16px;
+}
+
+.settings__menu-delete > .button-def {
+    background-color: var(--background-color-error);
+}
+
+.settings__menu-delete > .button-def:hover {
+    background-color: #FFD3D3;
+}
+
+.settings__menu-delete > .button-def > .button-def__text {
+    color: var(--font-color-error);
+}
+
+.settings__menu-delete > .button-def:active + .deleteGroupElem {
+    display: block;
+}
+
+.deleteGroupElem:hover {
+    display: block;
 }
 
 .settingsPath {
@@ -60,6 +85,10 @@
 	font-size: var(--font-size-15);
 }
 
+.settingsGroup__input {
+    width: 100%;
+}
+
 .settings-path__button {
     height: 35px;
     width: 100%;
@@ -69,4 +98,10 @@
     width: 100%;
     padding: 8px 0px;
     text-align: center;
+}
+
+.settingsGroup__select {
+    border: none;
+    padding: 10px;
+    width: 100%;
 }

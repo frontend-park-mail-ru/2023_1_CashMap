@@ -1,15 +1,15 @@
 .deleteGroupElem {
-    display: block;
+    display: none;
 }
 
 .deleteGroup-position {
     width: 515px;
-    height: 150px;
+    height: 110px;
     position: absolute;
     left: 50%;
     top: 50%;
     margin-left: -257px;
-    margin-top: -75px;
+    margin-top: -55px;
 }
 
 .deleteGroup-info {
@@ -29,4 +29,8 @@
 
 .deletePost_size {
     width: 150px;
+}
+
+.deleteGroupElem:has(.cancel_btn:active) {
+    display: none;
 }
