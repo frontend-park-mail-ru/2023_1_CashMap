@@ -15,8 +15,14 @@
                 <div class="profileCard__info-text font-InterRegular profileCard__info-text_little"> в сети: {{ lastActive }} </div>
             </div>
         </div>
+      {{# if isMyPage}}
         <button class="profileCard__button profileCard__button_grey" data-action="message" data-id="{{ user_link }}">
             <div class="profileCard__button-text" id="js-profile-settings-btn"> Редактировать </div>
         </button>
+      {{else}}
+        <button class="profileCard__button profileCard__button_grey" data-action="message" data-id="{{ user_link }}">
+          <div class="profileCard__button-text" id="js-go-msg" data-id="{{ user_link }}"> Написать сообщение </div>
+        </button>
+      {{/if}}
     </div>
 </div>

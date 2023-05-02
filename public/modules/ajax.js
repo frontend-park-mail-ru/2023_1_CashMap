@@ -18,6 +18,7 @@ class Ajax {
             signOut: '/auth/logout',
             check: '/auth/check',
             getProfile: '/api/user/profile',
+            getProfileLink: '/api/user/profile/link/',
             editProfile: '/api/user/profile/edit',
 
             feed: '/api/feed',
@@ -71,7 +72,8 @@ class Ajax {
 
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
-        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === this._apiUrl.likePost || apiUrlType === this._apiUrl.dislikePost) {
+
+        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === '/api/posts/like/set' || apiUrlType === '/api/posts/like/cancel') {
             a['Content-Type'] = 'application/json';
         }
 
@@ -122,10 +124,10 @@ class Ajax {
      * @returns {Object} - тело ответа
      */
     async getProfile(link) {
-        if (link === undefined) {
+        if (link === undefined || link === null) {
             return this._request(this._apiUrl.getProfile, this._requestType.GET);
         } else {
-            return this._request(this._apiUrl.getProfile + `?link=${link}`, this._requestType.GET);
+            return this._request(this._apiUrl.getProfileLink + link, this._requestType.GET);
         }
     }
 
@@ -290,11 +292,20 @@ class Ajax {
         return this._request(request_url, this._requestType.GET);
     }
 
+    /**
+     * Метод отправки данных по лайку на сервер
+     * @param id - id поста
+     * @returns {Promise<Response>}
+     */
     async likePost(id) {
         let body = {post_id: id};
         return this._request(this._apiUrl.likePost, this._requestType.POST, JSON.stringify({body}));
     }
-
+    /**
+     * Метод отправки данных по дизлайку на сервер
+     * @param id - id поста
+     * @returns {Promise<Response>}
+     */
     async dislikePost(id) {
         let body = {post_id: id};
         return this._request(this._apiUrl.dislikePost, this._requestType.POST, JSON.stringify({body}));

@@ -90,7 +90,12 @@ class postsStore {
 
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
-                    post.isMyPost = true;
+                    if (userLink === userStore.user.user_link) {
+                        post.isMyPost = true;
+                    } else {
+                        post.isMyPost = false;
+                    }
+
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
                     }
@@ -106,6 +111,8 @@ class postsStore {
                     this.posts.push(post);
                 });
             }
+            console.log("psots::")
+            console.log(response.body.posts)
             this.posts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();

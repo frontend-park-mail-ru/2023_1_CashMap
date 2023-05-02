@@ -61,7 +61,7 @@ export default class MessagesView extends BaseView {
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage');
+			Router.go('/user');
 		});
 
 		this._newsItem.addEventListener('click', () => {
