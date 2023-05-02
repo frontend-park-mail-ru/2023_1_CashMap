@@ -205,7 +205,7 @@ class groupsStore {
 
         if (request.status === 200) {
             this.curGroup = response.body.group_info;
-            this.curGroup.isSub = response.body.isSub;
+            this.curGroup.isSub = response.body.is_sub;
             if (!this.curGroup.avatar) {
                 this.curGroup.avatar = groupAvatarDefault;
             }
