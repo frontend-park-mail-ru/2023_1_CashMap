@@ -81,7 +81,7 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
-            console.log(response);
+            //console.log(response);
 
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
@@ -101,7 +101,7 @@ class postsStore {
                         const date = new Date(post.creation_date);
                         post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                     }
-                    post.avatar = userStore.user.avatar;
+                    post.avatar = userStore.userProfile.avatar;
 
                     this.posts.push(post);
                 });
