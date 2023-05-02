@@ -135,8 +135,22 @@ export const friendsMenuInfo = [
   {text: 'Подписки', jsId: 'js-menu-subscriptions'},
   {text: 'Поиск друзей', jsId: 'js-menu-find-friends'}]
 
-  export const groupsMenuInfo = [
+export const groupsConst = {
+  menuInfo: [
     {text: 'Мои сообщества', jsId: 'js-menu-groups'},
-    {text: 'Управление', jsId: 'js-menu-user-groups'},
+    {text: 'Управление', jsId: 'js-menu-manage-groups'},
     {text: 'Поиск сообществ', jsId: 'js-menu-find-groups'},
-    {text: 'Популярные сообщества', jsId: 'js-menu-popular-groups'}]
+    {text: 'Популярные сообщества', jsId: 'js-menu-popular-groups'}],
+  buttonInfo: { text: 'Создать сообщество',
+      jsId: 'js-create-group-btn'}
+  }
+
+export const NewGroupConst = {
+  inputInfo:
+      { help: 'Название',
+        type: 'text',
+        jsIdInput: 'js-title-input',
+        jsIdError: 'js-title-error'},
+  buttonInfo: { text: 'Создать сообщество',
+      jsId: 'js-add-group-btn'},
+}
