@@ -14,8 +14,9 @@ export default class SettingsView {
 
 		this._validateFirstName = true;
 		this._validateLastName = true;
-		this._validateEmail = true;
-
+		this._validateStatus = true;
+		this._validateBio = true;
+		this._validateBirthday = true;
 		userStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
 
@@ -38,6 +39,7 @@ export default class SettingsView {
 		this._settingsBtn = document.getElementById('js-menu-main');
 		this._safetyBtn = document.getElementById('js-menu-safety');
 		this._settingsBtn.style.color = activeColor;
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 
 		this._dropZone = document.getElementById('js-drop-zone');
 		this._dropContent = document.getElementById('js-drop-content');
@@ -93,6 +95,10 @@ export default class SettingsView {
 			Router.go('/feed');
 		})
 
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
+        });
+
 		this._dropArea.addEventListener('dragover', (event) => {
 			event.preventDefault();
 		});
@@ -110,7 +116,7 @@ export default class SettingsView {
 		});
 
 		this._saveBtn.addEventListener('click', () => {
-			if (this._validateFirstName && this._validateLastName && this._validateEmail) {
+			if (this._validateFirstName && this._validateLastName && this._validateStatus && this._validateBio && this._validateBirthday) {
 				let birthday;
 				if (this._birthdayField.value) {
 					birthday = new Date(this._birthdayField.value).toISOString();
@@ -120,16 +126,26 @@ export default class SettingsView {
 						actionUser.editProfile({avatar: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value, birthday: birthday, status: this._statusField.value});
 					});
 				} else {
+					console.log();
 					actionUser.editProfile({firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value,  birthday: birthday, status: this._statusField.value});
 				}
 			}
 		});
 
 		this._firstNameField.addEventListener('change', () => {
-			this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName');
+			this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName', 'settings');
 		});
 		this._lastNameField.addEventListener('change', () => {
-			this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName');
+			this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName', 'settings');
+		});
+		this._statusField.addEventListener('change', () => {
+			this._validateStatus = Validation.validation(this._statusField, this._statusErrorField, 'userStatus', 'settings');
+		});
+		this._bioField.addEventListener('change', () => {
+			this._validateBio = Validation.validation(this._bioField, this._bioErrorField, 'bio', 'settings');
+		});
+		this._birthdayField.addEventListener('change', () => {
+			this._validateBirthday = Validation.validation(this._birthdayField, this._birthdayErrorField, 'birthday', 'settings');
 		});
 	}
 

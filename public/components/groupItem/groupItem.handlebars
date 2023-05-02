@@ -2,12 +2,8 @@
     <div class="groupItem__info">
         <img src="{{ avatar }}" class="groupItem__avatar avatar-form">
         <div class="groupItem__wrapper">
-            <div class="groupItem__name">{{ name }}</div>
-            {{#if isOpen}}
-                <div class="groupItem__text">Открытая группа</div>
-            {{else}}
-                <div class="groupItem__text">Закрытая группа</div>
-            {{/if}}
+            <div class="groupItem__name">{{ title }}</div>
+                <div class="groupItem__text">{{ privacy }}</div>
             <div class="groupItem__text">{{ subscribers }} подписчиков</div>
         </div>
     </div>

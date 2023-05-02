@@ -10,13 +10,15 @@
         <div class="profileCard__info">
             <img src="{{ avatar }}" class="profileCard__info-img avatar-form">
             <div class="profileCard__info-data">
-                <div class="profileCard__info-text profileCard__info-text_header">{{ firstName }} {{ lastName }}</div>
-                <div class="profileCard__info-text font-InterMedium ">{{ status }}</div>
-                <div class="profileCard__info-text font-InterRegular profileCard__info-text_little"> в сети: {{ lastActive }} </div>
+                <div class="profileCard__info-text profileCard__info-text_header">{{ title }}</div>
+                <div class="profiteCard__info-check">
+                    <img src="static/img/ok.svg" class="profileCard__info-img avatar-form">
+                    <div class="profileCard__info-text font-InterMedium ">Вы подписаны</div>
+                </div>
             </div>
         </div>
-        <button class="profileCard__button profileCard__button_grey" data-action="message" data-id="{{ user_link }}">
-            <div class="profileCard__button-text" id="js-profile-settings-btn"> Редактировать </div>
+        <button class="profileCard__button profileCard__button_grey" data-action="message" data-id="{{ group_link }}">
+            <div class="profileCard__button-text" id="js-group-settings-btn"> Редактировать </div>
         </button>
     </div>
 </div>

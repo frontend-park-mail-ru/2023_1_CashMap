@@ -19,7 +19,9 @@
 @import "components/search/search.css";
 @import "components/friend/friend.css";
 @import "components/friends/friends.css";
+@import "components/groupCard/groupCard.css";
 @import "components/groupItem/groupItem.css";
+@import "components/newGroup/newGroup.css";
 @import "components/groups/groups.css";
 @import "components/message/message.css";
 @import "components/messages/messages.css";
@@ -55,6 +57,11 @@
 @font-face {
     font-family: MailSansRoman; /* Имя шрифта */
     src: url(static/fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: MailSansRomanRegular; /* Имя шрифта */
+    src: url(static/fonts/MailSansRoman-Regular.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
@@ -147,6 +154,9 @@
 }
 .font-MailSansRoman {
     font-family: MailSansRoman, sans-serif;
+}
+.font-MailSansRomanRegular {
+    font-family: MailSansRomanRegular, sans-serif;
 }
 .font-Comfortaa {
     font-family: Comfortaa, sans-serif;

@@ -31,6 +31,8 @@ export default class EditPostView {
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._text = document.getElementById('js-edit-post-textarea');
+		this._text.focus();
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
@@ -44,7 +46,7 @@ export default class EditPostView {
 		this._editBtn = document.getElementById('js-edit-post-btn');
 		let textarea = document.getElementsByTagName('textarea');
 
-		textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;overflow-y:hidden;');
+		textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;');
 		textarea[0].addEventListener("input", OnInput, false);
 
 		function OnInput() {
@@ -60,6 +62,10 @@ export default class EditPostView {
 
 		this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);
+        });
+		
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
         });
 
 		this._editBtn.addEventListener('click', () => {

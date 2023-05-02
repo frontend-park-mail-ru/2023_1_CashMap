@@ -10,6 +10,7 @@
     grid-template-columns: 66% 8% 26%;
     grid-column: 3;
     grid-row: 4;
+    min-width: 390.5px;
 }
 
 .friends__nav-list {
