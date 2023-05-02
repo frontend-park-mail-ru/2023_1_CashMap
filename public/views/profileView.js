@@ -68,10 +68,10 @@ export default class ProfileView {
 				Router.go('/settings', false);
 			});
 		}
-    
+
 		this._feedBtn.addEventListener('click', () => {
-            Router.go('/feed', false);
-        });
+			Router.go('/feed', false);
+		});
 
 		this._msgItem.addEventListener('click', () => {
 			Router.go('/message', false);
@@ -123,6 +123,7 @@ export default class ProfileView {
 					}
 				});
 			});
+		}
 
 		for (let i = 0; i < this._posts.length; i++) {
 			const text = this._posts[i].textContent

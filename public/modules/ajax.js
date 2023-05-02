@@ -18,7 +18,7 @@ class Ajax {
             signOut: '/auth/logout',
             check: '/auth/check',
             getProfile: '/api/user/profile',
-            getProfileLink: '/api/user/profile/link',
+            getProfileLink: '/api/user/profile/link/',
             editProfile: '/api/user/profile/edit',
 
             feed: '/api/feed',
@@ -124,7 +124,7 @@ class Ajax {
         if (link === undefined) {
             return this._request(this._apiUrl.getProfile, this._requestType.GET);
         } else {
-            return this._request(this._apiUrl.getProfile + '/' + link, this._requestType.GET);
+            return this._request(this._apiUrl.getProfileLink + link, this._requestType.GET);
         }
     }
 
