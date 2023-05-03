@@ -342,12 +342,12 @@ class Ajax {
     }
 
     async sub(link) {
-        let body = {group_link: link};
+        let body = {user_link: link};
         return this._request(this._apiUrl.sub, this._requestType.POST, JSON.stringify({body}));
     }
 
     async unsub(link) {
-        let body = {group_link: link};
+        let body = {user_link: link};
         return this._request(this._apiUrl.unsub, this._requestType.POST, JSON.stringify({body}));
     }
 
