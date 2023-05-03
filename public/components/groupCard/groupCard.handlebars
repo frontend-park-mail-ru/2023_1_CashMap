@@ -1,0 +1,46 @@
+<div class="profileCard">
+    <div class="groupCard__header groupCard__header" style="background-image: url( static/img/profile_background.svg )">
+        <button class="profileCard__button" data-action="message">
+            <div class="profileCard__button-text">
+                Изменить обложку
+            </div>
+        </button>
+    </div>
+    <div class="profileCard__body">
+        <div class="groupCard__info">
+            <div class="profileCard__inf">
+                <div class="groupCard__info-img-wrapper background-color-post "></div>
+                <img src="{{ avatar }}" class="groupCard__info-img avatar-form">
+            </div>
+            <div class="profileCard__info-data">
+                <div class="profileCard__info-text profileCard__info-text_header">{{ title }}</div>
+                {{#if isSub}}
+                    <div class="profiteCard__info-check">
+                        <img src="static/img/ok.svg" class="profileCard__info_img avatar-form">
+                        <div class="profileCard__info-text font-InterMedium ">Вы подписаны</div>
+                    </div>
+                {{else}}
+                    <div class="profileCard__info-text font-InterMedium ">{{subscribers}} подписчиков</div>
+                {{/if}}
+            </div>
+        </div>
+        {{#if isAdmin}}
+            <button class="profileCard__button profileCard__button_grey"data-id="{{ group_link }}" style="margin-right: 20px;">
+                <div class="profileCard__button-text" id="js-group-settings-btn"> Управление </div>
+            </button>
+            <button class="profileCard__button profileCard__button_grey"data-id="{{ group_link }}">
+                <div class="profileCard__button-text" id="js-group-settings-btn"> Заявки </div>
+            </button>
+        {{else}}
+            {{#if isSub}}
+                <button class="profileCard__button profileCard__button_grey" data-id="{{ group_link }}">
+                    <div class="profileCard__button-text" id="js-group-unsub-btn"> Отписаться </div>
+                </button>
+            {{else}}
+                <button class="groupCard__button" data-id="{{ group_link }}">
+                    <div class="profileCard__button-text" id="js-group-sub-btn"> Подписаться </div>
+                </button>
+            {{/if}}
+        {{/if}}
+    </div>
+</div>

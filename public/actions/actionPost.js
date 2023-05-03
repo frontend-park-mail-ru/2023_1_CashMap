@@ -52,7 +52,7 @@ export const actionPost = {
      */
     getPostsByCommunity(community_link, count, lastPostDate) {
         Dispatcher.dispatch({
-            actionName: 'getPosts',
+            actionName: 'getPostsByCommunity',
             community_link,
             count,
             lastPostDate,

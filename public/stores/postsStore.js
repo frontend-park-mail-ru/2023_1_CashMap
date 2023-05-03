@@ -17,6 +17,7 @@ class postsStore {
 
         this.posts = [];
         this.friendsPosts = [];
+        this.groupsPosts = [];
         this.curPost = null;
 
         Dispatcher.register(this._fromDispatch.bind(this));
@@ -55,6 +56,9 @@ class postsStore {
                 break;
             case 'getPostById':
                 await this._getPostsById(action.id, action.count, action.lastPostDate);
+                break;
+            case 'getPostsByCommunity':
+                await this._getPostsByCommunity(action.community_link, action.count, action.lastPostDate);
                 break;
             case 'createPost':
                 await this._createPost(action.data);
@@ -172,6 +176,38 @@ class postsStore {
             actionUser.signOut();
         } else {
             alert('getPostById error');
+        }
+
+        this._refreshStore();
+    }
+
+    async _getPostsByCommunity(community_link, count, lastPostDate) {
+        const request = await Ajax.getPostsByCommunity(community_link, count, lastPostDate);
+
+        if (request.status === 200) {
+            const response = await request.json();
+
+            this.groupsPosts = [];
+
+            response.body.posts.forEach((post) => {
+                if (!post.owner_info.url) {
+                    post.owner_info.url = headerConst.avatarDefault;
+                }
+                if (!post.comments) {
+                    post.comments_count = 0;
+                }
+                if (post.creation_date) {
+                    const date = new Date(post.creation_date);
+                    post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
+                }
+                post.avatar = userStore.user.avatar;
+
+                this.groupsPosts.push(post);
+            });
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('getPostsByCommunity error');
         }
 
         this._refreshStore();

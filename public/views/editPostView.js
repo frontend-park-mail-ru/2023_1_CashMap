@@ -95,6 +95,10 @@ export default class EditPostView extends BaseView {
 		this._friendsItem.addEventListener('click', () => {
 			Router.go('/friends', false);
 		});
+
+		this._groupsItem.addEventListener('click', () => {
+			Router.go('/groups', false);
+		});
 	}
 
 	remove() {

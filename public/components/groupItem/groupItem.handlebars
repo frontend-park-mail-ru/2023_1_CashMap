@@ -1,0 +1,27 @@
+<div class="groupItem" data-id="{{ link }}">
+    <div class="groupItem__info">
+        <img src="{{ avatar }}" class="groupItem__avatar avatar-form">
+        <div class="groupItem__wrapper">
+            <div class="groupItem__name">{{ title }}</div>
+            <div class="groupItem__text">{{ privacy }}</div>
+            <div class="groupItem__text">{{ subscribers }} подписчиков</div>
+        </div>
+    </div>
+    {{#if isGroup}}
+        <div class="groupItem__img"><img src="static/img/post_icons/post_menu.svg"></div>
+
+        <div class="friend-menu friend-menu-size friend-menu-position background-color-profile-menu border-radius-btn-input box-shadow-profile-menu">
+            <div class="friend-menu-item groupItem-menu-item-page hover-block border-radius-btn-input margin-auto" data-id="{{ group_link }}">
+                <span class="friend-item__text font-size-15 font-MailSansRoman margin-auto"> Страница </span>
+            </div>
+            <div class="friend-menu-item groupItem-menu-item-delete hover-block border-radius-btn-input margin-auto" data-id="{{ group_link }}">
+                <span class="friend-item__text font-size-15 font-MailSansRoman margin-auto"> Отписаться </span>
+            </div>
+        </div>
+    {{/if}}
+    {{#if isNotGroup}}
+        <button class="friend__button friend__button_grey js-group-add" data-id="{{ group_link }}">
+            <div class="friend__button-text"> Подать заявку </div>
+        </button>
+    {{/if}}
+</div>
