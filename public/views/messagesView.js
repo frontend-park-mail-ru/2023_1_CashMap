@@ -42,6 +42,7 @@ export default class MessagesView extends BaseView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+		this._groupsItem = document.getElementById('js-side-bar-groups');
 
 		this._goToMsg = document.getElementsByClassName('js-go-chat');
 	}
@@ -51,6 +52,10 @@ export default class MessagesView extends BaseView {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		});
+
+		this._groupsItem.addEventListener('click', () => {
+            Router.go('/groups', false);
+        });
 
 		this._settingsBtn.addEventListener('click', () => {
 			Router.go('/settings', false);

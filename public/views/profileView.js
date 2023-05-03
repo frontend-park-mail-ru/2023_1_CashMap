@@ -50,6 +50,7 @@ export default class ProfileView extends BaseView {
 		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+		this._groupsItem = document.getElementById('js-side-bar-groups');
 
 		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
@@ -65,6 +66,10 @@ export default class ProfileView extends BaseView {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		});
+
+		this._groupsItem.addEventListener('click', () => {
+            Router.go('/groups', false);
+        });
 
 		this._settingsBtn.addEventListener('click', () => {
 			Router.go('/settings', false);

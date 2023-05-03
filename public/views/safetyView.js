@@ -44,6 +44,7 @@ export default class SafetyView extends BaseView {
         this._passwordRepeatField = document.getElementById('js-repeat-password-input');
         this._passwordRepeatErrorField = document.getElementById('js-repeat-password-error');
 		this._saveBtn = document.getElementById('js-change-password-btn');
+		this._groupsItem = document.getElementById('js-side-bar-groups');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
@@ -60,6 +61,10 @@ export default class SafetyView extends BaseView {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		})
+
+		this._groupsItem.addEventListener('click', () => {
+            Router.go('/groups', false);
+        });
 
 		this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);

@@ -58,6 +58,7 @@ export default class SettingsView extends BaseView {
 		this._statusField = document.getElementById('js-status-input');
 		this._statusErrorField = document.getElementById('js-status-error');
 		this._saveBtn = document.getElementById('js-settings-save-btn');
+		this._groupsItem = document.getElementById('js-side-bar-groups');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
@@ -75,6 +76,10 @@ export default class SettingsView extends BaseView {
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		});
+
+		this._groupsItem.addEventListener('click', () => {
+            Router.go('/groups', false);
+        });
 
 		this._settingsBtn.addEventListener('click', () => {
 			Router.go('/settings', false);

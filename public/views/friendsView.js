@@ -121,29 +121,9 @@ export default class FriendsView extends BaseView {
             Router.go('/feed', false);
         });
 
-		this._friendsBtn.addEventListener('click', () => {
-			Router.go('/friends', false);
-		});
-
-		this._subscribersBtn.addEventListener('click', () => {
-			this._subscribersBtn.style.color = activeColor;
-			Router.go('/subscribers', false);
-		});
-
-		this._subscriptionsBtn.addEventListener('click', () => {
-			this._subscriptionsBtn.style.color = activeColor;
-			Router.go('/subscriptions', false);
-		});
-
-		this._findFriendsBtn.addEventListener('click', () => {
-			this._findFriendsBtn.style.color = activeColor;
-			Router.go('/findFriends', false);
-		});
-
-		this._feedBtn.addEventListener('click', () => {
-            Router.go('/feed', false);
+		this._groupsItem.addEventListener('click', () => {
+            Router.go('/groups', false);
         });
-
 
 		for (let i = 0; i < this._addUser.length; i++) {
 			this._addUser[i].addEventListener('click', () => {

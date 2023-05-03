@@ -118,6 +118,10 @@ export default class BaseView {
         this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);
         });
+
+        this._groupsItem.addEventListener('click', () => {
+            Router.go('/groups', false);
+        });
  
         this._feedBtn.addEventListener('click', () => {
             Router.go('/feed', false);
@@ -227,10 +231,6 @@ export default class BaseView {
         this.addPagesElements();
 
         this._addDropdownEventListeners();
-
-        this._groupsItem.addEventListener('click', () => {
-            Router.go('/groups', false);
-        });
     }
 
     /**
