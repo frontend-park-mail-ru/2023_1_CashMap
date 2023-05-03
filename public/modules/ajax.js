@@ -18,6 +18,7 @@ class Ajax {
             signOut: '/auth/logout',
             check: '/auth/check',
             getProfile: '/api/user/profile',
+            getProfileLink: '/api/user/profile/link/',
             editProfile: '/api/user/profile/edit',
 
             feed: '/api/feed',
@@ -27,6 +28,8 @@ class Ajax {
             createPost: '/api/posts/create',
             deletePost: '/api/posts/delete',
             editPost: '/api/posts/edit',
+            likePost: '/api/posts/like/set',
+            dislikePost: '/api/posts/like/cancel',
 
             getFriends: '/api/user/friends',
             getNotFriends: '/api/user/rand',
@@ -78,7 +81,7 @@ class Ajax {
 
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
-        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === this._apiUrl.editGroup) {
+        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === this._apiUrl.editGroup || apiUrlType === '/api/posts/like/set' || apiUrlType === '/api/posts/like/cancel' || apiUrlType === this._apiUrl.likePost || apiUrlType === this._apiUrl.dislikePost) {
             a['Content-Type'] = 'application/json';
         }
 
@@ -93,7 +96,7 @@ class Ajax {
 
     /**
      * метод, отправляющий запрос на вход в систему
-     * @param {String} email - почта пользователя 
+     * @param {String} email - почта пользователя
      * @param {String} password - пароль пользователя
      * @returns {Object} - тело ответа
      */
@@ -104,9 +107,9 @@ class Ajax {
 
     /**
      * метод, отправляющий запрос на регистрацию в системе
-     * @param {String} firstName - имя пользователя 
+     * @param {String} firstName - имя пользователя
      * @param {String} lastName - фамилия пользователя
-     * @param {String} email - почта пользователя 
+     * @param {String} email - почта пользователя
      * @param {String} password - пароль пользователя
      * @returns {Object} - тело ответа
      */
@@ -132,18 +135,18 @@ class Ajax {
         if (link === undefined) {
             return this._request(this._apiUrl.getProfile, this._requestType.GET);
         } else {
-            return this._request(this._apiUrl.getProfile + `?link=${link}`, this._requestType.GET);
+            return this._request(this._apiUrl.getProfileLink + link, this._requestType.GET);
         }
     }
 
     /**
      * метод, отправляющий запрос на редактирование пользователя
-     * @param {String} avatar - аватарка пользователя 
-     * @param {String} firstName - имя пользователя 
+     * @param {String} avatar - аватарка пользователя
+     * @param {String} firstName - имя пользователя
      * @param {String} lastName - фамилия пользователя
-     * @param {String} email - почта пользователя 
+     * @param {String} email - почта пользователя
      * @param {String} city - город пользователя
-     * @param {String} birthday - день рождения пользователя 
+     * @param {String} birthday - день рождения пользователя
      * @param {String} status - статус пользователя
      * @returns {Object} - тело ответа
      */
@@ -162,7 +165,7 @@ class Ajax {
 
     /**
      * метод, отправляющий запрос на получение постов
-     * @param {String} userLink - ссылка на пользователя 
+     * @param {String} userLink - ссылка на пользователя
      * @param {Number} count - количество постов для получения
      * @param {Date} lastPostDate - дата, после которой выбираются посты
      * @returns {Object} - тело ответа
@@ -369,6 +372,26 @@ class Ajax {
         formData.append("attachments", data);
 
         return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData);
+    }
+
+    /**
+     * Метод отправки данных по лайку на сервер
+     * @param id - id поста
+     * @returns {Promise<Response>}
+     */
+    async likePost(id) {
+        let body = {post_id: id};
+        return this._request(this._apiUrl.likePost, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    /**
+     * Метод отправки данных по дизлайку на сервер
+     * @param id - id поста
+     * @returns {Promise<Response>}
+     */
+    async dislikePost(id) {
+        let body = {post_id: id};
+        return this._request(this._apiUrl.dislikePost, this._requestType.POST, JSON.stringify({body}));
     }
 }
 

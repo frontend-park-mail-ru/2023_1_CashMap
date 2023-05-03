@@ -47,6 +47,8 @@ export default class FeedView extends BaseView {
 
 		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
+		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
+		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
 		this._createPosts = document.getElementById('js-create-post');
 		this._posts = document.getElementsByClassName('post-text');
 	}
@@ -73,7 +75,7 @@ export default class FeedView extends BaseView {
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage', false);
+			Router.go('/user', false);
 		});
 
 		this._feedBtn.addEventListener('click', () => {
@@ -93,6 +95,20 @@ export default class FeedView extends BaseView {
 				const postId = this._deletePosts[i].getAttribute("data-id");
 				actionPost.deletePost(Number(postId));
 			});
+		}
+
+		for (let i = 0; i < this._likePosts.length; i++) {
+				this._likePosts[i].addEventListener('click', () => {
+						const postId = this._likePosts[i].getAttribute("data-id");
+						actionPost.likePost(Number(postId));
+				});
+		}
+
+		for (let i = 0; i < this._dislikePosts.length; i++) {
+				this._dislikePosts[i].addEventListener('click', () => {
+						const postId = this._dislikePosts[i].getAttribute("data-id");
+						actionPost.dislikePost(Number(postId));
+				});
 		}
 
 		this._createPosts.addEventListener('click', () => {

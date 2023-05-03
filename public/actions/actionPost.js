@@ -116,4 +116,24 @@ export const actionPost = {
             postId,
         });
     },
+    /**
+     * action для лайка поста
+     * @param {*} postId - id поста
+     */
+    likePost(postId) {
+        Dispatcher.dispatch({
+            actionName: 'likePost',
+            postId,
+        });
+    },
+    /**
+     * action для дизлайка поста
+     * @param {*} postId - id поста
+     */
+    dislikePost(postId) {
+        Dispatcher.dispatch({
+            actionName: 'dislikePost',
+            postId,
+        });
+    },
 };

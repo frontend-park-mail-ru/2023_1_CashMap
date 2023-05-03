@@ -4,6 +4,7 @@ import {sideBarConst, headerConst, activeColor, maxTextStrings, maxTextLength} f
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
+import { actionMessage } from "../actions/actionMessage.js";
 
 export default class ProfileView {
 	constructor() {
@@ -11,6 +12,9 @@ export default class ProfileView {
 
 		this._jsId = 'profile';
 		this.curPage = false;
+		this._userLink = null;
+
+		this._userLink = null;
 
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
@@ -47,7 +51,10 @@ export default class ProfileView {
 
 		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
+		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
+		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
 		this._createPosts = document.getElementById('js-create-post');
+		this._goMsg = document.getElementById('js-go-msg');
 		this._posts = document.getElementsByClassName('post-text');
 	}
 
@@ -57,16 +64,18 @@ export default class ProfileView {
 		});
 
 		this._settingsBtn.addEventListener('click', () => {
-            Router.go('/settings', false);
-        });
+			Router.go('/settings', false);
+		});
+
+		if (this._profileSettingsBtn) {
+			this._profileSettingsBtn.addEventListener('click', () => {
+				Router.go('/settings', false);
+			});
+		}
 
 		this._feedBtn.addEventListener('click', () => {
-            Router.go('/feed', false);
-        });
-
-		this._profileSettingsBtn.addEventListener('click', () => {
-            Router.go('/settings', false);
-        });
+			Router.go('/feed', false);
+		});
 
 		this._msgItem.addEventListener('click', () => {
 			Router.go('/message', false);
@@ -95,10 +104,45 @@ export default class ProfileView {
 			});
 		}
 
+		for (let i = 0; i < this._likePosts.length; i++) {
+			this._likePosts[i].addEventListener('click', () => {
+				const postId = this._likePosts[i].getAttribute("data-id");
+				actionPost.likePost(Number(postId));
+			});
+		}
+
+		for (let i = 0; i < this._dislikePosts.length; i++) {
+			this._dislikePosts[i].addEventListener('click', () => {
+				const postId = this._dislikePosts[i].getAttribute("data-id");
+				actionPost.dislikePost(Number(postId));
+			});
+		}
+
 		this._createPosts.addEventListener('click', () => {
 			localStorage.removeItem('groupLink');
 			Router.go('/createPost', false);
 		});
+
+		if (this._goMsg) {
+			this._goMsg.addEventListener('click', () => {
+				const userId = this._goMsg.getAttribute("data-id");
+				alert(userId)
+				actionMessage.chatCheck(userId, () => {
+					if (localStorage.getItem('chatFriendId')) {
+						localStorage.setItem('chatId', localStorage.getItem('chatFriendId'));
+						Router.go('/chat');
+						actionMessage.getChatsMsg(localStorage.getItem('chatId'), 15);
+					} else {
+						actionMessage.chatCreate(userId, () => {
+							if (localStorage.getItem('chatId')) {
+								Router.go('/chat');
+								actionMessage.getChatsMsg(localStorage.getItem('chatId'), 15);
+							}
+						});
+					}
+				});
+			});
+		}
 
 		for (let i = 0; i < this._posts.length; i++) {
 			const text = this._posts[i].textContent
@@ -131,8 +175,13 @@ export default class ProfileView {
 		document.getElementById(this._jsId)?.remove();
 	}
 
-	showPage() {
-		actionUser.getProfile(() => { actionPost.getPostsByUser(userStore.user.user_link, 15); });
+	showPage(search) {
+		if (search.link) {
+			this._userLink = search.link;
+			actionUser.getProfile(() => { actionPost.getPostsByUser(this._userLink, 15); }, this._userLink);
+		} else {
+			actionUser.getProfile(() => { this._userLink = userStore.user.user_link; Router.go('/user?link=' + userStore.user.user_link, true); });
+		}
 	}
 
 	updatePage() {
@@ -148,13 +197,20 @@ export default class ProfileView {
 	_preRender() {
 		this._template = Handlebars.templates.profile;
 
+		userStore.userProfile.isMyPage = true;
+		if (this._userLink === userStore.user.user_link) {
+			userStore.userProfile = userStore.user;
+		} else {
+			userStore.userProfile.isMyPage = false;
+		}
+
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar'] = userStore.userProfile.avatar;
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			profileData: userStore.user,
-			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
+			profileData: userStore.userProfile,
+			postAreaData: {createPostData: {avatar: userStore.userProfile.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
 		}
 	}
 
