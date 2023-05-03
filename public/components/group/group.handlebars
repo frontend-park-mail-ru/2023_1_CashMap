@@ -1,0 +1,41 @@
+<div class="group" id="group">
+    {{> sideBar sideBarData}}
+    {{> header headerData}}
+    <div class="group__body">
+        <div class="group__card">
+            {{> groupCard groupData}}
+        </div>
+        <div class="group__posts">
+            {{> postArea postAreaData}}
+        </div>
+
+        <div class="group_right">
+            <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
+                <div class="font-color-post-sender font-MailSansRoman font-size-16">Подробная информация</div>
+                <div class="group__info_text font-color-gray-text font-InterMedium font-size-13">{{groupData.info}}</div>
+            </div>
+
+            <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
+                <div class="font-color-post-sender font-MailSansRoman font-size-16">Подписчики</div>
+                {{#if groupData.subList}}
+                    {{#each groupData.subList}}
+                        {{> subscriber this}}
+                    {{/each}}
+                    <div class="group__info_more border-radius-btn-input">
+                        <div class="font-color-gray-text font-InterMedium font-size-13" id="js-show-subscribers">Показать всех</div>
+                        <img src="static/img/show.svg" class="">
+                    </div>              
+                {{else}}
+                    <div class="font-color-gray-text font-InterMedium font-size-13" id="js-show-subscribers">Тут пока пусто</div>
+                {{/if}}
+            </div>
+
+            <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
+                <div class="font-color-post-sender font-MailSansRoman font-size-16">Контакты</div>
+                {{#each groupData.manageList}}
+                    {{> subscriber this}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -60,15 +60,29 @@
 
 }
 
+.profileCard__inf {
+    margin-top: -8px;
+}
+
 .profileCard__info {
     display: grid;
     grid-template-columns: 100px 23px 1fr;
     width: 100%;
 }
 
+.profileCard__info-img-wrapper {
+    width: 140px;
+    height: 120px;
+    position: absolute;
+    margin-top: -20px;
+    margin-left: -20px;
+    border-radius: 50%;
+}
+
 .profileCard__info-img {
     width: 100px;
     height: 100px;
+    position: absolute;
 }
 
 .profileCard__info-data {

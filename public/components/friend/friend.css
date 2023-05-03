@@ -15,7 +15,6 @@
 .friend:hover .friend__name{
     color: var(--font-color-post-sender);
 }
-
 .friend__avatar {
     width: 80px;
     height: 80px;

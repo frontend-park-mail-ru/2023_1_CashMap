@@ -13,4 +13,5 @@
     display: inline-grid;
     justify-content: center;
     align-items: center;
+    padding: 8px;
 }

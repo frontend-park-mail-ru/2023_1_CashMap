@@ -1,0 +1,10 @@
+.subscriber {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.subscriber__avatar {
+    width: 35px;
+    height: 35px;
+}
