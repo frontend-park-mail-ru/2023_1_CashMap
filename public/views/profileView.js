@@ -119,6 +119,7 @@ export default class ProfileView {
 		}
 
 		this._createPosts.addEventListener('click', () => {
+			localStorage.removeItem('groupLink');
 			Router.go('/createPost', false);
 		});
 

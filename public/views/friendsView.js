@@ -32,6 +32,7 @@ export default class FriendsView extends BaseView {
 	_addPagesElements() {
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 		this._friendsBtn = document.getElementById('js-menu-friends');
 		this._subscribersBtn = document.getElementById('js-menu-subscribers');
 		this._subscriptionsBtn = document.getElementById('js-menu-subscriptions');
@@ -113,6 +114,30 @@ export default class FriendsView extends BaseView {
 		this._feedBtn.addEventListener('click', () => {
             Router.go('/feed', false);
         });
+
+		this._friendsBtn.addEventListener('click', () => {
+			Router.go('/friends', false);
+		});
+
+		this._subscribersBtn.addEventListener('click', () => {
+			this._subscribersBtn.style.color = activeColor;
+			Router.go('/subscribers', false);
+		});
+
+		this._subscriptionsBtn.addEventListener('click', () => {
+			this._subscriptionsBtn.style.color = activeColor;
+			Router.go('/subscriptions', false);
+		});
+
+		this._findFriendsBtn.addEventListener('click', () => {
+			this._findFriendsBtn.style.color = activeColor;
+			Router.go('/findFriends', false);
+		});
+
+		this._feedBtn.addEventListener('click', () => {
+            Router.go('/feed', false);
+        });
+
 
 		for (let i = 0; i < this._addUser.length; i++) {
 			this._addUser[i].addEventListener('click', () => {

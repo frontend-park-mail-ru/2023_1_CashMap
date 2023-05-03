@@ -36,7 +36,11 @@ export default class CreatePostView extends BaseView {
 	addPagesListener() {
 		super.addPagesListener();
 		this._editBtn.addEventListener('click', () => {
-			actionPost.createPostUser(userStore.user.user_link, userStore.user.user_link, true, this._text.value);
+			if (localStorage.getItem('groupLink')) {
+				actionPost.createPostCommunity(userStore.user.user_link, localStorage.getItem('groupLink'), true, this._text.value);
+			} else {
+				actionPost.createPostUser(userStore.user.user_link, userStore.user.user_link, true, this._text.value);
+			}
 			Router.goBack();
 		});
 	}

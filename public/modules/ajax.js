@@ -39,6 +39,17 @@ class Ajax {
             sub: '/api/user/sub',
             unsub: '/api/user/unsub',
 
+            getGroups: '/api/group/self',
+            getGroupInfo: '/api/group/link/',
+            editGroup: '/api/group/link/',
+            deleteGroup: '/api/group/link/',
+            getManageGroups: '/api/group/manage',
+            getNotGroups: '/api/group/hot',
+            getPopularGroups: '/api/group/hot',
+            createGroup: '/api/group/create',
+            getGroupsSub: '/api/group/link/',
+            GroupsSub: '/api/group/link/',
+            GroupsUnsub: '/api/group/link/',
 
             chatCheck: '/api/im/chat/check',
             chatCreate: '/api/im/chat/create',
@@ -70,7 +81,7 @@ class Ajax {
 
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
-        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === '/api/posts/like/set' || apiUrlType === '/api/posts/like/cancel' || apiUrlType === this._apiUrl.likePost || apiUrlType === this._apiUrl.dislikePost) {
+        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === this._apiUrl.editGroup || apiUrlType === '/api/posts/like/set' || apiUrlType === '/api/posts/like/cancel' || apiUrlType === this._apiUrl.likePost || apiUrlType === this._apiUrl.dislikePost) {
             a['Content-Type'] = 'application/json';
         }
 
@@ -168,6 +179,21 @@ class Ajax {
     }
 
     /**
+     * метод, отправляющий запрос на получение постов
+     * @param {String} userLink - ссылка на пользователя
+     * @param {Number} count - количество постов для получения
+     * @param {Date} lastPostDate - дата, после которой выбираются посты
+     * @returns {Object} - тело ответа
+     */
+    async getPostsByCommunity(userLink, count, lastPostDate) {
+        if (lastPostDate) {
+            return this._request(this._apiUrl.communityPosts + `?community_link=${userLink}&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
+        } else {
+            return this._request(this._apiUrl.communityPosts + `?community_link=${userLink}&batch_size=${count}`, this._requestType.GET);
+        }
+    }
+
+    /**
      * метод, отправляющий запрос на получение постов друзей
      * @param {Number} count - количество постов для получения
      * @param {Date} lastPostDate - дата, после которой выбираются посты
@@ -242,6 +268,77 @@ class Ajax {
     async reject(link) {
         let body = {user_link: link};
         return this._request(this._apiUrl.reject, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async getGroups(count, offset= 0) {
+        return this._request(this._apiUrl.getGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async groupSub(link) {
+        return this._request(this._apiUrl.GroupsSub + link + '/sub', this._requestType.POST);
+    }
+
+    async groupUnsub(link) {
+        return this._request(this._apiUrl.GroupsUnsub + link + '/unsub', this._requestType.POST);
+    }
+
+    async getGroupInfo(link) {
+        return this._request(this._apiUrl.getGroupInfo + link, this._requestType.GET);
+    }
+
+    async getGroupsSub(link, count, offset = 0) {
+        return this._request(this._apiUrl.getGroupsSub + link + '/subs' + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async editGroup(link, title, info, avatar, privacy, hideOwner) {
+        if (privacy === 'Открытая группа') {
+            privacy = 'open';
+        } else {
+            privacy = 'close';
+        }
+
+        let body = {title: title, group_info: info, avatar: avatar, privacy: privacy};
+
+        return this._request(this._apiUrl.editGroup + link, this._requestType.PATCH, JSON.stringify({body}));
+    }
+
+    async deleteGroup(link) {
+        return this._request(this._apiUrl.deleteGroup + link, this._requestType.DELETE);
+    }
+
+    async getmanageGroups(count, offset = 0) {
+        return this._request(this._apiUrl.getManageGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async getNotGroups(count, offset = 0) {
+        return this._request(this._apiUrl.getNotGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async getPopularGroups(count, offset = 0) {
+        return this._request(this._apiUrl.getPopularGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    /**
+     * метод, отправляющий запрос на создание группы
+     * @param {String} title - название группы
+     * @param {String} info - информация о группе
+     * @param {String} privacy - приватность
+     * @param {Boolean} hideOwner - показывать ли создателя группы
+     * @returns {Object} - тело ответа
+     */
+    async createGroup(title, info, privacy, hideOwner) {
+        let body = {title: title, group_info: info, privacy: privacy, hide_owner: hideOwner};
+        return this._request(this._apiUrl.createGroup, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async sub(link) {
+        let body = {group_link: link};
+        return this._request(this._apiUrl.sub, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async unsub(link) {
+        let body = {group_link: link};
+        return this._request(this._apiUrl.unsub, this._requestType.POST, JSON.stringify({body}));
     }
 
     async getChats(count = 0, lastPostDate = 0) {

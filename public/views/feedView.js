@@ -70,6 +70,10 @@ export default class FeedView extends BaseView {
 			Router.go('/friends', false);
 		});
 
+		this._groupsItem.addEventListener('click', () => {
+			Router.go('/groups', false);
+		});
+
 		this._myPageItem.addEventListener('click', () => {
 			Router.go('/user', false);
 		});
@@ -108,6 +112,7 @@ export default class FeedView extends BaseView {
 		}
 
 		this._createPosts.addEventListener('click', () => {
+			localStorage.removeItem('groupLink');
 			Router.go('/createPost', false);
 		});
 
