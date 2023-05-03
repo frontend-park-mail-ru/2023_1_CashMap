@@ -9,6 +9,7 @@ class Ajax {
     constructor() {
         // this.backendHostname = '127.0.0.1';
         this.backendHostname = '95.163.212.121';
+
         this.backendPort = '8080';
         this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
 
@@ -307,7 +308,7 @@ class Ajax {
             privacy = 'close';
         }
 
-        let body = {title: title, group_info: info, avatar: avatar, privacy: privacy};
+        let body = {title: title, group_info: info, avatar_url: avatar, privacy: privacy};
 
         return this._request(this._apiUrl.editGroup + link, this._requestType.PATCH, JSON.stringify({body}));
     }

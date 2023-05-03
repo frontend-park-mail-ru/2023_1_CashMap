@@ -233,8 +233,8 @@ class groupsStore {
             } else {
                 this.curGroup.privacy = 'Закрытая группа';
             }
-            if (!this.curGroup.avatar) {
-                this.curGroup.avatar = groupAvatarDefault;
+            if (!this.curGroup.avatar_url) {
+                this.curGroup.avatar_url = groupAvatarDefault;
             }
         } else if (request.status === 401) {
             actionUser.signOut();
