@@ -101,12 +101,12 @@ export const actionGroups = {
     },
     /**
      * action для удвления группы
-     * @param {*} data - данные группы
+     * @param {*} link - данные группы
      */
-    deleteGroup(data) {
+    deleteGroup(link) {
         Dispatcher.dispatch({
             actionName: 'deleteGroup',
-            data,
+            link,
         });
     },
     /**

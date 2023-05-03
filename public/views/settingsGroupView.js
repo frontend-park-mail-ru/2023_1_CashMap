@@ -106,8 +106,6 @@ export default class GroupView extends BaseView {
 	}
 
 	_preRender() {
-		console.log(groupsStore.curGroup);
-
 		this._template = Handlebars.templates.settingsGroup;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;

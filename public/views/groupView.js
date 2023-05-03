@@ -27,6 +27,9 @@ export default class GroupView extends BaseView {
 		super.addPagesElements();
 
 		this._groupSettingsBtn = document.getElementById('js-group-settings-btn');
+		this._groupSub = document.getElementById('js-group-sub-btn');
+		this._groupUnsub = document.getElementById('js-group-unsub-btn');
+		this._groupDelete = document.getElementById('js-group-delete-btn');
 		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
 		this._createPosts = document.getElementById('js-create-post');
@@ -55,6 +58,24 @@ export default class GroupView extends BaseView {
 			this._createPosts.addEventListener('click', () => {
 				localStorage.setItem('groupLink', this._groupLink);
 				Router.go('/createPost', false);
+			});
+		}
+
+		if (this._groupSub) {
+			this._groupSub.addEventListener('click', () => {
+				actionGroups.groupSub(this._groupLink);
+			});
+		}
+
+		if (this._groupUnsub) {
+			this._groupUnsub.addEventListener('click', () => {
+				actionGroups.groupUnsub(this._groupLink);
+			});
+		}
+
+		if (this._groupDelete) {
+			this._groupDelete.addEventListener('click', () => {
+				actionGroups.deleteGroup(this._groupLink);
 			});
 		}
 
@@ -105,12 +126,13 @@ export default class GroupView extends BaseView {
 		this._template = Handlebars.templates.group;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
+
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 
 			groupData: groupsStore.curGroup,
-			postAreaData: {createPostData: {avatar: groupsStore.curGroup.avatar, jsId: 'js-create-post'}, postList: postsStore.groupsPosts},
+			postAreaData: {createPostData: {displayNone: !groupsStore.curGroup.isAdmin, avatar: groupsStore.curGroup.avatar, jsId: 'js-create-post'}, postList: postsStore.groupsPosts},
 		}
 	}
 }

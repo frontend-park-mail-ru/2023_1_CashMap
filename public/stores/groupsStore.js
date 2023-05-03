@@ -71,16 +71,16 @@ class groupsStore {
                 await this._editGroup(action.data);
                 break;
             case 'deleteGroup':
-                await this._deleteGroup(action.data);
+                await this._deleteGroup(action.link);
                 break;
             case 'getGroupsSub':
                 await this._getGroupsSub(action.link, action.count, action.offset);
                 break;
             case 'groupSub':
-                await this._groupSub(action.link, action.count, action.offset);
+                await this._groupSub(action.link);
                 break;
             case 'groupUnsub':
-                await this._groupUnsub(action.link, action.count, action.offset);
+                await this._groupUnsub(action.link);
                 break;
             default:
                 return;
@@ -101,6 +101,11 @@ class groupsStore {
                 group.isGroup = true;
                 if (!group.avatar) {
                     group.avatar = groupAvatarDefault;
+                }
+                if (group.privacy === 'open') {
+                    group.privacy = 'Открытая группа';
+                } else {
+                    group.privacy = 'Закрытая группа';
                 }
             });
 
@@ -129,6 +134,11 @@ class groupsStore {
                 if (!group.avatar) {
                     group.avatar = groupAvatarDefault;
                 }
+                if (group.privacy === 'open') {
+                    group.privacy = 'Открытая группа';
+                } else {
+                    group.privacy = 'Закрытая группа';
+                }
             });
 
             this.manageGroups = response.body.groups;
@@ -155,6 +165,11 @@ class groupsStore {
                 group.isNotUserGroup = true;
                 if (!group.avatar) {
                     group.avatar = groupAvatarDefault;
+                }
+                if (group.privacy === 'open') {
+                    group.privacy = 'Открытая группа';
+                } else {
+                    group.privacy = 'Закрытая группа';
                 }
             });
 
@@ -183,6 +198,11 @@ class groupsStore {
                 if (!group.avatar) {
                     group.avatar = groupAvatarDefault;
                 }
+                if (group.privacy === 'open') {
+                    group.privacy = 'Открытая группа';
+                } else {
+                    group.privacy = 'Закрытая группа';
+                }
             });
 
             this.popularGroups = response.body.groups;
@@ -206,11 +226,16 @@ class groupsStore {
         if (request.status === 200) {
             this.curGroup = response.body.group_info;
             this.curGroup.isSub = response.body.is_sub;
+            this.curGroup.isAdmin = response.body.is_admin;
+
+            if (response.body.privacy === 'open') {
+                this.curGroup.privacy = 'Открытая группа';
+            } else {
+                this.curGroup.privacy = 'Закрытая группа';
+            }
             if (!this.curGroup.avatar) {
                 this.curGroup.avatar = groupAvatarDefault;
             }
-
-            console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -294,8 +319,8 @@ class groupsStore {
         this._refreshStore();
     }
 
-    async _deleteGroup(data) {
-        const request = await Ajax.deleteGroup(data.link);
+    async _deleteGroup(link) {
+        const request = await Ajax.deleteGroup(link);
         if (request.status === 200) {
 
         } else if (request.status === 401) {
@@ -307,8 +332,8 @@ class groupsStore {
         this._refreshStore();
     }
 
-    async _groupSub(data) {
-        const request = await Ajax.groupSub(data.link);
+    async _groupSub(link) {
+        const request = await Ajax.groupSub(link);
         if (request.status === 200) {
             this.curGroup.isSub = true;
         } else if (request.status === 401) {
@@ -320,8 +345,8 @@ class groupsStore {
         this._refreshStore();
     }
 
-    async _groupUnsub(data) {
-        const request = await Ajax.groupUnsub(data.link);
+    async _groupUnsub(link) {
+        const request = await Ajax.groupUnsub(link);
         if (request.status === 200) {
             this.curGroup.isSub = false;
         } else if (request.status === 401) {

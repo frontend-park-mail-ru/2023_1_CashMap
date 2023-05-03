@@ -78,7 +78,7 @@ class Ajax {
 
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
-        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create') {
+        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === this._apiUrl.editGroup) {
             a['Content-Type'] = 'application/json';
         }
 
@@ -272,11 +272,11 @@ class Ajax {
     }
 
     async groupSub(link) {
-        return this._request(this._apiUrl.GroupsSub + link, this._requestType.POST);
+        return this._request(this._apiUrl.GroupsSub + link + '/sub', this._requestType.POST);
     }
 
     async groupUnsub(link) {
-        return this._request(this._apiUrl.GroupsUnsub + link, this._requestType.POST);
+        return this._request(this._apiUrl.GroupsUnsub + link + '/unsub', this._requestType.POST);
     }
 
     async getGroupInfo(link) {
@@ -288,7 +288,14 @@ class Ajax {
     }
 
     async editGroup(link, title, info, avatar, privacy, hideOwner) {
-        let body = {title: title, info: info, avatar: avatar, privacy: privacy, hide_owner: hideOwner};
+        if (privacy === 'Открытая группа') {
+            privacy = 'open';
+        } else {
+            privacy = 'close';
+        }
+
+        let body = {title: title, group_info: info, avatar: avatar, privacy: privacy};
+
         return this._request(this._apiUrl.editGroup + link, this._requestType.PATCH, JSON.stringify({body}));
     }
 

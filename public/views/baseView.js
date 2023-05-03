@@ -70,6 +70,7 @@ export default class BaseView {
         Handlebars.registerPartial('signUp', Handlebars.templates.signUp);
         Handlebars.registerPartial('signInPath', Handlebars.templates.signInPath);
         Handlebars.registerPartial('signUpPath', Handlebars.templates.signUpPath);
+        Handlebars.registerPartial('subscriber', Handlebars.templates.subscriber);
     }
 
     /**

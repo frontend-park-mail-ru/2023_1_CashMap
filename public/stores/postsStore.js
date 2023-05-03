@@ -178,6 +178,8 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
 
+            this.groupsPosts = [];
+
             response.body.posts.forEach((post) => {
                 if (!post.owner_info.url) {
                     post.owner_info.url = headerConst.avatarDefault;

@@ -83,7 +83,6 @@ export default class GroupsView extends BaseView {
 				privacy = 'close';
 			}
 			actionGroups.createGroup({title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._checkboxField.checked});
-			alert('OK');
 			Router.go('/manageGroups', false);
 		});
 
