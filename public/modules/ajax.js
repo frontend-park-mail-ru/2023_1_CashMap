@@ -73,7 +73,8 @@ class Ajax {
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
 
-        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === '/api/posts/like/set' || apiUrlType === '/api/posts/like/cancel') {
+        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === '/api/posts/like/set' || apiUrlType === '/api/posts/like/cancel' || apiUrlType === this._apiUrl.likePost || apiUrlType === this._apiUrl.dislikePost) {
+
             a['Content-Type'] = 'application/json';
         }
 
@@ -301,6 +302,7 @@ class Ajax {
         let body = {post_id: id};
         return this._request(this._apiUrl.likePost, this._requestType.POST, JSON.stringify({body}));
     }
+
     /**
      * Метод отправки данных по дизлайку на сервер
      * @param id - id поста
