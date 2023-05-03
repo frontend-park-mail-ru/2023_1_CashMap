@@ -15,7 +15,7 @@ export default class SignUpView {
         this._validateLastName = false;
         this._validateEmail = false;
         this._validatePassword = false;
-        this._validatePasswordRepeat = true;
+        this._validatePasswordRepeat = false;
 
         userStore.registerCallback(this.updatePage.bind(this))
     }
@@ -71,7 +71,7 @@ export default class SignUpView {
             this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password', 'default');
         });
         this._passwordRepeatField.addEventListener('change', () => {
-            //this._validatePasswordRepeat = Validation.validation(this._passwordRepeatField, this._passwordRepeatErrorField, 'secondPassword', 'default');
+            this._validatePasswordRepeat = Validation.validationPassword(this._passwordField, this._passwordRepeatField, this._passwordRepeatErrorField, 'default');
         });
     }
 

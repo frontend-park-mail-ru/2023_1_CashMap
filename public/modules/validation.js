@@ -62,6 +62,40 @@ class Validation {
 	}
 
 	/**
+	 * метод для валидации повторного ппароля
+	 * @param {String} inputPassword - поле ввода пароля
+	 * @param {String} inputPasswordRepeat - поле ввода второго пароля
+	 * @param {String} errorField - поле ошибки
+	 * @param {String} type - тип проверки
+	 * @returns 
+	 */
+	validationPassword(inputPassword, inputPasswordRepeat, errorField, style) {
+		const validationRes = this._validateTwoPasswords(inputPassword.value, inputPasswordRepeat.value);
+
+		if (validationRes.status === false) {
+			errorField.textContent = validationRes.error;
+			if (style === 'default') {
+				inputPasswordRepeat.classList.remove('input-block__field-correct');
+				inputPasswordRepeat.classList.add('input-block__field-incorrect');
+			} else {
+				inputPasswordRepeat.classList.remove('input-block-settings__field-correct');
+				inputPasswordRepeat.classList.add('input-block-settings__field-incorrect');
+			}
+			return false;
+		} else {
+			errorField.textContent = '';
+			if (style === 'default') {
+				inputPasswordRepeat.classList.add('input-block__field-correct');
+				inputPasswordRepeat.classList.remove('input-block__field-incorrect');
+			} else {
+				inputPasswordRepeat.classList.add('input-block-settings__field-correct');
+				inputPasswordRepeat.classList.remove('input-block-settings__field-incorrect');
+			}
+			return true;
+		}
+	}
+
+	/**
      * @private метод, валидирующий пароль при авторизации
      * @param {String} password пароль для валидации
 	 * @return {Boolean} статус
