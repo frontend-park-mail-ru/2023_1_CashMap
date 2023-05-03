@@ -151,11 +151,11 @@ export default class BaseView {
             this.interruptTimer();
 
             this.startTimer(250, () => {
-                if (this._searchAreaInput.value === "") {
+                if (this._searchAreaInput.value.trim() === "") {
                     this._initDropdownSearchList();
                 }
 
-                if (this._searchAreaInput.value !== "") {
+                if (this._searchAreaInput.value.trim() !== "") {
                     actionSearch.searchForDropdown(this._searchAreaInput.value);
                 }
             })
@@ -164,7 +164,7 @@ export default class BaseView {
         this._searchAreaInput.addEventListener('click', () => {
             this._searchDropdown.style.display = 'grid';
             // почему-то летит 6 запросов по одному кликую........
-            if (this._searchAreaInput.value === "") {
+            if (this._searchAreaInput.value.trim() === "") {
                 if (userStore.user.user_link === null) {
                     actionUser.getProfile(() => {
                         actionSearch.friendSearchForDropdown(userStore.user.user_link, 3, 0);
