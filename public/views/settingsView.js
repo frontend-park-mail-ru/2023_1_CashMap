@@ -17,6 +17,8 @@ export default class SettingsView extends BaseView {
 		this._validateFirstName = true;
 		this._validateLastName = true;
 		this._validateStatus = true;
+		this._validateBio = true;
+		this._validateBirthday = true;
 
 		userStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
@@ -87,7 +89,7 @@ export default class SettingsView extends BaseView {
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage');
+			Router.go('/user');
 		});
 
 		this._msgItem.addEventListener('click', () => {
@@ -119,7 +121,7 @@ export default class SettingsView extends BaseView {
 		});
 
 		this._saveBtn.addEventListener('click', () => {
-			if (this._validateFirstName && this._validateLastName) {
+			if (this._validateFirstName && this._validateLastName && this._validateStatus && this._validateBio && this._validateBirthday) {
 				let birthday;
 				if (this._birthdayField.value) {
 					birthday = new Date(this._birthdayField.value).toISOString();
@@ -129,6 +131,7 @@ export default class SettingsView extends BaseView {
 						actionUser.editProfile({avatar_url: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value, birthday: birthday, status: this._statusField.value});
 					});
 				} else {
+					console.log();
 					actionUser.editProfile({firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value,  birthday: birthday, status: this._statusField.value});
 				}
 			}
@@ -142,6 +145,12 @@ export default class SettingsView extends BaseView {
 		});
 		this._statusField.addEventListener('change', () => {
 			this._validateStatus = Validation.validation(this._statusField, this._statusErrorField, 'userStatus', 'settings');
+		});
+		this._bioField.addEventListener('change', () => {
+			this._validateBio = Validation.validation(this._bioField, this._bioErrorField, 'bio', 'settings');
+		});
+		this._birthdayField.addEventListener('change', () => {
+			this._validateBirthday = Validation.validation(this._birthdayField, this._birthdayErrorField, 'birthday', 'settings');
 		});
 	}
 

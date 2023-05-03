@@ -45,7 +45,7 @@
     font-size: var(--font-size-19);
 }
 
-.friend__city {
+.friend__status {
     color: var(--font-color-gray-text);
     font-size: var(--font-size-15);
     font-family: InterMedium;

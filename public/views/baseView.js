@@ -116,7 +116,7 @@ export default class BaseView {
         });
 
         this._myPageItem.addEventListener('click', () => {
-            Router.go('/myPage', false);
+            Router.go('/user', false);
         });
 
         this._msgItem.addEventListener('click', () => {

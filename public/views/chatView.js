@@ -47,7 +47,7 @@ export default class ChatView extends BaseView {
 	addPagesListener() {
 		super.addPagesListener();
 		this._backBtn.addEventListener('click', () => {
-            Router.go('/message', false);
+				Router.goBack();
 		});
 
 		this._sendMsg.addEventListener('click', () => {
@@ -106,6 +106,7 @@ export default class ChatView extends BaseView {
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
 		header['avatar_url'] = userStore.user.avatar_url;
+
 
 		this._context = {
 			sideBarData: sideBarConst,

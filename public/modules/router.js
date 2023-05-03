@@ -23,11 +23,14 @@ class Router {
 
     /**
      * метод, выполняющий переход по относительному url
-     * @param {String} url - url на который следует перейти
+     * @param {String} winUrl - url на который следует перейти
      * @param {Boolean} replace - true: заменить текущую запись, false: добавить новую
      * (по умолчанию: false)
      */
-    go(url, replace = true) {
+    go(winUrl, replace = true) {
+        const url = this._getUrl(winUrl);
+        const search = this._getSearch(winUrl);
+
         if (this.currentPage) {
             this.currentPage.remove();
             this.currentPage.curPage = false;
@@ -38,13 +41,13 @@ class Router {
         if (this._pages[url]) {
             this.currentPage = this._pages[url];
             this.currentPage.curPage = true;
-            this.currentPage.showPage();
+            this.currentPage.showPage(search);
 
-            if (window.location.pathname + window.location.search !== url) {
+            if (window.location.pathname + window.location.search !== winUrl) {
                 if (replace) {
-                    window.history.replaceState(null, null, url);
+                    window.history.replaceState(null, null, winUrl);
                 } else {
-                    window.history.pushState(null, null, url);
+                    window.history.pushState(null, null, winUrl);
                 }
             }
 
@@ -69,6 +72,16 @@ class Router {
         window.addEventListener("popstate", () => {
             this.go(window.location.pathname + window.location.search, false);
         });
+    }
+
+    _getUrl(url) {
+        const urlObject = new URL(url, window.location.origin);
+        return urlObject.pathname === '/' ? '/' : urlObject.pathname.replace(/\/$/, '');
+    }
+
+    _getSearch(url) {
+        const urlObject = new URL(url, window.location.origin);
+        return Object.fromEntries(urlObject.searchParams);
     }
 }
 
