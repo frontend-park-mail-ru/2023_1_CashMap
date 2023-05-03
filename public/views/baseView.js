@@ -196,7 +196,7 @@ export default class BaseView {
         this._context = {
             userSearchItems: searchStore.userSearchItems,
             // communitySearchItems: searchStore.communitySearchItems,
-            communitySearchItems: searchStore.userSearchItems,
+            communitySearchItems: searchStore.communitySearchItems,
             isEmpty: isEmpty,
             searchDropdownConst: searchDropdownConst
         };
@@ -212,7 +212,7 @@ export default class BaseView {
         let isEmpty = dropdownFriendsSearchStore.friends.length === 0;
         this._context = {
             userSearchItems: dropdownFriendsSearchStore.friends,
-            communitySearchItems: [],
+            communitySearchItems: searchStore.communitySearchItems,
             isEmpty: isEmpty,
             searchDropdownConst: searchDropdownConst,
         };
