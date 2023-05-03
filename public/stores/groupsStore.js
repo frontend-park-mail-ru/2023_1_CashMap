@@ -209,7 +209,8 @@ class groupsStore {
             if (!this.curGroup.avatar) {
                 this.curGroup.avatar = groupAvatarDefault;
             }
-            console.log(this.curGroup);
+
+            console.log(response.body);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -219,6 +220,8 @@ class groupsStore {
         if (callback) {
             callback();
         }
+
+        this._refreshStore();
     }
 
     /**

@@ -1,10 +1,12 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, settingsGroupConst, activeColor, groupAvatarDefault} from "../static/htmlConst.js";
+import {sideBarConst, headerConst, settingsGroupConst, activeColor} from "../static/htmlConst.js";
 import {actionGroups} from "../actions/actionGroups.js";
 import {actionImg} from "../actions/actionImg.js";
 import groupsStore from "../stores/groupsStore.js";
 import BaseView from "./baseView.js";
+import Validation from "../modules/validation.js";
+import { actionUser } from "../actions/actionUser.js";
 
 export default class GroupView extends BaseView {
 	constructor() {
@@ -45,6 +47,8 @@ export default class GroupView extends BaseView {
 		this._settingsBtn.style.color = activeColor;
 		this._subBtn = document.getElementById('js-menu-subscribers');
 		this._requestsBtn = document.getElementById('js-menu-requests');
+
+		this._deleteGroup = document.getElementById('js-group-delete-btn');
 	}
 
 	addPagesListener() {
@@ -70,17 +74,22 @@ export default class GroupView extends BaseView {
 			if (this._validateTitle && this._validateInfo) {
 				if (this._fileList) {
 					actionImg.uploadImg(this._fileList, (newUrl) => {
-						actionGroup.editGroup({avatar: newUrl, title: this._titleField.value, info: this._infoField.value, privacy: this._typeField.value, hideOwner: this._showAuthorField.checked});
+						actionGroups.editGroup({link: this._groupLink, avatar: newUrl, title: this._titleField.value, info: this._infoField.value, privacy: this._typeField.value, hideOwner: this._showAuthorField.checked});
 					});
 				} else {
-					actionGroup.editGroup({title: this._titleField.value, info: this._infoField.value, privacy: this._typeField.value, hideOwner: this._showAuthorField.checked});
+					actionGroups.editGroup({link: this._groupLink, title: this._titleField.value, info: this._infoField.value, privacy: this._typeField.value, hideOwner: this._showAuthorField.checked});
 				}
 			}
+		});
+
+		this._deleteGroup.addEventListener('click', () => {
+			actionGroups.deleteGroup(this._groupLink);
 		});
 
 		this._titleField.addEventListener('change', () => {
 			this._validateTitle = Validation.validation(this._titleField, this._titleErrorField, 'userStatus', 'settings');
 		});
+
 		this._infoField.addEventListener('change', () => {
 			this._validateInfo = Validation.validation(this._infoField, this._infoErrorField, 'bio', 'settings');
 		});
@@ -90,19 +99,20 @@ export default class GroupView extends BaseView {
 	showPage(search) {
 		if (search.link) {
 			this._groupLink = search.link;
-			actionGroups.getGroupInfo(() => {}, this._groupLink);
+			actionUser.getProfile(() => { actionGroups.getGroupInfo(null, this._groupLink); });
 		} else {
 			Router.goBack();
 		}
 	}
 
 	_preRender() {
+		console.log(groupsStore.curGroup);
+
 		this._template = Handlebars.templates.settingsGroup;
 		let header = headerConst;
 		header['avatar'] = userStore.user.avatar;
 
 		let settings = settingsGroupConst;
-		alert(groupsStore.curGroup.avatar);
 		settings['avatar'] = groupsStore.curGroup.avatar;
 		settings['inputInfo']['data'] = groupsStore.curGroup.title;
 		settings['info'] = groupsStore.curGroup.info;
@@ -112,7 +122,7 @@ export default class GroupView extends BaseView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			settingsPathData: settingsGroupConst,
+			settingsPathData: settings,
 		}
 	}
 }

@@ -53,6 +53,7 @@ export default class GroupView extends BaseView {
 
 		if (this._createPosts) {
 			this._createPosts.addEventListener('click', () => {
+				localStorage.setItem('groupLink', this._groupLink);
 				Router.go('/createPost', false);
 			});
 		}
@@ -83,9 +84,11 @@ export default class GroupView extends BaseView {
 			}
 		}
 
-		this._groupSettingsBtn.addEventListener('click', () => {
-			Router.go('/settingsGroup?link=' + this._groupLink, false);
-		});
+		if (this._groupSettingsBtn) {
+			this._groupSettingsBtn.addEventListener('click', () => {
+				Router.go('/settingsGroup?link=' + this._groupLink, false);
+			});
+		}
 
 	}
 
@@ -107,7 +110,7 @@ export default class GroupView extends BaseView {
 			headerData: header,
 
 			groupData: groupsStore.curGroup,
-			postAreaData: {createPostData: {avatar: groupsStore.curGroup.avatar, jsId: 'js-create-post'}, postList: postsStore.posts},
+			postAreaData: {createPostData: {avatar: groupsStore.curGroup.avatar, jsId: 'js-create-post'}, postList: postsStore.groupsPosts},
 		}
 	}
 }

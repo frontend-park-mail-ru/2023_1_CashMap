@@ -96,6 +96,7 @@ export default class FeedView extends BaseView {
 		}
 
 		this._createPosts.addEventListener('click', () => {
+			localStorage.removeItem('groupLink');
 			Router.go('/createPost', false);
 		});
 

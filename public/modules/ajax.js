@@ -288,12 +288,12 @@ class Ajax {
     }
 
     async editGroup(link, title, info, avatar, privacy, hideOwner) {
-        let body = {title: title, group_info: info, avatar: avatar, privacy: privacy, hide_owner: hideOwner};
+        let body = {title: title, info: info, avatar: avatar, privacy: privacy, hide_owner: hideOwner};
         return this._request(this._apiUrl.editGroup + link, this._requestType.PATCH, JSON.stringify({body}));
     }
 
     async deleteGroup(link) {
-        return this._request(this._apiUrl.deleteGroup + link, this._requestType.PATCH);
+        return this._request(this._apiUrl.deleteGroup + link, this._requestType.DELETE);
     }
 
     async getmanageGroups(count, offset = 0) {

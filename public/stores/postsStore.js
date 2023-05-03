@@ -17,6 +17,7 @@ class postsStore {
 
         this.posts = [];
         this.friendsPosts = [];
+        this.groupsPosts = [];
         this.curPost = null;
 
         Dispatcher.register(this._fromDispatch.bind(this));
@@ -176,7 +177,22 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
-            this.posts = response.body.posts;
+
+            response.body.posts.forEach((post) => {
+                if (!post.owner_info.url) {
+                    post.owner_info.url = headerConst.avatarDefault;
+                }
+                if (!post.comments) {
+                    post.comments_count = 0;
+                }
+                if (post.creation_date) {
+                    const date = new Date(post.creation_date);
+                    post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
+                }
+                post.avatar = userStore.user.avatar;
+
+                this.groupsPosts.push(post);
+            });
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
