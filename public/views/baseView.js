@@ -161,7 +161,13 @@ export default class BaseView {
             this._searchDropdown.style.display = 'grid';
             // почему-то летит 6 запросов по одному кликую........
             if (this._searchAreaInput.value === "") {
-                actionSearch.friendSearchForDropdown(userStore.user.user_link, 3, 0);
+                if (userStore.user.user_link === null) {
+                    actionUser.getProfile(() => {
+                        actionSearch.friendSearchForDropdown(userStore.user.user_link, 3, 0);
+                    })
+                } else {
+                    actionSearch.friendSearchForDropdown(userStore.user.user_link, 3, 0);
+                }
             } else {
                 actionSearch.searchForDropdown(this._searchAreaInput.value);
             }
@@ -212,7 +218,7 @@ export default class BaseView {
         let isEmpty = dropdownFriendsSearchStore.friends.length === 0;
         this._context = {
             userSearchItems: dropdownFriendsSearchStore.friends,
-            communitySearchItems: searchStore.communitySearchItems,
+            communitySearchItems: [],
             isEmpty: isEmpty,
             searchDropdownConst: searchDropdownConst,
         };
