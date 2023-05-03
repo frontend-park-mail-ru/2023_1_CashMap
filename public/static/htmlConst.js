@@ -172,7 +172,7 @@ export const deleteGroupConst = {
 }
 
 export const settingsGroupConst = {
-  avatar: "static/img/post_icons/group_image.svg",
+  avatar_url: "static/img/post_icons/group_image.svg",
   inputInfo: 
   { help: 'Название',
     data: '',

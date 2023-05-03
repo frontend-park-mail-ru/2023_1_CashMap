@@ -190,8 +190,8 @@ class postsStore {
             this.groupsPosts = [];
 
             response.body.posts.forEach((post) => {
-                if (!post.owner_info.url) {
-                    post.owner_info.url = headerConst.avatarDefault;
+                if (!post.owner_info.avatar_url) {
+                    post.owner_info.avatar_url = headerConst.avatarDefault;
                 }
                 if (!post.comments) {
                     post.comments_count = 0;
@@ -200,10 +200,10 @@ class postsStore {
                     const date = new Date(post.creation_date);
                     post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                 }
-                post.avatar = userStore.user.avatar;
-
-                this.groupsPosts.push(post);
+                post.avatar_url = userStore.user.avatar_url;
             });
+
+            this.groupsPosts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -336,6 +336,18 @@ class postsStore {
                 this.friendsPosts[index].is_liked = true;
                 this.friendsPosts[index].likes_amount = response.body.likes_amount;
             }
+
+            index = -1;
+            for (let i = 0; i < this.groupsPosts.length; i++) {
+                if (this.groupsPosts[i].id === Number(postId)) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                this.groupsPosts[index].is_liked = true;
+                this.groupsPosts[index].likes_amount = response.body.likes_amount;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -362,18 +374,30 @@ class postsStore {
             if (index > -1) {
                 this.posts[index].is_liked = false;
                 this.posts[index].likes_amount --;
-            }
-
-            index = -1;
-            for (let i = 0; i < this.friendsPosts.length; i++) {
-                if (this.friendsPosts[i].id === Number(postId)) {
-                    index = i;
-                    break;
+            } else {
+                index = -1;
+                for (let i = 0; i < this.friendsPosts.length; i++) {
+                    if (this.friendsPosts[i].id === Number(postId)) {
+                        index = i;
+                        break;
+                    }
                 }
-            }
-            if (index > -1) {
-                this.friendsPosts[index].is_liked = false;
-                this.friendsPosts[index].likes_amount --;
+                if (index > -1) {
+                    this.friendsPosts[index].is_liked = false;
+                    this.friendsPosts[index].likes_amount --;
+                } else {
+                    index = -1;
+                    for (let i = 0; i < this.groupsPosts.length; i++) {
+                        if (this.groupsPosts[i].id === Number(postId)) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    if (index > -1) {
+                        this.groupsPosts[index].is_liked = false;
+                        this.groupsPosts[index].likes_amount --;
+                    }
+                }
             }
         } else if (request.status === 401) {
             actionUser.signOut();

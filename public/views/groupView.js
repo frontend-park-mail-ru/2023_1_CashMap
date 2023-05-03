@@ -21,6 +21,7 @@ export default class GroupView extends BaseView {
 	addStore() {
 		groupsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
+		postsStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -34,6 +35,9 @@ export default class GroupView extends BaseView {
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
 		this._createPosts = document.getElementById('js-create-post');
 		this._posts = document.getElementsByClassName('post-text');
+
+		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
+		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
 	}
 
 	addPagesListener() {
@@ -76,6 +80,20 @@ export default class GroupView extends BaseView {
 		if (this._groupDelete) {
 			this._groupDelete.addEventListener('click', () => {
 				actionGroups.deleteGroup(this._groupLink);
+			});
+		}
+
+		for (let i = 0; i < this._likePosts.length; i++) {
+			this._likePosts[i].addEventListener('click', () => {
+				const postId = this._likePosts[i].getAttribute("data-id");
+				actionPost.likePost(Number(postId));
+			});
+		}
+
+		for (let i = 0; i < this._dislikePosts.length; i++) {
+			this._dislikePosts[i].addEventListener('click', () => {
+				const postId = this._dislikePosts[i].getAttribute("data-id");
+				actionPost.dislikePost(Number(postId));
 			});
 		}
 
@@ -125,14 +143,14 @@ export default class GroupView extends BaseView {
 	_preRender() {
 		this._template = Handlebars.templates.group;
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 
 			groupData: groupsStore.curGroup,
-			postAreaData: {createPostData: {displayNone: !groupsStore.curGroup.isAdmin, avatar: groupsStore.curGroup.avatar, jsId: 'js-create-post'}, postList: postsStore.groupsPosts},
+			postAreaData: {createPostData: {displayNone: !groupsStore.curGroup.isAdmin, avatar_url: groupsStore.curGroup.avatar_url, jsId: 'js-create-post'}, postList: postsStore.groupsPosts},
 		}
 	}
 }

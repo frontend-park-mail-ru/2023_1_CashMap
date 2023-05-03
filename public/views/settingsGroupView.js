@@ -84,6 +84,7 @@ export default class GroupView extends BaseView {
 
 		this._deleteGroup.addEventListener('click', () => {
 			actionGroups.deleteGroup(this._groupLink);
+			Router.go('/groups', false);
 		});
 
 		this._titleField.addEventListener('change', () => {
@@ -108,10 +109,10 @@ export default class GroupView extends BaseView {
 	_preRender() {
 		this._template = Handlebars.templates.settingsGroup;
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 
 		let settings = settingsGroupConst;
-		settings['avatar'] = groupsStore.curGroup.avatar;
+		settings['avatar_url'] = groupsStore.curGroup.avatar_url;
 		settings['inputInfo']['data'] = groupsStore.curGroup.title;
 		settings['info'] = groupsStore.curGroup.info;
 		settings['type'] = groupsStore.curGroup.privacy;
