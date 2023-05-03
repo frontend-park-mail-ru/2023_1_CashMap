@@ -85,11 +85,11 @@ export default class SettingsView extends BaseView {
 		});
 
 		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends');
+			Router.go('/friends', false);
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/user');
+			Router.go('/user', false);
 		});
 
 		this._msgItem.addEventListener('click', () => {

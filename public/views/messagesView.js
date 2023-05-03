@@ -57,15 +57,15 @@ export default class MessagesView extends BaseView {
 		});
 
 		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends');
+			Router.go('/friends', false);
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/user');
+			Router.go('/user', false);
 		});
 
 		this._newsItem.addEventListener('click', () => {
-			Router.go('/feed');
+			Router.go('/feed', false);
 		});
 
 		this._feedBtn.addEventListener('click', () => {
@@ -77,7 +77,7 @@ export default class MessagesView extends BaseView {
 				const chatId = this._goToMsg[i].getAttribute("data-id");
 				localStorage.setItem('chatId', chatId);
 				actionMessage.getChatsMsg(chatId,15);
-				Router.go('/chat');
+				Router.go('/chat', false);
 			});
 		}
 	}

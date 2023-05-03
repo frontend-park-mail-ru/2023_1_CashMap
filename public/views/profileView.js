@@ -133,12 +133,12 @@ export default class ProfileView extends BaseView {
 				actionMessage.chatCheck(userId, () => {
 					if (localStorage.getItem('chatFriendId')) {
 						localStorage.setItem('chatId', localStorage.getItem('chatFriendId'));
-						Router.go('/chat');
+						Router.go('/chat', false);
 						actionMessage.getChatsMsg(localStorage.getItem('chatId'), 15);
 					} else {
 						actionMessage.chatCreate(userId, () => {
 							if (localStorage.getItem('chatId')) {
-								Router.go('/chat');
+								Router.go('/chat', false);
 								actionMessage.getChatsMsg(localStorage.getItem('chatId'), 15);
 							}
 						});
