@@ -1,12 +1,27 @@
-<div class="search-item" data-user-link={{this.user_link}}>
-    {{#if this.avatar_url}}
-        <img class="search-item__avatar profile-img-size avatar-form" src="{{this.avatar_url}}">
-    {{else}}
-        <img class="search-item__avatar profile-img-size avatar-form" src="../../static/img/post_icons/user_photo.svg">
-    {{/if}}
-    <div class="search-item__username"><span>{{this.first_name}} {{this.last_name}}</span></div>
-    <div class="search-item__icon-container">
-        <img class="search-item__message_icon search-item__message_icon__hovered" src='../../static/img/nav_icons/messenger_hover.svg'>
-        <img class="search-item__message_icon search-item__message_icon__not-hovered" src="../../static/img/nav_icons/messenger.svg">
+{{#if this.isCommunity}}
+    <div class="search-item" data-user-link={{this.link}}>
+        {{#if this.avatar_url}}
+            <img class="search-item__avatar profile-img-size avatar-form" src="{{this.avatar_url}}">
+        {{else}}
+            <img class="search-item__avatar profile-img-size avatar-form" src="../../static/img/post_icons/user_photo.svg">
+        {{/if}}
+        <div class="search-item__username"><span>{{this.title}}</span></div>
+        <div class="search-item__icon-container">
+            <img class="search-item__message_icon search-item__message_icon__hovered" src='../../static/img/nav_icons/messenger_hover.svg'>
+            <img class="search-item__message_icon search-item__message_icon__not-hovered" src="../../static/img/nav_icons/messenger.svg">
+        </div>
     </div>
-</div>
+{{else}}
+    <div class="search-item" data-user-link={{this.user_link}}>
+        {{#if this.avatar_url}}
+            <img class="search-item__avatar profile-img-size avatar-form" src="{{this.avatar_url}}">
+        {{else}}
+            <img class="search-item__avatar profile-img-size avatar-form" src="../../static/img/post_icons/user_photo.svg">
+        {{/if}}
+        <div class="search-item__username"><span>{{this.first_name}} {{this.last_name}}</span></div>
+        <div class="search-item__icon-container">
+            <img class="search-item__message_icon search-item__message_icon__hovered" src='../../static/img/nav_icons/messenger_hover.svg'>
+            <img class="search-item__message_icon search-item__message_icon__not-hovered" src="../../static/img/nav_icons/messenger.svg">
+        </div>
+    </div>
+{{/if}}

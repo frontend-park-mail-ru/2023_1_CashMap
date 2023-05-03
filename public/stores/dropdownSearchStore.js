@@ -64,6 +64,12 @@ class DropdownSearchStore {
             } else {
                 this.userSearchItems = [];
             }
+
+            if (response.body.communitites != null) {
+                this.communitySearchItems = response.body.communitites;
+            } else {
+                this.communitySearchItems = [];
+            }
             this.userSearchItems.forEach((user) => {
                 if (!user.avatar_url) {
                     user.avatar_url = headerConst.avatarDefault;
@@ -71,6 +77,16 @@ class DropdownSearchStore {
                 if (!user.isFriend && !user.isSubscriber && !user.isSubscribed) {
                     user.isUser = true;
                 }
+            });
+
+            this.communitySearchItems.forEach((community) => {
+                if (!community.url) {
+                    community.avatar_url = headerConst.avatarDefault;
+                } else {
+                    community.avatar_url = community.url;
+                }
+
+                community.isCommunity = true;
             });
 
         } else if (request.status === 401) {

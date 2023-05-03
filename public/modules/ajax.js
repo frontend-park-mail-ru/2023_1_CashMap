@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.backendHostname = '127.0.0.1';
-        this.backendHostname = '95.163.212.121';
+        this.backendHostname = '127.0.0.1';
+        // this.backendHostname = '95.163.212.121';
         this.backendPort = '8080';
         this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
 

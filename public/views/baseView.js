@@ -205,7 +205,6 @@ export default class BaseView {
         let isEmpty = searchStore.userSearchItems.length === 0 && searchStore.communitySearchItems.length === 0;
         this._context = {
             userSearchItems: searchStore.userSearchItems,
-            // communitySearchItems: searchStore.communitySearchItems,
             communitySearchItems: searchStore.communitySearchItems,
             isEmpty: isEmpty,
             searchDropdownConst: searchDropdownConst
