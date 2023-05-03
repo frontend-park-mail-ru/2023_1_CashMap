@@ -114,6 +114,7 @@ export default class FriendsView extends BaseView {
 		this._feedBtn.addEventListener('click', () => {
             Router.go('/feed', false);
         });
+
 		this._friendsBtn.addEventListener('click', () => {
 			Router.go('/friends', false);
 		});
@@ -136,6 +137,7 @@ export default class FriendsView extends BaseView {
 		this._feedBtn.addEventListener('click', () => {
             Router.go('/feed', false);
         });
+
 
 		for (let i = 0; i < this._addUser.length; i++) {
 			this._addUser[i].addEventListener('click', () => {
