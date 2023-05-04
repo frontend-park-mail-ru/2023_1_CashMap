@@ -298,7 +298,7 @@ class groupsStore {
         if (request.status === 200) {
 
             if (data.avatar) {
-                this.curGroup.avatar = data.avatar;
+                this.curGroup.avatar_url = data.avatar;
             }
             this.curGroup.link = data.link;
             this.curGroup.title = data.title;
