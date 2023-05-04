@@ -5,6 +5,8 @@ import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
 import BaseView from "./baseView.js";
+import groupsStore from "../stores/groupsStore.js";
+import { actionGroups } from "../actions/actionGroups.js";
 
 export default class CreatePostView extends BaseView {
 	constructor() {
@@ -15,6 +17,7 @@ export default class CreatePostView extends BaseView {
 	addStore() {
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
+		groupsStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -47,6 +50,9 @@ export default class CreatePostView extends BaseView {
 
 	showPage() {
 		actionUser.getProfile();
+		if (localStorage.getItem('groupLink')) {
+			actionGroups.getGroupInfo(null, localStorage.getItem('groupLink'));
+		}
 	}
 
 	_preRender() {
@@ -54,17 +60,24 @@ export default class CreatePostView extends BaseView {
 
 		let header = headerConst;
 		header['avatar_url'] = userStore.user.avatar_url;
+
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 			editPostData: {
-				avatar_url: userStore.user.avatar_url,
+				avatar_url: null,
 				text: '',
 				buttonData: {
 					text: 'Опубликовать',
 					jsId: 'js-edit-post-btn'
 				}
 			},
+		}
+
+		if (localStorage.getItem('groupLink')) {
+			this._context.editPostData.avatar_url = groupsStore.curGroup.avatar_url;
+		} else {
+			this._context.editPostData.avatar_url = userStore.user.avatar_url;
 		}
 	}
 }

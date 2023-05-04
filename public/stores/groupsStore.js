@@ -99,8 +99,8 @@ class groupsStore {
         if (request.status === 200) {
             response.body.groups.forEach((group) => {
                 group.isGroup = true;
-                if (!group.avatar) {
-                    group.avatar = groupAvatarDefault;
+                if (!group.avatar_url) {
+                    group.avatar_url = groupAvatarDefault;
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -131,8 +131,8 @@ class groupsStore {
         if (request.status === 200) {
             response.body.groups.forEach((group) => {
                 group.isUserGroup = true;
-                if (!group.avatar) {
-                    group.avatar = groupAvatarDefault;
+                if (!group.avatar_url) {
+                    group.avatar_url = groupAvatarDefault;
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -163,8 +163,8 @@ class groupsStore {
         if (request.status === 200) {
             response.body.groups.forEach((group) => {
                 group.isNotUserGroup = true;
-                if (!group.avatar) {
-                    group.avatar = groupAvatarDefault;
+                if (!group.avatar_url) {
+                    group.avatar_url = groupAvatarDefault;
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -195,8 +195,8 @@ class groupsStore {
         if (request.status === 200) {
             response.body.groups.forEach((group) => {
                 group.isPopularGroup = true;
-                if (!group.avatar) {
-                    group.avatar = groupAvatarDefault;
+                if (!group.avatar_url) {
+                    group.avatar_url = groupAvatarDefault;
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';

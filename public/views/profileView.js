@@ -190,6 +190,7 @@ export default class ProfileView extends BaseView {
 		} else {
 			actionUser.getProfile(() => { this._userLink = userStore.user.user_link; Router.go('/user?link=' + userStore.user.user_link, true); });
 		}
+		actionUser.getProfile();
 	}
 
 	updatePage() {

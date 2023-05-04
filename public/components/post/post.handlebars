@@ -1,7 +1,12 @@
 <div class="post background-color-post border-radius post-padding">
     <div class="post-profile">
+      {{# if community_info}}
+        <img class="post-profile__avatar avatar-form profile-img-size" src="{{ community_info.avatar_url }}">
+        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots"> {{ community_info.title }} </span>
+      {{else}}
         <img class="post-profile__avatar avatar-form profile-img-size" src="{{ owner_info.avatar_url }}">
         <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots"> {{ owner_info.first_name }} {{ owner_info.last_name }} </span>
+      {{/if}}
         <span class="post-profile__date font-InterMedium font-size-12 font-color-gray-text"> {{ creation_date }} </span>
         {{#if isMyPost}}
             <img class="post-profile__dots margin-auto" src="static/img/post_icons/post_menu.svg">
