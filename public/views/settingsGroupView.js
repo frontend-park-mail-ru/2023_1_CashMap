@@ -71,13 +71,19 @@ export default class GroupView extends BaseView {
 		});
 
 		this._saveBtn.addEventListener('click', () => {
+			let privacy = null;
+			if (this._typeField.value === 'Закрытая группа') {
+				privacy = 'close';
+			} else {
+				privacy = 'open';
+			}
 			if (this._validateTitle && this._validateInfo) {
 				if (this._fileList) {
 					actionImg.uploadImg(this._fileList, (newUrl) => {
-						actionGroups.editGroup({link: this._groupLink, avatar: newUrl, title: this._titleField.value, info: this._infoField.value, privacy: this._typeField.value, hideOwner: this._showAuthorField.checked});
+						actionGroups.editGroup({link: this._groupLink, avatar: newUrl, title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._showAuthorField.checked});
 					});
 				} else {
-					actionGroups.editGroup({link: this._groupLink, title: this._titleField.value, info: this._infoField.value, privacy: this._typeField.value, hideOwner: this._showAuthorField.checked});
+					actionGroups.editGroup({link: this._groupLink, title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._showAuthorField.checked});
 				}
 			}
 		});
@@ -115,7 +121,11 @@ export default class GroupView extends BaseView {
 		settings['avatar_url'] = groupsStore.curGroup.avatar_url;
 		settings['inputInfo']['data'] = groupsStore.curGroup.title;
 		settings['info'] = groupsStore.curGroup.info;
-		settings['type'] = groupsStore.curGroup.privacy;
+		if (groupsStore.curGroup.privacy === 'open') {
+			settings['type'] = true;
+		} else {
+			settings['type'] = false;
+		}
 		settings['showAuthor'] = groupsStore.curGroup.hideOwner;
 
 		this._context = {

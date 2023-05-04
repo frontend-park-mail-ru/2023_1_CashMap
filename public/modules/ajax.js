@@ -266,16 +266,6 @@ class Ajax {
         return this._request(this._apiUrl.getSub + `?type=${type}&link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
-    // async sub(link) {
-    //     let body = {user_link: link};
-    //     return this._request(this._apiUrl.sub, this._requestType.POST, JSON.stringify({body}));
-    // }
-    //
-    // async unsub(link) {
-    //     let body = {user_link: link};
-    //     return this._request(this._apiUrl.unsub, this._requestType.POST, JSON.stringify({body}));
-    // }
-
     async reject(link) {
         let body = {user_link: link};
         return this._request(this._apiUrl.reject, this._requestType.POST, JSON.stringify({body}));
@@ -302,13 +292,7 @@ class Ajax {
     }
 
     async editGroup(link, title, info, avatar, privacy, hideOwner) {
-        if (privacy === 'Открытая группа') {
-            privacy = 'open';
-        } else {
-            privacy = 'close';
-        }
-
-        let body = {title: title, group_info: info, avatar_url: avatar, privacy: privacy};
+        let body = {title: title, group_info: info, avatar_url: avatar, privacy: privacy, hide_owner: hideOwner};
 
         return this._request(this._apiUrl.editGroup + link, this._requestType.PATCH, JSON.stringify({body}));
     }

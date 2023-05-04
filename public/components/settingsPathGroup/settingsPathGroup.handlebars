@@ -20,15 +20,24 @@
 
         <div class="newGroup__select-wrapper">
             <div class="newGroup__select__info font-InterRegular font-size-12 font-color-gray-text">Тип группы</div>
-            <select class="settingsGroup__select background-color-menu border-radius-btn-input font-InterMedium font-size-14 font-color-gray-text" id="js-type-input">
-                <option>Открытая группа</option>
-                <option>Закрытая группа</option>
-            </select>
+          <select class="settingsGroup__select background-color-menu border-radius-btn-input font-InterMedium font-size-14 font-color-gray-text" id="js-type-input">
+          {{#if type}}
+              <option selected>Открытая группа</option>
+              <option>Закрытая группа</option>
+          {{else}}
+              <option>Открытая группа</option>
+              <option selected>Закрытая группа</option>
+          {{/if}}
+          </select>
         </div>
 
         <div class="newGroup__checkbox">
             <div class="newGroup__checkbox__info font-InterRegular font-size-12 font-color-gray-text">Скрыть создателя группы</div>
+          {{#if showAuthor}}
+            <input type="checkbox" id="js-showAuthor-input" checked>
+          {{else}}
             <input type="checkbox" id="js-showAuthor-input">
+          {{/if}}
         </div>
 
         <div class="settings-path__button">

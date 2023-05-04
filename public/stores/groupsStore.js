@@ -228,11 +228,6 @@ class groupsStore {
             this.curGroup.isSub = response.body.is_sub;
             this.curGroup.isAdmin = response.body.is_admin;
 
-            if (response.body.privacy === 'open') {
-                this.curGroup.privacy = 'Открытая группа';
-            } else {
-                this.curGroup.privacy = 'Закрытая группа';
-            }
             if (!this.curGroup.avatar_url) {
                 this.curGroup.avatar_url = groupAvatarDefault;
             }
