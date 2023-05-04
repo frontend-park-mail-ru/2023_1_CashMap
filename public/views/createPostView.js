@@ -38,6 +38,7 @@ export default class CreatePostView extends BaseView {
 
 	addPagesListener() {
 		super.addPagesListener();
+
 		this._editBtn.addEventListener('click', () => {
 			if (localStorage.getItem('groupLink')) {
 				actionPost.createPostCommunity(userStore.user.user_link, localStorage.getItem('groupLink'), true, this._text.value);

@@ -48,6 +48,10 @@ export default class ChatView extends BaseView {
 	addPagesListener() {
 		super.addPagesListener();
 
+		this._backBtn.addEventListener('click', () => {
+			Router.goBack();
+		})
+
 		this._sendMsg.addEventListener('click', () => {
 			if (this._msg.value.length) {
 				localStorage.setItem('curMsg', '');

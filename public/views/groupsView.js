@@ -22,6 +22,7 @@ export default class GroupsView extends BaseView {
 
 	addPagesElements() {
 		super.addPagesElements();
+
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._groupsItem.style.color = activeColor;
 		this._groupsBtn = document.getElementById('js-menu-groups');
@@ -51,16 +52,11 @@ export default class GroupsView extends BaseView {
 		this._selectField = document.getElementById('js-select');
 		this._checkboxField = document.getElementById('js-group-checkbox');
 		this._addGroupBtn = document.getElementById('js-add-group-btn');
-		this._goToGroup = document.getElementsByClassName('groupItem');
 		this._unsubGroup = document.getElementsByClassName('groupItem-menu-item-delete');
 	}
 
 	addPagesListener() {
 		super.addPagesListener();
-
-		this._groupsBtn.addEventListener('click', () => {
-			Router.go('/groups', false);
-		});
 
 		this._manageGroupsBtn.addEventListener('click', () => {
 			this._manageGroupsBtn.style.color = activeColor;

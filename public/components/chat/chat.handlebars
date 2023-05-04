@@ -5,7 +5,7 @@
             <input type="image" class="chat__header-img" src="static/img/back_hover.svg">
         </div>
 
-        <div class="chat__header-info">
+        <div class="chat__header-info cursor-pointer js-go-to-profile" data-id="{{ user.user_link }}">
             <img src="{{ user.avatar_url }}" class="chat__header-info-avatar avatar-form profile-img-size">
             <div class="chat__header-info-text">{{ user.first_name }} {{ user.last_name }}</div>
         </div>
