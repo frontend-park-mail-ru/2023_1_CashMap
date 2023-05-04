@@ -88,8 +88,8 @@ export default class BaseView {
     addPagesElements() {
         this._exitBtn = document.getElementById('js-exit-btn');
         this._settingsBtn = document.getElementById('js-settings-btn');
-        this._feedBtn = document.getElementById('js-logo-go-feed');
 
+        this._feedBtn = document.getElementById('js-logo-go-feed');
         this._myPageItem = document.getElementById('js-side-bar-my-page');
         this._newsItem = document.getElementById('js-side-bar-news');
         this._msgItem = document.getElementById('js-side-bar-msg');
@@ -105,6 +105,9 @@ export default class BaseView {
         this._showMoreCommunititesButton = document.getElementById('js-show-more-communities');
         this._sendMessageButtons = document.getElementsByClassName('search-item__icon-container');
         this._searchItems = document.getElementsByClassName('search-item');
+
+        this._goToProfile = document.getElementsByClassName('js-go-to-profile');
+        this._goToGroup = document.getElementsByClassName('js-go-to-group');
     }
 
     /**
@@ -177,6 +180,19 @@ export default class BaseView {
             }
         });
 
+        for (let i = 0; i < this._goToProfile.length; i++) {
+            this._goToProfile[i].addEventListener('click', () => {
+                const userId = this._goToProfile[i].getAttribute("data-id");
+                Router.go('/user?link=' + userId, false);
+            });
+        }
+
+        for (let i = 0; i < this._goToGroup.length; i++) {
+            this._goToGroup[i].addEventListener('click', () => {
+                const groupId = this._goToGroup[i].getAttribute("data-id");
+                Router.go('/group?link=' + groupId, false);
+            });
+        }
     }
 
     _addDropdownEventListeners() {

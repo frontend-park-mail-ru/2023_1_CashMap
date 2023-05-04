@@ -23,6 +23,7 @@ export default class ChatView extends BaseView {
 
 	addPagesElements() {
 		super.addPagesElements();
+
 		this._backBtn = document.getElementById('js-back-to-messages-btn');
 		this._sendMsg = document.getElementById('js-send-msg');
 		this._sendMsgBlock = document.getElementById('js-send-msg-block');
@@ -46,9 +47,6 @@ export default class ChatView extends BaseView {
 
 	addPagesListener() {
 		super.addPagesListener();
-		this._backBtn.addEventListener('click', () => {
-				Router.goBack();
-		});
 
 		this._sendMsg.addEventListener('click', () => {
 			if (this._msg.value.length) {

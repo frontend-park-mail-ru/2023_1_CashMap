@@ -1,11 +1,11 @@
 <div class="post background-color-post border-radius post-padding">
     <div class="post-profile">
       {{# if community_info}}
-        <img class="post-profile__avatar avatar-form profile-img-size js-go-to-profile cursor-pointer" src="{{ community_info.avatar_url }}" data-id="{{ community_info.link }}">
-        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots js-go-to-profile cursor-pointer" data-id="{{ community_info.link }}"> {{ community_info.title }} </span>
+        <img class="post-profile__avatar avatar-form profile-img-size js-go-to-group cursor-pointer" src="{{ community_info.avatar_url }}" data-id="{{ community_info.link }}">
+        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots js-go-to-group cursor-pointer" data-id="{{ community_info.link }}"> {{ community_info.title }} </span>
       {{else}}
-        <img class="post-profile__avatar avatar-form profile-img-size js-go-to-group cursor-pointer" src="{{ owner_info.avatar_url }}" data-id="{{ owner_info.user_link }}">
-        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots js-go-to-group cursor-pointer" data-id="{{ owner_info.user_link }}"> {{ owner_info.first_name }} {{ owner_info.last_name }} </span>
+        <img class="post-profile__avatar avatar-form profile-img-size js-go-to-profile cursor-pointer" src="{{ owner_info.avatar_url }}" data-id="{{ owner_info.user_link }}">
+        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots js-go-to-profile cursor-pointer" data-id="{{ owner_info.user_link }}"> {{ owner_info.first_name }} {{ owner_info.last_name }} </span>
       {{/if}}
         <span class="post-profile__date font-InterMedium font-size-12 font-color-gray-text"> {{ creation_date }} </span>
         {{#if isMyPost}}

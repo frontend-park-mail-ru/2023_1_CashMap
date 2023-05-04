@@ -9,42 +9,21 @@ import BaseView from "./baseView.js";
 export default class EditPostView extends BaseView {
 	constructor() {
 		super()
-		this._addHandlebarsPartial();
 
 		this._jsId = 'edit-post';
 		this.curPage = false;
+	}
 
+	addStore() {
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
-	_addHandlebarsPartial() {
-		Handlebars.registerPartial('inputField', Handlebars.templates.inputField);
-		Handlebars.registerPartial('button', Handlebars.templates.button);
-		Handlebars.registerPartial('buttonDefault', Handlebars.templates.buttonDefault);
-		Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar);
-		Handlebars.registerPartial('header', Handlebars.templates.header);
-		Handlebars.registerPartial('postArea', Handlebars.templates.postArea);
-		Handlebars.registerPartial('menuItem', Handlebars.templates.menuItem);
-		Handlebars.registerPartial('editPost', Handlebars.templates.editPost);
-	}
-
-	_addPagesElements() {
+	addPagesElements() {
 		super.addPagesElements()
-		this._exitBtn = document.getElementById('js-exit-btn');
-		this._settingsBtn = document.getElementById('js-settings-btn');
+
 		this._text = document.getElementById('js-edit-post-textarea');
 		this._text.focus();
-		this._feedBtn = document.getElementById('js-logo-go-feed');
-
-		this._myPageItem = document.getElementById('js-side-bar-my-page');
-		this._newsItem = document.getElementById('js-side-bar-news');
-		this._newsItem.style.color = activeColor;
-		this._msgItem = document.getElementById('js-side-bar-msg');
-		this._photoItem = document.getElementById('js-side-bar-photo');
-		this._friendsItem = document.getElementById('js-side-bar-friends');
-		this._groupsItem = document.getElementById('js-side-bar-groups');
-		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 
 		this._editBtn = document.getElementById('js-edit-post-btn');
 		let textarea = document.getElementsByTagName('textarea');
@@ -58,19 +37,8 @@ export default class EditPostView extends BaseView {
 		}
 	}
 
-	_addPagesListener() {
+	addPagesListener() {
 		super.addPagesListener()
-		this._exitBtn.addEventListener('click', () => {
-			actionUser.signOut();
-		});
-
-		this._settingsBtn.addEventListener('click', () => {
-            Router.go('/settings', false);
-        });
-		
-		this._feedBtn.addEventListener('click', () => {
-            Router.go('/feed', false);
-        });
 
 		this._editBtn.addEventListener('click', () => {
 			const postId = localStorage.getItem('editPostId');
@@ -79,30 +47,6 @@ export default class EditPostView extends BaseView {
 			}
 			Router.goBack();
 		});
-
-		this._myPageItem.addEventListener('click', () => {
-			Router.go('/user', false);
-		});
-
-		this._newsItem.addEventListener('click', () => {
-			Router.go('/feed', false);
-		});
-
-		this._msgItem.addEventListener('click', () => {
-			Router.go('/message', false);
-		});
-
-		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends', false);
-		});
-
-		this._groupsItem.addEventListener('click', () => {
-			Router.go('/groups', false);
-		});
-	}
-
-	remove() {
-		document.getElementById(this._jsId)?.remove();
 	}
 
 	showPage() {
@@ -114,16 +58,6 @@ export default class EditPostView extends BaseView {
 				Router.goBack();
 			}
 		});
-	}
-
-	updatePage() {
-		if (this.curPage) {
-			if (!userStore.user.isAuth) {
-				Router.go('/signIn');
-			} else {
-				this._render();
-			}
-		}
 	}
 
 	_preRender() {
@@ -146,12 +80,5 @@ export default class EditPostView extends BaseView {
 		}
 
 		console.log(this._context)
-	}
-
-	_render() {
-		this._preRender();
-		Router.rootElement.innerHTML = this._template(this._context);
-		this._addPagesElements();
-		this._addPagesListener();
 	}
 }
