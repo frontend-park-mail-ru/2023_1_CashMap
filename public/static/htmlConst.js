@@ -77,11 +77,6 @@ export const settingsConst = {
         type: 'text',
         jsIdInput: 'js-last-name-input',
         jsIdError: 'js-last-name-error'},
-      /*{ help: 'Электронная почта',
-        data: '',
-        type: 'email',
-        jsIdInput: 'js-email-input',
-        jsIdError: 'js-email-error'},*/
       { help: 'О себе',
         data: '',
         type: 'text',
@@ -100,6 +95,7 @@ export const settingsConst = {
       ],
   buttonInfo: { text: 'Сохранить',
       jsId: 'js-settings-save-btn'},
+  errorInfo: { jsId: 'js-sign-in-error' },
   menuInfo: [
       {text: 'Основные', jsId: 'js-menu-main'},
       {text: 'Безопасность', jsId: 'js-menu-safety'}]

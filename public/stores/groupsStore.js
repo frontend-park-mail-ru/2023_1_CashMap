@@ -305,6 +305,8 @@ class groupsStore {
             this.curGroup.info = data.info;
             this.curGroup.privacy = data.privacy;
             this.curGroup.hideOwner = data.hideOwner;
+
+            this.editMsg = 'Данные сообщества успешно обновлены';
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

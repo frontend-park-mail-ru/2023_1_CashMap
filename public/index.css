@@ -114,6 +114,7 @@
     --font-color-reg-info: #8D949D;
     --font-color-logo-color: #44009D;
     --font-color-error: #D5534D;
+    --font-color-ok: #00af02;
     --font-color-btn: #FFFFFF;
     --font-color-title: #000000;
     --font-color-nav: #6C6F72;
@@ -221,6 +222,9 @@
 }
 .font-color-error {
     color: var(--font-color-error, #D5534D);
+}
+.font-color-ok {
+    color: var(--font-color-ok, #00af02);
 }
 .font-color-btn {
     color: var(--font-color-btn, #FFFFFF);

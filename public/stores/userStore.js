@@ -3,6 +3,7 @@ import Ajax from "../modules/ajax.js";
 import {headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import WebSock from "../modules/webSocket.js";
+import SettingsView from "../views/settingsView.js";
 
 /**
  * класс, хранящий информацию о друзьях
@@ -46,6 +47,7 @@ class userStore {
             lastActive: null,
         };
 
+        this.editMsg = '';
         this.profile = null;
 
         Dispatcher.register(this._fromDispatch.bind(this));
@@ -257,6 +259,8 @@ class userStore {
             this.user.bio = data.bio;
             this.user.birthday = data.birthday;
             this.user.status = data.status;
+
+            this.editMsg = 'Данные профиля успешно обновлены';
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
