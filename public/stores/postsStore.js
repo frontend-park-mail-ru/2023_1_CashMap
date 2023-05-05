@@ -338,11 +338,15 @@ class postsStore {
     async _dislikePost(postId) {
         const request = await Ajax.dislikePost(postId);
 
+        let flag = null;
         if (request.status === 200) {
             [...this.posts, ...this.groupsPosts, ...this.friendsPosts].forEach((post) => {
                 if (post.id === Number(postId)) {
+                    if (flag === null) {
+                        flag = post.likes_amount - 1;
+                    }
                     post.is_liked = false;
-                    post.likes_amount --;
+                    post.likes_amount = flag;
                 }
             });
         } else if (request.status === 401) {
