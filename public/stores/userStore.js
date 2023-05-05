@@ -204,8 +204,6 @@ class userStore {
             } else {
                 this.userProfile = profile;
             }
-            console.log("get profile")
-            console.log(this.user)
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
