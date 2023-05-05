@@ -141,6 +141,11 @@ class postsStore {
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
                     }
+                    if (post.community_info) {
+                        if (!post.community_info.avatar_url) {
+                            post.community_info.avatar_url = headerConst.avatarDefault;
+                        }
+                    }
                     if (post.creation_date) {
                         const date = new Date(post.creation_date);
                         post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
