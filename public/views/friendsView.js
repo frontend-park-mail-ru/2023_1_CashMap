@@ -70,7 +70,7 @@ export default class FriendsView extends BaseView {
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 
-		this._goToProfile = document.getElementsByClassName('friend-menu-item-page');
+		//this._goToProfile = document.getElementsByClassName('friend-menu-item-page');
 		this._goToMsg = document.getElementsByClassName('js-friend-go-msg');
 		this._deleteFriend = document.getElementsByClassName('friend-menu-item-delete');
 		this._addUser = document.getElementsByClassName('js-friend-add');
