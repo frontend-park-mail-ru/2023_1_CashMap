@@ -48,6 +48,7 @@ class userStore {
         };
 
         this.editMsg = '';
+        this.editStatus = null;
         this.profile = null;
 
         Dispatcher.register(this._fromDispatch.bind(this));
@@ -261,10 +262,12 @@ class userStore {
             this.user.status = data.status;
 
             this.editMsg = 'Данные профиля успешно обновлены';
+            this.editStatus = true;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
-            alert('editProfile error');
+            this.editMsg = 'Ошибка сервера';
+            this.editStatus = false;
         }
 
         this._refreshStore();

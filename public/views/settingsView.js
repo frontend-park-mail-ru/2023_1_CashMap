@@ -146,9 +146,12 @@ export default class SettingsView extends BaseView {
 		}
 		settings['inputFields'][4]['data'] = userStore.user.status;
 
-		if (userStore.editMsg) {
+		if (userStore.editStatus && userStore.editMsg) {
 			settingsConst.errorInfo['errorText'] = userStore.editMsg;
 			settingsConst.errorInfo['errorClass'] = 'display-inline-grid font-color-ok';
+		} else if (!userStore.editStatus && userStore.editMsg) {
+			settingsConst.errorInfo['errorText'] = userStore.editMsg;
+			settingsConst.errorInfo['errorClass'] = 'display-inline-grid font-color-error';
 		} else {
 			settingsConst.errorInfo['errorText'] = '';
 			settingsConst.errorInfo['errorClass'] = 'display-none';
