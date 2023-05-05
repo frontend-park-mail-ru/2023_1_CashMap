@@ -244,7 +244,6 @@ export default class GroupsView extends BaseView {
 			sideBarData: sideBarConst,
 			headerData: header,
 			groupsData: res,
-			//groupsData: friendsData,
 			textInfo: {
 				textInfo: info,
 			},
