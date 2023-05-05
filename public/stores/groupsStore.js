@@ -21,6 +21,9 @@ class groupsStore {
 
         this.curGroup = {};
 
+        this.editMsg = '';
+        this.editStatus = null;
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -306,11 +309,13 @@ class groupsStore {
             this.curGroup.privacy = data.privacy;
             this.curGroup.hideOwner = data.hideOwner;
 
-            this.editMsg = 'Данные сообщества успешно обновлены';
+            this.editMsg = 'Данные профиля успешно обновлены';
+            this.editStatus = true;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
-            alert('editGroup error');
+            this.editMsg = 'Ошибка сервера';
+            this.editStatus = false;
         }
 
         this._refreshStore();

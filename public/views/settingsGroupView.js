@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, settingsGroupConst, activeColor} from "../static/htmlConst.js";
+import { sideBarConst, headerConst, settingsGroupConst, activeColor, settingsConst } from "../static/htmlConst.js";
 import {actionGroups} from "../actions/actionGroups.js";
 import {actionImg} from "../actions/actionImg.js";
 import groupsStore from "../stores/groupsStore.js";
@@ -49,6 +49,8 @@ export default class GroupView extends BaseView {
 		this._requestsBtn = document.getElementById('js-menu-requests');
 
 		this._deleteGroup = document.getElementById('js-group-delete-btn');
+
+		this._error = document.getElementById('js-sign-in-error');
 	}
 
 	addPagesListener() {
@@ -78,6 +80,11 @@ export default class GroupView extends BaseView {
 				privacy = 'open';
 			}
 			if (this._validateTitle && this._validateInfo) {
+				this._error.textContent = '';
+				this._error.classList.remove('display-inline-grid');
+				this._error.classList.remove('font-color-error');
+				this._error.classList.add('display-none');
+
 				if (this._fileList) {
 					actionImg.uploadImg(this._fileList, (newUrl) => {
 						actionGroups.editGroup({link: this._groupLink, avatar: newUrl, title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._showAuthorField.checked});
@@ -85,6 +92,12 @@ export default class GroupView extends BaseView {
 				} else {
 					actionGroups.editGroup({link: this._groupLink, title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._showAuthorField.checked});
 				}
+			} else {
+				this._error.textContent = 'Заполните корректно все поля';
+				this._error.classList.add('display-inline-grid');
+				this._error.classList.add('font-color-error');
+				this._error.classList.remove('font-color-ok');
+				this._error.classList.remove('display-none');
 			}
 		});
 
@@ -127,6 +140,17 @@ export default class GroupView extends BaseView {
 			settings['type'] = false;
 		}
 		settings['showAuthor'] = groupsStore.curGroup.hideOwner;
+
+		if (groupsStore.editStatus && groupsStore.editMsg) {
+			settings.errorInfo['errorText'] = groupsStore.editMsg;
+			settings.errorInfo['errorClass'] = 'display-inline-grid font-color-ok';
+		} else if (!groupsStore.editStatus && groupsStore.editMsg) {
+			settings.errorInfo['errorText'] = groupsStore.editMsg;
+			settings.errorInfo['errorClass'] = 'display-inline-grid font-color-error';
+		} else {
+			settings.errorInfo['errorText'] = '';
+			settings.errorInfo['errorClass'] = 'display-none';
+		}
 
 		this._context = {
 			sideBarData: sideBarConst,

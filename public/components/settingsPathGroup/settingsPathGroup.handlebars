@@ -40,7 +40,9 @@
           {{/if}}
         </div>
 
-        <div class="settings-path__button">
+      <span class="input-table__error-info font-MailSansRoman font-size-15 display-none {{ errorInfo.errorClass }}" id="{{ errorInfo.jsId }}">{{ errorInfo.errorText }}</span>
+
+      <div class="settings-path__button">
             {{> buttonDefault buttonInfo}}
         </div>
         <span class="settings-path__info font-MailSansRoman font-size-19 font-color-comment-sender" id="js-save-info"></span>
