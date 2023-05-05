@@ -85,7 +85,6 @@ export default class ProfileView extends BaseView {
 		if (this._goMsg) {
 			this._goMsg.addEventListener('click', () => {
 				const userId = this._goMsg.getAttribute("data-id");
-				alert(userId)
 				actionMessage.chatCheck(userId, () => {
 					if (localStorage.getItem('chatFriendId')) {
 						localStorage.setItem('chatId', localStorage.getItem('chatFriendId'));
@@ -137,6 +136,7 @@ export default class ProfileView extends BaseView {
 		} else {
 			actionUser.getProfile(() => { this._userLink = userStore.user.user_link; Router.go('/user?link=' + userStore.user.user_link, true); });
 		}
+
 		actionUser.getProfile();
 	}
 

@@ -21,7 +21,6 @@ export default class GroupsView extends BaseView {
 	}
 
 	addPagesElements() {
-		super.addPagesElements();
 
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._groupsItem.style.color = activeColor;
@@ -29,6 +28,9 @@ export default class GroupsView extends BaseView {
 		this._manageGroupsBtn = document.getElementById('js-menu-manage-groups');
 		this._findGroupsBtn = document.getElementById('js-menu-find-groups');
 		this._popularGroupsBtn = document.getElementById('js-menu-popular-groups');
+
+		this._goToProfile = document.getElementsByClassName('js-go-to-profile');
+		this._goToGroup = document.getElementsByClassName('js-go-to-group');
 
 		switch (window.location.pathname) {
 			case '/groups':
@@ -56,7 +58,6 @@ export default class GroupsView extends BaseView {
 	}
 
 	addPagesListener() {
-		super.addPagesListener();
 
 		this._manageGroupsBtn.addEventListener('click', () => {
 			this._manageGroupsBtn.style.color = activeColor;
@@ -72,6 +73,11 @@ export default class GroupsView extends BaseView {
 			this._popularGroupsBtn.style.color = activeColor;
 			Router.go('/popularGroups', false);
 		});
+
+		this._groupsBtn.addEventListener('click', () => {
+			this._groupsBtn.style.color = activeColor;
+			Router.go('/groups', false);
+		})
 
 		this._addGroupBtn.addEventListener('click', () => {
 			let privacy;

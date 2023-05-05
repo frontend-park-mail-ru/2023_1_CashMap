@@ -43,7 +43,7 @@ export default class CreatePostView extends BaseView {
 			if (localStorage.getItem('groupLink')) {
 				actionPost.createPostCommunity(userStore.user.user_link, localStorage.getItem('groupLink'), true, this._text.value);
 			} else {
-				actionPost.createPostUser(userStore.user.user_link, userStore.user.user_link, true, this._text.value);
+				actionPost.createPostUser(userStore.user.user_link, userStore.userProfile.user_link, true, this._text.value);
 			}
 			Router.goBack();
 		});

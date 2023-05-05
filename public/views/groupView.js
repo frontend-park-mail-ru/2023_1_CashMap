@@ -38,6 +38,7 @@ export default class GroupView extends BaseView {
 
 		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
 		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
+
 	}
 
 	addPagesListener() {

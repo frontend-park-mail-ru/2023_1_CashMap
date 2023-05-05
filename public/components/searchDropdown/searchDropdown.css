@@ -43,7 +43,7 @@
     grid-template-columns: 1fr;
 }
 
-.search-item__username, .search-item__avatar, .search-item__message_icon {
+.search-item__username, .search-item__avatar, .search-item__message_icon, .search-item__subscription_icon {
     margin-top: auto;
     margin-bottom: auto;
 }
@@ -110,7 +110,7 @@
     margin-bottom: auto;
 }
 
-.search-item__icon-container {
+.search-item__send-message-icon-container, .search-item__subscription-icon-container {
     margin-top: auto;
     margin-bottom: auto;
     display: flex;

@@ -7,6 +7,7 @@ import friendSearchStore from "../stores/dropdownFriendsSearchStore.js";
 import {searchDropdownConst} from "../static/htmlConst.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import dropdownFriendsSearchStore from "../stores/dropdownFriendsSearchStore.js";
+import {actionGroups} from "../actions/actionGroups.js";
 
 /**
  * Базовый класс View
@@ -103,11 +104,14 @@ export default class BaseView {
         this._searchDropdown = document.getElementById('js-search-dropdown');
         this._showMorePeopleButton = document.getElementById('js-show-more-people');
         this._showMoreCommunititesButton = document.getElementById('js-show-more-communities');
-        this._sendMessageButtons = document.getElementsByClassName('search-item__icon-container');
-        this._searchItems = document.getElementsByClassName('search-item');
+        this._sendMessageButtons = document.getElementsByClassName('search-item__send-message-icon-container');
+        this._subscribeButtons = document.getElementsByClassName('search-item__subscription-icon-container');
 
         this._goToProfile = document.getElementsByClassName('js-go-to-profile');
         this._goToGroup = document.getElementsByClassName('js-go-to-group');
+
+        this._userSearchItems = document.getElementsByClassName("user-search-item");
+        this._group_search_items = document.getElementsByClassName("group-search-item");
     }
 
     /**
@@ -183,6 +187,7 @@ export default class BaseView {
         for (let i = 0; i < this._goToProfile.length; i++) {
             this._goToProfile[i].addEventListener('click', () => {
                 const userId = this._goToProfile[i].getAttribute("data-id");
+                console.log(userId)
                 Router.go('/user?link=' + userId, false);
             });
         }
@@ -198,8 +203,17 @@ export default class BaseView {
     _addDropdownEventListeners() {
         for (let i = 0; i < this._sendMessageButtons.length; ++i) {
             this._sendMessageButtons[i].addEventListener('mousedown', () => {
-                let userLink = this._searchItems[i].getAttribute('data-user-link');
+                let userLink = this._userSearchItems[i].getAttribute('data-user-link');
                 this.startMessaging(userLink);
+            });
+        }
+
+        for (let i = 0; i < this._subscribeButtons.length; ++i) {
+            this._subscribeButtons[i].addEventListener('mousedown', (event) => {
+                let groupLink = this._group_search_items[i].getAttribute('data-group-link');
+                this.subscribe(groupLink);
+                this._subscribeButtons[i].hidden = true;
+                event.stopImmediatePropagation();
             });
         }
 
@@ -209,10 +223,30 @@ export default class BaseView {
                 Router.go('/findFriends');
             });
         }
-        //
-        // this._showMoreCommunititesButton.addEventListener('click', () => {
-        //
-        // });
+
+        if (this._showMoreCommunititesButton !== null) {
+            this._showMoreCommunititesButton.addEventListener('mousedown', () => {
+                localStorage.setItem("searchQuery", this._searchAreaInput.value);
+                Router.go('/findGroups');
+            });
+        }
+
+        for (let i = 0; i < this._group_search_items.length; i++) {
+            this._group_search_items[i].addEventListener('mousedown', () => {
+                const groupLink = this._group_search_items[i].getAttribute("data-group-link");
+                console.log(groupLink)
+                Router.go('/group?link=' + groupLink);
+            });
+        }
+
+        for (let i = 0; i < this._userSearchItems.length; i++) {
+            this._userSearchItems[i].addEventListener('mousedown', () => {
+                const userLink = this._userSearchItems[i].getAttribute("data-user-link");
+                console.log(userLink)
+                Router.go('/user?link=' + userLink);
+            });
+        }
+
     }
 
     _updateDropdownSearchList() {
@@ -267,6 +301,10 @@ export default class BaseView {
                 this.render();
             }
         }
+    }
+
+    subscribe(groupLink) {
+        actionGroups.groupSub(groupLink)
     }
 
     startMessaging(userId) {

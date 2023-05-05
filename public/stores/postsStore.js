@@ -188,11 +188,15 @@ class postsStore {
             const response = await request.json();
 
             this.groupsPosts = [];
-
+            console.log(response.body)
             response.body.posts.forEach((post) => {
                 if (!post.owner_info.avatar_url) {
                     post.owner_info.avatar_url = headerConst.avatarDefault;
                 }
+                if (!post.community_info.avatar_url) {
+                    post.community_info.avatar_url = headerConst.avatarDefault;
+                }
+
                 if (!post.comments) {
                     post.comments_count = 0;
                 }
