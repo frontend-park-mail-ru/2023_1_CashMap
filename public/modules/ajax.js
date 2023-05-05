@@ -136,7 +136,7 @@ class Ajax {
      * @returns {Object} - тело ответа
      */
     async getProfile(link) {
-        if (link === undefined || link === null) {
+        if (!link) {
             return this._request(this._apiUrl.getProfile, this._requestType.GET);
         } else {
             return this._request(this._apiUrl.getProfileLink + link, this._requestType.GET);
@@ -155,7 +155,7 @@ class Ajax {
      * @returns {Object} - тело ответа
      */
     async editProfile(avatar, firstName, lastName, bio, birthday, status) {
-        let body = {
+        const body = {
             avatar_url: avatar,
             first_name: firstName,
             last_name: lastName,
@@ -246,7 +246,7 @@ class Ajax {
     }
 
     async deletePost(post_id) {
-        let body = {post_id: post_id};
+        const body = {post_id: post_id};
         return this._request(this._apiUrl.deletePost, this._requestType.DELETE, JSON.stringify({body}));
     }
 
@@ -267,7 +267,7 @@ class Ajax {
     }
 
     async reject(link) {
-        let body = {user_link: link};
+        const body = {user_link: link};
         return this._request(this._apiUrl.reject, this._requestType.POST, JSON.stringify({body}));
     }
 
@@ -292,7 +292,7 @@ class Ajax {
     }
 
     async editGroup(link, title, info, avatar, privacy, hideOwner) {
-        let body = {title: title, group_info: info, avatar_url: avatar, privacy: privacy, hide_owner: hideOwner};
+        const body = {title: title, group_info: info, avatar_url: avatar, privacy: privacy, hide_owner: hideOwner};
 
         return this._request(this._apiUrl.editGroup + link, this._requestType.PATCH, JSON.stringify({body}));
     }
@@ -322,17 +322,17 @@ class Ajax {
      * @returns {Object} - тело ответа
      */
     async createGroup(title, info, privacy, hideOwner) {
-        let body = {title: title, group_info: info, privacy: privacy, hide_owner: hideOwner};
+        const body = {title: title, group_info: info, privacy: privacy, hide_owner: hideOwner};
         return this._request(this._apiUrl.createGroup, this._requestType.POST, JSON.stringify({body}));
     }
 
     async sub(link) {
-        let body = {user_link: link};
+        const body = {user_link: link};
         return this._request(this._apiUrl.sub, this._requestType.POST, JSON.stringify({body}));
     }
 
     async unsub(link) {
-        let body = {user_link: link};
+        const body = {user_link: link};
         return this._request(this._apiUrl.unsub, this._requestType.POST, JSON.stringify({body}));
     }
 
@@ -353,12 +353,12 @@ class Ajax {
     }
 
     async msgSend(id, text) {
-        let body = {chat_id: Number(id), text_content: text};
+        const body = {chat_id: Number(id), text_content: text};
         return this._request(this._apiUrl.sendMsg, this._requestType.POST, JSON.stringify({body}));
     }
 
     async chatCreate(users) {
-        let body = {user_links: [users]};
+        const body = {user_links: [users]};
         return this._request(this._apiUrl.chatCreate, this._requestType.POST, JSON.stringify({body}));
     }
 
@@ -380,7 +380,7 @@ class Ajax {
      * @returns {Promise<Response>}
      */
     async likePost(id) {
-        let body = {post_id: id};
+        const body = {post_id: id};
         return this._request(this._apiUrl.likePost, this._requestType.POST, JSON.stringify({body}));
     }
 
@@ -390,7 +390,7 @@ class Ajax {
      * @returns {Promise<Response>}
      */
     async dislikePost(id) {
-        let body = {post_id: id};
+        const body = {post_id: id};
         return this._request(this._apiUrl.dislikePost, this._requestType.POST, JSON.stringify({body}));
     }
 }
