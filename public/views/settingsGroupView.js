@@ -16,7 +16,6 @@ export default class GroupView extends BaseView {
 		this._groupLink = null;
 		this._validateTitle = true;
 		this._validateInfo = true;
-		groupsStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
 
 		this._fileList = null;
@@ -103,7 +102,7 @@ export default class GroupView extends BaseView {
 
 		this._deleteGroup.addEventListener('click', () => {
 			actionGroups.deleteGroup(this._groupLink);
-			Router.go('/groups', false);
+			Router.go('/manageGroups', false);
 		});
 
 		this._titleField.addEventListener('change', () => {
