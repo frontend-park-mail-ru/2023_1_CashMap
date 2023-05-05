@@ -95,7 +95,7 @@ export const settingsConst = {
       ],
   buttonInfo: { text: 'Сохранить',
       jsId: 'js-settings-save-btn'},
-  errorInfo: { jsId: 'js-sign-in-error' },
+  errorInfo: { jsId: 'js-sign-in-error'},
   menuInfo: [
       {text: 'Основные', jsId: 'js-menu-main'},
       {text: 'Безопасность', jsId: 'js-menu-safety'}]
@@ -184,6 +184,7 @@ export const settingsGroupConst = {
       {text: 'Настройки', jsId: 'js-menu-main'},
       {text: 'Подписчики', jsId: 'js-menu-subscribers'},
       {text: 'Заявки', jsId: 'js-menu-requests'}],
+  errorInfo: { jsId: 'js-sign-in-error'},
   buttonDelete: { text: 'Удалить группу',
       jsId: 'js-delete-group-btn'},
   deleteGroupData : { text: 'Да',

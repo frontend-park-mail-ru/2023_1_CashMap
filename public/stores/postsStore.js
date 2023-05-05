@@ -258,7 +258,6 @@ class postsStore {
      * @param {Number} postId - id поста
      */
     async _deletePost(postId) {
-        alert(postId)
         const request = await Ajax.deletePost(postId);
 
         if (request.status === 200) {
