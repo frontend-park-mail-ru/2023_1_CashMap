@@ -283,7 +283,7 @@ class groupsStore {
             group.privacy = data.privacy;
             group.hideOwner = data.hideOwner;
 
-            this.groups.push(group);
+            this.manageGroups.push(group);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
