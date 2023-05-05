@@ -324,7 +324,11 @@ class groupsStore {
     async _deleteGroup(link) {
         const request = await Ajax.deleteGroup(link);
         if (request.status === 200) {
-
+            for (let i = 0; i < this.manageGroups.length; i++) {
+                if (this.manageGroups[i].link === link) {
+                    this.manageGroups.slice(i, 1);
+                }
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
