@@ -80,10 +80,8 @@ class DropdownSearchStore {
             });
 
             this.communitySearchItems.forEach((community) => {
-                if (!community.url) {
+                if (!community.avatar_url) {
                     community.avatar_url = headerConst.avatarDefault;
-                } else {
-                    community.avatar_url = community.url;
                 }
 
                 community.isCommunity = true;

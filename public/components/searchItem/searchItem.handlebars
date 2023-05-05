@@ -1,26 +1,18 @@
-{{#if this.isCommunity}}
-    <div class="search-item group-search-item" data-group-link={{this.link}}>
-        {{#if this.avatar_url}}
-            <img class="search-item__avatar profile-img-size avatar-form" src="{{this.avatar_url}}">
-        {{else}}
-            <img class="search-item__avatar profile-img-size avatar-form" src="../../static/img/post_icons/user_photo.svg">
-        {{/if}}
-        <div class="search-item__username"><span>{{this.title}}</span></div>
+{{#if isCommunity}}
+    <div class="search-item group-search-item" data-group-link={{ link }}>
+        <img class="search-item__avatar profile-img-size avatar-form" src="{{ avatar_url }}">
+        <div class="search-item__username"><span>{{ title }}</span></div>
         <div class="search-item__subscription-icon-container search-item__icon-container">
-            {{#unless this.isSubscribed}}
+            {{#unless isSubscribed}}
                 <img class="search-item__subscription_icon search-item__message_icon__hovered" src='../../static/img/join_hover.svg'>
                 <img class="search-item__subscription_icon search-item__message_icon__not-hovered" src="../../static/img/join.svg">
             {{/unless}}
         </div>
     </div>
 {{else}}
-    <div class="search-item user-search-item" data-user-link={{this.user_link}}>
-        {{#if this.avatar_url}}
-            <img class="search-item__avatar profile-img-size avatar-form" src="{{this.avatar_url}}">
-        {{else}}
-            <img class="search-item__avatar profile-img-size avatar-form" src="../../static/img/post_icons/user_photo.svg">
-        {{/if}}
-        <div class="search-item__username"><span>{{this.first_name}} {{this.last_name}}</span></div>
+    <div class="search-item user-search-item" data-user-link={{ user_link }}>
+        <img class="search-item__avatar profile-img-size avatar-form" src="{{ avatar_url }}">
+        <div class="search-item__username"><span>{{ first_name }} {{ last_name }}</span></div>
         <div class="search-item__send-message-icon-container search-item__icon-container">
             <img class="search-item__message_icon search-item__message_icon__hovered" src='../../static/img/nav_icons/messenger_hover.svg'>
             <img class="search-item__message_icon search-item__message_icon__not-hovered" src="../../static/img/nav_icons/messenger.svg">

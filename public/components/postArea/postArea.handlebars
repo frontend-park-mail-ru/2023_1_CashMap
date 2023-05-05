@@ -2,6 +2,6 @@
     {{> createPost createPostData }}
 
     {{#each postList}}
-        {{> post this}}
+        {{> post (combine this createPostData)}}
     {{/each}}
 </div>
