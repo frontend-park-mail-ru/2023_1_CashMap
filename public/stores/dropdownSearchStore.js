@@ -91,6 +91,9 @@ class DropdownSearchStore {
 
         } else if (request.status === 401) {
             actionUser.signOut();
+        } else if (request.status === 400) {
+            this.userSearchItems = [];
+            this.communitySearchItems = [];
         } else {
             alert('search error');
         }

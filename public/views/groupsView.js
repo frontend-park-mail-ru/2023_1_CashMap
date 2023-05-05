@@ -1,10 +1,19 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, groupsConst, NewGroupConst, activeColor} from "../static/htmlConst.js";
+import {
+	sideBarConst,
+	headerConst,
+	groupsConst,
+	NewGroupConst,
+	activeColor,
+	friendsMenuInfo
+} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionGroups} from "../actions/actionGroups.js";
 import groupsStore from "../stores/groupsStore.js";
 import BaseView from "./baseView.js";
+import {actionSearch} from "../actions/actionSearch.js";
+import searchStore from "../stores/dropdownSearchStore.js";
 
 export default class GroupsView extends BaseView {
 	constructor() {
@@ -18,6 +27,7 @@ export default class GroupsView extends BaseView {
 	addStore() {
 		groupsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
+		searchStore.registerCallback(this.updateSearchList.bind(this))
 	}
 
 	addPagesElements() {
@@ -54,11 +64,43 @@ export default class GroupsView extends BaseView {
 		this._selectField = document.getElementById('js-select');
 		this._checkboxField = document.getElementById('js-group-checkbox');
 		this._addGroupBtn = document.getElementById('js-add-group-btn');
+
 		this._unsubGroup = document.getElementsByClassName('groupItem-menu-item-delete');
 	}
 
 	addPagesListener() {
-		super.addPagesListener()
+		this._exitBtn.addEventListener('click', () => {
+			actionUser.signOut();
+		});
+
+		this._settingsBtn.addEventListener('click', () => {
+			Router.go('/settings', false);
+		});
+
+		this._groupsItem.addEventListener('click', () => {
+			Router.go('/groups', false);
+		});
+
+		this._feedBtn.addEventListener('click', () => {
+			Router.go('/feed', false);
+		});
+
+		this._myPageItem.addEventListener('click', () => {
+			Router.go('/user', false);
+		});
+
+		this._msgItem.addEventListener('click', () => {
+			Router.go('/message', false);
+		});
+
+		this._newsItem.addEventListener('click', () => {
+			Router.go('/feed', false);
+		});
+
+		this._friendsItem.addEventListener('click', () => {
+			Router.go('/friends', false);
+		});
+
 		this._manageGroupsBtn.addEventListener('click', () => {
 			this._manageGroupsBtn.style.color = activeColor;
 			Router.go('/manageGroups', false);
@@ -79,16 +121,18 @@ export default class GroupsView extends BaseView {
 			Router.go('/groups', false);
 		})
 
-		this._addGroupBtn.addEventListener('click', () => {
-			let privacy;
-			if (this._selectField.value == 'Открытая группа') {
-				privacy = 'open';
-			} else {
-				privacy = 'close';
-			}
-			actionGroups.createGroup({title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._checkboxField.checked});
-			Router.go('/manageGroups', false);
-		});
+		if (this._addGroupBtn !== null) {
+			this._addGroupBtn.addEventListener('click', () => {
+				let privacy;
+				if (this._selectField.value == 'Открытая группа') {
+					privacy = 'open';
+				} else {
+					privacy = 'close';
+				}
+				actionGroups.createGroup({title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._checkboxField.checked});
+				Router.go('/manageGroups', false);
+			});
+		}
 
 		for (let i = 0; i < this._goToGroup.length; i++) {
 			this._goToGroup[i].addEventListener('click', () => {
@@ -96,6 +140,68 @@ export default class GroupsView extends BaseView {
 				Router.go('/group?link=' + groupId, false);
 			});
 		}
+
+		switch (window.location.pathname) {
+			case '/findGroups':
+				this._searchAreaInput.addEventListener('keyup', () => {
+					if (this._searchAreaInput.value === "") {
+						localStorage.removeItem("searchQuery");
+						Router.go('/findGroups');
+						return
+					}
+					this.interruptTimer();
+
+					this.startTimer(250, () => {
+						if (this._searchAreaInput.value !== "") {
+							localStorage.setItem("searchQuery", this._searchAreaInput.value);
+							actionSearch.search(this._searchAreaInput.value);
+						}
+					})
+				});
+				break
+
+		}
+	}
+
+	updateSearchList() {
+		if (this.curPage) {
+			if (!userStore.user.isAuth) {
+				Router.go('/signIn');
+			} else {
+				this._renderNewSearchList();
+			}
+		}
+	}
+
+	_renderNewSearchList() {
+		this._template = Handlebars.templates.groups;
+		let header = headerConst;
+		header['avatar_url'] = userStore.user.avatar_url;
+
+		let res;
+		let info;
+		switch (window.location.pathname) {
+			case '/findGroups':
+				res = searchStore.communitySearchItems;
+				info = 'По данному запросу не найдены сообщества'
+				break;
+		}
+		this._context = {
+			sideBarData: sideBarConst,
+			headerData: header,
+			groupsData: res,
+			textInfo: {
+				textInfo: info,
+			},
+			groupsPathData: groupsConst,
+			menuInfo: friendsMenuInfo,
+		}
+
+		Router.rootElement.innerHTML = this._template(this._context);
+		this.addPagesElements();
+		this.addPagesListener();
+		this._searchAreaInput.value = localStorage.getItem("searchQuery");
+		this._searchAreaInput.focus();
 	}
 
 	showPage() {
@@ -143,6 +249,18 @@ export default class GroupsView extends BaseView {
 			},
 			groupsPathData: groupsConst,
 			newGroupData: NewGroupConst,
+		}
+	}
+
+
+	updatePage() {
+		if (this.curPage) {
+			if (!userStore.user.isAuth) {
+				Router.go('/signIn');
+			} else {
+				this.render();
+				this._searchAreaInput.focus();
+			}
 		}
 	}
 }

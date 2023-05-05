@@ -320,5 +320,4 @@ export default class FriendsView extends BaseView {
 			this._searchAreaInput.focus();
 		}
 	}
-
 }
