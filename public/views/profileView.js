@@ -24,6 +24,10 @@ export default class ProfileView extends BaseView {
 	addPagesElements() {
 		super.addPagesElements();
 
+		if (userStore.user.user_link === this._userLink) {
+			this._myPageItem.style.color = activeColor;
+		}
+
 		this._profileSettingsBtn = document.getElementById('js-profile-settings-btn');
 
 		this._editPosts = document.getElementsByClassName('post-menu-item-edit');

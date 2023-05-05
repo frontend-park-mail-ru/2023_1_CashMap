@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst} from "../static/htmlConst.js";
+import { sideBarConst, headerConst, activeColor } from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";

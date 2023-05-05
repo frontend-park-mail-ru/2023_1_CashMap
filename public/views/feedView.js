@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, maxTextStrings, maxTextLength} from "../static/htmlConst.js";
+import { sideBarConst, headerConst, maxTextStrings, maxTextLength, activeColor } from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
@@ -21,6 +21,8 @@ export default class FeedView extends BaseView {
 
 	addPagesElements() {
 		super.addPagesElements();
+
+		this._newsItem.style.color = activeColor;
 
 		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');

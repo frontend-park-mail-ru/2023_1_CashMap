@@ -34,6 +34,9 @@ export default class FriendsView extends BaseView {
 
 	_addPagesElements() {
 		super.addPagesElements()
+
+		this._friendsItem.style.color = activeColor;
+
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._feedBtn = document.getElementById('js-logo-go-feed');

@@ -32,6 +32,7 @@ export default class GroupsView extends BaseView {
 
 	addPagesElements() {
 		super.addPagesElements()
+
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._groupsItem.style.color = activeColor;
 		this._groupsBtn = document.getElementById('js-menu-groups');

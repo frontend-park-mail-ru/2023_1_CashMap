@@ -22,6 +22,8 @@ export default class MessagesView extends BaseView {
 	addPagesElements() {
 		super.addPagesElements();
 
+		this._msgItem.style.color = activeColor;
+
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 
 		this._goToMsg = document.getElementsByClassName('js-go-chat');
