@@ -1,7 +1,7 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
-import {groupAvatarDefault} from "../static/htmlConst.js";
+import {groupAvatarDefault, headerConst} from "../static/htmlConst.js";
 
 /**
  * класс, хранящий информацию о группах
@@ -258,6 +258,11 @@ class groupsStore {
         const response = await request.json();
 
         if (request.status === 200) {
+            response.body.profiles.forEach((user) => {
+                if (!user.avatar_url) {
+                    user.avatar_url = headerConst.avatarDefault;
+                }
+            })
             this.curGroup.subList = response.body.profiles;
         } else if (request.status === 401) {
             actionUser.signOut();

@@ -26,6 +26,7 @@
 @import "components/groups/groups.css";
 @import "components/group/group.css";
 @import "components/groupCard/groupCard.css";
+@import "components/subscriber/subscriber.css";
 @import "components/message/message.css";
 @import "components/messages/messages.css";
 @import "components/friendNotFound/friendNotFound.css";
