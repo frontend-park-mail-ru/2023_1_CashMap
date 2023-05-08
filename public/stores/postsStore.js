@@ -52,7 +52,7 @@ class postsStore {
                 await this._getPosts(action.userLink, action.count, action.lastPostDate);
                 break;
             case 'getFriendsPosts':
-                await this._getFriendsPosts(action.count, action.lastPostDate);
+                await this._getFeedPosts(action.count, action.lastPostDate);
                 break;
             case 'getPostById':
                 await this._getPostsById(action.id, action.count, action.lastPostDate);
@@ -130,7 +130,7 @@ class postsStore {
      * @param {Number} count - количество возвращаемых постов
      * @param {Date} lastPostDate - дата, после которой возвращаются посты
      */
-    async _getFriendsPosts(count, lastPostDate) {
+    async _getFeedPosts(count, lastPostDate) {
         const request = await Ajax.getFriendsPosts(count, lastPostDate);
 
         if (request.status === 200) {
@@ -141,6 +141,11 @@ class postsStore {
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
                     }
+
+                    if (!post.community_info.avatar_url) {
+                        post.community_info.avatar_url = headerConst.avatarDefault;
+                    }
+
                     if (post.creation_date) {
                         const date = new Date(post.creation_date);
                         post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
@@ -193,10 +198,11 @@ class postsStore {
                 if (!post.owner_info.avatar_url) {
                     post.owner_info.avatar_url = headerConst.avatarDefault;
                 }
-                if (!post.community_info.avatar_url) {
+
+                if (!post.community_info.avatar_url || post.community_info.avatar_url === '') {
                     post.community_info.avatar_url = headerConst.avatarDefault;
                 }
-
+                console.log(post.community_info.avatar_url)
                 if (!post.comments) {
                     post.comments_count = 0;
                 }
@@ -205,6 +211,8 @@ class postsStore {
                     post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                 }
                 post.avatar_url = userStore.user.avatar_url;
+
+                console.log()
             });
 
             this.groupsPosts = response.body.posts;

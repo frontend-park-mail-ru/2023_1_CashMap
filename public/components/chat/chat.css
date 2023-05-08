@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    padding-bottom: 0px;
     gap: 16px;
 
     height: 96%;
@@ -70,16 +71,21 @@
 }
 
 .foo {
-    display: flex;
-    gap: 16px;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 30px 30px;
+    grid-column-gap: 5px;
 
     background-color: var(--background-color-feed);
 
-    padding: 10px 10px 0 10px;
     width: 100%;
+
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .chat__footer-input {
+    margin-top: 18px;
     min-height: 35px;
     max-height: 200px;
 
@@ -93,6 +99,10 @@
 }
 
 .chat__footer-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: 100%;
     cursor: pointer;
 }

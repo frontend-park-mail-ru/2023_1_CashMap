@@ -1,13 +1,24 @@
 .profileItem {
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 25% 3.6% 55% 16.4%;
-    grid-template-rows: 32px 38px 32px 1fr 32px;
+    grid-template-columns: minmax(200px, 30%) 55% minmax(200px, 15%);
+    grid-template-areas: "sidebar main-column ."
+                         "sidebar main-column .";
+    grid-template-rows: 6vh 1fr;
+
+    grid-column-gap: 38px;
+
     background-color: var(--background-color-feed);
     background-repeat: repeat;
 }
 
 .profile__body {
-    grid-column: 3;
-    grid-row: 4;
+    grid-area: main;
+}
+
+@media (max-width: 760px) {
+    .profileItem {
+        min-width: 60vh;
+        grid-template-columns: 50px 1fr 30px;
+    }
 }

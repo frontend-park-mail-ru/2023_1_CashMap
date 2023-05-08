@@ -1,9 +1,10 @@
 .friend {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: auto;
-    min-width: 110px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "data-block sub-button"
+                         "data-block .";
+    grid-column-gap: 10px;
     padding: 14px 20px;
     background-color: var(--background-color-menu);
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
@@ -31,6 +32,7 @@
 }
 
 .friend__info {
+    grid-area: data-block;
     align-items: center;
     display: grid;
     grid-template-columns: 80px 8px 1fr;
@@ -60,6 +62,12 @@
 }
 
 .friend__button {
+    margin-left: auto;
+    grid-area: sub-button;
+    height: max-content;
+    width: max-content;
+
+
     text-align: center;
     cursor: pointer;
 

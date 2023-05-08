@@ -1,16 +1,19 @@
-<div class="side-bar side-bar-size background-color-side-bar">
-    <div class="logo-block logo-block-size" id="js-logo-go-feed">
-        <img class="logo-block__pic" src={{ logoImgPath }}>
-        <span class="logo-block__text font-Limelight font-size-28 font-color-logo-color">
-            {{ logoText }}
-        </span>
-    </div>
+<div class="side-bar-wrapper background-color-side-bar">
+    <div class="side-bar side-bar-size">
+        <div class="logo-block logo-block-size" id="js-logo-go-feed">
+            <img class="logo-block__pic" src={{ logoImgPath }}>
+            <span class="logo-block__text font-Limelight font-size-28 font-color-logo-color">
+                {{ logoText }}
+            </span>
+        </div>
 
 
-    <div class="menu">
-        {{#each menuItemList}}
-            {{> menuItem this}}
-        {{/each}}
+        <div class="menu">
+            {{#each menuItemList}}
+                {{> menuItem this}}
+            {{/each}}
+        </div>
+
     </div>
 
 </div>

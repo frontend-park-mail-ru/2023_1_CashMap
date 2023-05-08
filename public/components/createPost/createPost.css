@@ -4,6 +4,8 @@
     grid-template-columns: 4px 35px 1fr auto auto 4px;
     grid-column-gap: 16px;
 }
+
+
 .create-post__profile {
     grid-column: 2;
 }

@@ -100,7 +100,7 @@ export default class FeedView extends BaseView {
 
 	_preRender() {
 		this._template = Handlebars.templates.feed;
-
+		console.log(postsStore.friendsPosts)
 		let header = headerConst;
 		header['avatar_url'] = userStore.user.avatar_url;
 		this._context = {

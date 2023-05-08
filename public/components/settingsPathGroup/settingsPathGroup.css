@@ -1,6 +1,6 @@
 .settings-path {
     display: grid;
-    grid-template-columns: 66% 8% 26%;
+    grid-template-columns: 66% 8% minmax(140px, 26%);
     min-width: 390.5px;
 }
 .menu-settings {

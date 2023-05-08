@@ -1,16 +1,20 @@
 <div class="messages" id="messages">
     {{> sideBar sideBarData}}
-    {{> header headerData}}
-    <div class="messages__search">
-        {{> search}}
-    </div>
-    <div class="messages__nav-list">
-      {{#if messagesData}}
-        {{#each messagesData}}
-          {{> message this}}
-        {{/each}}
-      {{else}}
-        {{> friendNotFound textInfo}}
-      {{/if}}
+    <div class="main-column">
+        {{> header headerData}}
+        <div class="messages-search-and-nav-list">
+            <div class="messages__search">
+                {{> search}}
+            </div>
+            <div class="messages__nav-list">
+                {{#if messagesData}}
+                    {{#each messagesData}}
+                        {{> message this}}
+                    {{/each}}
+                {{else}}
+                    {{> friendNotFound textInfo}}
+                {{/if}}
+            </div>
+        </div>
     </div>
 </div>

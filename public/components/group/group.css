@@ -1,13 +1,17 @@
 .group {
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 25% 3.6% 55% 16.4%;
-    grid-template-rows: 32px 38px 32px 1fr 32px 1fr;
+    grid-template-columns: minmax(200px, 25%) minmax(max-content, 50%) minmax(200px, 25%);
+    grid-template-areas: "sidebar main-column ."
+                         "sidebar main-column .";
+    grid-template-rows: 6vh 1fr;
+    background-repeat: repeat-y;
+
+    grid-column-gap: 38px;
 }
 
 .group__body {
-    grid-column: 3;
-    grid-row: 4;
+    grid-area: main;
 
     display: grid;
     grid-template-columns: 66% 6% 28%;
@@ -49,4 +53,11 @@
 
 .group__info_more:hover {
     background-color: var(--background-color-feed);
+}
+
+@media (max-width: 760px) {
+    .group {
+        min-width: 60vh;
+        grid-template-columns: 50px minmax(max-content, 1fr) 30px;
+    }
 }

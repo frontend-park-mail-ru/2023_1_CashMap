@@ -95,7 +95,9 @@
     --notification-img-size: 24px;
     --input-widgets-size: 25px;
 
-    --main-margin: 20px;
+    --main-top-margin: 28px;
+
+    --sidebar-margin: 8px;
 
     --font-size-10: 10px;
     --font-size-12: 12px;

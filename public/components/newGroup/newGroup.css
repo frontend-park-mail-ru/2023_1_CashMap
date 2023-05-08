@@ -26,10 +26,11 @@
     width: 600px;
     height: 368px;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -300px;
-    margin-top: -216px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }
 
 .newGroup__header {
