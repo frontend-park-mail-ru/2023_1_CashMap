@@ -1,7 +1,7 @@
 .friend {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     grid-template-areas: "data-block sub-button"
                          "data-block .";
     grid-column-gap: 10px;
@@ -53,11 +53,7 @@
 }
 
 .friend__img {
-    display: flex;
-    padding: 16px 10px;
-    gap: 10px;
-    top: -10px;
-    position: relative;
+    margin-left: auto;
     cursor: pointer;
 }
 
@@ -65,7 +61,7 @@
     margin-left: auto;
     grid-area: sub-button;
     height: max-content;
-    width: max-content;
+    width: 60%;
 
 
     text-align: center;
@@ -75,6 +71,11 @@
     outline: none;
     border-radius: 8px;
     padding: 8px 10px;
+}
+
+.friend__button__margin {
+    margin-right: auto;
+    margin-left: 0;
 }
 
 .friend__button-two {
@@ -119,7 +120,7 @@
 .friend-menu {
     display: flex;
     flex-direction: column;
-    padding: 12px;
+    padding: 10px;
     display: none;
 }
 
@@ -159,4 +160,5 @@
     justify-content: center;
     align-items: center;
     gap: 6px;
+
 }

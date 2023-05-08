@@ -4,7 +4,7 @@
         <div class="friend__wrapper">
             <div class="friend__name" data-action="profile">{{ first_name }} {{ last_name }}</div>
             {{#if isFriend}}
-                <button class="friend__button friend__button_grey js-friend-go-msg" data-id="{{ user_link }}">
+                <button class="friend__button friend__button_grey friend__button__margin js-friend-go-msg" data-id="{{ user_link }}">
                     <div class="friend__button-text"> Написать сообщение </div>
                 </button>
             {{else}}
@@ -42,7 +42,7 @@
             <button class="friend__button friend__button_grey js-friend-add" data-id="{{ user_link }}">
                 <div class="friend__button-text"> Добавить в друзья </div>
             </button>
-            <button class="friend__button friend__button-two friend__button_white background-color-menu js-friend-delete" data-id="{{ user_link }}">
+            <button class="friend__button friend__button_white background-color-menu js-friend-delete" data-id="{{ user_link }}">
                 <div class="friend__button-text"> Отклонить </div>
             </button>
         </div>
