@@ -61,7 +61,7 @@
     margin-left: auto;
     grid-area: sub-button;
     height: max-content;
-    width: 60%;
+    width: 100%;
 
 
     text-align: center;
@@ -73,9 +73,9 @@
     padding: 8px 10px;
 }
 
-.friend__button__margin {
-    margin-right: auto;
-    margin-left: 0;
+.friend__button__size {
+    width: 60%;
+    margin: 0;
 }
 
 .friend__button-two {
