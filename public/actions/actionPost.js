@@ -52,7 +52,7 @@ export const actionPost = {
      */
     getPostsByCommunity(community_link, count, lastPostDate) {
         Dispatcher.dispatch({
-            actionName: 'getPosts',
+            actionName: 'getPostsByCommunity',
             community_link,
             count,
             lastPostDate,
@@ -113,6 +113,26 @@ export const actionPost = {
         Dispatcher.dispatch({
             actionName: 'editPost',
             text,
+            postId,
+        });
+    },
+    /**
+     * action для лайка поста
+     * @param {*} postId - id поста
+     */
+    likePost(postId) {
+        Dispatcher.dispatch({
+            actionName: 'likePost',
+            postId,
+        });
+    },
+    /**
+     * action для дизлайка поста
+     * @param {*} postId - id поста
+     */
+    dislikePost(postId) {
+        Dispatcher.dispatch({
+            actionName: 'dislikePost',
             postId,
         });
     },

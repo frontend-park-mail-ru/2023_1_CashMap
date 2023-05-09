@@ -1,0 +1,141 @@
+.newGroupElem {
+    display: none;
+}
+
+.newGroupBackground {
+    background: rgba(195, 199, 202, 0.6);
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+}
+
+.newGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 16px;
+    z-index: 3;
+}
+
+.newGroup-position {
+    width: 600px;
+    height: 368px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -300px;
+    margin-top: -216px;
+}
+
+.newGroup__header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+}
+
+.newGroup__header-info {
+    display: flex;
+    align-items: center;
+    width: 365px;
+    gap: 16px;
+}
+
+.newGroup__textarea {
+    width: 100%;
+}
+
+.newGroup__input {
+    width: 100%;
+}
+
+.newGroup__input .input-block-settings__field {
+    background-color: var(--background-color-feed);
+}
+
+.newGroup__textarea__field {
+    width: 100%;
+    resize: none;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.newGroup__select-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 4px;
+}
+
+.newGroup__select {
+    border: none;
+    background-color: var(--background-color-feed);
+    padding: 10px;
+    width: 100%;
+}
+
+.newGroup__checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.newGroup__textarea {
+    display: grid;
+    grid-template: 28% 8% 70% 8% 28%/ 100%;
+    width: 100%;
+    height: var(--btn-input-height);
+}
+.newGroup__textarea__field {
+    outline:none;
+    border: 1px solid transparent;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    grid-row: 3;
+    grid-column: 1;
+}
+.newGroup__textarea__field[type='date'] {
+    padding-top: 8px; 
+}
+
+.newGroup__textarea__field-correct {
+    border: none;
+}
+
+.newGroup__textarea__field-incorrect {
+    border-color: var(--font-color-error, #D5534D);
+}
+
+.newGroup__textarea__error {
+    grid-row: 5;
+    grid-column: 1;
+
+    font-weight: 400;
+}
+
+.newGroup__textarea__info {
+    grid-row: 1;
+    grid-column: 1;
+
+    font-weight: 400;
+}
+
+.input-field:focus {
+    outline: 1px solid var(--font-color-gray-text, #6C6F72);
+}
+
+.newGroup__textarea__field::placeholder {
+    font-family: InterMedium, sans-serif;
+    color: var(--font-color-gray-text, #6C6F72);
+    font-size: var(--font-size-15, 15px);
+}
+
+.newGroupElem:has(.newGroup__img-exit:active) {
+    display: none;
+}

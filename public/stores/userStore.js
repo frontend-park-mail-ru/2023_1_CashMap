@@ -3,6 +3,7 @@ import Ajax from "../modules/ajax.js";
 import {headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import WebSock from "../modules/webSocket.js";
+import SettingsView from "../views/settingsView.js";
 
 /**
  * класс, хранящий информацию о друзьях
@@ -23,13 +24,31 @@ class userStore {
             user_link: null,
             firstName: null,
             lastName: null,
-            avatar: null,
+            avatar_url: null,
             bio: null,
             birthday: null,
             status: null,
             lastActive: null,
         };
 
+        this.userProfile = {
+            isAuth: false,
+            errorAuth: '',
+            errorReg: '',
+
+            email: null,
+            user_link: null,
+            firstName: null,
+            lastName: null,
+            avatar_url: null,
+            bio: null,
+            birthday: null,
+            status: null,
+            lastActive: null,
+        };
+
+        this.editMsg = '';
+        this.editStatus = null;
         this.profile = null;
 
         Dispatcher.register(this._fromDispatch.bind(this));
@@ -152,31 +171,38 @@ class userStore {
         const response = await request.json();
 
         if (request.status === 200) {
-            this.user.avatar = response.body.profile.avatar;
-            this.user.user_link = response.body.profile.user_link;
-            this.user.firstName = response.body.profile.first_name;
-            this.user.lastName = response.body.profile.last_name;
-            this.user.bio = response.body.profile.bio;
-            this.user.status = response.body.profile.status;
-            this.user.email = response.body.profile.email;
+            let profile = {};
+
+            profile.avatar_url = response.body.profile.avatar_url;
+            profile.user_link = response.body.profile.user_link;
+            profile.firstName = response.body.profile.first_name;
+            profile.lastName = response.body.profile.last_name;
+            profile.bio = response.body.profile.bio;
+            profile.status = response.body.profile.status;
+            profile.email = response.body.profile.email;
 
             if (response.body.profile.last_active) {
                 const date = new Date(response.body.profile.last_active);
-                this.user.lastActive = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                profile.lastActive = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
             }
 
             if (response.body.profile.birthday) {
-                //const date = new Date(response.body.profile.birthday);
-                //this.user.birthday = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
-                this.user.birthday = response.body.profile.birthday;
+                profile.birthday = response.body.profile.birthday;
             }
 
-            if (!this.user.status) {
-                this.user.status = 'статус не задан'
+            if (!profile.status) {
+                profile.status = 'статус не задан'
             }
 
-            if (!this.user.avatar) {
-                this.user.avatar = headerConst.avatarDefault;
+            if (!profile.avatar_url) {
+                profile.avatar_url = headerConst.avatarDefault;
+            }
+
+            if (!link || link === this.user.user_link) {
+                profile.isAuth = true;
+                this.user = profile;
+            } else {
+                this.userProfile = profile;
             }
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -221,20 +247,25 @@ class userStore {
      * @param {Object} data - данные пользователя
      */
     async _editProfile(data) {
-        const request = await Ajax.editProfile(data.avatar, data.firstName, data.lastName, data.bio, data.birthday, data.status);
+        const request = await Ajax.editProfile(data.avatar_url, data.firstName, data.lastName, data.bio, data.birthday, data.status);
         if (request.status === 200) {
-            if (data.avatar) {
-                this.user.avatar = data.avatar;
+            if (data.avatar_url) {
+                this.user.avatar_url = data.avatar_url;
             }
+
             this.user.firstName = data.firstName;
             this.user.lastName = data.lastName;
             this.user.bio = data.bio;
             this.user.birthday = data.birthday;
             this.user.status = data.status;
+
+            this.editMsg = 'Данные профиля успешно обновлены';
+            this.editStatus = true;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
-            alert('editProfile error');
+            this.editMsg = 'Ошибка сервера';
+            this.editStatus = false;
         }
 
         this._refreshStore();

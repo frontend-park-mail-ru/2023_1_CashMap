@@ -33,8 +33,8 @@ class WebSock {
         this._socket.onmessage = function(event) {
             const response = JSON.parse(event.data);
             response.creation_date = new Date(response.creation_date).toLocaleDateString();
-            if (!response.sender_info.url) {
-                response.sender_info.url = headerConst.avatarDefault;
+            if (!response.sender_info.avatar_url) {
+                response.sender_info.avatar_url = headerConst.avatarDefault;
             }
 
             if (localStorage.getItem('chatId') === String(response.chat_id)) {

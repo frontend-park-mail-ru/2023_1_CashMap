@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst} from "../static/htmlConst.js";
+import { sideBarConst, headerConst, activeColor } from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";
@@ -23,6 +23,7 @@ export default class ChatView extends BaseView {
 
 	addPagesElements() {
 		super.addPagesElements();
+
 		this._backBtn = document.getElementById('js-back-to-messages-btn');
 		this._sendMsg = document.getElementById('js-send-msg');
 		this._sendMsgBlock = document.getElementById('js-send-msg-block');
@@ -46,9 +47,10 @@ export default class ChatView extends BaseView {
 
 	addPagesListener() {
 		super.addPagesListener();
+
 		this._backBtn.addEventListener('click', () => {
-            Router.go('/message', false);
-		});
+			Router.goBack();
+		})
 
 		this._sendMsg.addEventListener('click', () => {
 			if (this._msg.value.length) {
@@ -96,14 +98,16 @@ export default class ChatView extends BaseView {
 		let secondUser = null;
 		if (curChat) {
 			secondUser = curChat.members[0];
-			if (curChat.members[0].link === userStore.user.user_link) {
+
+			if (curChat.members[0].user_link === userStore.user.user_link && curChat.members.length !== 1) {
 				secondUser = curChat.members[1];
 			}
+
 		}
 
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 
 		this._context = {
 			sideBarData: sideBarConst,

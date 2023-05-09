@@ -1,0 +1,40 @@
+<div class="newGroupElem">
+    <div class="newGroupBackground"></div>
+    <div class="newGroup background-color-profile-menu border-radius-btn-input newGroup-position" id="newGroup">
+        <div class="newGroup__header">
+            <div class="newGroup__header-info font-color-gray-text">
+                <img class="newGroup__img" src="static/img/group.svg">
+                <div class="newGroup__header-text font-MailSansRoman font-size-19">Новое сообщество</div>
+            </div>
+            <img class="newGroup__img-exit js-new-group-exit-btn cursor-pointer" src="static/img/close.svg">
+        </div>
+        <div class="newGroup__info font-MailSansRomanRegular font-size-19 font-color-gray-icon">Делитель новостями, рассказывайте о важных событиях</div>
+        
+        <div class="newGroup__input">
+            {{> inputSettings inputInfo}}
+        </div>
+
+        <div class="newGroup__textarea">
+            <div class="newGroup__textarea__info font-InterRegular font-size-12 font-color-gray-text">Описание</div>
+            <textarea class="newGroup__textarea__field border-radius-btn-input font-InterMedium font-size-14 font-color-gray-text background-color-feed border-none" id="js-info-input">{{data}}</textarea>
+            <div class="newGroup__textarea__error font-InterRegular font-size-12 font-color-error" id="js-info-error"></div>
+        </div>
+
+        <div class="newGroup__select-wrapper">
+            <div class="newGroup__select__info font-InterRegular font-size-12 font-color-gray-text">Тип группы</div>
+            <select class="newGroup__select border-radius-btn-input font-InterMedium font-size-14 font-color-gray-text" id="js-select">
+                <option>Открытая группа</option>
+                <option>Закрытая группа</option>
+            </select>
+        </div>
+
+        <div class="newGroup__checkbox">
+            <div class="newGroup__checkbox__info font-InterRegular font-size-12 font-color-gray-text">Скрыть создателя группы</div>
+            <input type="checkbox" id="js-group-checkbox">
+        </div>
+        
+        <div class="newGroup__button">
+            {{> buttonDefault buttonInfo}}
+        </div>
+    </div>
+</div>

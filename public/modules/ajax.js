@@ -9,6 +9,7 @@ class Ajax {
     constructor() {
         //this.backendHostname = '127.0.0.1';
         this.backendHostname = '95.163.212.121';
+
         this.backendPort = '8080';
         this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
 
@@ -18,6 +19,7 @@ class Ajax {
             signOut: '/auth/logout',
             check: '/auth/check',
             getProfile: '/api/user/profile',
+            getProfileLink: '/api/user/profile/link/',
             editProfile: '/api/user/profile/edit',
 
             feed: '/api/feed',
@@ -27,6 +29,8 @@ class Ajax {
             createPost: '/api/posts/create',
             deletePost: '/api/posts/delete',
             editPost: '/api/posts/edit',
+            likePost: '/api/posts/like/set',
+            dislikePost: '/api/posts/like/cancel',
 
             getFriends: '/api/user/friends',
             getNotFriends: '/api/user/rand',
@@ -36,6 +40,17 @@ class Ajax {
             sub: '/api/user/sub',
             unsub: '/api/user/unsub',
 
+            getGroups: '/api/group/self',
+            getGroupInfo: '/api/group/link/',
+            editGroup: '/api/group/link/',
+            deleteGroup: '/api/group/link/',
+            getManageGroups: '/api/group/manage',
+            getNotGroups: '/api/group/hot',
+            getPopularGroups: '/api/group/hot',
+            createGroup: '/api/group/create',
+            getGroupsSub: '/api/group/link/',
+            GroupsSub: '/api/group/link/',
+            GroupsUnsub: '/api/group/link/',
 
             chatCheck: '/api/im/chat/check',
             chatCreate: '/api/im/chat/create',
@@ -45,6 +60,8 @@ class Ajax {
 
             uploadImg: '/static/upload',
             deleteImg: '/static/delete',
+
+            userSearch: '/api/user/search'
         }
 
         this._requestType = {
@@ -67,7 +84,8 @@ class Ajax {
 
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
-        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create') {
+
+        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === this._apiUrl.editGroup || apiUrlType === '/api/posts/like/set' || apiUrlType === '/api/posts/like/cancel' || apiUrlType === this._apiUrl.likePost || apiUrlType === this._apiUrl.dislikePost) {
             a['Content-Type'] = 'application/json';
         }
 
@@ -82,7 +100,7 @@ class Ajax {
 
     /**
      * метод, отправляющий запрос на вход в систему
-     * @param {String} email - почта пользователя 
+     * @param {String} email - почта пользователя
      * @param {String} password - пароль пользователя
      * @returns {Object} - тело ответа
      */
@@ -93,9 +111,9 @@ class Ajax {
 
     /**
      * метод, отправляющий запрос на регистрацию в системе
-     * @param {String} firstName - имя пользователя 
+     * @param {String} firstName - имя пользователя
      * @param {String} lastName - фамилия пользователя
-     * @param {String} email - почта пользователя 
+     * @param {String} email - почта пользователя
      * @param {String} password - пароль пользователя
      * @returns {Object} - тело ответа
      */
@@ -118,26 +136,33 @@ class Ajax {
      * @returns {Object} - тело ответа
      */
     async getProfile(link) {
-        if (link === undefined) {
+        if (!link) {
             return this._request(this._apiUrl.getProfile, this._requestType.GET);
         } else {
-            return this._request(this._apiUrl.getProfile + `?link=${link}`, this._requestType.GET);
+            return this._request(this._apiUrl.getProfileLink + link, this._requestType.GET);
         }
     }
 
     /**
      * метод, отправляющий запрос на редактирование пользователя
-     * @param {String} avatar - аватарка пользователя 
-     * @param {String} firstName - имя пользователя 
+     * @param {String} avatar - аватарка пользователя
+     * @param {String} firstName - имя пользователя
      * @param {String} lastName - фамилия пользователя
-     * @param {String} email - почта пользователя 
+     * @param {String} email - почта пользователя
      * @param {String} city - город пользователя
-     * @param {String} birthday - день рождения пользователя 
+     * @param {String} birthday - день рождения пользователя
      * @param {String} status - статус пользователя
      * @returns {Object} - тело ответа
      */
     async editProfile(avatar, firstName, lastName, bio, birthday, status) {
-        let body = {avatar: avatar, first_name: firstName, last_name: lastName, bio: bio, birthday: birthday, status:status};
+        const body = {
+            avatar_url: avatar,
+            first_name: firstName,
+            last_name: lastName,
+            bio: bio,
+            birthday: birthday,
+            status: status
+        };
         return this._request(this._apiUrl.editProfile, this._requestType.PATCH, JSON.stringify({body}));
     }
 
@@ -151,7 +176,7 @@ class Ajax {
 
     /**
      * метод, отправляющий запрос на получение постов
-     * @param {String} userLink - ссылка на пользователя 
+     * @param {String} userLink - ссылка на пользователя
      * @param {Number} count - количество постов для получения
      * @param {Date} lastPostDate - дата, после которой выбираются посты
      * @returns {Object} - тело ответа
@@ -161,6 +186,21 @@ class Ajax {
             return this._request(this._apiUrl.userPosts + `?owner_link=${userLink}&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
         } else {
             return this._request(this._apiUrl.userPosts + `?owner_link=${userLink}&batch_size=${count}`, this._requestType.GET);
+        }
+    }
+
+    /**
+     * метод, отправляющий запрос на получение постов
+     * @param {String} userLink - ссылка на пользователя
+     * @param {Number} count - количество постов для получения
+     * @param {Date} lastPostDate - дата, после которой выбираются посты
+     * @returns {Object} - тело ответа
+     */
+    async getPostsByCommunity(userLink, count, lastPostDate) {
+        if (lastPostDate) {
+            return this._request(this._apiUrl.communityPosts + `?community_link=${userLink}&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
+        } else {
+            return this._request(this._apiUrl.communityPosts + `?community_link=${userLink}&batch_size=${count}`, this._requestType.GET);
         }
     }
 
@@ -206,19 +246,19 @@ class Ajax {
     }
 
     async deletePost(post_id) {
-        let body = {post_id: post_id};
+        const body = {post_id: post_id};
         return this._request(this._apiUrl.deletePost, this._requestType.DELETE, JSON.stringify({body}));
     }
 
-    async getFriends(link, count, offset= 0) {
+    async getFriends(link, count, offset = 0) {
         return this._request(this._apiUrl.getFriends + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
-    async getNotFriends(link, count, offset= 0) {
+    async getNotFriends(link, count, offset = 0) {
         return this._request(this._apiUrl.getNotFriends + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
-    async getUsers(count, offset= 0) {
+    async getUsers(count, offset = 0) {
         return this._request(this._apiUrl.getUsers + `?limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
@@ -226,19 +266,74 @@ class Ajax {
         return this._request(this._apiUrl.getSub + `?type=${type}&link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
     }
 
+    async reject(link) {
+        const body = {user_link: link};
+        return this._request(this._apiUrl.reject, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async getGroups(count, offset= 0) {
+        return this._request(this._apiUrl.getGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async groupSub(link) {
+        return this._request(this._apiUrl.GroupsSub + link + '/sub', this._requestType.POST);
+    }
+
+    async groupUnsub(link) {
+        return this._request(this._apiUrl.GroupsUnsub + link + '/unsub', this._requestType.POST);
+    }
+
+    async getGroupInfo(link) {
+        return this._request(this._apiUrl.getGroupInfo + link, this._requestType.GET);
+    }
+
+    async getGroupsSub(link, count, offset = 0) {
+        return this._request(this._apiUrl.getGroupsSub + link + '/subs' + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async editGroup(link, title, info, avatar, privacy, hideOwner) {
+        const body = {title: title, group_info: info, avatar_url: avatar, privacy: privacy, hide_owner: hideOwner};
+
+        return this._request(this._apiUrl.editGroup + link, this._requestType.PATCH, JSON.stringify({body}));
+    }
+
+    async deleteGroup(link) {
+        return this._request(this._apiUrl.deleteGroup + link, this._requestType.DELETE);
+    }
+
+    async getmanageGroups(count, offset = 0) {
+        return this._request(this._apiUrl.getManageGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async getNotGroups(count, offset = 0) {
+        return this._request(this._apiUrl.getNotGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async getPopularGroups(count, offset = 0) {
+        return this._request(this._apiUrl.getPopularGroups + `?limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    /**
+     * метод, отправляющий запрос на создание группы
+     * @param {String} title - название группы
+     * @param {String} info - информация о группе
+     * @param {String} privacy - приватность
+     * @param {Boolean} hideOwner - показывать ли создателя группы
+     * @returns {Object} - тело ответа
+     */
+    async createGroup(title, info, privacy, hideOwner) {
+        const body = {title: title, group_info: info, privacy: privacy, hide_owner: hideOwner};
+        return this._request(this._apiUrl.createGroup, this._requestType.POST, JSON.stringify({body}));
+    }
+
     async sub(link) {
-        let body = {user_link: link};
+        const body = {user_link: link};
         return this._request(this._apiUrl.sub, this._requestType.POST, JSON.stringify({body}));
     }
 
     async unsub(link) {
-        let body = {user_link: link};
+        const body = {user_link: link};
         return this._request(this._apiUrl.unsub, this._requestType.POST, JSON.stringify({body}));
-    }
-
-    async reject(link) {
-        let body = {user_link: link};
-        return this._request(this._apiUrl.reject, this._requestType.POST, JSON.stringify({body}));
     }
 
     async getChats(count = 0, lastPostDate = 0) {
@@ -258,12 +353,12 @@ class Ajax {
     }
 
     async msgSend(id, text) {
-        let body = {chat_id: Number(id), text_content: text};
+        const body = {chat_id: Number(id), text_content: text};
         return this._request(this._apiUrl.sendMsg, this._requestType.POST, JSON.stringify({body}));
     }
 
     async chatCreate(users) {
-        let body = {user_links: [users]};
+        const body = {user_links: [users]};
         return this._request(this._apiUrl.chatCreate, this._requestType.POST, JSON.stringify({body}));
     }
 
@@ -272,6 +367,31 @@ class Ajax {
         formData.append("attachments", data);
 
         return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData);
+    }
+
+    async getGlobalSearchResult(searchText, count, offset) {
+        let request_url = this._apiUrl.userSearch + `?search_query=${searchText}&batch_size=${count}&offset=${offset}`
+        return this._request(request_url, this._requestType.GET);
+    }
+
+    /**
+     * Метод отправки данных по лайку на сервер
+     * @param id - id поста
+     * @returns {Promise<Response>}
+     */
+    async likePost(id) {
+        const body = {post_id: id};
+        return this._request(this._apiUrl.likePost, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    /**
+     * Метод отправки данных по дизлайку на сервер
+     * @param id - id поста
+     * @returns {Promise<Response>}
+     */
+    async dislikePost(id) {
+        const body = {post_id: id};
+        return this._request(this._apiUrl.dislikePost, this._requestType.POST, JSON.stringify({body}));
     }
 }
 

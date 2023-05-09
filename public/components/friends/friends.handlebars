@@ -3,7 +3,7 @@
     {{> header headerData}}
 
     <div class="friends__info">
-        <div class="friends__nav-list">
+        <div class="friends__nav-list" id="js-users-list">
             {{#if friendsData}}
                 {{#each friendsData}}
                     {{> friend this}}

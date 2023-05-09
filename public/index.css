@@ -19,6 +19,14 @@
 @import "components/search/search.css";
 @import "components/friend/friend.css";
 @import "components/friends/friends.css";
+@import "components/groupCard/groupCard.css";
+@import "components/groupItem/groupItem.css";
+@import "components/newGroup/newGroup.css";
+@import "components/deleteGroup/deleteGroup.css";
+@import "components/groups/groups.css";
+@import "components/group/group.css";
+@import "components/groupCard/groupCard.css";
+@import "components/subscriber/subscriber.css";
 @import "components/message/message.css";
 @import "components/messages/messages.css";
 @import "components/friendNotFound/friendNotFound.css";
@@ -30,10 +38,13 @@
 @import "components/safety/safety.css";
 @import "components/settings/settings.css";
 @import "components/settingsPath/settingsPath.css";
+@import "components/settingsPathGroup/settingsPathGroup.css";
 @import "components/inputSettings/inputSettings.css";
 @import "components/editPost/editPost.css";
 @import "components/editPostPage/editPostPage.css";
 @import "components/notFound/notFound.css";
+@import "components/searchItem/searchItem.css";
+@import "components/searchDropdown/searchDropdown.css";
 
 @font-face {
     font-family: Limelight; /* Имя шрифта */
@@ -92,6 +103,7 @@
     --font-size-13: 13px;
     --font-size-15: 15px;
     --font-size-16: 16px;
+    --font-size-17: 17px;
     --font-size-19: 19px;
     --font-size-23: 23px;
     --font-size-28: 28px;
@@ -103,6 +115,7 @@
     --font-color-reg-info: #8D949D;
     --font-color-logo-color: #44009D;
     --font-color-error: #D5534D;
+    --font-color-ok: #00af02;
     --font-color-btn: #FFFFFF;
     --font-color-title: #000000;
     --font-color-nav: #6C6F72;
@@ -115,6 +128,7 @@
     --background-color-error: #FFEBEB;
     --background-item-hovered: #F5F5F5;
     --background-color-feed: #F5F5F5;
+    --background-color-section-separation-line: #F5F5F5;
     --background-color-input: #E9E9E9;
     --background-color-menu: #FFFEFE;
     --background-color-header: #EDEDED;
@@ -176,6 +190,9 @@
 .font-size-16 {
     font-size: var(--font-size-16, 16px);
 }
+.font-size-17 {
+    font-size: var(--font-size-17, 17px);
+}
 .font-size-19 {
     font-size: var(--font-size-19, 19px);
 }
@@ -207,6 +224,9 @@
 .font-color-error {
     color: var(--font-color-error, #D5534D);
 }
+.font-color-ok {
+    color: var(--font-color-ok, #00af02);
+}
 .font-color-btn {
     color: var(--font-color-btn, #FFFFFF);
 }
@@ -232,6 +252,7 @@
 .background-color-feed {
     background: var(--background-color-feed, #F5F5F5);
 }
+
 .background-color-error {
     background: var(--background-color-error, #FFEBEB);
 }

@@ -3,9 +3,11 @@ import Validation from "../modules/validation.js";
 import Router from "../modules/router.js";
 import {sideBarConst, headerConst, safetyConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
+import BaseView from "./baseView.js";
 
-export default class SafetyView {
+export default class SafetyView extends BaseView {
 	constructor() {
+		super();
 		this._addHandlebarsPartial();
 
 		this._jsId = 'safety';
@@ -27,6 +29,7 @@ export default class SafetyView {
 	}
 
 	_addPagesElements() {
+		super.addPagesElements();
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
 		this._settingsBtn = document.getElementById('js-menu-main');
@@ -41,6 +44,7 @@ export default class SafetyView {
         this._passwordRepeatField = document.getElementById('js-repeat-password-input');
         this._passwordRepeatErrorField = document.getElementById('js-repeat-password-error');
 		this._saveBtn = document.getElementById('js-change-password-btn');
+		this._groupsItem = document.getElementById('js-side-bar-groups');
 
 		this._myPageItem = document.getElementById('js-side-bar-my-page');
 		this._newsItem = document.getElementById('js-side-bar-news');
@@ -53,9 +57,14 @@ export default class SafetyView {
 	}
 
 	_addPagesListener() {
+		super.addPagesListener();
 		this._exitBtn.addEventListener('click', () => {
 			actionUser.signOut();
 		})
+
+		this._groupsItem.addEventListener('click', () => {
+            Router.go('/groups', false);
+        });
 
 		this._settingsBtn.addEventListener('click', () => {
             Router.go('/settings', false);
@@ -66,7 +75,7 @@ export default class SafetyView {
         });
 
 		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends');
+			Router.go('/friends', false);
 		});
 
 		this._msgItem.addEventListener('click', () => {
@@ -74,11 +83,11 @@ export default class SafetyView {
 		});
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage');
+			Router.go('/user', false);
 		});
 
 		this._newsItem.addEventListener('click', () => {
-			Router.go('/feed');
+			Router.go('/feed', false);
 		});
 
 		this._feedBtn.addEventListener('click', () => {
@@ -127,7 +136,7 @@ export default class SafetyView {
 		this._template = Handlebars.templates.safety;
 
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 
 		this._context = {
 			sideBarData: sideBarConst,

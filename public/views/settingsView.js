@@ -1,13 +1,14 @@
 import userStore from "../stores/userStore.js";
 import Validation from "../modules/validation.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, settingsConst, activeColor} from "../static/htmlConst.js";
+import { sideBarConst, headerConst, settingsConst, activeColor, signInData } from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionImg} from "../actions/actionImg.js";
+import BaseView from "./baseView.js";
 
-export default class SettingsView {
+export default class SettingsView extends BaseView {
 	constructor() {
-		this._addHandlebarsPartial();
+		super();
 
 		this._jsId = 'settings';
 		this.curPage = false;
@@ -18,29 +19,21 @@ export default class SettingsView {
 		this._validateBio = true;
 		this._validateBirthday = true;
 
-		userStore.registerCallback(this.updatePage.bind(this));
 		this._reader = new FileReader();
 
 		this._fileList = null;
 	}
 
-	_addHandlebarsPartial() {
-		Handlebars.registerPartial('inputField', Handlebars.templates.inputField)
-		Handlebars.registerPartial('inputSettings', Handlebars.templates.inputSettings)
-		Handlebars.registerPartial('button', Handlebars.templates.button)
-		Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar)
-		Handlebars.registerPartial('header', Handlebars.templates.header)
-		Handlebars.registerPartial('menuItem', Handlebars.templates.menuItem)
-		Handlebars.registerPartial('settingsPath', Handlebars.templates.settingsPath)
+	addStore() {
+		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
-	_addPagesElements() {
-		this._exitBtn = document.getElementById('js-exit-btn');
-		this._settingsBtn = document.getElementById('js-settings-btn');
+	addPagesElements() {
+		super.addPagesElements();
+
 		this._settingsBtn = document.getElementById('js-menu-main');
 		this._safetyBtn = document.getElementById('js-menu-safety');
 		this._settingsBtn.style.color = activeColor;
-		this._feedBtn = document.getElementById('js-logo-go-feed');
 
 		this._dropZone = document.getElementById('js-drop-zone');
 		this._dropContent = document.getElementById('js-drop-content');
@@ -55,50 +48,20 @@ export default class SettingsView {
 		this._statusField = document.getElementById('js-status-input');
 		this._statusErrorField = document.getElementById('js-status-error');
 		this._saveBtn = document.getElementById('js-settings-save-btn');
-
-		this._myPageItem = document.getElementById('js-side-bar-my-page');
-		this._newsItem = document.getElementById('js-side-bar-news');
-		this._msgItem = document.getElementById('js-side-bar-msg');
-		this._photoItem = document.getElementById('js-side-bar-photo');
-		this._friendsItem = document.getElementById('js-side-bar-friends');
 		this._groupsItem = document.getElementById('js-side-bar-groups');
-		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+
 		this._saveInfo = document.getElementById('js-save-info');
 		this._dropArea = document.getElementById('js-drop-zone');
+
+		this._error = document.getElementById('js-sign-in-error');
 	}
 
-	_addPagesListener() {
-		this._exitBtn.addEventListener('click', () => {
-			actionUser.signOut();
-		});
-
-		this._settingsBtn.addEventListener('click', () => {
-			Router.go('/settings', false);
-		});
+	addPagesListener() {
+		super.addPagesListener();
 
 		this._safetyBtn.addEventListener('click', () => {
 			Router.go('/safety', false);
 		});
-
-		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends');
-		});
-
-		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage');
-		});
-
-		this._msgItem.addEventListener('click', () => {
-			Router.go('/message', false);
-		});
-
-		this._newsItem.addEventListener('click', () => {
-			Router.go('/feed');
-		})
-
-		this._feedBtn.addEventListener('click', () => {
-            Router.go('/feed', false);
-        });
 
 		this._dropArea.addEventListener('dragover', (event) => {
 			event.preventDefault();
@@ -118,18 +81,29 @@ export default class SettingsView {
 
 		this._saveBtn.addEventListener('click', () => {
 			if (this._validateFirstName && this._validateLastName && this._validateStatus && this._validateBio && this._validateBirthday) {
+				this._error.textContent = '';
+				this._error.classList.remove('display-inline-grid');
+				this._error.classList.remove('font-color-error');
+				this._error.classList.add('display-none');
+
 				let birthday;
 				if (this._birthdayField.value) {
 					birthday = new Date(this._birthdayField.value).toISOString();
 				}
 				if (this._fileList) {
 					actionImg.uploadImg(this._fileList, (newUrl) => {
-						actionUser.editProfile({avatar: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value, birthday: birthday, status: this._statusField.value});
+						actionUser.editProfile({avatar_url: newUrl, firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value, birthday: birthday, status: this._statusField.value});
 					});
 				} else {
 					console.log();
 					actionUser.editProfile({firstName: this._firstNameField.value, lastName: this._lastNameField.value, bio: this._bioField.value,  birthday: birthday, status: this._statusField.value});
 				}
+			} else {
+				this._error.textContent = 'Заполните корректно все поля';
+				this._error.classList.add('display-inline-grid');
+				this._error.classList.add('font-color-error');
+				this._error.classList.remove('font-color-ok');
+				this._error.classList.remove('display-none');
 			}
 		});
 
@@ -150,20 +124,6 @@ export default class SettingsView {
 		});
 	}
 
-	remove() {
-		document.getElementById(this._jsId)?.remove();
-	}
-
-	updatePage() {
-		if (this.curPage) {
-			if (!userStore.user.isAuth) {
-				Router.go('/signIn');
-			} else {
-				this._render();
-			}
-		}
-	}
-
 	showPage() {
 		actionUser.getProfile();
 	}
@@ -172,10 +132,10 @@ export default class SettingsView {
 		this._template = Handlebars.templates.settings;
 
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 
 		let settings = settingsConst;
-		settings['avatar'] = userStore.user.avatar;
+		settings['avatar_url'] = userStore.user.avatar_url;
 		settings['inputFields'][0]['data'] = userStore.user.firstName;
 		settings['inputFields'][1]['data'] = userStore.user.lastName;
 		settings['inputFields'][2]['data'] = userStore.user.bio;
@@ -186,18 +146,21 @@ export default class SettingsView {
 		}
 		settings['inputFields'][4]['data'] = userStore.user.status;
 
+		if (userStore.editStatus && userStore.editMsg) {
+			settingsConst.errorInfo['errorText'] = userStore.editMsg;
+			settingsConst.errorInfo['errorClass'] = 'display-inline-grid font-color-ok';
+		} else if (!userStore.editStatus && userStore.editMsg) {
+			settingsConst.errorInfo['errorText'] = userStore.editMsg;
+			settingsConst.errorInfo['errorClass'] = 'display-inline-grid font-color-error';
+		} else {
+			settingsConst.errorInfo['errorText'] = '';
+			settingsConst.errorInfo['errorClass'] = 'display-none';
+		}
+
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 			settingsPathData: settingsConst,
 		}
 	}
-
-	_render() {
-		this._preRender();
-		Router.rootElement.innerHTML = this._template(this._context);
-		this._addPagesElements();
-		this._addPagesListener();
-	}
-
 }

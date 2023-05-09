@@ -4,8 +4,10 @@ import {sideBarConst, headerConst, friendsMenuInfo, activeColor} from "../static
 import {actionUser} from "../actions/actionUser.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
+import searchStore from "../stores/dropdownSearchStore.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import BaseView from "./baseView.js";
+import {actionSearch} from "../actions/actionSearch.js";
 
 export default class FriendsView extends BaseView {
 	constructor() {
@@ -17,6 +19,7 @@ export default class FriendsView extends BaseView {
 
 		friendsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
+		searchStore.registerCallback(this.updateSearchList.bind(this))
 	}
 
 	_addHandlebarsPartial() {
@@ -30,8 +33,13 @@ export default class FriendsView extends BaseView {
 	}
 
 	_addPagesElements() {
+		super.addPagesElements()
+
+		this._friendsItem.style.color = activeColor;
+
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');
+		this._feedBtn = document.getElementById('js-logo-go-feed');
 		this._friendsBtn = document.getElementById('js-menu-friends');
 		this._subscribersBtn = document.getElementById('js-menu-subscribers');
 		this._subscriptionsBtn = document.getElementById('js-menu-subscriptions');
@@ -62,12 +70,14 @@ export default class FriendsView extends BaseView {
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 
-		this._goToProfile = document.getElementsByClassName('friend-menu-item-page');
+		//this._goToProfile = document.getElementsByClassName('friend-menu-item-page');
 		this._goToMsg = document.getElementsByClassName('js-friend-go-msg');
 		this._deleteFriend = document.getElementsByClassName('friend-menu-item-delete');
 		this._addUser = document.getElementsByClassName('js-friend-add');
 		this._unsubUser = document.getElementsByClassName('js-friend-unsub');
 		this._deleteUser = document.getElementsByClassName('js-friend-delete');
+
+		this._usersList = document.getElementById("js-users-list");
 	}
 
 	_addPagesListener() {
@@ -80,7 +90,7 @@ export default class FriendsView extends BaseView {
         });
 
 		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage', false);
+			Router.go('/user', false);
 		});
 
 		this._msgItem.addEventListener('click', () => {
@@ -114,6 +124,10 @@ export default class FriendsView extends BaseView {
             Router.go('/feed', false);
         });
 
+		this._groupsItem.addEventListener('click', () => {
+            Router.go('/groups', false);
+        });
+
 		for (let i = 0; i < this._addUser.length; i++) {
 			this._addUser[i].addEventListener('click', () => {
 				const userId = this._addUser[i].getAttribute("data-id");
@@ -142,12 +156,12 @@ export default class FriendsView extends BaseView {
 			});
 		}
 
-		/*for (let i = 0; i < this._goToProfile.length; i++) {
+		for (let i = 0; i < this._goToProfile.length; i++) {
 			this._goToProfile[i].addEventListener('click', () => {
 				const userId = this._goToProfile[i].getAttribute("data-id");
-				// ToDo: переход в профиль пользователя userId
+				Router.go('/user?link=' + userId, false);
 			});
-		}*/
+		}
 
 		for (let i = 0; i < this._goToMsg.length; i++) {
 			this._goToMsg[i].addEventListener('click', () => {
@@ -155,18 +169,40 @@ export default class FriendsView extends BaseView {
 				actionMessage.chatCheck(userId, () => {
 					if (localStorage.getItem('chatFriendId')) {
 						localStorage.setItem('chatId', localStorage.getItem('chatFriendId'));
-						Router.go('/chat');
+						Router.go('/chat', false);
 						actionMessage.getChatsMsg(localStorage.getItem('chatId'),15);
 					} else {
 						actionMessage.chatCreate(userId, () => {
 							if (localStorage.getItem('chatId')) {
-								Router.go('/chat');
+								Router.go('/chat', false);
 								actionMessage.getChatsMsg(localStorage.getItem('chatId'),15);
 							}
 						});
 					}
 				});
 			});
+		}
+
+
+		switch (window.location.pathname) {
+			case '/findFriends':
+				this._searchAreaInput.addEventListener('keyup', () => {
+					if (this._searchAreaInput.value === "") {
+						localStorage.removeItem("searchQuery");
+						Router.go('/findFriends');
+						return
+					}
+					this.interruptTimer();
+
+					this.startTimer(250, () => {
+						if (this._searchAreaInput.value !== "") {
+							localStorage.setItem("searchQuery", this._searchAreaInput.value);
+							actionSearch.search(this._searchAreaInput.value);
+						}
+					})
+				});
+				break
+
 		}
 	}
 
@@ -183,6 +219,16 @@ export default class FriendsView extends BaseView {
 		});
 	}
 
+	updateSearchList() {
+		if (this.curPage) {
+			if (!userStore.user.isAuth) {
+				Router.go('/signIn');
+			} else {
+				this._renderNewSearchList();
+			}
+		}
+	}
+
 	updatePage() {
 		if (this.curPage) {
 			if (!userStore.user.isAuth) {
@@ -193,28 +239,18 @@ export default class FriendsView extends BaseView {
 		}
 	}
 
-	_preRender() {
+
+	_renderNewSearchList() {
 		this._template = Handlebars.templates.friends;
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
-
+		header['avatar_url'] = userStore.user.avatar_url;
+		console.log(searchStore.userSearchItems)
 		let res;
 		let info;
 		switch (window.location.pathname) {
-			case '/friends':
-				res = friendsStore.friends;
-				info = 'У вас пока нет друзей';
-				break;
-			case '/subscribers':
-				res = friendsStore.subscribers;
-				info = 'у вас пока нет подписчиков'
-				break;
-			case '/subscriptions':
-				res = friendsStore.subscriptions;
-				info = 'у вас пока нет подписок'
-				break;
 			case '/findFriends':
-				res = friendsStore.notFriends;
+				res = searchStore.userSearchItems;
+				info = 'По данному запросу не найдено людей'
 				break;
 		}
 		this._context = {
@@ -226,6 +262,49 @@ export default class FriendsView extends BaseView {
 			},
 			menuInfo: friendsMenuInfo,
 		}
+
+		Router.rootElement.innerHTML = this._template(this._context);
+		this._addPagesElements();
+		this._addPagesListener();
+		this._searchAreaInput.value = localStorage.getItem("searchQuery");
+		this._searchAreaInput.focus();
+	}
+
+	_preRender() {
+		this._template = Handlebars.templates.friends;
+		let header = headerConst;
+		header['avatar_url'] = userStore.user.avatar_url;
+
+		let res;
+		let info;
+		switch (window.location.pathname) {
+			case '/friends':
+				res = friendsStore.friends;
+				info = 'У вас пока нет друзей';
+				break;
+			case '/subscribers':
+				res = friendsStore.subscribers;
+				info = 'У вас пока нет подписчиков'
+				break;
+			case '/subscriptions':
+				res = friendsStore.subscriptions;
+				info = 'У вас пока нет подписок'
+				break;
+			case '/findFriends':
+				res = friendsStore.notFriends;
+				break;
+		}
+
+		this._context = {
+			sideBarData: sideBarConst,
+			headerData: header,
+			friendsData: res,
+			textInfo: {
+				textInfo: info,
+			},
+			menuInfo: friendsMenuInfo,
+		}
+
 	}
 
 	_render() {
@@ -233,6 +312,15 @@ export default class FriendsView extends BaseView {
 		Router.rootElement.innerHTML = this._template(this._context);
 		this._addPagesElements();
 		this._addPagesListener();
-	}
 
+		let query = localStorage.getItem("searchQuery");
+		if (window.location.pathname === "/findFriends" && query != null && query !== "") {
+			this._searchAreaInput.value = query;
+			this._searchAreaInput.focus();
+			actionSearch.search(this._searchAreaInput.value);
+		} else {
+			localStorage.removeItem("searchQuery");
+			this._searchAreaInput.focus();
+		}
+	}
 }

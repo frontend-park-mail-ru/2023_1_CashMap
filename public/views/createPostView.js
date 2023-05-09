@@ -5,6 +5,8 @@ import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
 import BaseView from "./baseView.js";
+import groupsStore from "../stores/groupsStore.js";
+import { actionGroups } from "../actions/actionGroups.js";
 
 export default class CreatePostView extends BaseView {
 	constructor() {
@@ -15,6 +17,7 @@ export default class CreatePostView extends BaseView {
 	addStore() {
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
+		groupsStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -35,32 +38,47 @@ export default class CreatePostView extends BaseView {
 
 	addPagesListener() {
 		super.addPagesListener();
+
 		this._editBtn.addEventListener('click', () => {
-			actionPost.createPostUser(userStore.user.user_link, userStore.user.user_link, true, this._text.value);
+			if (localStorage.getItem('groupLink')) {
+				actionPost.createPostCommunity(userStore.user.user_link, localStorage.getItem('groupLink'), true, this._text.value);
+			} else {
+				actionPost.createPostUser(userStore.user.user_link, userStore.userProfile.user_link, true, this._text.value);
+			}
 			Router.goBack();
 		});
 	}
 
 	showPage() {
 		actionUser.getProfile();
+		if (localStorage.getItem('groupLink')) {
+			actionGroups.getGroupInfo(null, localStorage.getItem('groupLink'));
+		}
 	}
 
 	_preRender() {
 		this._template = Handlebars.templates.editPostPage;
 
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
+
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
 			editPostData: {
-				avatar: userStore.user.avatar,
+				avatar_url: null,
 				text: '',
 				buttonData: {
 					text: 'Опубликовать',
 					jsId: 'js-edit-post-btn'
 				}
 			},
+		}
+
+		if (localStorage.getItem('groupLink')) {
+			this._context.editPostData.avatar_url = groupsStore.curGroup.avatar_url;
+		} else {
+			this._context.editPostData.avatar_url = userStore.user.avatar_url;
 		}
 	}
 }

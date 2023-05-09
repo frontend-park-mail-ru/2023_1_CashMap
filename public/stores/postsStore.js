@@ -17,6 +17,7 @@ class postsStore {
 
         this.posts = [];
         this.friendsPosts = [];
+        this.groupsPosts = [];
         this.curPost = null;
 
         Dispatcher.register(this._fromDispatch.bind(this));
@@ -56,6 +57,9 @@ class postsStore {
             case 'getPostById':
                 await this._getPostsById(action.id, action.count, action.lastPostDate);
                 break;
+            case 'getPostsByCommunity':
+                await this._getPostsByCommunity(action.community_link, action.count, action.lastPostDate);
+                break;
             case 'createPost':
                 await this._createPost(action.data);
                 break;
@@ -64,6 +68,12 @@ class postsStore {
                 break;
             case 'editPost':
                 await this._editPost(action.text, action.postId);
+                break;
+            case 'likePost':
+                await this._likePost(action.postId);
+                break;
+            case 'dislikePost':
+                await this._dislikePost(action.postId);
                 break;
             default:
                 return;
@@ -81,11 +91,17 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
+
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
-                    post.isMyPost = true;
-                    if (!post.owner_info.url) {
-                        post.owner_info.url = headerConst.avatarDefault;
+                    if (userLink === userStore.user.user_link) {
+                        post.isMyPost = true;
+                    } else {
+                        post.isMyPost = false;
+                    }
+
+                    if (!post.owner_info.avatar_url) {
+                        post.owner_info.avatar_url = headerConst.avatarDefault;
                     }
                     if (!post.comments) {
                         post.comments_count = 0;
@@ -94,7 +110,7 @@ class postsStore {
                         const date = new Date(post.creation_date);
                         post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                     }
-                    post.avatar = userStore.user.avatar;
+                    post.avatar_url = userStore.userProfile.avatar_url;
 
                     this.posts.push(post);
                 });
@@ -122,17 +138,19 @@ class postsStore {
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
                     post.isMyPost = false;
-                    if (!post.owner_info.url) {
-                        post.owner_info.url = headerConst.avatarDefault;
+                    if (!post.owner_info.avatar_url) {
+                        post.owner_info.avatar_url = headerConst.avatarDefault;
                     }
-                    if (!post.comments) {
-                        post.comments_count = 0;
+                    if (post.community_info) {
+                        if (!post.community_info.avatar_url) {
+                            post.community_info.avatar_url = headerConst.avatarDefault;
+                        }
                     }
                     if (post.creation_date) {
                         const date = new Date(post.creation_date);
                         post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                     }
-                    post.avatar = userStore.user.avatar;
+                    post.avatar_url = userStore.user.avatar_url;
 
                     this.posts.push(post);
                 });
@@ -168,6 +186,42 @@ class postsStore {
         this._refreshStore();
     }
 
+    async _getPostsByCommunity(community_link, count, lastPostDate) {
+        const request = await Ajax.getPostsByCommunity(community_link, count, lastPostDate);
+
+        if (request.status === 200) {
+            const response = await request.json();
+
+            this.groupsPosts = [];
+            console.log(response.body)
+            response.body.posts.forEach((post) => {
+                if (!post.owner_info.avatar_url) {
+                    post.owner_info.avatar_url = headerConst.avatarDefault;
+                }
+                if (!post.community_info.avatar_url) {
+                    post.community_info.avatar_url = headerConst.avatarDefault;
+                }
+
+                if (!post.comments) {
+                    post.comments_count = 0;
+                }
+                if (post.creation_date) {
+                    const date = new Date(post.creation_date);
+                    post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
+                }
+                post.avatar_url = userStore.user.avatar_url;
+            });
+
+            this.groupsPosts = response.body.posts;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('getPostsByCommunity error');
+        }
+
+        this._refreshStore();
+    }
+
     /**
      * Метод, реализующий реакцию на создание поста
      * @param {Date} data - данные для поста
@@ -181,7 +235,7 @@ class postsStore {
 
             p.isMyPost = true;
             p.owner_info = {};
-            p.owner_info.url = userStore.user.avatar;
+            p.owner_info.avatar_url = userStore.user.avatar_url;
             p.owner_info.first_name = userStore.user.firstName;
             p.owner_info.last_name = userStore.user.lastName;
             p.owner_info.link = userStore.user.user_link;
@@ -192,7 +246,7 @@ class postsStore {
                 const date = new Date(p.creation_date);
                 p.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
             }
-            p.avatar = userStore.user.avatar;
+            p.avatar_url = userStore.user.avatar_url;
             this.posts.unshift(p);
 
         } else if (request.status === 401) {
@@ -254,6 +308,56 @@ class postsStore {
             actionUser.signOut();
         } else {
             alert('editPost error');
+        }
+
+        this._refreshStore();
+    }
+    /**
+     * Метод, реализующий лайк поста
+     * @param {Number} postId - id поста
+     */
+    async _likePost(postId) {
+        const request = await Ajax.likePost(postId);
+
+        if (request.status === 200) {
+            const response = await request.json();
+
+            [...this.posts, ...this.groupsPosts, ...this.friendsPosts].forEach((post) => {
+                if (post.id === Number(postId)) {
+                    post.is_liked = true;
+                    post.likes_amount = response.body.likes_amount;
+                }
+            });
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('likePost error');
+        }
+
+        this._refreshStore();
+    }
+    /**
+     * Метод, реализующий дизлайк поста
+     * @param {Number} postId - id поста
+     */
+    async _dislikePost(postId) {
+        const request = await Ajax.dislikePost(postId);
+
+        let flag = null;
+        if (request.status === 200) {
+            [...this.posts, ...this.groupsPosts, ...this.friendsPosts].forEach((post) => {
+                if (post.id === Number(postId)) {
+                    if (flag === null) {
+                        flag = post.likes_amount - 1;
+                    }
+                    post.is_liked = false;
+                    post.likes_amount = flag;
+                }
+            });
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('dislikePost error');
         }
 
         this._refreshStore();

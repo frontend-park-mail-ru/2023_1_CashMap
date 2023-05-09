@@ -1,0 +1,55 @@
+.groupCard__header {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 200px;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 20px;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.profiteCard__info-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.groupCard__info {
+    display: grid;
+    grid-template-columns: 80px 23px 1fr;
+    width: 100%;
+}
+
+.groupCard__info-img-wrapper {
+    width: 120px;
+    height: 100px;
+    position: absolute;
+    margin-top: -20px;
+    margin-left: -20px;
+    border-radius: 50%;
+}
+
+.groupCard__info-img {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+}
+
+.groupCard__button {
+    display: flex; 
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    background-color: var(--background-color-icon);
+    color: var(--background-item-hovered);
+    text-overflow: ellipsis;
+    font-family: InterMedium;
+    font-size: var(--font-size-15);
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.groupCard__button:hover {
+    background-color: var(--font-color-comment-sender);
+}

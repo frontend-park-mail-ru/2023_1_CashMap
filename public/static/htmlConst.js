@@ -5,6 +5,8 @@ export const maxTextLength = 150;
 
 export const maxBirthday = '2017-01-01';
 
+export const groupAvatarDefault = 'static/img/post_icons/profile_image.svg';
+
 export const sideBarConst = {
     logoImgPath: 'static/img/logo.svg',
     logoText: 'Depeche',
@@ -62,7 +64,7 @@ export const signUpData = {
 };
 
 export const settingsConst = {
-  avatar: "static/img/post_icons/profile_image.svg",
+  avatar_url: "static/img/post_icons/profile_image.svg",
   inputFields:
       [
       { help: 'Имя',
@@ -75,11 +77,6 @@ export const settingsConst = {
         type: 'text',
         jsIdInput: 'js-last-name-input',
         jsIdError: 'js-last-name-error'},
-      /*{ help: 'Электронная почта',
-        data: '',
-        type: 'email',
-        jsIdInput: 'js-email-input',
-        jsIdError: 'js-email-error'},*/
       { help: 'О себе',
         data: '',
         type: 'text',
@@ -98,6 +95,7 @@ export const settingsConst = {
       ],
   buttonInfo: { text: 'Сохранить',
       jsId: 'js-settings-save-btn'},
+  errorInfo: { jsId: 'js-sign-in-error'},
   menuInfo: [
       {text: 'Основные', jsId: 'js-menu-main'},
       {text: 'Безопасность', jsId: 'js-menu-safety'}]
@@ -132,3 +130,63 @@ export const friendsMenuInfo = [
   {text: 'Подписчики', jsId: 'js-menu-subscribers'},
   {text: 'Подписки', jsId: 'js-menu-subscriptions'},
   {text: 'Поиск друзей', jsId: 'js-menu-find-friends'}]
+
+export const searchDropdownConst = {
+    emptyQueryTitle: 'Ваш запрос не дал результатов',
+    showMoreTitle: 'Показать все результаты',
+    peopleSectionTitle: 'Люди',
+    communitySectionTitle: 'Сообщества',
+    sendMessageIconPath: 'static/img/messenger.svg',
+    sendMessageHoveredIconPath: 'static/img/messenger_hover.svg',
+    showMoreIconPath: 'static/img/show_all.svg',
+    showMoreIconPathHover: 'static/img/show_all_hover.svg',
+}
+
+export const groupsConst = {
+  menuInfo: [
+    {text: 'Мои сообщества', jsId: 'js-menu-groups'},
+    {text: 'Управление', jsId: 'js-menu-manage-groups'},
+    {text: 'Поиск сообществ', jsId: 'js-menu-find-groups'},
+    {text: 'Популярные сообщества', jsId: 'js-menu-popular-groups'}],
+  buttonInfo: { text: 'Создать сообщество',
+      jsId: 'js-create-group-btn'}
+  }
+
+export const NewGroupConst = {
+  inputInfo:
+      { help: 'Название',
+        type: 'text',
+        jsIdInput: 'js-title-input',
+        jsIdError: 'js-title-error'},
+  buttonInfo: { text: 'Создать сообщество',
+      jsId: 'js-add-group-btn'},
+}
+
+export const deleteGroupConst = {
+  buttonInfo: { text: 'Да',
+    jsId: 'js-group-delete-btn'}
+}
+
+export const settingsGroupConst = {
+  avatar_url: "static/img/post_icons/group_image.svg",
+  inputInfo: 
+  { help: 'Название',
+    data: '',
+    type: 'text',
+    jsIdInput: 'js-title-input',
+    jsIdError: 'js-title-error'},
+  info: '',
+  type: '',
+  showAuthor: '',
+  buttonInfo: { text: 'Сохранить',
+      jsId: 'js-settings-save-btn'},
+  menuInfo: [
+      {text: 'Настройки', jsId: 'js-menu-main'},
+      {text: 'Подписчики', jsId: 'js-menu-subscribers'},
+      {text: 'Заявки', jsId: 'js-menu-requests'}],
+  errorInfo: { jsId: 'js-sign-in-error'},
+  buttonDelete: { text: 'Удалить группу',
+      jsId: 'js-delete-group-btn'},
+  deleteGroupData : { text: 'Да',
+      jsId: 'js-group-delete-btn'},
+}

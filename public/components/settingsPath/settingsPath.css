@@ -3,7 +3,6 @@
     grid-template-columns: 66% 8% 26%;
     min-width: 390.5px;
 }
-
 .menu-settings {
     grid-column: 3;
     grid-row: 1;

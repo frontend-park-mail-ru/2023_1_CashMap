@@ -1,8 +1,8 @@
-<div class="friend" id="{{ user_link }}">
+<div class="friend" id="{{ user_link }}" data-id="{{ user_link }}">
     <div class="friend__info">
-        <img src="{{ avatar }}" class="friend__avatar avatar-form" data-action="profile">
+        <img src="{{ avatar_url }}" class="friend__avatar avatar-form js-go-to-profile margin-auto" data-id="{{ user_link }}" data-action="profile">
         <div class="friend__wrapper">
-            <div class="friend__name" data-action="profile">{{ first_name }} {{ last_name }}</div>
+            <div class="friend__name js-go-to-profile" data-action="profile" data-id="{{ user_link }}">{{ first_name }} {{ last_name }}</div>
             {{#if isFriend}}
                 <button class="friend__button friend__button_grey js-friend-go-msg" data-id="{{ user_link }}">
                     <div class="friend__button-text"> Написать сообщение </div>
@@ -19,7 +19,7 @@
             <div class="friend-menu-item friend-menu-item-delete hover-block border-radius-btn-input margin-auto" data-id="{{ user_link }}">
                 <span class="friend-item__text font-size-15 font-MailSansRoman margin-auto"> Удалить из друзей </span>
             </div>
-            <div class="friend-menu-item friend-menu-item-page hover-block border-radius-btn-input margin-auto" data-id="{{ user_link }}">
+            <div class="friend-menu-item friend-menu-item-page hover-block border-radius-btn-input js-go-to-profile margin-auto" data-id="{{ user_link }}">
                 <span class="friend-item__text font-size-15 font-MailSansRoman margin-auto"> Страница </span>
             </div>
         </div>
@@ -29,11 +29,14 @@
             <div class="friend__button-text"> Добавить в друзья </div>
         </button>
     {{/if}}
-    {{#if isSubscription}}
+    {{#if isSubscribed}}
         <button class="friend__button friend__button_grey js-friend-unsub" data-id="{{ user_link }}">
             <div class="friend__button-text"> Отписаться </div>
         </button>
     {{/if}}
+
+<!--    TODO: прокинуть с бэка доп поля для отображения кнопки "написаь" "подписаться" и тд-->
+<!--    TODO: поиск по всем вкладкам-->
     {{#if isSubscriber}}
         <div class="friend__buttons">
             <button class="friend__button friend__button_grey js-friend-add" data-id="{{ user_link }}">

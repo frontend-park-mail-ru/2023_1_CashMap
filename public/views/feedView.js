@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, activeColor, maxTextStrings, maxTextLength} from "../static/htmlConst.js";
+import { sideBarConst, headerConst, maxTextStrings, maxTextLength, activeColor } from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
@@ -9,72 +9,31 @@ import BaseView from "./baseView.js";
 export default class FeedView extends BaseView {
 	constructor() {
 		super();
-		this._addHandlebarsPartial();
 
 		this._jsId = 'feed';
 		this.curPage = false;
+	}
 
+	addStore() {
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
-	_addHandlebarsPartial() {
-		Handlebars.registerPartial('inputField', Handlebars.templates.inputField);
-		Handlebars.registerPartial('button', Handlebars.templates.button);
-		Handlebars.registerPartial('sideBar', Handlebars.templates.sideBar);
-		Handlebars.registerPartial('header', Handlebars.templates.header);
-		Handlebars.registerPartial('postArea', Handlebars.templates.postArea);
-		Handlebars.registerPartial('menuItem', Handlebars.templates.menuItem);
-		Handlebars.registerPartial('post', Handlebars.templates.post);
-		Handlebars.registerPartial('createPost', Handlebars.templates.createPost);
-		Handlebars.registerPartial('commentArea', Handlebars.templates.commentArea);
-		Handlebars.registerPartial('comment', Handlebars.templates.comment);
-	}
+	addPagesElements() {
+		super.addPagesElements();
 
-	_addPagesElements() {
-		this._exitBtn = document.getElementById('js-exit-btn');
-		this._settingsBtn = document.getElementById('js-settings-btn');
-		this._feedBtn = document.getElementById('js-logo-go-feed');
-
-		this._myPageItem = document.getElementById('js-side-bar-my-page');
-		this._newsItem = document.getElementById('js-side-bar-news');
 		this._newsItem.style.color = activeColor;
-		this._msgItem = document.getElementById('js-side-bar-msg');
-		this._photoItem = document.getElementById('js-side-bar-photo');
-		this._friendsItem = document.getElementById('js-side-bar-friends');
-		this._groupsItem = document.getElementById('js-side-bar-groups');
-		this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
 
 		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
+		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
+		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
 		this._createPosts = document.getElementById('js-create-post');
 		this._posts = document.getElementsByClassName('post-text');
 	}
 
-	_addPagesListener() {
-		this._exitBtn.addEventListener('click', () => {
-			actionUser.signOut();
-		});
-
-		this._settingsBtn.addEventListener('click', () => {
-            Router.go('/settings', false);
-        });
-
-		this._msgItem.addEventListener('click', () => {
-            Router.go('/message', false);
-        });
-
-		this._friendsItem.addEventListener('click', () => {
-			Router.go('/friends', false);
-		});
-
-		this._myPageItem.addEventListener('click', () => {
-			Router.go('/myPage', false);
-		});
-
-		this._feedBtn.addEventListener('click', () => {
-            Router.go('/feed', false);
-        });
+	addPagesListener() {
+		super.addPagesListener();
 
 		for (let i = 0; i < this._editPosts.length; i++) {
 			this._editPosts[i].addEventListener('click', () => {
@@ -91,7 +50,22 @@ export default class FeedView extends BaseView {
 			});
 		}
 
+		for (let i = 0; i < this._likePosts.length; i++) {
+				this._likePosts[i].addEventListener('click', () => {
+						const postId = this._likePosts[i].getAttribute("data-id");
+						actionPost.likePost(Number(postId));
+				});
+		}
+
+		for (let i = 0; i < this._dislikePosts.length; i++) {
+				this._dislikePosts[i].addEventListener('click', () => {
+						const postId = this._dislikePosts[i].getAttribute("data-id");
+						actionPost.dislikePost(Number(postId));
+				});
+		}
+
 		this._createPosts.addEventListener('click', () => {
+			localStorage.removeItem('groupLink');
 			Router.go('/createPost', false);
 		});
 
@@ -122,42 +96,19 @@ export default class FeedView extends BaseView {
 		}
 	}
 
-	remove() {
-		document.getElementById(this._jsId)?.remove();
-	}
-
 	showPage() {
-		actionUser.getProfile(() => { 
-			actionPost.getFriendsPosts(15); 
-			actionPost.getPostsByUser(userStore.user.user_link, 15)});
-	}
-
-	updatePage() {
-		if (this.curPage) {
-			if (!userStore.user.isAuth) {
-				Router.go('/signIn');
-			} else {
-				this._render();
-			}
-		}
+		actionUser.getProfile(() => { actionPost.getFriendsPosts(15); });
 	}
 
 	_preRender() {
 		this._template = Handlebars.templates.feed;
 
 		let header = headerConst;
-		header['avatar'] = userStore.user.avatar;
+		header['avatar_url'] = userStore.user.avatar_url;
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			postAreaData: {createPostData: {avatar: userStore.user.avatar, jsId: 'js-create-post'}, postList: postsStore.friendsPosts},
+			postAreaData: {createPostData: {avatar_url: userStore.user.avatar_url, jsId: 'js-create-post'}, postList: postsStore.friendsPosts},
 		}
-	}
-
-	_render() {
-		this._preRender();
-		Router.rootElement.innerHTML = this._template(this._context);
-		this._addPagesElements();
-		this._addPagesListener();
 	}
 }
