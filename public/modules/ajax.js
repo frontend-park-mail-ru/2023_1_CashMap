@@ -8,10 +8,12 @@ class Ajax {
      */
     constructor() {
         //this.backendHostname = '127.0.0.1';
-        this.backendHostname = '95.163.212.121';
+        //this.backendHostname = '95.163.212.121';
+        this.backendHostname = 'depeche.su';
 
         this.backendPort = '8080';
-        this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+        //this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+        this._backendUrl = 'https://' + this.backendHostname;
 
         this._apiUrl = {
             signIn: '/auth/sign-in',

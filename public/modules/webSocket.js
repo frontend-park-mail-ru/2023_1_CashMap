@@ -14,7 +14,8 @@ class WebSock {
      */
     constructor() {
         this._socket = null;
-        this._url = 'ws://' + Ajax.backendHostname + ':' + Ajax.backendPort + '/api/ws';
+        //this._url = 'ws://' + Ajax.backendHostname + ':' + Ajax.backendPort + '/api/ws';
+        this._url = 'wss://' + Ajax.backendHostname + '/api/ws';
     }
 
     /**
