@@ -8,7 +8,6 @@ class Ajax {
      */
     constructor() {
         //this.backendHostname = '127.0.0.1';
-        //this.backendHostname = '95.163.212.121';
         this.backendHostname = 'depeche.su';
 
         this.backendPort = '8080';
