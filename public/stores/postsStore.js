@@ -20,6 +20,11 @@ class postsStore {
         this.groupsPosts = [];
         this.curPost = null;
 
+        this.comments = new Map();
+        this.haveCommentsContinuation = new Map();
+
+        this.currentComment = null;
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -74,6 +79,21 @@ class postsStore {
                 break;
             case 'dislikePost':
                 await this._dislikePost(action.postId);
+                break;
+            case 'getComment':
+                await this.getCommentById(action.id);
+                break;
+            case 'getComments':
+                await this.getCommentsByPostId(action.postID, action.count, action.lastCommentDate);
+                break;
+            case 'createComment':
+                await this.createComment(action.postID, action.replyTo, action.text);
+                break;
+            case 'deleteComment':
+                await this.deleteComment(action.id);
+                break;
+            case 'editComment':
+                await this.editComment(action.id, action.text);
                 break;
             default:
                 return;
@@ -160,6 +180,91 @@ class postsStore {
             actionUser.signOut();
         } else {
             alert('getPosts error');
+        }
+
+        this._refreshStore();
+    }
+
+    async getCommentsByPostId(postID, count, lastPostDate) {
+        const request = await Ajax.getCommentsByPostId(postID, count, lastPostDate);
+        if (request.status === 200) {
+            const response = await request.json();
+            response.body.comments.forEach((comment) => {
+                if (comment.sender_info.avatar_url === null) {
+                    comment.sender_info.avatar_url = headerConst.avatarDefault;
+                }
+
+                comment.creation_date = (new Date(comment.creation_date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                comment.change_date = (new Date(comment.change_date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+            })
+
+            this.comments.set(postID, response.body.comments);
+            this.haveCommentsContinuation.set(postID, response.body.has_next);
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('get comments error');
+        }
+
+        this._refreshStore();
+    }
+
+    async getCommentById(id) {
+        const request = await Ajax.getCommentById(id);
+
+        if (request.status === 200) {
+            const response = await request.json();
+            this.currentComment = response.body.comment;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('get comment error');
+        }
+
+        this._refreshStore();
+    }
+
+    async createComment(postID, replyReceiver, text) {
+        const request = await Ajax.createComment(postID, replyReceiver, text);
+
+        if (request.status === 200) {
+            const response = await request.json();
+
+            for (let post of this.friendsPosts) {
+                if (post.id === postID) {
+                    post.comments_amount += 1;
+                }
+            }
+
+            await this.getCommentsByPostId(postID);
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('create comment error');
+        }
+
+        this._refreshStore();
+    }
+
+    async editComment(id, text) {
+        const request = await Ajax.editComment(id, text);
+
+        if (request.status === 401) {
+            actionUser.signOut();
+        } else if (request.status !== 200) {
+            alert('edit comment error');
+        }
+
+        this._refreshStore();
+    }
+
+    async deleteComment(id) {
+        const request = await Ajax.deleteComment(id);
+
+        if (request.status === 401) {
+            actionUser.signOut();
+        } else if (request.status !== 200) {
+            alert('delete comment error');
         }
 
         this._refreshStore();

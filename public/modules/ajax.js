@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.backendHostname = '127.0.0.1';
-        this.backendHostname = '95.163.212.121';
+        this.backendHostname = '127.0.0.1';
+        // this.backendHostname = '95.163.212.121';
 
         this.backendPort = '8080';
         this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
@@ -61,7 +61,13 @@ class Ajax {
             uploadImg: '/static/upload',
             deleteImg: '/static/delete',
 
-            userSearch: '/api/user/search'
+            userSearch: '/api/user/search',
+
+            getComments: '/api/comment/post/',
+            getComment: '/api/comment/',
+            createComment: '/api/comment/create',
+            deleteComment: '/api/comment/delete/',
+            editComment: '/api/comment/edit'
         }
 
         this._requestType = {
@@ -392,6 +398,32 @@ class Ajax {
     async dislikePost(id) {
         const body = {post_id: id};
         return this._request(this._apiUrl.dislikePost, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async getCommentsByPostId(postId, count, lastCommentDate) {
+        let lastCommentDateQuery = lastCommentDate !== undefined && lastCommentDate !== null ? `last_comment_date=${lastCommentDate}` : "";
+        let countQuery = count !== undefined && count !== null ? `batch_size=${count}` : "";
+        console.log(this._apiUrl.getComments + postId + `?${lastCommentDateQuery}&${countQuery}`)
+        return this._request(this._apiUrl.getComments + postId + `?${lastCommentDateQuery}&${countQuery}`, this._requestType.GET);
+    }
+
+    async getCommentById(id) {
+        return this._request(this._apiUrl.getComment + id, this._requestType.GET);
+    }
+
+    async createComment(postId, replyReceiver, text) {
+        const body = {post_id: postId, reply_to: replyReceiver, text: text};
+        console.log(JSON.stringify({body}));
+        return this._request(this._apiUrl.createComment, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async editComment(id, text) {
+        const body = {id: id,  text: text};
+        return this._request(this._apiUrl.editComment, this._requestType.PATCH, JSON.stringify({body}));
+    }
+
+    async deleteComment(id) {
+        return this._request(this._apiUrl.deleteComment + id, this._requestType.POST);
     }
 }
 
