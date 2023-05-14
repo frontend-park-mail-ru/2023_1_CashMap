@@ -194,11 +194,19 @@ class postsStore {
                     comment.sender_info.avatar_url = headerConst.avatarDefault;
                 }
 
+                comment.raw_creation_date = comment.creation_date;
                 comment.creation_date = (new Date(comment.creation_date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
                 comment.change_date = (new Date(comment.change_date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
             })
 
-            this.comments.set(postID, response.body.comments);
+
+            if (this.comments.has(postID)) {
+                console.log(this.comments.get(postID));
+                this.comments.get(postID).push(...response.body.comments);
+            } else {
+                this.comments.set(postID, response.body.comments);
+            }
+
             this.haveCommentsContinuation.set(postID, response.body.has_next);
         } else if (request.status === 401) {
             actionUser.signOut();

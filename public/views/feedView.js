@@ -12,6 +12,8 @@ export default class FeedView extends BaseView {
 
 		this._jsId = 'feed';
 		this.curPage = false;
+
+		this._commentBatchToLoad = 5;
 	}
 
 	addStore() {
@@ -41,6 +43,9 @@ export default class FeedView extends BaseView {
 		this._commentEditSaveButton = document.getElementsByClassName("submit-comment-edit-button");
 		this._commentEditCancelButton = document.getElementsByClassName("cancel-comment-edit-button");
 		this._commentEditInput = document.getElementsByClassName("comment-edit-input");
+
+		this._showMoreCommentsButton = document.getElementsByClassName("show-more-block");
+
 
 
 	}
@@ -85,15 +90,15 @@ export default class FeedView extends BaseView {
 		for (let i = 0; i < this._commentsButtons.length; i++) {
 			this._commentsButtons[i].addEventListener('click', () => {
 				if (postsStore.comments.get(postsStore.friendsPosts[i].id) === undefined || postsStore.comments.get(postsStore.friendsPosts[i].id).length === 0) {
-					let count = 2;
-					actionPost.getComments(postsStore.friendsPosts[i].id, count);
+					actionPost.getComments(postsStore.friendsPosts[i].id, this._commentBatchToLoad);
 				} else {
-					postsStore.comments.set(postsStore.friendsPosts[i].id, undefined);
+					postsStore.comments.delete(postsStore.friendsPosts[i].id);
 
 					let commentsArea = this._posts[i].getElementsByClassName("comments-list");
 					commentsArea[0].style.display = 'none';
-				}
 
+					this._showMoreCommentsButton[i].outerHTML = "";
+				}
 			})
 		}
 
@@ -183,6 +188,27 @@ export default class FeedView extends BaseView {
 			})
 		}
 
+		for (let i = 0; i < this._showMoreCommentsButton.length; ++i) {
+			this._showMoreCommentsButton[i].addEventListener('click', () => {
+				let postID = Number(this._showMoreCommentsButton[i].getAttribute('data-post-id'));
+
+				console.log(postID)
+				let lastCommentDate = postsStore.comments.get(postID).at(-1).raw_creation_date;
+				console.log(lastCommentDate);
+
+
+				for (let i = 0; i < postsStore.friendsPosts.length; ++i) {
+					if (postsStore.friendsPosts[i].id === postID) {
+						actionPost.getComments(postID, this._commentBatchToLoad, lastCommentDate);
+						break;
+					}
+				}
+
+
+				// this.updatePage();
+			})
+		}
+
 		for (let i = 0; i < this._postsTexts.length; i++) {
 			const text = this._postsTexts[i].textContent
 			if (text.split('\n').length > maxTextStrings || text.length > maxTextLength) {
@@ -209,6 +235,7 @@ export default class FeedView extends BaseView {
 			}
 		}
 	}
+
 
 	showPage() {
 		actionUser.getProfile(() => { actionPost.getFriendsPosts(15); });
