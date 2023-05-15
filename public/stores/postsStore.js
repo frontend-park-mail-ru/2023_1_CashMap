@@ -3,6 +3,7 @@ import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
+import groupsStore from "./groupsStore.js";
 
 /**
  * класс, хранящий информацию о постах
@@ -94,14 +95,17 @@ class postsStore {
 
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
-                    if (userLink === userStore.user.user_link) {
-                        post.isMyPost = true;
-                    } else {
-                        post.isMyPost = false;
+                    post.canDelite = post.canEdit = false;
+                    if (post.author_link === userStore.user.user_link) {
+                        post.canDelite = post.canEdit = true;
+                    } else if (post.owner_info.user_link === userStore.user.user_link) {
+                        post.canDelite = true;
                     }
 
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
                     }
                     if (!post.comments) {
                         post.comments_count = 0;
@@ -137,13 +141,24 @@ class postsStore {
             const response = await request.json();
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
-                    post.isMyPost = false;
+
+                    post.canDelite = post.canEdit = false;
+                    if (post.author_link === userStore.user.user_link) {
+                        post.canDelite = post.canEdit = true;
+                    } else if (post.owner_info.user_link === userStore.user.user_link) {
+                        post.canDelite = true;
+                    }
+
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
                     }
                     if (post.community_info) {
                         if (!post.community_info.avatar_url) {
                             post.community_info.avatar_url = headerConst.avatarDefault;
+                        } else {
+                            post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.community_info.avatar_url }`;
                         }
                     }
                     if (post.creation_date) {
@@ -195,11 +210,23 @@ class postsStore {
             this.groupsPosts = [];
             console.log(response.body)
             response.body.posts.forEach((post) => {
+
+                post.canDelite = post.canEdit = false;
+                groupsStore.curGroup.management.forEach((user) => {
+                    if (user.link === userStore.user.user_link) {
+                        post.canDelite = post.canEdit = true;
+                    }
+                });
+
                 if (!post.owner_info.avatar_url) {
                     post.owner_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
                 }
                 if (!post.community_info.avatar_url) {
                     post.community_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.community_info.avatar_url }`;
                 }
 
                 if (!post.comments) {
