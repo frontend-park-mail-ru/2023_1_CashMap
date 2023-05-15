@@ -57,6 +57,8 @@ export default class CreatePostView extends BaseView {
 	}
 
 	_preRender() {
+		alert('create !!!!!!!!!!');
+
 		this._template = Handlebars.templates.editPostPage;
 
 		let header = headerConst;
