@@ -2,6 +2,10 @@
     {{> createPost createPostData }}
 
     {{#each postList}}
-        {{> post (combine this createPostData)}}
+        <!--{{> post (combine this createPostData)}}-->
+
+        {{#with (combine this ../createPostData)}}
+            {{> post}}
+        {{/with}}
     {{/each}}
 </div>

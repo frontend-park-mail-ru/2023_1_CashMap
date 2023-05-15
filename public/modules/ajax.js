@@ -7,11 +7,12 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        this.backendHostname = '127.0.0.1';
-        // this.backendHostname = '95.163.212.121';
+        //this.backendHostname = '127.0.0.1';
+        this.backendHostname = 'depeche.su';
 
         this.backendPort = '8080';
-        this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+        //this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+        this._backendUrl = 'https://' + this.backendHostname;
 
         this.staticPort = '8082';
         this._staticUrl = 'http://' + this.backendHostname + ':' + this.staticPort;
@@ -36,6 +37,7 @@ class Ajax {
             dislikePost: '/api/posts/like/cancel',
 
             getFriends: '/api/user/friends',
+            isFriend: '/api/user/status',
             getNotFriends: '/api/user/rand',
             getUsers: '/api/user/all',
             getSub: '/api/user/sub',
@@ -231,13 +233,8 @@ class Ajax {
     }
 
     async createPost(data) {
-        let formData = new FormData();
-
-        Object.keys(data).forEach((key) => {
-            formData.append(key, data[key]);
-        });
-
-        return this._request(this._apiUrl.createPost, this._requestType.POST, formData);
+        let body = data;
+        return this._request(this._apiUrl.createPost, this._requestType.POST,  JSON.stringify({body}));
     }
 
     async editPost(text, post_id) {
@@ -256,6 +253,10 @@ class Ajax {
 
     async getFriends(link, count, offset = 0) {
         return this._request(this._apiUrl.getFriends + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async isFriend(link) {
+        return this._request(this._apiUrl.isFriend + `?link=${link}`, this._requestType.GET);
     }
 
     async getNotFriends(link, count, offset = 0) {

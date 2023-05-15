@@ -14,7 +14,8 @@ class WebSock {
      */
     constructor() {
         this._socket = null;
-        this._url = 'ws://' + Ajax.backendHostname + ':' + Ajax.backendPort + '/api/ws';
+        //this._url = 'ws://' + Ajax.backendHostname + ':' + Ajax.backendPort + '/api/ws';
+        this._url = 'wss://' + Ajax.backendHostname + '/api/ws';
     }
 
     /**
@@ -27,7 +28,6 @@ class WebSock {
 
         if (!this._socket && userStore.user.isAuth) {
             this._socket = new WebSocket(this._url);
-            //this._socket = new WebSocket("ws://95.163.212.121:8080/api/ws");
         }
 
         this._socket.onmessage = function(event) {
