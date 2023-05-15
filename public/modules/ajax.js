@@ -34,7 +34,7 @@ class Ajax {
             dislikePost: '/api/posts/like/cancel',
 
             getFriends: '/api/user/friends',
-            isFriend: '/api/user/is_friend',
+            isFriend: '/api/user/status',
             getNotFriends: '/api/user/rand',
             getUsers: '/api/user/all',
             getSub: '/api/user/sub',
