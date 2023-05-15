@@ -40,6 +40,9 @@ export default class ProfileView extends BaseView {
 		this._createBtn = document.getElementById('js-create-post-btn');
 		this._backBtn = document.getElementById('js-back-post-btn');
 
+		this._removeFriend = document.getElementById('js-friend-remove');
+		this._addFriend = document.getElementById('js-friend-add');
+
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
 		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
 		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
@@ -181,6 +184,20 @@ export default class ProfileView extends BaseView {
 				super.render();
 			});
 		}
+
+		if (this._addFriend) {
+			this._addFriend.addEventListener('click', () => {
+				const userId = this._addFriend.getAttribute("data-id");
+				actionFriends.sub(userId);
+			});
+		}
+
+		if (this._removeFriend) {
+			this._removeFriend.addEventListener('click', () => {
+				const userId = this._removeFriend.getAttribute("data-id");
+				actionFriends.unsub(userId);
+			});
+		}
 	}
 
 	showPage(search) {
@@ -223,6 +240,8 @@ export default class ProfileView extends BaseView {
 				postList: postsStore.posts
 			},
 		}
+
+		this._context.profileData.isMyFriend = friendsStore.isMyFriend;
 
 		if (this._context.postAreaData.createPostData.isEdit) {
 			this._context.postAreaData.createPostData.create.text = postsStore.curPost.text_content;

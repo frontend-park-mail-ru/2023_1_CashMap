@@ -122,10 +122,9 @@ class friendsStore {
     async _isFriend(link) {
         const request = await Ajax.isFriend(link);
 
-        this.isMyFriend = true;
-
+        this.isMyFriend = false;
         if (request.status === 200) {
-            //this.isMyFriend = true;
+            this.isMyFriend = true;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

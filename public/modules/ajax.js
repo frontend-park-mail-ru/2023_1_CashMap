@@ -252,8 +252,7 @@ class Ajax {
     }
 
     async isFriend(link) {
-        //return this._request(this._apiUrl.isFriend + `?link=${link}`, this._requestType.GET);
-        return {status: 200};
+        return this._request(this._apiUrl.isFriend + `?link=${link}`, this._requestType.GET);
     }
 
     async getNotFriends(link, count, offset = 0) {
