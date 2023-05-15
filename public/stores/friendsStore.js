@@ -23,6 +23,8 @@ class friendsStore {
         this.subscribers = [];
         this.subscriptions = [];
 
+        this.isMyFriend = false;
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -53,6 +55,9 @@ class friendsStore {
         switch (action.actionName) {
             case 'getFriends':
                 await this._getFriends(action.link, action.count, action.offset);
+                break;
+            case 'isFriend':
+                await this._isFriend(action.link);
                 break;
             case 'getNotFriends':
                 await this._getNotFriends(action.link, action.count, action.offset);
@@ -92,6 +97,8 @@ class friendsStore {
                 friend.isFriend = true;
                 if (!friend.avatar_url) {
                     friend.avatar_url = headerConst.avatarDefault;
+                } else {
+                    friend.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ friend.avatar_url }`;
                 }
                 if (!friend.city) {
                     friend.city = 'город не указан';
@@ -103,6 +110,26 @@ class friendsStore {
             actionUser.signOut();
         } else {
             alert('error');
+        }
+
+        this._refreshStore();
+    }
+
+    /**
+     * Метод, реализующий реакцию на получение списка друзей
+     * @param {String} link - ссылка пользователя
+     */
+    async _isFriend(link) {
+        const request = await Ajax.isFriend(link);
+
+        this.isMyFriend = true;
+
+        if (request.status === 200) {
+            //this.isMyFriend = true;
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('isFriend error');
         }
 
         this._refreshStore();
@@ -124,6 +151,8 @@ class friendsStore {
                 friend.isUser = true;
                 if (!friend.avatar_url) {
                     friend.avatar_url = headerConst.avatarDefault;
+                } else {
+                    friend.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ friend.avatar_url }`;
                 }
                 if (!friend.city) {
                     friend.city = 'город не указан';
@@ -154,6 +183,8 @@ class friendsStore {
             response.body.profiles.forEach((user) => {
                 if (!user.avatar_url) {
                     user.avatar_url = headerConst.avatarDefault;
+                } else {
+                    user.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ user.avatar_url }`;
                 }
                 if (!user.city) {
                     user.city = 'город не указан';
@@ -189,6 +220,8 @@ class friendsStore {
                 this.subscribers.forEach((sub) => {
                     if (!sub.avatar_url) {
                         sub.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        sub.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ sub.avatar_url }`;
                     }
                     sub.isSubscriber = true;
                 });
@@ -197,6 +230,8 @@ class friendsStore {
                 this.subscriptions.forEach((sub) => {
                     if (!sub.avatar_url) {
                         sub.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        sub.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ sub.avatar_url }`;
                     }
                     sub.isSubscribed = true;
                 });

@@ -34,6 +34,7 @@ class Ajax {
             dislikePost: '/api/posts/like/cancel',
 
             getFriends: '/api/user/friends',
+            isFriend: '/api/user/is_friend',
             getNotFriends: '/api/user/rand',
             getUsers: '/api/user/all',
             getSub: '/api/user/sub',
@@ -228,13 +229,8 @@ class Ajax {
     }
 
     async createPost(data) {
-        let formData = new FormData();
-
-        Object.keys(data).forEach((key) => {
-            formData.append(key, data[key]);
-        });
-
-        return this._request(this._apiUrl.createPost, this._requestType.POST, formData);
+        let body = data;
+        return this._request(this._apiUrl.createPost, this._requestType.POST,  JSON.stringify({body}));
     }
 
     async editPost(text, post_id) {
@@ -253,6 +249,11 @@ class Ajax {
 
     async getFriends(link, count, offset = 0) {
         return this._request(this._apiUrl.getFriends + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async isFriend(link) {
+        //return this._request(this._apiUrl.isFriend + `?link=${link}`, this._requestType.GET);
+        return {status: 200};
     }
 
     async getNotFriends(link, count, offset = 0) {
