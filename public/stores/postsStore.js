@@ -4,6 +4,7 @@ import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import groupsStore from "./groupsStore.js";
+import ProfileView from "../views/profileView.js";
 
 /**
  * класс, хранящий информацию о постах
@@ -297,7 +298,9 @@ class postsStore {
             }
             post.avatar_url = userStore.user.avatar_url;
 
-            this.posts.unshift(post);
+            if (ProfileView.curPage) {
+                this.posts.unshift(post);
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -371,7 +374,7 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
 
-            [...this.posts].forEach((post) => {
+            this.posts.forEach((post) => {
                 if (post.id === Number(postId)) {
                     post.is_liked = true;
                     post.likes_amount = response.body.likes_amount;
@@ -394,7 +397,7 @@ class postsStore {
 
         let flag = null;
         if (request.status === 200) {
-            [...this.posts].forEach((post) => {
+            this.posts.forEach((post) => {
                 if (post.id === Number(postId)) {
                     if (flag === null) {
                         flag = post.likes_amount - 1;
