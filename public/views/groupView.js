@@ -204,7 +204,7 @@ export default class GroupView extends BaseView {
 					jsId: 'js-create-post',
 					create: { avatar_url: groupsStore.curGroup.avatar_url, text: '', buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
 				},
-				postList: postsStore.groupsPosts},
+				postList: postsStore.posts},
 		}
 
 		if (this._context.postAreaData.createPostData.isEdit) {

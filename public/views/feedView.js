@@ -1,12 +1,9 @@
 import userStore from "../stores/userStore.js";
-import Router from "../modules/router.js";
 import { sideBarConst, headerConst, maxTextStrings, maxTextLength, activeColor } from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
 import BaseView from "./baseView.js";
-import groupsStore from "../stores/groupsStore.js";
-import {actionGroups} from "../actions/actionGroups.js";
 
 export default class FeedView extends BaseView {
 	constructor() {
@@ -170,7 +167,7 @@ export default class FeedView extends BaseView {
 					jsId: 'js-create-post',
 					create: { avatar_url: userStore.user.avatar_url, text: '', buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
 				},
-				postList: postsStore.friendsPosts
+				postList: postsStore.posts
 			},
 		}
 

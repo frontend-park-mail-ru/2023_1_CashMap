@@ -230,7 +230,7 @@ export default class ProfileView extends BaseView {
 			postAreaData: {
 				createPostData:
 				{
-					displayNone: !friendsStore.isMyFriend,
+					displayNone: !(friendsStore.isMyFriend || userStore.userProfile.isMyPage),
 					isCreate: this.isCreate,
 					isEdit: this.isEdit,
 					avatar_url: userStore.user.avatar_url,
