@@ -7,11 +7,14 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.backendHostname = '127.0.0.1';
-        this.backendHostname = '95.163.212.121';
+        this.backendHostname = '127.0.0.1';
+        // this.backendHostname = '95.163.212.121';
 
         this.backendPort = '8080';
         this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+
+        this.staticPort = '8082';
+        this._staticUrl = 'http://' + this.backendHostname + ':' + this.staticPort;
 
         this._apiUrl = {
             signIn: '/auth/sign-in',
@@ -77,10 +80,11 @@ class Ajax {
      * @param {String} apiUrlType - url запроса
      * @param {String} requestType - тип запроса
      * @param {Object} body - тело запроса
+     * @param {Object} backendUrl - api  hostname
      * @returns {Object} - тело ответа
      */
-    _request(apiUrlType, requestType, body) {
-        const requestUrl = this._backendUrl + apiUrlType;
+    _request(apiUrlType, requestType, body, backendUrl=this._backendUrl) {
+        const requestUrl = backendUrl + apiUrlType;
 
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
@@ -366,7 +370,7 @@ class Ajax {
         let formData = new FormData();
         formData.append("attachments", data);
 
-        return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData);
+        return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData, this._staticUrl);
     }
 
     async getGlobalSearchResult(searchText, count, offset) {
