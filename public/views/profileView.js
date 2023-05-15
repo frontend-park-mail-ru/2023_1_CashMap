@@ -6,6 +6,8 @@ import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
 import BaseView from "./baseView.js";
 import { actionMessage } from "../actions/actionMessage.js";
+import {actionFriends} from "../actions/actionFriends.js";
+import friendsStore from "../stores/friendsStore.js";
 
 export default class ProfileView extends BaseView {
 	constructor() {
@@ -14,6 +16,8 @@ export default class ProfileView extends BaseView {
 		this._jsId = 'profile';
 		this.curPage = false;
 		this._userLink = null;
+		this.isCreate = false;
+		this.isEdit = false;
 	}
 
 	addStore() {
@@ -30,13 +34,37 @@ export default class ProfileView extends BaseView {
 
 		this._profileSettingsBtn = document.getElementById('js-profile-settings-btn');
 
+		this._createPosts = document.getElementById('js-create-post');
 		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
+		this._editBtn = document.getElementById('js-edit-post-btn');
+		this._createBtn = document.getElementById('js-create-post-btn');
+		this._backBtn = document.getElementById('js-back-post-btn');
+
+		this._removeFriend = document.getElementById('js-friend-remove');
+		this._addFriend = document.getElementById('js-friend-add');
+
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
 		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
 		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
-		this._createPosts = document.getElementById('js-create-post');
 		this._goMsg = document.getElementById('js-go-msg');
 		this._posts = document.getElementsByClassName('post-text');
+
+
+		this._text = document.getElementById('js-edit-post-textarea');
+		function OnInput() {
+			this.style.height = 'auto';
+			this.style.height = (this.scrollHeight) + 'px';
+		}
+
+		if (this._text) {
+			this._text.focus();
+
+			this._editBtn = document.getElementById('js-edit-post-btn');
+			let textarea = document.getElementsByTagName('textarea');
+
+			textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;');
+			textarea[0].addEventListener("input", OnInput, false);
+		}
 	}
 
 	addPagesListener() {
@@ -49,14 +77,6 @@ export default class ProfileView extends BaseView {
 		if (this._profileSettingsBtn) {
 			this._profileSettingsBtn.addEventListener('click', () => {
 				Router.go('/settings', false);
-			});
-		}
-
-		for (let i = 0; i < this._editPosts.length; i++) {
-			this._editPosts[i].addEventListener('click', () => {
-				const postId = this._editPosts[i].getAttribute("data-id");
-				localStorage.setItem('editPostId', postId);
-				Router.go('/editPost', false);
 			});
 		}
 
@@ -80,11 +100,6 @@ export default class ProfileView extends BaseView {
 				actionPost.dislikePost(Number(postId));
 			});
 		}
-
-		this._createPosts.addEventListener('click', () => {
-			localStorage.removeItem('groupLink');
-			Router.go('/createPost', false);
-		});
 
 		if (this._goMsg) {
 			this._goMsg.addEventListener('click', () => {
@@ -131,6 +146,58 @@ export default class ProfileView extends BaseView {
 				});
 			}
 		}
+
+		for (let i = 0; i < this._editPosts.length; i++) {
+			this._editPosts[i].addEventListener('click', () => {
+				this.isEdit = this._editPosts[i].getAttribute("data-id");
+				this.isCreate = false;
+				actionPost.getPostsById(this.isEdit, 1);
+			});
+		}
+
+		if (this._createPosts) {
+			this._createPosts.addEventListener('click', () => {
+				this.isCreate = true;
+				this.isEdit = false;
+				super.render();
+				this._text.focus();
+			});
+		}
+
+		if (this._editBtn) {
+			this._editBtn.addEventListener('click', () => {
+				actionPost.editPost(this._text.value, this.isEdit);
+				this.isEdit = false;
+			});
+		}
+
+		if (this._createBtn) {
+			this._createBtn.addEventListener('click', () => {
+				actionPost.createPostUser(userStore.user.user_link, userStore.userProfile.user_link, true, this._text.value);
+				this.isCreate = false;
+			});
+		}
+
+		if (this._backBtn) {
+			this._backBtn.addEventListener('click', () => {
+				this.isCreate = this.isEdit = false;
+				super.render();
+			});
+		}
+
+		if (this._addFriend) {
+			this._addFriend.addEventListener('click', () => {
+				const userId = this._addFriend.getAttribute("data-id");
+				actionFriends.sub(userId);
+			});
+		}
+
+		if (this._removeFriend) {
+			this._removeFriend.addEventListener('click', () => {
+				const userId = this._removeFriend.getAttribute("data-id");
+				actionFriends.unsub(userId);
+			});
+		}
 	}
 
 	showPage(search) {
@@ -142,6 +209,7 @@ export default class ProfileView extends BaseView {
 		}
 
 		actionUser.getProfile();
+		actionFriends.isFriend(search.link);
 	}
 
 	_preRender() {
@@ -159,7 +227,26 @@ export default class ProfileView extends BaseView {
 			sideBarData: sideBarConst,
 			headerData: header,
 			profileData: userStore.userProfile,
-			postAreaData: {createPostData: {avatar_url: userStore.userProfile.avatar_url, jsId: 'js-create-post'}, postList: postsStore.posts},
+			postAreaData: {
+				createPostData:
+				{
+					displayNone: !(friendsStore.isMyFriend || userStore.userProfile.isMyPage),
+					isCreate: this.isCreate,
+					isEdit: this.isEdit,
+					avatar_url: userStore.user.avatar_url,
+					jsId: 'js-create-post',
+					create: { avatar_url: userStore.user.avatar_url, text: '', buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
+				},
+				postList: postsStore.posts
+			},
+		}
+
+		this._context.profileData.isMyFriend = friendsStore.isMyFriend;
+
+		if (this._context.postAreaData.createPostData.isEdit) {
+			this._context.postAreaData.createPostData.create.text = postsStore.curPost.text_content;
+			this._context.postAreaData.createPostData.create.id = postsStore.curPost.id;
+			this._context.postAreaData.createPostData.create.buttonData = { text: 'Изменить', jsId: 'js-edit-post-btn'};
 		}
 	}
 }

@@ -23,6 +23,16 @@ export const actionFriends = {
         });
     },
     /**
+     * action для получения списка друзей по ссылке пользователя
+     * @param {*} link - ссылка пользователя
+     */
+    isFriend(link) {
+        Dispatcher.dispatch({
+            actionName: 'isFriend',
+            link,
+        });
+    },
+    /**
      * action для получения списка всех пользователей
      * @param {*} count - количество возвращаемых пользователей
      * @param {*} offset - смещение
