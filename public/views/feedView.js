@@ -108,6 +108,15 @@ export default class FeedView extends BaseView {
 					actionPost.createComment(postsStore.friendsPosts[i].id, this._commentInput[i].value.trim(), null);
 				}
 			})
+
+		}
+
+		for (let i = 0; i < this._commentInput.length; ++i) {
+			this._commentInput[i].addEventListener('keyup', (event) => {
+				if (this._commentInput[i].value.trim() !== '' && event.code === 'Enter' && document.activeElement === this._commentInput[i]) {
+					actionPost.createComment(postsStore.friendsPosts[i].id, this._commentInput[i].value.trim(), null);
+				}
+			})
 		}
 
 		for (let i = 0; i < this._commentDeleteButton.length; ++i) {

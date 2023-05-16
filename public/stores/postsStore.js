@@ -189,19 +189,22 @@ class postsStore {
         const request = await Ajax.getCommentsByPostId(postID, count, lastPostDate);
         if (request.status === 200) {
             const response = await request.json();
+            if (response.body.comments === null) {
+                this.haveCommentsContinuation.set(postID, response.body.has_next);
+                return
+            }
             response.body.comments.forEach((comment) => {
                 if (comment.sender_info.avatar_url === null) {
                     comment.sender_info.avatar_url = headerConst.avatarDefault;
                 }
 
-                comment.raw_creation_date = comment.creation_date;
+                comment.raw_creation_date = comment.creation_date.replace("+", "%2B");
                 comment.creation_date = (new Date(comment.creation_date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
                 comment.change_date = (new Date(comment.change_date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
             })
 
 
             if (this.comments.has(postID)) {
-                console.log(this.comments.get(postID));
                 this.comments.get(postID).push(...response.body.comments);
             } else {
                 this.comments.set(postID, response.body.comments);
@@ -242,6 +245,10 @@ class postsStore {
                 if (post.id === postID) {
                     post.comments_amount += 1;
                 }
+            }
+
+            if (this.comments.get(postID) !== undefined) {
+                this.comments.delete(postID)
             }
 
             await this.getCommentsByPostId(postID);
