@@ -14,7 +14,7 @@ class Ajax {
         //this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
         this._backendUrl = 'https://' + this.backendHostname;
 
-        this._staticUrl = 'http://' + this.backendHostname;
+        this._staticUrl = 'https://' + this.backendHostname;
 
         this._apiUrl = {
             signIn: '/auth/sign-in',
