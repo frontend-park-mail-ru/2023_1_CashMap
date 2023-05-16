@@ -64,6 +64,7 @@ class Ajax {
 
             uploadImg: '/static-service/upload',
             deleteImg: '/static-service/delete',
+            downloadImg: '/static-service/download',
 
             userSearch: '/api/user/search'
         }
