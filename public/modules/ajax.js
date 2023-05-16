@@ -63,8 +63,8 @@ class Ajax {
             getMsg: '/api/im/messages',
             sendMsg: '/api/im/send',
 
-            uploadImg: '/static/upload',
-            deleteImg: '/static/delete',
+            uploadImg: '/static-service/upload',
+            deleteImg: '/static-service/delete',
 
             userSearch: '/api/user/search'
         }
