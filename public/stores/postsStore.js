@@ -106,7 +106,7 @@ class postsStore {
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
                     } else {
-                        post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
+                        post.owner_info.avatar_url = `https://${Ajax.backendHostname}/${ post.owner_info.avatar_url }`;
                     }
                     if (!post.comments) {
                         post.comments_count = 0;
@@ -153,13 +153,13 @@ class postsStore {
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
                     } else {
-                        post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
+                        post.owner_info.avatar_url = `https://${Ajax.backendHostname}/${ post.owner_info.avatar_url }`;
                     }
                     if (post.community_info) {
                         if (!post.community_info.avatar_url) {
                             post.community_info.avatar_url = headerConst.avatarDefault;
                         } else {
-                            post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.community_info.avatar_url }`;
+                            post.community_info.avatar_url = `https://${Ajax.backendHostname}/${ post.community_info.avatar_url }`;
                         }
                     }
                     if (post.creation_date) {
@@ -221,12 +221,12 @@ class postsStore {
                 if (!post.owner_info.avatar_url) {
                     post.owner_info.avatar_url = headerConst.avatarDefault;
                 } else {
-                    post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
+                    post.owner_info.avatar_url = `https://${Ajax.backendHostname}/${ post.owner_info.avatar_url }`;
                 }
                 if (!post.community_info.avatar_url) {
                     post.community_info.avatar_url = headerConst.avatarDefault;
                 } else {
-                    post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.community_info.avatar_url }`;
+                    post.community_info.avatar_url = `https://${Ajax.backendHostname}/${ post.community_info.avatar_url }`;
                 }
 
                 if (!post.comments) {
@@ -271,7 +271,7 @@ class postsStore {
                 if (!post.owner_info.avatar_url) {
                     post.owner_info.avatar_url = headerConst.avatarDefault;
                 } else {
-                    post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${post.owner_info.avatar_url}`;
+                    post.owner_info.avatar_url = `https://${Ajax.backendHostname}/${post.owner_info.avatar_url}`;
                 }
             }
 
@@ -286,7 +286,7 @@ class postsStore {
                 if (!post.community_info.avatar_url) {
                     post.community_info.avatar_url = headerConst.avatarDefault;
                 } else {
-                    post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${post.community_info.avatar_url}`;
+                    post.community_info.avatar_url = `https://${Ajax.backendHostname}/${post.community_info.avatar_url}`;
                 }
             }
 

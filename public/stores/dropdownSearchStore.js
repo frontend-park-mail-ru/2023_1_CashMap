@@ -74,7 +74,7 @@ class DropdownSearchStore {
                 if (!user.avatar_url) {
                     user.avatar_url = headerConst.avatarDefault;
                 } else {
-                    user.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ user.avatar_url }`;
+                    user.avatar_url = `https://${Ajax.backendHostname}/${ user.avatar_url }`;
                 }
                 if (!user.isFriend && !user.isSubscriber && !user.isSubscribed) {
                     user.isUser = true;
@@ -85,7 +85,7 @@ class DropdownSearchStore {
                 if (!community.avatar_url) {
                     community.avatar_url = headerConst.avatarDefault;
                 } else {
-                    community.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ community.avatar_url }`;
+                    community.avatar_url = `https://${Ajax.backendHostname}/${ community.avatar_url }`;
                 }
 
                 community.isCommunity = true;
