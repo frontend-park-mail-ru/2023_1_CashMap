@@ -151,7 +151,7 @@ export default class GroupView extends BaseView {
 			headerData: header,
 
 			groupData: groupsStore.curGroup,
-			postAreaData: {createPostData: {displayNone: !groupsStore.curGroup.isAdmin, avatar_url: groupsStore.curGroup.avatar_url, jsId: 'js-create-post'}, postList: postsStore.groupsPosts},
+			postAreaData: {createPostData: {displayNone: !groupsStore.curGroup.isAdmin, avatar_url: groupsStore.curGroup.avatar_url, jsId: 'js-create-post'}, postList: postsStore.friendsPosts},
 		}
 	}
 }

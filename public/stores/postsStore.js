@@ -15,9 +15,9 @@ class postsStore {
     constructor() {
         this._callbacks = [];
 
-        this.posts = [];
+        // this.posts = [];
         this.friendsPosts = [];
-        this.groupsPosts = [];
+        // this.groupsPosts = [];
         this.curPost = null;
 
         this.comments = new Map();
@@ -132,10 +132,9 @@ class postsStore {
                     }
                     post.avatar_url = userStore.userProfile.avatar_url;
 
-                    this.posts.push(post);
                 });
             }
-            this.posts = response.body.posts;
+            this.friendsPosts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -172,7 +171,6 @@ class postsStore {
                     }
                     post.avatar_url = userStore.user.avatar_url;
 
-                    this.posts.push(post);
                 });
             }
             this.friendsPosts = response.body.posts;
@@ -312,7 +310,7 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
 
-            this.groupsPosts = [];
+            this.friendsPosts = [];
             console.log(response.body)
             response.body.posts.forEach((post) => {
                 if (!post.owner_info.avatar_url) {
@@ -332,7 +330,7 @@ class postsStore {
                 post.avatar_url = userStore.user.avatar_url;
             });
 
-            this.groupsPosts = response.body.posts;
+            this.friendsPosts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -367,7 +365,7 @@ class postsStore {
                 p.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
             }
             p.avatar_url = userStore.user.avatar_url;
-            this.posts.unshift(p);
+            this.friendsPosts.unshift(p);
 
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -387,14 +385,14 @@ class postsStore {
 
         if (request.status === 200) {
             let index = -1;
-            for (let i = 0; i < this.posts.length; i++) {
-                if (this.posts[i].id === postId) {
+            for (let i = 0; i < this.friendsPosts.length; i++) {
+                if (this.friendsPosts[i].id === postId) {
                     index = i;
                     break;
                 }
             }
             if (index > -1) {
-                this.posts.splice(index, 1);
+                this.friendsPosts.splice(index, 1);
             }
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -415,14 +413,14 @@ class postsStore {
 
         if (request.status === 200) {
             let index = -1;
-            for (let i = 0; i < this.posts.length; i++) {
-                if (this.posts[i].id === Number(postId)) {
+            for (let i = 0; i < this.friendsPosts.length; i++) {
+                if (this.friendsPosts[i].id === Number(postId)) {
                     index = i;
                     break;
                 }
             }
             if (index > -1) {
-                this.posts[index].text_content = text;
+                this.friendsPosts[index].text_content = text;
             }
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -442,7 +440,7 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
 
-            [...this.posts, ...this.groupsPosts, ...this.friendsPosts].forEach((post) => {
+            this.friendsPosts.forEach((post) => {
                 if (post.id === Number(postId)) {
                     post.is_liked = true;
                     post.likes_amount = response.body.likes_amount;
@@ -465,7 +463,7 @@ class postsStore {
 
         let flag = null;
         if (request.status === 200) {
-            [...this.posts, ...this.groupsPosts, ...this.friendsPosts].forEach((post) => {
+            this.friendsPosts.forEach((post) => {
                 if (post.id === Number(postId)) {
                     if (flag === null) {
                         flag = post.likes_amount - 1;
