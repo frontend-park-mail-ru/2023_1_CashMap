@@ -3,13 +3,19 @@
         <img src="{{ avatar_url }}" class="edit-post__body-img avatar-form profile-img-size">
         <textarea maxlength="1500" class="edit-post__body-text font-color-text font-size-16 font-MailSansRomanRegular" placeholder="Добавить запись" id="js-edit-post-textarea">{{ text }}</textarea>
     </div>
+     <div class="post-media">
+         {{#each attachments}}
+             <img class="post-media__img border-radius-btn-input" src="{{ this }}">
+         {{/each}}
+     </div>
     <div class="edit-post__options">
-        <div class="hover-pic margin-auto" style="grid-column: 6; cursor: pointer;">
+        <div class="hover-pic margin-auto cursor-pointer" id="js-add-photo-to-post-pic" style="grid-column: 6;">
             <img class="margin-auto" src="static/img/post_icons/photo.svg">
             <img class="margin-auto" src="static/img/post_icons/photo_hover.svg">
         </div>
+        <input class="display-none" id="js-add-photo-to-post" type="file">
 
-        <div class="hover-pic margin-auto" style="grid-column: 8; cursor: pointer;">
+        <div class="hover-pic margin-auto cursor-pointer" style="grid-column: 8;">
             <img class="margin-auto" src="static/img/post_icons/smile.svg">
             <img class="margin-auto" src="static/img/post_icons/smile_hover.svg">
         </div>

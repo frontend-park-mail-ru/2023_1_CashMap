@@ -116,6 +116,7 @@ class postsStore {
                     }
                     post.avatar_url = userStore.userProfile.avatar_url;
 
+                    //post.attachments = ['static/img/test_media_1.svg', userStore.userProfile.avatar_url, userStore.userProfile.avatar_url, userStore.userProfile.avatar_url, userStore.userProfile.avatar_url, userStore.userProfile.avatar_url, userStore.userProfile.avatar_url, userStore.userProfile.avatar_url]
                     this.posts.push(post);
                 });
             }

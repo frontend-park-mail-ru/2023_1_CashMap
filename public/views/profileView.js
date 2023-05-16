@@ -18,6 +18,10 @@ export default class ProfileView extends BaseView {
 		this._userLink = null;
 		this.isCreate = false;
 		this.isEdit = false;
+
+		//this.attachments = ['static/img/test_media_1.svg', 'static/img/test_media_2.svg'];
+		this.attachments = [];
+		this._reader = new FileReader();
 	}
 
 	addStore() {
@@ -48,6 +52,11 @@ export default class ProfileView extends BaseView {
 		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
 		this._goMsg = document.getElementById('js-go-msg');
 		this._posts = document.getElementsByClassName('post-text');
+
+		this._addPhotoToPostPic = document.getElementById('js-add-photo-to-post-pic');
+		this._addPhotoToPost = document.getElementById('js-add-photo-to-post');
+
+		this._dropContent = document.getElementById('js-drop-content');
 
 
 		this._text = document.getElementById('js-edit-post-textarea');
@@ -198,6 +207,27 @@ export default class ProfileView extends BaseView {
 				actionFriends.unsub(userId);
 			});
 		}
+
+		if (this._addPhotoToPostPic) {
+			this._addPhotoToPostPic.addEventListener('click', function () {
+				const fileInput = document.createElement('input');
+				fileInput.type = 'file';
+
+				fileInput.addEventListener('change', function (event) {
+					const file = event.target.files[0];
+
+					console.log(file)
+
+					this._reader.readAsDataURL(file);
+					this._reader.addEventListener('load', (event) => {
+						this.attachments.push(event.target.result);
+						console.log(this.attachments);
+					});
+				});
+
+				fileInput.click();
+			});
+		}
 	}
 
 	showPage(search) {
@@ -235,7 +265,7 @@ export default class ProfileView extends BaseView {
 					isEdit: this.isEdit,
 					avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
-					create: { avatar_url: userStore.user.avatar_url, text: '', buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
+					create: { avatar_url: userStore.user.avatar_url, attachments: this.attachments ,text: '', buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
 				},
 				postList: postsStore.posts
 			},

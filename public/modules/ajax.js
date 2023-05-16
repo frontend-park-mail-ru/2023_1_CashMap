@@ -7,12 +7,12 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.backendHostname = '127.0.0.1';
-        this.backendHostname = 'depeche.su';
+        this.backendHostname = '127.0.0.1';
+        //this.backendHostname = 'depeche.su';
 
         this.backendPort = '8080';
-        //this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
-        this._backendUrl = 'https://' + this.backendHostname;
+        this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+        //this._backendUrl = 'https://' + this.backendHostname;
 
         this._apiUrl = {
             signIn: '/auth/sign-in',
@@ -60,8 +60,8 @@ class Ajax {
             getMsg: '/api/im/messages',
             sendMsg: '/api/im/send',
 
-            uploadImg: '/static/upload',
-            deleteImg: '/static/delete',
+            uploadImg: '/static-service/upload',
+            deleteImg: '/static-service/delete',
 
             userSearch: '/api/user/search'
         }

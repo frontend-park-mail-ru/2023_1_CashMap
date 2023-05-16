@@ -35,7 +35,25 @@
     word-wrap: break-word;
 }
 .post-media {
+    display: flex;
+    flex-wrap: wrap;
+}
+.post-media__img {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 4px;
+    max-width: 100%;
 
+    max-height: 418px;
+    /*max-height: 207px;*/
+    /*max-height: 207px;*/
+
+    min-height: 150px;
+    min-width: 150px;
+
+    object-fit: cover;
+    border-radius: 50%;
+    overflow: hidden;
 }
 .post-buttons {
     display: flex;
