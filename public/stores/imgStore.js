@@ -35,7 +35,7 @@ class imgStore {
         const response = await request.json();
 
         if (request.status === 200) {
-            const newUrl = `static/download?name=${ response.body.form[0].name }&type=${ response.body.form[0].type }`;
+            const newUrl = `static-service/download?name=${ response.body.form[0].name }&type=${ response.body.form[0].type }`;
             callback(newUrl);
         } else {
             alert('uploadImg error');
