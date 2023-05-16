@@ -5,7 +5,7 @@ import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import groupsStore from "./groupsStore.js";
 import ProfileView from "../views/profileView.js";
-import GroupView from "../views/groupView.js";
+import Router from "../modules/router.js";
 
 /**
  * класс, хранящий информацию о постах
@@ -299,7 +299,7 @@ class postsStore {
             }
             post.avatar_url = userStore.user.avatar_url;
 
-            if (ProfileView.curPage || GroupView.curPage) {
+            if (Router.currentPage._jsId !== 'feed') {
                 this.posts.unshift(post);
             }
         } else if (request.status === 401) {
