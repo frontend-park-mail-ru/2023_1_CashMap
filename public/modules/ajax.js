@@ -7,12 +7,19 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.backendHostname = '127.0.0.1';
-        this.backendHostname = 'depeche.su';
+        this.beckendStatus = 'local';
+        //this.beckendStatus = 'global';
 
-        this.backendPort = '8080';
-        //this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
-        this._backendUrl = 'https://' + this.backendHostname;
+        if (this.beckendStatus === 'global') {
+            this.backendHostname = 'depeche.su';
+            this._backendUrl = 'https://' + this.backendHostname;
+        } else {
+            this.backendHostname = '127.0.0.1';
+            this.backendPort = '8080';
+            this.backendStaticPort = '8082';
+            this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+            this._backendStaticUrl = 'http://' + this.backendHostname + ':' + this.backendStaticPort;
+        }
 
         this._staticUrl = 'https://' + this.backendHostname;
 
@@ -64,6 +71,7 @@ class Ajax {
 
             uploadImg: '/static-service/upload',
             deleteImg: '/static-service/delete',
+
             downloadImg: '/static-service/download',
 
             userSearch: '/api/user/search',
@@ -91,8 +99,13 @@ class Ajax {
      * @param {Object} backendUrl - api  hostname
      * @returns {Object} - тело ответа
      */
-    _request(apiUrlType, requestType, body, backendUrl=this._backendUrl) {
-        const requestUrl = backendUrl + apiUrlType;
+    _request(apiUrlType, requestType, body) {
+        let requestUrl = null;
+        if (this.beckendStatus === 'local' && apiUrlType === this._apiUrl.uploadImg) {
+            requestUrl = this._backendStaticUrl + apiUrlType;
+        } else {
+            requestUrl = this._backendUrl + apiUrlType;
+        }
 
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
@@ -403,6 +416,22 @@ class Ajax {
     async dislikePost(id) {
         const body = {post_id: id};
         return this._request(this._apiUrl.dislikePost, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    imgUrlConvert(avatar_url) {
+        if (this.beckendStatus === 'local') {
+            return `http://${this.backendHostname}:${this.backendStaticPort}/${ avatar_url }`;
+        } else {
+            return `https://${this.backendHostname}/${avatar_url}`;
+        }
+    }
+
+    imgUrlBackConvert(url) {
+        if (this.beckendStatus === 'local') {
+            return  url.replace(`http://${this.backendHostname}:${this.backendStaticPort}/`, '')
+        } else {
+            return  url.replace(`https://${this.backendHostname}/`, '')
+        }
     }
 
     async getCommentsByPostId(postId, count, lastCommentDate) {

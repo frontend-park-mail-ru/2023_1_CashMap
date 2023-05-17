@@ -98,7 +98,7 @@ class friendsStore {
                 if (!friend.avatar_url) {
                     friend.avatar_url = headerConst.avatarDefault;
                 } else {
-                    friend.avatar_url = `https://${Ajax.backendHostname}/${ friend.avatar_url }`;
+                    friend.avatar_url = Ajax.imgUrlConvert(friend.avatar_url);
                 }
                 if (!friend.city) {
                     friend.city = 'город не указан';
@@ -154,7 +154,7 @@ class friendsStore {
                 if (!friend.avatar_url) {
                     friend.avatar_url = headerConst.avatarDefault;
                 } else {
-                    friend.avatar_url = `https://${Ajax.backendHostname}/${ friend.avatar_url }`;
+                    friend.avatar_url = Ajax.imgUrlConvert(friend.avatar_url);
                 }
                 if (!friend.city) {
                     friend.city = 'город не указан';
@@ -186,7 +186,7 @@ class friendsStore {
                 if (!user.avatar_url) {
                     user.avatar_url = headerConst.avatarDefault;
                 } else {
-                    user.avatar_url = `https://${Ajax.backendHostname}/${ user.avatar_url }`;
+                    user.avatar_url = Ajax.imgUrlConvert(user.avatar_url);
                 }
                 if (!user.city) {
                     user.city = 'город не указан';
@@ -223,7 +223,7 @@ class friendsStore {
                     if (!sub.avatar_url) {
                         sub.avatar_url = headerConst.avatarDefault;
                     } else {
-                        sub.avatar_url = `https://${Ajax.backendHostname}/${ sub.avatar_url }`;
+                        sub.avatar_url = Ajax.imgUrlConvert(sub.avatar_url);
                     }
                     sub.isSubscriber = true;
                 });
@@ -233,7 +233,7 @@ class friendsStore {
                     if (!sub.avatar_url) {
                         sub.avatar_url = headerConst.avatarDefault;
                     } else {
-                        sub.avatar_url = `https://${Ajax.backendHostname}/${ sub.avatar_url }`;
+                        sub.avatar_url = Ajax.imgUrlConvert(sub.avatar_url);
                     }
                     sub.isSubscribed = true;
                 });

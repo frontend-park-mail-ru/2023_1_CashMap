@@ -13,9 +13,13 @@ class WebSock {
      * конструктор метода
      */
     constructor() {
+        if (Ajax.beckendStatus === 'local') {
+            this._url = 'ws://' + Ajax.backendHostname + ':' + Ajax.backendPort + '/api/ws';
+        } else {
+            this._url = 'wss://' + Ajax.backendHostname + '/api/ws';
+        }
+
         this._socket = null;
-        //this._url = 'ws://' + Ajax.backendHostname + ':' + Ajax.backendPort + '/api/ws';
-        this._url = 'wss://' + Ajax.backendHostname + '/api/ws';
     }
 
     /**

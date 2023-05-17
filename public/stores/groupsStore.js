@@ -107,7 +107,7 @@ class groupsStore {
                 if (!group.avatar_url) {
                     group.avatar_url = groupAvatarDefault;
                 } else {
-                    group.avatar_url = `https://${Ajax.backendHostname}/${ group.avatar_url }`;
+                    group.avatar_url = Ajax.imgUrlConvert(group.avatar_url);
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -141,7 +141,7 @@ class groupsStore {
                 if (!group.avatar_url) {
                     group.avatar_url = groupAvatarDefault;
                 } else {
-                    group.avatar_url = `https://${Ajax.backendHostname}/${ group.avatar_url }`;
+                    group.avatar_url = Ajax.imgUrlConvert(group.avatar_url);
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -175,7 +175,7 @@ class groupsStore {
                 if (!group.avatar_url) {
                     group.avatar_url = groupAvatarDefault;
                 } else {
-                    group.avatar_url = `https://${Ajax.backendHostname}/${ group.avatar_url }`;
+                    group.avatar_url = Ajax.imgUrlConvert(group.avatar_url);
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -209,7 +209,7 @@ class groupsStore {
                 if (!group.avatar_url) {
                     group.avatar_url = groupAvatarDefault;
                 } else {
-                    group.avatar_url = `https://${Ajax.backendHostname}/${ group.avatar_url }`;
+                    group.avatar_url = Ajax.imgUrlConvert(group.avatar_url);
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -244,7 +244,7 @@ class groupsStore {
             if (!this.curGroup.avatar_url) {
                 this.curGroup.avatar_url = groupAvatarDefault;
             } else {
-                this.curGroup.avatar_url = `https://${Ajax.backendHostname}/${ this.curGroup.avatar_url }`;
+                this.curGroup.avatar_url = Ajax.imgUrlConvert(this.curGroup.avatar_url);
             }
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -274,7 +274,7 @@ class groupsStore {
                 if (!user.avatar_url) {
                     user.avatar_url = headerConst.avatarDefault;
                 } else {
-                    user.avatar_url = `https://${Ajax.backendHostname}/${ user.avatar_url }`;
+                    user.avatar_url = Ajax.imgUrlConvert(user.avatar_url);
                 }
             })
             this.curGroup.subList = response.body.profiles;
@@ -322,7 +322,7 @@ class groupsStore {
         if (request.status === 200) {
 
             if (data.avatar) {
-                this.curGroup.avatar_url = this.curGroup.avatar_url = `https://${Ajax.backendHostname}/${ data.avatar }`;
+                this.curGroup.avatar_url = this.curGroup.avatar_url = Ajax.imgUrlConvert(data.avatar);
             }
             this.curGroup.link = data.link;
             this.curGroup.title = data.title;

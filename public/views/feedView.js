@@ -4,6 +4,8 @@ import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
 import BaseView from "./baseView.js";
+import {actionImg} from "../actions/actionImg.js";
+import Ajax from "../modules/ajax.js";
 
 export default class FeedView extends BaseView {
 	constructor() {
@@ -53,6 +55,10 @@ export default class FeedView extends BaseView {
 		this._editBtn = document.getElementById('js-edit-post-btn');
 		this._createBtn = document.getElementById('js-create-post-btn');
 		this._backBtn = document.getElementById('js-back-post-btn');
+
+		this._addPhotoToPostPic = document.getElementById('js-add-photo-to-post-pic');
+		this._addPhotoToPost = document.getElementById('js-add-photo-to-post');
+		this._removeImg = document.getElementsByClassName('close-button');
 	}
 
 	addPagesListener() {
@@ -277,6 +283,13 @@ export default class FeedView extends BaseView {
 			});
 		}
 
+		if (this._addPhotoToPost) {
+			this._addPhotoToPost.addEventListener('click', () => {
+				this._createPosts.click();
+				this._addPhotoToPostPic.click();
+			});
+		}
+
 		if (this._editBtn) {
 			this._editBtn.addEventListener('click', () => {
 				actionPost.editPost(this._text.value, this.isEdit);
@@ -294,7 +307,59 @@ export default class FeedView extends BaseView {
 		if (this._backBtn) {
 			this._backBtn.addEventListener('click', () => {
 				this.isCreate = this.isEdit = false;
+				postsStore.attachments = [];
 				super.render();
+			});
+		}
+
+		if (this._addPhotoToPostPic) {
+			this._addPhotoToPostPic.addEventListener('click', ()=> {
+				if (postsStore.attachments.length >= 10) {
+					return;
+				}
+				postsStore.text = this._text.value;
+				const fileInput = document.createElement('input');
+				fileInput.type = 'file';
+
+				fileInput.addEventListener('change', function (event) {
+					const file = event.target.files[0];
+
+					const reader = new FileReader();
+					reader.onload = function (e) {
+						actionImg.uploadImg(file, (newUrl) => {
+							let id = 1;
+							if (postsStore.attachments.length) {
+								id = postsStore.attachments[postsStore.attachments.length-1].id + 1;
+							}
+							postsStore.attachments.push({url: Ajax.imgUrlConvert(newUrl), id: id});
+							postsStore._refreshStore();
+						});
+					};
+
+					reader.readAsDataURL(file);
+				});
+
+				fileInput.click();
+			});
+		}
+
+		for (let i = 0; i < this._removeImg.length; i++) {
+			this._removeImg[i].addEventListener('click', () => {
+				const imgId = this._removeImg[i].getAttribute("data-id");
+
+				let index = -1;
+				for (let i = 0; i < postsStore.attachments.length; i++) {
+					if (postsStore.attachments[i].id.toString() === imgId) {
+						index = i;
+						break;
+					}
+				}
+				if (index > -1) {
+					postsStore.attachments.splice(index, 1);
+				}
+
+				postsStore.text = this._text.value;
+				postsStore._refreshStore();
 			});
 		}
 	}
@@ -302,9 +367,6 @@ export default class FeedView extends BaseView {
 
 	showPage() {
 		actionUser.getProfile(() => { actionPost.getFriendsPosts(15); });
-		/*if (localStorage.getItem('groupLink')) {
-			actionGroups.getGroupInfo(null, localStorage.getItem('groupLink'));
-		}*/
 	}
 
 	_preRender() {
@@ -329,11 +391,12 @@ export default class FeedView extends BaseView {
 					isEdit: this.isEdit,
 					avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
-					create: { avatar_url: userStore.user.avatar_url, text: '', buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
+					create: { avatar_url: userStore.user.avatar_url, text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
 				},
 				postList: postsStore.posts
 			},
 		}
+		postsStore.text = '';
 
 		if (this._context.postAreaData.createPostData.isEdit) {
 			this._context.postAreaData.createPostData.create.text = postsStore.curPost.text_content;

@@ -28,7 +28,12 @@
         </div>
 
         <div class="post-text font-MailSansRomanRegular font-size-16 font-color-text" data-id="{{ id }}" id="{{ id }}"> {{ text_content }} </div>
-        <div class="post-media"></div>
+        <div class="post-media">
+            {{#each attachments}}
+                <img class="post-media__img border-radius-btn-input" src="{{ this }}">
+            {{/each}}
+        </div>
+
         <div class="post-buttons">
             {{#if is_liked}}
                 <div class="post-buttons-like">
