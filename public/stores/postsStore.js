@@ -207,7 +207,6 @@ class postsStore {
             } else {
                 this.comments.set(postID, response.body.comments);
             }
-
             this.haveCommentsContinuation.set(postID, response.body.has_next);
         } else if (request.status === 401) {
             actionUser.signOut();

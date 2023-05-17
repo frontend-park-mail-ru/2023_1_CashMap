@@ -14,6 +14,9 @@ export default class ProfileView extends BaseView {
 		this._jsId = 'profile';
 		this.curPage = false;
 		this._userLink = null;
+
+
+		this._commentBatchToLoad = 5;
 	}
 
 	addStore() {
@@ -36,8 +39,9 @@ export default class ProfileView extends BaseView {
 		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
 		this._createPosts = document.getElementById('js-create-post');
 		this._goMsg = document.getElementById('js-go-msg');
-		this._posts = document.getElementsByClassName('post-text');
-
+		this._postsTexts = document.getElementsByClassName('post-text');
+		this._posts = document.getElementsByClassName('post');
+		this._commentsAreas = document.getElementsByClassName("comments-area");
 		this._commentsButtons = document.getElementsByClassName("post-buttons-comment");
 		this._sendCommentButtons = document.getElementsByClassName('create-comment__send-icon');
 		this._commentInput = document.getElementsByClassName('create-comment__input');
@@ -122,17 +126,19 @@ export default class ProfileView extends BaseView {
 
 		for (let i = 0; i < this._commentsButtons.length; i++) {
 			this._commentsButtons[i].addEventListener('click', () => {
-				console.log(postsStore.friendsPosts)
 				if (postsStore.comments.get(postsStore.friendsPosts[i].id) === undefined || postsStore.comments.get(postsStore.friendsPosts[i].id).length === 0) {
 					actionPost.getComments(postsStore.friendsPosts[i].id, this._commentBatchToLoad);
 				} else {
 					postsStore.comments.delete(postsStore.friendsPosts[i].id);
 
 					let commentsArea = this._posts[i].getElementsByClassName("comments-list");
-					console.log(commentsArea)
 					commentsArea[0].style.display = 'none';
 
-					this._showMoreCommentsButton[i].outerHTML = "";
+					let showMoreCommentButton = this._commentsAreas[i].getElementsByClassName("show-more-block");
+					if (showMoreCommentButton.length !== 0) {
+						this._commentsAreas[i].removeChild(showMoreCommentButton[0]);
+						postsStore.haveCommentsContinuation.delete(postsStore.friendsPosts[i].id);
+					}
 				}
 			})
 		}
@@ -254,10 +260,10 @@ export default class ProfileView extends BaseView {
 		}
 
 
-		for (let i = 0; i < this._posts.length; i++) {
-			const text = this._posts[i].textContent
+		for (let i = 0; i < this._postsTexts.length; i++) {
+			const text = this._postsTexts[i].textContent
 			if (text.split('\n').length > maxTextStrings || text.length > maxTextLength) {
-				const post = this._posts[i];
+				const post = this._postsTexts[i];
 				let shortText;
 
 				if (text.length > maxTextLength) {

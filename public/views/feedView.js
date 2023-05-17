@@ -34,6 +34,7 @@ export default class FeedView extends BaseView {
 		this._postsTexts = document.getElementsByClassName('post-text');
 		this._posts = document.getElementsByClassName('post');
 		this._commentsButtons = document.getElementsByClassName("post-buttons-comment");
+		this._commentsAreas = document.getElementsByClassName("comments-area");
 		this._sendCommentButtons = document.getElementsByClassName('create-comment__send-icon');
 		this._commentInput = document.getElementsByClassName('create-comment__input');
 
@@ -97,7 +98,10 @@ export default class FeedView extends BaseView {
 					let commentsArea = this._posts[i].getElementsByClassName("comments-list");
 					commentsArea[0].style.display = 'none';
 
-					this._showMoreCommentsButton[i].outerHTML = "";
+					let showMoreCommentButton = this._commentsAreas[i].getElementsByClassName("show-more-block");
+
+					this._commentsAreas[i].removeChild(showMoreCommentButton[0]);
+					postsStore.haveCommentsContinuation.delete(postsStore.friendsPosts[i].id);
 				}
 			})
 		}
@@ -252,7 +256,6 @@ export default class FeedView extends BaseView {
 
 	_preRender() {
 		this._template = Handlebars.templates.feed;
-
 
 		for (let i = 0; i < postsStore.friendsPosts.length; ++i) {
 			postsStore.friendsPosts[i].comments = postsStore.comments.get(postsStore.friendsPosts[i].id);
