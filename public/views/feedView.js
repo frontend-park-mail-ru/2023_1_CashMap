@@ -34,7 +34,7 @@ export default class FeedView extends BaseView {
 		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
 		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
 
-    this._createPosts = document.getElementById('js-create-post');
+    	this._createPosts = document.getElementById('js-create-post');
 		this._postsTexts = document.getElementsByClassName('post-text');
 		this._posts = document.getElementsByClassName('post');
 		this._commentsButtons = document.getElementsByClassName("post-buttons-comment");
@@ -100,11 +100,6 @@ export default class FeedView extends BaseView {
 					actionPost.dislikePost(Number(postId));
 			});
 		}
-
-		this._createPosts.addEventListener('click', () => {
-			localStorage.removeItem('groupLink');
-			Router.go('/createPost', false);
-		});
 
 		for (let i = 0; i < this._commentsButtons.length; i++) {
 			this._commentsButtons[i].addEventListener('click', () => {
@@ -391,7 +386,7 @@ export default class FeedView extends BaseView {
 					isEdit: this.isEdit,
 					avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
-					create: { avatar_url: userStore.user.avatar_url, text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
+					create: { avatar_url: userStore.user.avatar_url, attachments: postsStore.attachments, text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
 				},
 				postList: postsStore.posts
 			},
