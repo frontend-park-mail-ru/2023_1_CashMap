@@ -128,10 +128,10 @@ export default class GroupView extends BaseView {
 
 		for (let i = 0; i < this._commentsButtons.length; i++) {
 			this._commentsButtons[i].addEventListener('click', () => {
-				if (postsStore.comments.get(postsStore.friendsPosts[i].id) === undefined || postsStore.comments.get(postsStore.friendsPosts[i].id).length === 0) {
-					actionPost.getComments(postsStore.friendsPosts[i].id, this._commentBatchToLoad);
+				if (postsStore.comments.get(postsStore.posts[i].id) === undefined || postsStore.comments.get(postsStore.posts[i].id).length === 0) {
+					actionPost.getComments(postsStore.posts[i].id, this._commentBatchToLoad);
 				} else {
-					postsStore.comments.delete(postsStore.friendsPosts[i].id);
+					postsStore.comments.delete(postsStore.posts[i].id);
 
 					let commentsArea = this._posts[i].getElementsByClassName("comments-list");
 					commentsArea[0].style.display = 'none';
@@ -139,7 +139,7 @@ export default class GroupView extends BaseView {
 					let showMoreCommentButton = this._commentsAreas[i].getElementsByClassName("show-more-block");
 					if (showMoreCommentButton.length !== 0) {
 						this._commentsAreas[i].removeChild(showMoreCommentButton[0]);
-						postsStore.haveCommentsContinuation.delete(postsStore.friendsPosts[i].id);
+						postsStore.haveCommentsContinuation.delete(postsStore.posts[i].id);
 					}
 				}
 			})
@@ -148,7 +148,7 @@ export default class GroupView extends BaseView {
 		for (let i = 0; i < this._sendCommentButtons.length; ++i) {
 			this._sendCommentButtons[i].addEventListener('click', () => {
 				if (this._commentInput[i].value.trim() !== '') {
-					actionPost.createComment(postsStore.friendsPosts[i].id, this._commentInput[i].value.trim(), null);
+					actionPost.createComment(postsStore.posts[i].id, this._commentInput[i].value.trim(), null);
 				}
 			})
 
@@ -157,7 +157,7 @@ export default class GroupView extends BaseView {
 		for (let i = 0; i < this._commentInput.length; ++i) {
 			this._commentInput[i].addEventListener('keyup', (event) => {
 				if (this._commentInput[i].value.trim() !== '' && event.code === 'Enter' && document.activeElement === this._commentInput[i]) {
-					actionPost.createComment(postsStore.friendsPosts[i].id, this._commentInput[i].value.trim(), null);
+					actionPost.createComment(postsStore.posts[i].id, this._commentInput[i].value.trim(), null);
 				}
 			})
 		}
@@ -178,9 +178,9 @@ export default class GroupView extends BaseView {
 				}
 				postsStore.comments.set(postID, comments);
 
-				for (let i = 0; i < postsStore.friendsPosts.length; ++i) {
-					if (postsStore.friendsPosts[i].id === postID) {
-						postsStore.friendsPosts[i].comments_amount--;
+				for (let i = 0; i < postsStore.posts.length; ++i) {
+					if (postsStore.posts[i].id === postID) {
+						postsStore.posts[i].comments_amount--;
 					}
 				}
 				this.updatePage();
@@ -249,8 +249,8 @@ export default class GroupView extends BaseView {
 				console.log(lastCommentDate);
 
 
-				for (let i = 0; i < postsStore.friendsPosts.length; ++i) {
-					if (postsStore.friendsPosts[i].id === postID) {
+				for (let i = 0; i < postsStore.posts.length; ++i) {
+					if (postsStore.posts[i].id === postID) {
 						actionPost.getComments(postID, this._commentBatchToLoad, lastCommentDate);
 						break;
 					}
@@ -348,9 +348,9 @@ export default class GroupView extends BaseView {
 		let header = headerConst;
 		header['avatar_url'] = userStore.user.avatar_url;
 
-		for (let i = 0; i < postsStore.friendsPosts.length; ++i) {
-			postsStore.friendsPosts[i].comments = postsStore.comments.get(postsStore.friendsPosts[i].id);
-			postsStore.friendsPosts[i].has_next = postsStore.haveCommentsContinuation.get(postsStore.friendsPosts[i].id);
+		for (let i = 0; i < postsStore.posts.length; ++i) {
+			postsStore.posts[i].comments = postsStore.comments.get(postsStore.posts[i].id);
+			postsStore.posts[i].has_next = postsStore.haveCommentsContinuation.get(postsStore.posts[i].id);
 		}
 
 		this._context = {
@@ -368,7 +368,7 @@ export default class GroupView extends BaseView {
 					jsId: 'js-create-post',
 					create: { avatar_url: groupsStore.curGroup.avatar_url, text: '', buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
 				},
-				postList: postsStore.friendsPosts},
+				postList: postsStore.posts},
 		}
 
 		if (this._context.postAreaData.createPostData.isEdit) {

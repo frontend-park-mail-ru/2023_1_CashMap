@@ -18,7 +18,7 @@ class postsStore {
     constructor() {
         this._callbacks = [];
 
-        this.friendsPosts = [];
+        this.posts = [];
       
         this.curPost = null;
 
@@ -139,7 +139,7 @@ class postsStore {
 
                 });
             }
-            this.friendsPosts = response.body.posts;
+            this.posts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -254,7 +254,7 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
 
-            for (let post of this.friendsPosts) {
+            for (let post of this.posts) {
                 if (post.id === postID) {
                     post.comments_amount += 1;
                 }
@@ -325,7 +325,7 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
 
-            this.friendsPosts = [];
+            this.posts = [];
             console.log(response.body)
             response.body.posts.forEach((post) => {
 
@@ -357,7 +357,7 @@ class postsStore {
                 post.avatar_url = userStore.user.avatar_url;
             });
 
-            this.friendsPosts = response.body.posts;
+            this.posts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -415,8 +415,7 @@ class postsStore {
                 const date = new Date(post.creation_date);
                 post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
             }
-            p.avatar_url = userStore.user.avatar_url;
-            this.friendsPosts.unshift(p);
+            post.avatar_url = userStore.user.avatar_url;
 
             if (Router.currentPage._jsId !== 'feed') {
                 this.posts.unshift(post);
@@ -439,14 +438,14 @@ class postsStore {
 
         if (request.status === 200) {
             let index = -1;
-            for (let i = 0; i < this.friendsPosts.length; i++) {
-                if (this.friendsPosts[i].id === postId) {
+            for (let i = 0; i < this.posts.length; i++) {
+                if (this.posts[i].id === postId) {
                     index = i;
                     break;
                 }
             }
             if (index > -1) {
-                this.friendsPosts.splice(index, 1);
+                this.posts.splice(index, 1);
             }
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -467,14 +466,14 @@ class postsStore {
 
         if (request.status === 200) {
             let index = -1;
-            for (let i = 0; i < this.friendsPosts.length; i++) {
-                if (this.friendsPosts[i].id === Number(postId)) {
+            for (let i = 0; i < this.posts.length; i++) {
+                if (this.posts[i].id === Number(postId)) {
                     index = i;
                     break;
                 }
             }
             if (index > -1) {
-                this.friendsPosts[index].text_content = text;
+                this.posts[index].text_content = text;
             }
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -494,7 +493,7 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
 
-            this.friendsPosts.forEach((post) => {
+            this.posts.forEach((post) => {
                 if (post.id === Number(postId)) {
                     post.is_liked = true;
                     post.likes_amount = response.body.likes_amount;
@@ -517,7 +516,7 @@ class postsStore {
 
         let flag = null;
         if (request.status === 200) {
-            this.friendsPosts.forEach((post) => {
+            this.posts.forEach((post) => {
                 if (post.id === Number(postId)) {
                     if (flag === null) {
                         flag = post.likes_amount - 1;
