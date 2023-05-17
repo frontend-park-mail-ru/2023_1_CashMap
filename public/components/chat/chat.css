@@ -94,7 +94,6 @@
 
 .chat__footer-icon {
     height: 100%;
-    cursor: pointer;
 }
 
 .chat__footer-icon input:nth-child(2) {
@@ -107,6 +106,13 @@
 
 .chat__footer-icon:hover input:nth-child(2) {
     display: inline-block;
+}
+
+
+.chat__footer-icon_smiles:hover .smiles-keyboard {
+    display: block;
+    bottom: 70px;
+    right: 17%;
 }
 
 .chat__photos {

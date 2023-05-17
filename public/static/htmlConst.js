@@ -7,6 +7,8 @@ export const maxBirthday = '2017-01-01';
 
 export const groupAvatarDefault = 'static/img/post_icons/profile_image.svg';
 
+export const optionsAvatar = ['.png', '.jpeg', '.jpg', '.gif'];
+
 export const sideBarConst = {
     logoImgPath: 'static/img/logo.svg',
     logoText: 'Depeche',
