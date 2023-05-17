@@ -24,6 +24,8 @@ class groupsStore {
         this.editMsg = '';
         this.editStatus = null;
 
+        this.error = "";
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -104,6 +106,8 @@ class groupsStore {
                 group.isGroup = true;
                 if (!group.avatar_url) {
                     group.avatar_url = groupAvatarDefault;
+                } else {
+                    group.avatar_url = `https://${Ajax.backendHostname}/${ group.avatar_url }`;
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -136,6 +140,8 @@ class groupsStore {
                 group.isUserGroup = true;
                 if (!group.avatar_url) {
                     group.avatar_url = groupAvatarDefault;
+                } else {
+                    group.avatar_url = `https://${Ajax.backendHostname}/${ group.avatar_url }`;
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -168,6 +174,8 @@ class groupsStore {
                 group.isNotUserGroup = true;
                 if (!group.avatar_url) {
                     group.avatar_url = groupAvatarDefault;
+                } else {
+                    group.avatar_url = `https://${Ajax.backendHostname}/${ group.avatar_url }`;
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -200,6 +208,8 @@ class groupsStore {
                 group.isPopularGroup = true;
                 if (!group.avatar_url) {
                     group.avatar_url = groupAvatarDefault;
+                } else {
+                    group.avatar_url = `https://${Ajax.backendHostname}/${ group.avatar_url }`;
                 }
                 if (group.privacy === 'open') {
                     group.privacy = 'Открытая группа';
@@ -233,6 +243,8 @@ class groupsStore {
 
             if (!this.curGroup.avatar_url) {
                 this.curGroup.avatar_url = groupAvatarDefault;
+            } else {
+                this.curGroup.avatar_url = `https://${Ajax.backendHostname}/${ this.curGroup.avatar_url }`;
             }
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -261,6 +273,8 @@ class groupsStore {
             response.body.profiles.forEach((user) => {
                 if (!user.avatar_url) {
                     user.avatar_url = headerConst.avatarDefault;
+                } else {
+                    user.avatar_url = `https://${Ajax.backendHostname}/${ user.avatar_url }`;
                 }
             })
             this.curGroup.subList = response.body.profiles;
@@ -291,6 +305,8 @@ class groupsStore {
             this.manageGroups.push(group);
         } else if (request.status === 401) {
             actionUser.signOut();
+        } else if (request.status === 400) {
+            this.error = request.body.message;
         } else {
             alert('createGroup error');
         }
@@ -306,7 +322,7 @@ class groupsStore {
         if (request.status === 200) {
 
             if (data.avatar) {
-                this.curGroup.avatar_url = data.avatar;
+                this.curGroup.avatar_url = this.curGroup.avatar_url = `https://${Ajax.backendHostname}/${ data.avatar }`;
             }
             this.curGroup.link = data.link;
             this.curGroup.title = data.title;

@@ -3,6 +3,9 @@ import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
+import groupsStore from "./groupsStore.js";
+import ProfileView from "../views/profileView.js";
+import Router from "../modules/router.js";
 
 /**
  * класс, хранящий информацию о постах
@@ -15,9 +18,8 @@ class postsStore {
     constructor() {
         this._callbacks = [];
 
-        // this.posts = [];
         this.friendsPosts = [];
-        // this.groupsPosts = [];
+      
         this.curPost = null;
 
         this.comments = new Map();
@@ -114,14 +116,17 @@ class postsStore {
 
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
-                    if (userLink === userStore.user.user_link) {
-                        post.isMyPost = true;
-                    } else {
-                        post.isMyPost = false;
+                    post.canDelite = post.canEdit = false;
+                    if (post.author_link === userStore.user.user_link) {
+                        post.canDelite = post.canEdit = true;
+                    } else if (post.owner_info.user_link === userStore.user.user_link) {
+                        post.canDelite = true;
                     }
 
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        post.owner_info.avatar_url = `https://${Ajax.backendHostname}/${ post.owner_info.avatar_url }`;
                     }
                     if (!post.comments) {
                         post.comments_count = 0;
@@ -156,13 +161,24 @@ class postsStore {
             const response = await request.json();
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
-                    post.isMyPost = false;
+
+                    post.canDelite = post.canEdit = false;
+                    if (post.author_link === userStore.user.user_link) {
+                        post.canDelite = post.canEdit = true;
+                    } else if (post.owner_info.user_link === userStore.user.user_link) {
+                        post.canDelite = true;
+                    }
+
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        post.owner_info.avatar_url = `https://${Ajax.backendHostname}/${ post.owner_info.avatar_url }`;
                     }
                     if (post.community_info) {
                         if (!post.community_info.avatar_url) {
                             post.community_info.avatar_url = headerConst.avatarDefault;
+                        } else {
+                            post.community_info.avatar_url = `https://${Ajax.backendHostname}/${ post.community_info.avatar_url }`;
                         }
                     }
                     if (post.creation_date) {
@@ -173,7 +189,7 @@ class postsStore {
 
                 });
             }
-            this.friendsPosts = response.body.posts;
+            this.posts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -312,11 +328,23 @@ class postsStore {
             this.friendsPosts = [];
             console.log(response.body)
             response.body.posts.forEach((post) => {
+
+                post.canDelite = post.canEdit = false;
+                groupsStore.curGroup.management.forEach((user) => {
+                    if (user.link === userStore.user.user_link) {
+                        post.canDelite = post.canEdit = true;
+                    }
+                });
+
                 if (!post.owner_info.avatar_url) {
                     post.owner_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    post.owner_info.avatar_url = `https://${Ajax.backendHostname}/${ post.owner_info.avatar_url }`;
                 }
                 if (!post.community_info.avatar_url) {
                     post.community_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    post.community_info.avatar_url = `https://${Ajax.backendHostname}/${ post.community_info.avatar_url }`;
                 }
 
                 if (!post.comments) {
@@ -348,24 +376,51 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
-            const p = response.body.posts[0];
+            const post = response.body.posts[0];
 
-            p.isMyPost = true;
-            p.owner_info = {};
-            p.owner_info.avatar_url = userStore.user.avatar_url;
-            p.owner_info.first_name = userStore.user.firstName;
-            p.owner_info.last_name = userStore.user.lastName;
-            p.owner_info.link = userStore.user.user_link;
-            if (!p.comments) {
-                p.comments_count = 0;
+            if (post.owner_info) {
+                post.canDelite = post.canEdit = false;
+                if (post.author_link === userStore.user.user_link) {
+                    post.canDelite = post.canEdit = true;
+                } else if (post.owner_info.user_link === userStore.user.user_link) {
+                    post.canDelite = true;
+                }
+
+                if (!post.owner_info.avatar_url) {
+                    post.owner_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    post.owner_info.avatar_url = `https://${Ajax.backendHostname}/${post.owner_info.avatar_url}`;
+                }
             }
-            if (p.creation_date) {
-                const date = new Date(p.creation_date);
-                p.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+
+            if (post.community_info) {
+                post.canDelite = post.canEdit = false;
+                groupsStore.curGroup.management.forEach((user) => {
+                    if (user.link === userStore.user.user_link) {
+                        post.canDelite = post.canEdit = true;
+                    }
+                });
+
+                if (!post.community_info.avatar_url) {
+                    post.community_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    post.community_info.avatar_url = `https://${Ajax.backendHostname}/${post.community_info.avatar_url}`;
+                }
+            }
+
+            if (!post.comments) {
+                post.comments_count = 0;
+            }
+            if (post.creation_date) {
+                const date = new Date(post.creation_date);
+                post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
             }
             p.avatar_url = userStore.user.avatar_url;
             this.friendsPosts.unshift(p);
 
+            if (Router.currentPage._jsId !== 'feed') {
+                this.posts.unshift(post);
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

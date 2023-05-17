@@ -15,6 +15,9 @@ export default class GroupView extends BaseView {
 		this._groupLink = null;
 
 		this._commentBatchToLoad = 5;
+
+		this.isCreate = false;
+		this.isEdit = false;
 	}
 
 	/**
@@ -33,11 +36,17 @@ export default class GroupView extends BaseView {
 		this._groupSub = document.getElementById('js-group-sub-btn');
 		this._groupUnsub = document.getElementById('js-group-unsub-btn');
 		this._groupDelete = document.getElementById('js-group-delete-btn');
-		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
 		this._createPosts = document.getElementById('js-create-post');
 		this._postsTexts = document.getElementsByClassName('post-text');
 		this._posts = document.getElementsByClassName('post');
+
+
+		this._createPosts = document.getElementById('js-create-post');
+		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
+		this._editBtn = document.getElementById('js-edit-post-btn');
+		this._createBtn = document.getElementById('js-create-post-btn');
+		this._backBtn = document.getElementById('js-back-post-btn');
 
 		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
 		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
@@ -56,30 +65,31 @@ export default class GroupView extends BaseView {
 
 		this._showMoreCommentsButton = document.getElementsByClassName("show-more-block");
 
+
+		this._text = document.getElementById('js-edit-post-textarea');
+		function OnInput() {
+			this.style.height = 'auto';
+			this.style.height = (this.scrollHeight) + 'px';
+		}
+
+		if (this._text) {
+			this._text.focus();
+
+			this._editBtn = document.getElementById('js-edit-post-btn');
+			let textarea = document.getElementsByTagName('textarea');
+
+			textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;');
+			textarea[0].addEventListener("input", OnInput, false);
+		}
 	}
 
 	addPagesListener() {
 		super.addPagesListener();
 
-		for (let i = 0; i < this._editPosts.length; i++) {
-			this._editPosts[i].addEventListener('click', () => {
-				const postId = this._editPosts[i].getAttribute("data-id");
-				localStorage.setItem('editPostId', postId);
-				Router.go('/editPost', false);
-			});
-		}
-
 		for (let i = 0; i < this._deletePosts.length; i++) {
 			this._deletePosts[i].addEventListener('click', () => {
 				const postId = this._deletePosts[i].getAttribute("data-id");
 				actionPost.deletePost(Number(postId));
-			});
-		}
-
-		if (this._createPosts) {
-			this._createPosts.addEventListener('click', () => {
-				localStorage.setItem('groupLink', this._groupLink);
-				Router.go('/createPost', false);
 			});
 		}
 
@@ -283,6 +293,44 @@ export default class GroupView extends BaseView {
 			});
 		}
 
+		for (let i = 0; i < this._editPosts.length; i++) {
+			this._editPosts[i].addEventListener('click', () => {
+				this.isEdit = this._editPosts[i].getAttribute("data-id");
+				this.isCreate = false;
+				actionPost.getPostsById(this.isEdit, 1);
+			});
+		}
+
+		if (this._createPosts) {
+			this._createPosts.addEventListener('click', () => {
+				this.isCreate = true;
+				this.isEdit = false;
+				super.render();
+				this._text.focus();
+			});
+		}
+
+		if (this._editBtn) {
+			this._editBtn.addEventListener('click', () => {
+				actionPost.editPost(this._text.value, this.isEdit);
+				this.isEdit = false;
+			});
+		}
+
+		if (this._createBtn) {
+			this._createBtn.addEventListener('click', () => {
+				actionPost.createPostCommunity(userStore.user.user_link, this._groupLink, true, this._text.value);
+				this.isCreate = false;
+			});
+		}
+
+		if (this._backBtn) {
+			this._backBtn.addEventListener('click', () => {
+				this.isCreate = this.isEdit = false;
+				super.render();
+			});
+		}
+
 	}
 
 	showPage(search) {
@@ -310,7 +358,23 @@ export default class GroupView extends BaseView {
 			headerData: header,
 
 			groupData: groupsStore.curGroup,
-			postAreaData: {createPostData: {displayNone: !groupsStore.curGroup.isAdmin, avatar_url: groupsStore.curGroup.avatar_url, jsId: 'js-create-post'}, postList: postsStore.friendsPosts},
+
+			postAreaData: {
+				createPostData: {
+					displayNone: !groupsStore.curGroup.isAdmin,
+					isCreate: this.isCreate,
+					isEdit: this.isEdit,
+					avatar_url: groupsStore.curGroup.avatar_url,
+					jsId: 'js-create-post',
+					create: { avatar_url: groupsStore.curGroup.avatar_url, text: '', buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
+				},
+				postList: postsStore.friendsPosts},
+		}
+
+		if (this._context.postAreaData.createPostData.isEdit) {
+			this._context.postAreaData.createPostData.create.text = postsStore.curPost.text_content;
+			this._context.postAreaData.createPostData.create.id = postsStore.curPost.id;
+			this._context.postAreaData.createPostData.create.buttonData = { text: 'Изменить', jsId: 'js-edit-post-btn'};
 		}
 	}
 }

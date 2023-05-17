@@ -7,11 +7,14 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        this.backendHostname = '127.0.0.1';
-        // this.backendHostname = '95.163.212.121';
+        //this.backendHostname = '127.0.0.1';
+        this.backendHostname = 'depeche.su';
 
         this.backendPort = '8080';
-        this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+        //this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+        this._backendUrl = 'https://' + this.backendHostname;
+
+        this._staticUrl = 'https://' + this.backendHostname;
 
         this._apiUrl = {
             signIn: '/auth/sign-in',
@@ -33,6 +36,7 @@ class Ajax {
             dislikePost: '/api/posts/like/cancel',
 
             getFriends: '/api/user/friends',
+            isFriend: '/api/user/status',
             getNotFriends: '/api/user/rand',
             getUsers: '/api/user/all',
             getSub: '/api/user/sub',
@@ -58,8 +62,9 @@ class Ajax {
             getMsg: '/api/im/messages',
             sendMsg: '/api/im/send',
 
-            uploadImg: '/static/upload',
-            deleteImg: '/static/delete',
+            uploadImg: '/static-service/upload',
+            deleteImg: '/static-service/delete',
+            downloadImg: '/static-service/download',
 
             userSearch: '/api/user/search',
 
@@ -83,10 +88,11 @@ class Ajax {
      * @param {String} apiUrlType - url запроса
      * @param {String} requestType - тип запроса
      * @param {Object} body - тело запроса
+     * @param {Object} backendUrl - api  hostname
      * @returns {Object} - тело ответа
      */
-    _request(apiUrlType, requestType, body) {
-        const requestUrl = this._backendUrl + apiUrlType;
+    _request(apiUrlType, requestType, body, backendUrl=this._backendUrl) {
+        const requestUrl = backendUrl + apiUrlType;
 
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
@@ -233,13 +239,8 @@ class Ajax {
     }
 
     async createPost(data) {
-        let formData = new FormData();
-
-        Object.keys(data).forEach((key) => {
-            formData.append(key, data[key]);
-        });
-
-        return this._request(this._apiUrl.createPost, this._requestType.POST, formData);
+        let body = data;
+        return this._request(this._apiUrl.createPost, this._requestType.POST,  JSON.stringify({body}));
     }
 
     async editPost(text, post_id) {
@@ -258,6 +259,10 @@ class Ajax {
 
     async getFriends(link, count, offset = 0) {
         return this._request(this._apiUrl.getFriends + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async isFriend(link) {
+        return this._request(this._apiUrl.isFriend + `?link=${link}`, this._requestType.GET);
     }
 
     async getNotFriends(link, count, offset = 0) {
@@ -372,7 +377,7 @@ class Ajax {
         let formData = new FormData();
         formData.append("attachments", data);
 
-        return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData);
+        return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData, this._staticUrl);
     }
 
     async getGlobalSearchResult(searchText, count, offset) {
