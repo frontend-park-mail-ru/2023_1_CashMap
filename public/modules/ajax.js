@@ -21,6 +21,8 @@ class Ajax {
             this._backendStaticUrl = 'http://' + this.backendHostname + ':' + this.backendStaticPort;
         }
 
+        this._staticUrl = 'https://' + this.backendHostname;
+
         this._apiUrl = {
             signIn: '/auth/sign-in',
             signUp: '/auth/sign-up',
@@ -70,7 +72,15 @@ class Ajax {
             uploadImg: '/static-service/upload',
             deleteImg: '/static-service/delete',
 
-            userSearch: '/api/user/search'
+            downloadImg: '/static-service/download',
+
+            userSearch: '/api/user/search',
+
+            getComments: '/api/comment/post/',
+            getComment: '/api/comment/',
+            createComment: '/api/comment/create',
+            deleteComment: '/api/comment/delete/',
+            editComment: '/api/comment/edit'
         }
 
         this._requestType = {
@@ -86,6 +96,7 @@ class Ajax {
      * @param {String} apiUrlType - url запроса
      * @param {String} requestType - тип запроса
      * @param {Object} body - тело запроса
+     * @param {Object} backendUrl - api  hostname
      * @returns {Object} - тело ответа
      */
     _request(apiUrlType, requestType, body) {
@@ -379,7 +390,7 @@ class Ajax {
         let formData = new FormData();
         formData.append("attachments", data);
 
-        return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData);
+        return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData, this._staticUrl);
     }
 
     async getGlobalSearchResult(searchText, count, offset) {
@@ -421,6 +432,32 @@ class Ajax {
         } else {
             return  url.replace(`https://${this.backendHostname}/`, '')
         }
+    }
+
+    async getCommentsByPostId(postId, count, lastCommentDate) {
+        let lastCommentDateQuery = lastCommentDate !== undefined && lastCommentDate !== null ? `last_comment_date=${lastCommentDate}` : "";
+        let countQuery = count !== undefined && count !== null ? `batch_size=${count}` : "";
+        console.log(this._apiUrl.getComments + postId + `?${lastCommentDateQuery}&${countQuery}`)
+        return this._request(this._apiUrl.getComments + postId + `?${lastCommentDateQuery}&${countQuery}`, this._requestType.GET);
+    }
+
+    async getCommentById(id) {
+        return this._request(this._apiUrl.getComment + id, this._requestType.GET);
+    }
+
+    async createComment(postId, replyReceiver, text) {
+        const body = {post_id: postId, reply_to: replyReceiver, text: text};
+        console.log(JSON.stringify({body}));
+        return this._request(this._apiUrl.createComment, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async editComment(id, text) {
+        const body = {id: id,  text: text};
+        return this._request(this._apiUrl.editComment, this._requestType.PATCH, JSON.stringify({body}));
+    }
+
+    async deleteComment(id) {
+        return this._request(this._apiUrl.deleteComment + id, this._requestType.POST);
     }
 }
 
