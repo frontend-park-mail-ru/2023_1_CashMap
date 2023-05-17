@@ -202,7 +202,6 @@ class userStore {
                 profile.avatar_url = headerConst.avatarDefault;
             } else {
                 profile.avatar_url = Ajax.imgUrlConvert(profile.avatar_url);
-                console.log(profile.avatar_url)
             }
 
             if (!link || link === this.user.user_link) {

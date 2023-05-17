@@ -8,6 +8,8 @@ import BaseView from "./baseView.js";
 import { actionMessage } from "../actions/actionMessage.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
+import {actionImg} from "../actions/actionImg.js";
+import Ajax from "../modules/ajax.js";
 
 export default class ProfileView extends BaseView {
 	constructor() {
@@ -18,10 +20,6 @@ export default class ProfileView extends BaseView {
 		this._userLink = null;
 		this.isCreate = false;
 		this.isEdit = false;
-
-		//this.attachments = ['static/img/test_media_1.svg', 'static/img/test_media_2.svg'];
-		this.attachments = [];
-		this._reader = new FileReader();
 	}
 
 	addStore() {
@@ -55,6 +53,7 @@ export default class ProfileView extends BaseView {
 
 		this._addPhotoToPostPic = document.getElementById('js-add-photo-to-post-pic');
 		this._addPhotoToPost = document.getElementById('js-add-photo-to-post');
+		this._removeImg = document.getElementsByClassName('close-button');
 
 		this._dropContent = document.getElementById('js-drop-content');
 
@@ -173,6 +172,13 @@ export default class ProfileView extends BaseView {
 			});
 		}
 
+		if (this._addPhotoToPost) {
+			this._addPhotoToPost.addEventListener('click', () => {
+				this._createPosts.click();
+				this._addPhotoToPostPic.click();
+			});
+		}
+
 		if (this._editBtn) {
 			this._editBtn.addEventListener('click', () => {
 				actionPost.editPost(this._text.value, this.isEdit);
@@ -190,6 +196,7 @@ export default class ProfileView extends BaseView {
 		if (this._backBtn) {
 			this._backBtn.addEventListener('click', () => {
 				this.isCreate = this.isEdit = false;
+				postsStore.attachments = [];
 				super.render();
 			});
 		}
@@ -209,23 +216,53 @@ export default class ProfileView extends BaseView {
 		}
 
 		if (this._addPhotoToPostPic) {
-			this._addPhotoToPostPic.addEventListener('click', function () {
+			this._addPhotoToPostPic.addEventListener('click', ()=> {
+				if (postsStore.attachments.length >= 10) {
+					return;
+				}
+				postsStore.text = this._text.value;
 				const fileInput = document.createElement('input');
 				fileInput.type = 'file';
 
 				fileInput.addEventListener('change', function (event) {
 					const file = event.target.files[0];
 
-					console.log(file)
+					const reader = new FileReader();
+					reader.onload = function (e) {
+						actionImg.uploadImg(file, (newUrl) => {
+							let id = 1;
+							if (postsStore.attachments.length) {
+								id = postsStore.attachments[postsStore.attachments.length-1].id + 1;
+							}
+							postsStore.attachments.push({url: Ajax.imgUrlConvert(newUrl), id: id});
+							postsStore._refreshStore();
+						});
+					};
 
-					this._reader.readAsDataURL(file);
-					this._reader.addEventListener('load', (event) => {
-						this.attachments.push(event.target.result);
-						console.log(this.attachments);
-					});
+					reader.readAsDataURL(file);
 				});
 
 				fileInput.click();
+			});
+		}
+
+		for (let i = 0; i < this._removeImg.length; i++) {
+			this._removeImg[i].addEventListener('click', () => {
+				const imgId = this._removeImg[i].getAttribute("data-id");
+
+				let index = -1;
+				for (let i = 0; i < postsStore.attachments.length; i++) {
+					if (postsStore.attachments[i].id.toString() === imgId) {
+						index = i;
+						break;
+					}
+				}
+				if (index > -1) {
+					postsStore.attachments.splice(index, 1);
+				}
+
+				postsStore.text = this._text.value;
+				postsStore._refreshStore();
 			});
 		}
 	}
@@ -265,11 +302,12 @@ export default class ProfileView extends BaseView {
 					isEdit: this.isEdit,
 					avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
-					create: { avatar_url: userStore.user.avatar_url, attachments: this.attachments ,text: '', buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
+					create: { avatar_url: userStore.user.avatar_url, attachments: postsStore.attachments ,text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
 				},
 				postList: postsStore.posts
 			},
 		}
+		postsStore.text = '';
 
 		this._context.profileData.isMyFriend = friendsStore.isMyFriend;
 

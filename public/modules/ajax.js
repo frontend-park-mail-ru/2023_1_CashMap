@@ -414,6 +414,14 @@ class Ajax {
             return `https://${this.backendHostname}/${avatar_url}`;
         }
     }
+
+    imgUrlBackConvert(url) {
+        if (this.beckendStatus === 'local') {
+            return  url.replace(`http://${this.backendHostname}:${this.backendStaticPort}/`, '')
+        } else {
+            return  url.replace(`https://${this.backendHostname}/`, '')
+        }
+    }
 }
 
 export default new Ajax();

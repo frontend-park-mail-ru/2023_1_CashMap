@@ -19,6 +19,8 @@ class postsStore {
         this._callbacks = [];
 
         this.posts = [];
+        this.attachments = [];
+        this.text = '';
 
         this.curPost = null;
 
@@ -117,7 +119,11 @@ class postsStore {
                     }
                     post.avatar_url = userStore.userProfile.avatar_url;
 
-                    //post.attachments = ['static/img/test_media_1.svg']
+                    if (post.attachments) {
+                        for (let i = 0; i < post.attachments.length; i++) {
+                            post.attachments[i] = Ajax.imgUrlConvert(post.attachments[i]);
+                        }
+                    }
                     this.posts.push(post);
                 });
             }
@@ -169,6 +175,11 @@ class postsStore {
                     }
                     post.avatar_url = userStore.user.avatar_url;
 
+                    if (post.attachments) {
+                        for (let i = 0; i < post.attachments.length; i++) {
+                            post.attachments[i] = Ajax.imgUrlConvert(post.attachments[i]);
+                        }
+                    }
                     this.posts.push(post);
                 });
             }
@@ -193,6 +204,12 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
+            if (response.body.posts[0].attachments) {
+                for (let i = 0; i < response.body.posts[0].attachments.length; i++) {
+                    response.body.posts[0].attachments[i] = Ajax.imgUrlConvert(response.body.posts[0].attachments[i]);
+                    this.attachments.push({id: i+1, url: response.body.posts[0].attachments[i]});
+                }
+            }
             this.curPost = response.body.posts[0];
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -238,6 +255,11 @@ class postsStore {
                     post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                 }
                 post.avatar_url = userStore.user.avatar_url;
+                if (post.attachments) {
+                    for (let i = 0; i < post.attachments.length; i++) {
+                        post.attachments[i] = Ajax.imgUrlConvert(post.attachments[i]);
+                    }
+                }
             });
 
             this.posts = response.body.posts;
@@ -255,6 +277,11 @@ class postsStore {
      * @param {Date} data - данные для поста
      */
     async _createPost(data) {
+        data['attachments'] = [];
+        this.attachments.forEach((img) => {
+            data.attachments.push(Ajax.imgUrlBackConvert(img.url));
+        });
+        this.attachments = [];
         const request = await Ajax.createPost(data);
 
         if (request.status === 200) {
@@ -300,6 +327,11 @@ class postsStore {
             }
             post.avatar_url = userStore.user.avatar_url;
 
+            if (post.attachments) {
+                for (let i = 0; i < post.attachments.length; i++) {
+                    post.attachments[i] = Ajax.imgUrlConvert(post.attachments[i]);
+                }
+            }
             if (Router.currentPage._jsId !== 'feed') {
                 this.posts.unshift(post);
             }
@@ -345,6 +377,7 @@ class postsStore {
      * @param {Number} postId - id поста
      */
     async _editPost(text, postId) {
+        this.attachments = [];
         const request = await Ajax.editPost(text, postId);
 
         if (request.status === 200) {
