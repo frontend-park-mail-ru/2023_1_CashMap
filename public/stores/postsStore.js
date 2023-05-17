@@ -224,6 +224,8 @@ class postsStore {
             response.body.comments.forEach((comment) => {
                 if (comment.sender_info.avatar_url === null) {
                     comment.sender_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    comment.sender_info.avatar_url = Ajax.imgUrlConvert(comment.sender_info.avatar_url);
                 }
 
                 comment.raw_creation_date = comment.creation_date.replace("+", "%2B");

@@ -39,6 +39,8 @@ class WebSock {
             response.creation_date = new Date(response.creation_date).toLocaleDateString();
             if (!response.sender_info.avatar_url) {
                 response.sender_info.avatar_url = headerConst.avatarDefault;
+            } else {
+                response.sender_info.avatar_url = Ajax.imgUrlConvert(response.sender_info.avatar_url);
             }
 
             if (localStorage.getItem('chatId') === String(response.chat_id)) {
