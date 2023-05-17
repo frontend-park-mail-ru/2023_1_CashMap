@@ -45,6 +45,8 @@
 @import "components/notFound/notFound.css";
 @import "components/searchItem/searchItem.css";
 @import "components/searchDropdown/searchDropdown.css";
+@import "components/smiles/smiles.css";
+@import "components/stickers/stickers.css";
 
 @font-face {
     font-family: Limelight; /* Имя шрифта */

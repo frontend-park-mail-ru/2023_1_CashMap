@@ -24,13 +24,14 @@
             <textarea class="chat__footer-input border-radius font-InterMedium font-size-15 font-color-gray-text background-color-feed border-none" placeholder="Написать сообщение" id="js-msg-input">{{ curMsg }}</textarea>
 
             <div class="chat__footer-icon">
-                <input type="image" src="static/img/post_icons/photo.svg">
-                <input type="image" src="static/img/post_icons/photo_hover_msg.svg">
+                <input class="cursor-pointer" type="image" src="static/img/post_icons/photo.svg">
+                <input class="cursor-pointer" type="image" src="static/img/post_icons/photo_hover_msg.svg">
             </div>
 
-            <div class="chat__footer-icon">
-                <input type="image" src="static/img/post_icons/smile.svg">
-                <input type="image" src="static/img/post_icons/smile_hover_msg.svg">
+            <div class="chat__footer-icon chat__footer-icon_smiles">
+                <input class="cursor-pointer" type="image" src="static/img/post_icons/smile.svg">
+                <input class="cursor-pointer" type="image" src="static/img/post_icons/smile_hover_msg.svg">
+                {{> smiles}}
             </div>
         </div>
 
@@ -40,8 +41,8 @@
         </div>
 
         <div class="chat__footer-icon display-none" style="margin-top: 20px;" id="js-send-msg">
-            <input type="image" src="static/img/post_icons/send.svg">
-            <input type="image" src="static/img/post_icons/send_hover.svg">
+            <input class="cursor-pointer" type="image" src="static/img/post_icons/send.svg">
+            <input class="cursor-pointer" type="image" src="static/img/post_icons/send_hover.svg">
         </div>
     </div>
     <div class="chat__photos"></div>

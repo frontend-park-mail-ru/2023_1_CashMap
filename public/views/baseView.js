@@ -82,6 +82,8 @@ export default class BaseView {
         Handlebars.registerPartial('searchDropdown', Handlebars.templates.searchDropdown);
         Handlebars.registerPartial('searchItem', Handlebars.templates.searchItem);
         Handlebars.registerPartial('subscriber', Handlebars.templates.subscriber);
+        Handlebars.registerPartial('smiles', Handlebars.templates.smiles);
+        Handlebars.registerPartial('stickers', Handlebars.templates.stickers);
 
         Handlebars.registerHelper('combine', function(object1, object2) {
             return Object.assign({}, object1, object2);
