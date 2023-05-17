@@ -1,8 +1,9 @@
 .input-block-settings {
     display: grid;
-    grid-template: 28% 8% 70% 8% 28%/ 100%;
+    /*grid-template-rows: 10px 20px 10px;*/
+    /*grid-template-columns: 1fr;*/
     width: 100%;
-    height: var(--btn-input-height);
+    /*height: var(--btn-input-height);*/
 }
 .input-block-settings__field {
     outline:none;
@@ -12,6 +13,7 @@
 
     grid-row: 3;
     grid-column: 1;
+    height: 30px;
 }
 .input-block-settings__field[type='date'] {
     padding-top: 8px; 

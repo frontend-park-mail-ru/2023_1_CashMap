@@ -43,6 +43,8 @@ export default class GroupsView extends BaseView {
 		this._goToProfile = document.getElementsByClassName('js-go-to-profile');
 		this._goToGroup = document.getElementsByClassName('js-go-to-group');
 
+		this.newGroupWindow = document.getElementById("newGroup");
+
 		switch (window.location.pathname) {
 			case '/groups':
 				this._groupsBtn.style.color = activeColor;
@@ -122,8 +124,19 @@ export default class GroupsView extends BaseView {
 			Router.go('/groups', false);
 		})
 
+		this.newGroupWindow.addEventListener('click', () => {
+			let errField = document.getElementById(NewGroupConst.inputInfo.jsIdError);
+			errField.textContent = "";
+		}, true);
+
+
 		if (this._addGroupBtn !== null) {
 			this._addGroupBtn.addEventListener('click', () => {
+                if (this._titleField.value.trim() === "") {
+					let errField = document.getElementById(NewGroupConst.inputInfo.jsIdError);
+					errField.textContent = "Это поле не может быть пустым";
+					return
+                }
 				let privacy;
 				if (this._selectField.value == 'Открытая группа') {
 					privacy = 'open';
@@ -249,6 +262,7 @@ export default class GroupsView extends BaseView {
 			},
 			groupsPathData: groupsConst,
 			newGroupData: NewGroupConst,
+			NewGroupError: groupsStore.error,
 		}
 	}
 
