@@ -5,6 +5,7 @@ import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import groupsStore from "./groupsStore.js";
 import ProfileView from "../views/profileView.js";
+import Router from "../modules/router.js";
 
 /**
  * класс, хранящий информацию о постах
@@ -105,7 +106,7 @@ class postsStore {
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
                     } else {
-                        post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
+                        post.owner_info.avatar_url = Ajax.imgUrlConvert(post.owner_info.avatar_url);
                     }
                     if (!post.comments) {
                         post.comments_count = 0;
@@ -116,7 +117,7 @@ class postsStore {
                     }
                     post.avatar_url = userStore.userProfile.avatar_url;
 
-                    //post.attachments = ['static/img/test_media_1.svg', userStore.userProfile.avatar_url, userStore.userProfile.avatar_url, userStore.userProfile.avatar_url, userStore.userProfile.avatar_url, userStore.userProfile.avatar_url, userStore.userProfile.avatar_url, userStore.userProfile.avatar_url]
+                    //post.attachments = ['static/img/test_media_1.svg']
                     this.posts.push(post);
                 });
             }
@@ -153,13 +154,13 @@ class postsStore {
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
                     } else {
-                        post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
+                        post.owner_info.avatar_url = Ajax.imgUrlConvert(post.owner_info.avatar_url);
                     }
                     if (post.community_info) {
                         if (!post.community_info.avatar_url) {
                             post.community_info.avatar_url = headerConst.avatarDefault;
                         } else {
-                            post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.community_info.avatar_url }`;
+                            post.community_info.avatar_url = Ajax.imgUrlConvert(post.community_info.avatar_url);
                         }
                     }
                     if (post.creation_date) {
@@ -221,12 +222,12 @@ class postsStore {
                 if (!post.owner_info.avatar_url) {
                     post.owner_info.avatar_url = headerConst.avatarDefault;
                 } else {
-                    post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
+                    post.owner_info.avatar_url = Ajax.imgUrlConvert(post.owner_info.avatar_url);
                 }
                 if (!post.community_info.avatar_url) {
                     post.community_info.avatar_url = headerConst.avatarDefault;
                 } else {
-                    post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.community_info.avatar_url }`;
+                    post.community_info.avatar_url = Ajax.imgUrlConvert(post.community_info.avatar_url);
                 }
 
                 if (!post.comments) {
@@ -271,7 +272,7 @@ class postsStore {
                 if (!post.owner_info.avatar_url) {
                     post.owner_info.avatar_url = headerConst.avatarDefault;
                 } else {
-                    post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${post.owner_info.avatar_url}`;
+                    post.owner_info.avatar_url = Ajax.imgUrlConvert(post.owner_info.avatar_url);
                 }
             }
 
@@ -286,7 +287,7 @@ class postsStore {
                 if (!post.community_info.avatar_url) {
                     post.community_info.avatar_url = headerConst.avatarDefault;
                 } else {
-                    post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${post.community_info.avatar_url}`;
+                    post.community_info.avatar_url = Ajax.imgUrlConvert(post.community_info.avatar_url);
                 }
             }
 
@@ -299,7 +300,7 @@ class postsStore {
             }
             post.avatar_url = userStore.user.avatar_url;
 
-            if (ProfileView.curPage) {
+            if (Router.currentPage._jsId !== 'feed') {
                 this.posts.unshift(post);
             }
         } else if (request.status === 401) {

@@ -201,7 +201,8 @@ class userStore {
             if (!profile.avatar_url) {
                 profile.avatar_url = headerConst.avatarDefault;
             } else {
-                profile.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ profile.avatar_url }`;
+                profile.avatar_url = Ajax.imgUrlConvert(profile.avatar_url);
+                console.log(profile.avatar_url)
             }
 
             if (!link || link === this.user.user_link) {
@@ -256,7 +257,7 @@ class userStore {
         const request = await Ajax.editProfile(data.avatar_url, data.firstName, data.lastName, data.bio, data.birthday, data.status);
         if (request.status === 200) {
             if (data.avatar_url) {
-                this.user.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ data.avatar_url }`;
+                this.user.avatar_url = Ajax.imgUrlConvert(data.avatar_url);
             }
 
             this.user.firstName = data.firstName;
