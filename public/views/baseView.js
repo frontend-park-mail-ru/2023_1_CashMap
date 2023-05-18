@@ -23,6 +23,8 @@ export default class BaseView {
 
         this.curPage = false;
         this.timerId = null;
+
+        this.interval = null;
     }
 
     /**
@@ -336,6 +338,14 @@ export default class BaseView {
 
     interruptTimer() {
         window.clearTimeout(this.timerId);
+    }
+
+    startIntervalTask(time, callback) {
+        this.interval = window.setInterval(callback, time);
+    }
+
+    interruptIntervalTask() {
+        clearInterval(this.interval);
     }
 
     /**

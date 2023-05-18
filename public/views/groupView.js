@@ -13,6 +13,8 @@ export default class GroupView extends BaseView {
 		super();
 		this._jsId = 'group';
 		this._groupLink = null;
+
+		this._postsBatchSize = 15;
 	}
 
 	/**
@@ -58,6 +60,13 @@ export default class GroupView extends BaseView {
 				actionPost.deletePost(Number(postId));
 			});
 		}
+
+		window.addEventListener('scroll', () => {
+			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewPosts && postsStore.hasMorePosts) {
+				actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize, postsStore.groupsPosts.at(-1).raw_creation_date, true);
+				this.watingForNewPosts = true;
+			}
+		});
 
 		if (this._createPosts) {
 			this._createPosts.addEventListener('click', () => {
@@ -135,13 +144,15 @@ export default class GroupView extends BaseView {
 	showPage(search) {
 		if (search.link) {
 			this._groupLink = search.link;
-			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, 15); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
+			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
 		} else {
 			Router.go('/groups', false);
 		}
 	}
 
 	_preRender() {
+		this.watingForNewPosts = false;
+
 		this._template = Handlebars.templates.group;
 		let header = headerConst;
 		header['avatar_url'] = userStore.user.avatar_url;

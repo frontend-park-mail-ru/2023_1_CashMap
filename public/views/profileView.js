@@ -14,6 +14,8 @@ export default class ProfileView extends BaseView {
 		this._jsId = 'profile';
 		this.curPage = false;
 		this._userLink = null;
+
+		this._postsBatchSize = 15;
 	}
 
 	addStore() {
@@ -59,6 +61,14 @@ export default class ProfileView extends BaseView {
 				Router.go('/editPost', false);
 			});
 		}
+
+		window.addEventListener('scroll', () => {
+			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewPosts && postsStore.hasMorePosts) {
+				actionPost.getPostsByUser(this._userLink, this._postsBatchSize, postsStore.posts.at(-1).raw_creation_date, true);
+				this.watingForNewPosts = true;
+			}
+		});
+
 
 		for (let i = 0; i < this._deletePosts.length; i++) {
 			this._deletePosts[i].addEventListener('click', () => {
@@ -136,15 +146,17 @@ export default class ProfileView extends BaseView {
 	showPage(search) {
 		if (search.link) {
 			this._userLink = search.link;
-			actionUser.getProfile(() => { actionPost.getPostsByUser(this._userLink, 15); }, this._userLink);
+			actionUser.getProfile(() => { actionPost.getPostsByUser(this._userLink, this._postsBatchSize); }, this._userLink);
 		} else {
 			actionUser.getProfile(() => { this._userLink = userStore.user.user_link; Router.go('/user?link=' + userStore.user.user_link, true); });
 		}
-
-		actionUser.getProfile();
+		//
+		// actionUser.getProfile();
 	}
 
 	_preRender() {
+		this.watingForNewPosts = false;
+
 		this._template = Handlebars.templates.profile;
 		userStore.userProfile.isMyPage = true;
 		if (this._userLink === userStore.user.user_link || this._userLink == null) {

@@ -12,6 +12,8 @@ export default class FeedView extends BaseView {
 
 		this._jsId = 'feed';
 		this.curPage = false;
+
+		this._postBatchSize = 15;
 	}
 
 	addStore() {
@@ -21,6 +23,8 @@ export default class FeedView extends BaseView {
 
 	addPagesElements() {
 		super.addPagesElements();
+
+		this._feedPage = document.getElementById("feed");
 
 		this._newsItem.style.color = activeColor;
 
@@ -34,6 +38,15 @@ export default class FeedView extends BaseView {
 
 	addPagesListener() {
 		super.addPagesListener();
+
+		window.addEventListener('scroll', () => {
+			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewPosts && postsStore.hasMorePosts) {
+				actionPost.getFeedPosts(this._postBatchSize, postsStore.friendsPosts.at(-1).raw_creation_date, true)
+				this.watingForNewPosts = true;
+			}
+		});
+
+
 
 		for (let i = 0; i < this._editPosts.length; i++) {
 			this._editPosts[i].addEventListener('click', () => {
@@ -97,10 +110,12 @@ export default class FeedView extends BaseView {
 	}
 
 	showPage() {
-		actionUser.getProfile(() => { actionPost.getFriendsPosts(15); });
+		actionUser.getProfile(() => { actionPost.getFeedPosts(this._postBatchSize); });
 	}
 
 	_preRender() {
+		this.watingForNewPosts = false;
+
 		this._template = Handlebars.templates.feed;
 
 		let header = headerConst;

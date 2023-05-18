@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.backendHostname = '127.0.0.1';
-        this.backendHostname = '95.163.212.121';
+        this.backendHostname = '127.0.0.1';
+        // this.backendHostname = '95.163.212.121';
 
         this.backendPort = '8080';
         this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
@@ -227,13 +227,8 @@ class Ajax {
     }
 
     async createPost(data) {
-        let formData = new FormData();
-
-        Object.keys(data).forEach((key) => {
-            formData.append(key, data[key]);
-        });
-
-        return this._request(this._apiUrl.createPost, this._requestType.POST, formData);
+        let body = data;
+        return this._request(this._apiUrl.createPost, this._requestType.POST,  JSON.stringify({body}));
     }
 
     async editPost(text, post_id) {
@@ -342,7 +337,7 @@ class Ajax {
 
     async getChatsMsg(chatId, count, lastPostDate) {
         if (lastPostDate) {
-            return this._request(this._apiUrl.getMsg + `?chat_id=${chatId}&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
+            return this._request(this._apiUrl.getMsg + `?chat_id=${chatId}&batch_size=${count}&last_msg_date=${lastPostDate}`, this._requestType.GET);
         } else {
             return this._request(this._apiUrl.getMsg + `?chat_id=${chatId}&batch_size=${count}`, this._requestType.GET);
         }

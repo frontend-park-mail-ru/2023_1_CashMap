@@ -9,25 +9,29 @@ export const actionPost = {
      * @param {*} userLink - ссылка пользователя
      * @param {*} count - количество получаемых постов
      * @param {*} lastPostDate - дата, после которой выбираются посты
+     * @param isScroll
      */
-    getPostsByUser(userLink, count, lastPostDate) {
+    getPostsByUser(userLink, count, lastPostDate, isScroll) {
         Dispatcher.dispatch({
             actionName: 'getPosts',
             userLink,
             count,
             lastPostDate,
+            isScroll
         });
     },
     /**
      * action для получения списка постов друзей пользователя
      * @param {*} count - количество получаемых постов
      * @param {*} lastPostDate - дата, после которой выбираются посты
+     * @param isScroll
      */
-    getFriendsPosts(count, lastPostDate) {
+    getFeedPosts(count, lastPostDate, isScroll) {
         Dispatcher.dispatch({
-            actionName: 'getFriendsPosts',
+            actionName: 'getFeedPosts',
             count,
             lastPostDate,
+            isScroll,
         });
     },
     /**
@@ -49,13 +53,15 @@ export const actionPost = {
      * @param {*} community_link - ссылка на сообщество
      * @param {*} count - количество получаемых постов
      * @param {*} lastPostDate - дата, после которой выбираются посты
+     * @param isScroll
      */
-    getPostsByCommunity(community_link, count, lastPostDate) {
+    getPostsByCommunity(community_link, count, lastPostDate, isScroll) {
         Dispatcher.dispatch({
             actionName: 'getPostsByCommunity',
             community_link,
             count,
             lastPostDate,
+            isScroll
         });
     },
     /**
