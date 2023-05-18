@@ -1,13 +1,20 @@
-<div class="comments-area">
+<div class="comments-area font-MailSansRomanRegular">
     <div class="comments-list">
         {{#each comments }}
             {{> comment this }}
         {{/each}}
     </div>
+    {{#if has_next}}
+        <div class="show-more-block" data-post-id={{ id }}>
+        <span class="show-more-block__text">
+            Показать больше
+        </span>
+        </div>
+    {{/if}}
 
     <div class="create-comment">
         <img class="create-comment__avatar profile-img-size avatar-form" src={{ avatar_url }}>
-        <input class="create-comment__input border-radius-btn-input background-item-hovered border-none font-InterRegular font-size-15 font-color-gray-text" placeholder="Написать комментарий">
+        <input class="create-comment__input border-radius-btn-input background-item-hovered border-none font-size-15 font-color-gray-text" placeholder="Написать комментарий">
 
         <div class="hover-pic margin-auto" style="cursor: pointer;">
             <img class="margin-auto" src="static/img/post_icons/photo.svg">

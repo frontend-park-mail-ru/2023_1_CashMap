@@ -1,6 +1,6 @@
 .button-def {
     width: 100%;
-    height: 100%;
+    height: 32px;
     border: none;
     cursor: pointer;
 }
@@ -13,5 +13,4 @@
     display: inline-grid;
     justify-content: center;
     align-items: center;
-    padding: 8px;
 }

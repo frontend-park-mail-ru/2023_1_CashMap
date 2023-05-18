@@ -3,7 +3,7 @@ import Ajax from "../modules/ajax.js";
 import {headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import WebSock from "../modules/webSocket.js";
-import SettingsView from "../views/settingsView.js";
+import groupsStore from "./groupsStore.js";
 
 /**
  * класс, хранящий информацию о друзьях
@@ -155,6 +155,10 @@ class userStore {
         const request = await Ajax.signOut();
 
         this.user.isAuth = false;
+        this.editMsg = '';
+        this.editStatus = null;
+        groupsStore.editMsg = '';
+        groupsStore.editStatus = null;
 
         if (localStorage.getItem('X-Csrf-Token')) {
             localStorage.removeItem('X-Csrf-Token');
@@ -196,6 +200,8 @@ class userStore {
 
             if (!profile.avatar_url) {
                 profile.avatar_url = headerConst.avatarDefault;
+            } else {
+                profile.avatar_url = `https://${Ajax.backendHostname}/${ profile.avatar_url }`;
             }
 
             if (!link || link === this.user.user_link) {
@@ -250,7 +256,7 @@ class userStore {
         const request = await Ajax.editProfile(data.avatar_url, data.firstName, data.lastName, data.bio, data.birthday, data.status);
         if (request.status === 200) {
             if (data.avatar_url) {
-                this.user.avatar_url = data.avatar_url;
+                this.user.avatar_url = `https://${Ajax.backendHostname}/${ data.avatar_url }`;
             }
 
             this.user.firstName = data.firstName;

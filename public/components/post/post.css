@@ -32,6 +32,7 @@
 .post-text {
     white-space: pre-line;
     overflow: auto;
+    word-wrap: break-word;
 }
 .post-media {
 
@@ -67,7 +68,6 @@
     padding: 12px;
 
     display: none;
-    grid-template-rows: 1fr 1fr;
 }
 .post-profile__dots:hover + .post-menu {
     display: grid;
