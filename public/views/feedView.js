@@ -101,11 +101,6 @@ export default class FeedView extends BaseView {
 			});
 		}
 
-		this._createPosts.addEventListener('click', () => {
-			localStorage.removeItem('groupLink');
-			Router.go('/createPost', false);
-		});
-
 		for (let i = 0; i < this._commentsButtons.length; i++) {
 			this._commentsButtons[i].addEventListener('click', () => {
 				if (postsStore.comments.get(postsStore.posts[i].id) === undefined || postsStore.comments.get(postsStore.posts[i].id).length === 0) {
@@ -391,7 +386,7 @@ export default class FeedView extends BaseView {
 					isEdit: this.isEdit,
 					avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
-					create: { avatar_url: userStore.user.avatar_url, text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
+					create: { avatar_url: userStore.user.avatar_url, attachments: postsStore.attachments, text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
 				},
 				postList: postsStore.posts
 			},
