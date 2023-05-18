@@ -95,11 +95,11 @@ class postsStore {
 
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
-                    post.canDelite = post.canEdit = false;
+                    post.canDelete = post.canEdit = false;
                     if (post.author_link === userStore.user.user_link) {
-                        post.canDelite = post.canEdit = true;
+                        post.canDelete = post.canEdit = true;
                     } else if (post.owner_info.user_link === userStore.user.user_link) {
-                        post.canDelite = true;
+                        post.canDelete = true;
                     }
 
                     if (!post.owner_info.avatar_url) {
@@ -142,11 +142,11 @@ class postsStore {
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
 
-                    post.canDelite = post.canEdit = false;
+                    post.canDelete = post.canEdit = false;
                     if (post.author_link === userStore.user.user_link) {
-                        post.canDelite = post.canEdit = true;
+                        post.canDelete = post.canEdit = true;
                     } else if (post.owner_info.user_link === userStore.user.user_link) {
-                        post.canDelite = true;
+                        post.canDelete = true;
                     }
 
                     if (!post.owner_info.avatar_url) {
@@ -210,10 +210,10 @@ class postsStore {
             console.log(response.body)
             response.body.posts.forEach((post) => {
 
-                post.canDelite = post.canEdit = false;
+                post.canDelete = post.canEdit = false;
                 groupsStore.curGroup.management.forEach((user) => {
                     if (user.link === userStore.user.user_link) {
-                        post.canDelite = post.canEdit = true;
+                        post.canDelete = post.canEdit = true;
                     }
                 });
 
@@ -260,11 +260,11 @@ class postsStore {
             const post = response.body.posts[0];
 
             if (post.owner_info) {
-                post.canDelite = post.canEdit = false;
+                post.canDelete = post.canEdit = false;
                 if (post.author_link === userStore.user.user_link) {
-                    post.canDelite = post.canEdit = true;
+                    post.canDelete = post.canEdit = true;
                 } else if (post.owner_info.user_link === userStore.user.user_link) {
-                    post.canDelite = true;
+                    post.canDelete = true;
                 }
 
                 if (!post.owner_info.avatar_url) {
@@ -275,10 +275,10 @@ class postsStore {
             }
 
             if (post.community_info) {
-                post.canDelite = post.canEdit = false;
+                post.canDelete = post.canEdit = false;
                 groupsStore.curGroup.management.forEach((user) => {
                     if (user.link === userStore.user.user_link) {
-                        post.canDelite = post.canEdit = true;
+                        post.canDelete = post.canEdit = true;
                     }
                 });
 

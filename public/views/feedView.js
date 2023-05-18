@@ -56,26 +56,26 @@ export default class FeedView extends BaseView {
 			textarea[0].addEventListener("input", OnInput, false);
 		}
 
-		for (let i = 0; i < this._deletePosts.length; i++) {
-			this._deletePosts[i].addEventListener('click', () => {
-				const postId = this._deletePosts[i].getAttribute("data-id");
+		Array.from(this._deletePosts).forEach((post) => {
+			post.addEventListener('click', () => {
+				const postId = post.getAttribute("data-id");
 				actionPost.deletePost(Number(postId));
 			});
-		}
+		});
 
-		for (let i = 0; i < this._likePosts.length; i++) {
-				this._likePosts[i].addEventListener('click', () => {
-						const postId = this._likePosts[i].getAttribute("data-id");
-						actionPost.likePost(Number(postId));
-				});
-		}
-
-		for (let i = 0; i < this._dislikePosts.length; i++) {
-			this._dislikePosts[i].addEventListener('click', () => {
-					const postId = this._dislikePosts[i].getAttribute("data-id");
-					actionPost.dislikePost(Number(postId));
+		Array.from(this._likePosts).forEach((post) => {
+			post.addEventListener('click', () => {
+				const postId = post.getAttribute("data-id");
+				actionPost.likePost(Number(postId));
 			});
-		}
+		});
+
+		Array.from(this._dislikePosts).forEach((post) => {
+			post.addEventListener('click', () => {
+				const postId = post.getAttribute("data-id");
+				actionPost.dislikePost(Number(postId));
+			});
+		});
 
 		for (let i = 0; i < this._posts.length; i++) {
 			const text = this._posts[i].textContent
@@ -103,13 +103,13 @@ export default class FeedView extends BaseView {
 			}
 		}
 
-		for (let i = 0; i < this._editPosts.length; i++) {
-			this._editPosts[i].addEventListener('click', () => {
-				this.isEdit = this._editPosts[i].getAttribute("data-id");
+		Array.from(this._editPosts).forEach((post) => {
+			post.addEventListener('click', () => {
+				this.isEdit = post.getAttribute("data-id");
 				this.isCreate = false;
 				actionPost.getPostsById(this.isEdit, 1);
 			});
-		}
+		});
 
 		if (this._createPosts) {
 			this._createPosts.addEventListener('click', () => {
@@ -144,9 +144,6 @@ export default class FeedView extends BaseView {
 
 	showPage() {
 		actionUser.getProfile(() => { actionPost.getFriendsPosts(15); });
-		/*if (localStorage.getItem('groupLink')) {
-			actionGroups.getGroupInfo(null, localStorage.getItem('groupLink'));
-		}*/
 	}
 
 	_preRender() {
