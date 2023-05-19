@@ -12,7 +12,6 @@ export const actionSticker = {
         Dispatcher.dispatch({
             actionName: 'getStickerPack',
             packId,
-            callback,
         });
     },
     /**
