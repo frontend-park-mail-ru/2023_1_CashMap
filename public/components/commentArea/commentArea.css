@@ -1,6 +1,6 @@
 .comments-area {
     display: grid;
-    grid-gap: 16px;
+    grid-gap: 10px;
 }
 .comments-list {
     display: grid;
@@ -15,4 +15,13 @@
     outline:none;
     grid-column: 3;
     padding: 0px 10px;
+}
+
+.show-more-block__text {
+    color: var(--font-color-show-more);
+    cursor: pointer;
+}
+
+.show-more-block {
+    margin: auto;
 }

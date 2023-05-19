@@ -7,11 +7,21 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.backendHostname = '127.0.0.1';
-        this.backendHostname = '95.163.212.121';
+        //this.beckendStatus = 'local';
+        this.beckendStatus = 'global';
 
-        this.backendPort = '8080';
-        this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+        if (this.beckendStatus === 'global') {
+            this.backendHostname = 'depeche.su';
+            this._backendUrl = 'https://' + this.backendHostname;
+        } else {
+            this.backendHostname = '127.0.0.1';
+            this.backendPort = '8080';
+            this.backendStaticPort = '8082';
+            this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
+            this._backendStaticUrl = 'http://' + this.backendHostname + ':' + this.backendStaticPort;
+        }
+
+        this._staticUrl = 'https://' + this.backendHostname;
 
         this._apiUrl = {
             signIn: '/auth/sign-in',
@@ -33,6 +43,7 @@ class Ajax {
             dislikePost: '/api/posts/like/cancel',
 
             getFriends: '/api/user/friends',
+            isFriend: '/api/user/status',
             getNotFriends: '/api/user/rand',
             getUsers: '/api/user/all',
             getSub: '/api/user/sub',
@@ -58,10 +69,18 @@ class Ajax {
             getMsg: '/api/im/messages',
             sendMsg: '/api/im/send',
 
-            uploadImg: '/static/upload',
-            deleteImg: '/static/delete',
+            uploadImg: '/static-service/upload',
+            deleteImg: '/static-service/delete',
 
-            userSearch: '/api/user/search'
+            downloadImg: '/static-service/download',
+
+            userSearch: '/api/user/search',
+
+            getComments: '/api/comment/post/',
+            getComment: '/api/comment/',
+            createComment: '/api/comment/create',
+            deleteComment: '/api/comment/delete/',
+            editComment: '/api/comment/edit'
         }
 
         this._requestType = {
@@ -77,10 +96,16 @@ class Ajax {
      * @param {String} apiUrlType - url запроса
      * @param {String} requestType - тип запроса
      * @param {Object} body - тело запроса
+     * @param {Object} backendUrl - api  hostname
      * @returns {Object} - тело ответа
      */
     _request(apiUrlType, requestType, body) {
-        const requestUrl = this._backendUrl + apiUrlType;
+        let requestUrl = null;
+        if (this.beckendStatus === 'local' && apiUrlType === this._apiUrl.uploadImg) {
+            requestUrl = this._backendStaticUrl + apiUrlType;
+        } else {
+            requestUrl = this._backendUrl + apiUrlType;
+        }
 
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
@@ -227,13 +252,8 @@ class Ajax {
     }
 
     async createPost(data) {
-        let formData = new FormData();
-
-        Object.keys(data).forEach((key) => {
-            formData.append(key, data[key]);
-        });
-
-        return this._request(this._apiUrl.createPost, this._requestType.POST, formData);
+        let body = data;
+        return this._request(this._apiUrl.createPost, this._requestType.POST,  JSON.stringify({body}));
     }
 
     async editPost(text, post_id) {
@@ -252,6 +272,10 @@ class Ajax {
 
     async getFriends(link, count, offset = 0) {
         return this._request(this._apiUrl.getFriends + `?link=${link}&limit=${count}&offset=${offset}`, this._requestType.GET);
+    }
+
+    async isFriend(link) {
+        return this._request(this._apiUrl.isFriend + `?link=${link}`, this._requestType.GET);
     }
 
     async getNotFriends(link, count, offset = 0) {
@@ -366,7 +390,7 @@ class Ajax {
         let formData = new FormData();
         formData.append("attachments", data);
 
-        return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData);
+        return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData, this._staticUrl);
     }
 
     async getGlobalSearchResult(searchText, count, offset) {
@@ -392,6 +416,48 @@ class Ajax {
     async dislikePost(id) {
         const body = {post_id: id};
         return this._request(this._apiUrl.dislikePost, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    imgUrlConvert(avatar_url) {
+        if (this.beckendStatus === 'local') {
+            return `http://${this.backendHostname}:${this.backendStaticPort}/${ avatar_url }`;
+        } else {
+            return `https://${this.backendHostname}/${avatar_url}`;
+        }
+    }
+
+    imgUrlBackConvert(url) {
+        if (this.beckendStatus === 'local') {
+            return  url.replace(`http://${this.backendHostname}:${this.backendStaticPort}/`, '')
+        } else {
+            return  url.replace(`https://${this.backendHostname}/`, '')
+        }
+    }
+
+    async getCommentsByPostId(postId, count, lastCommentDate) {
+        let lastCommentDateQuery = lastCommentDate !== undefined && lastCommentDate !== null ? `last_comment_date=${lastCommentDate}` : "";
+        let countQuery = count !== undefined && count !== null ? `batch_size=${count}` : "";
+        console.log(this._apiUrl.getComments + postId + `?${lastCommentDateQuery}&${countQuery}`)
+        return this._request(this._apiUrl.getComments + postId + `?${lastCommentDateQuery}&${countQuery}`, this._requestType.GET);
+    }
+
+    async getCommentById(id) {
+        return this._request(this._apiUrl.getComment + id, this._requestType.GET);
+    }
+
+    async createComment(postId, replyReceiver, text) {
+        const body = {post_id: postId, reply_to: replyReceiver, text: text};
+        console.log(JSON.stringify({body}));
+        return this._request(this._apiUrl.createComment, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    async editComment(id, text) {
+        const body = {id: id,  text: text};
+        return this._request(this._apiUrl.editComment, this._requestType.PATCH, JSON.stringify({body}));
+    }
+
+    async deleteComment(id) {
+        return this._request(this._apiUrl.deleteComment + id, this._requestType.POST);
     }
 }
 

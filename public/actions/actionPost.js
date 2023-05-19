@@ -136,4 +136,44 @@ export const actionPost = {
             postId,
         });
     },
+
+    getComments(postID, count, lastCommentDate) {
+        Dispatcher.dispatch({
+            actionName: 'getComments',
+            postID,
+            count,
+            lastCommentDate
+        });
+    },
+
+    getComment(id) {
+        Dispatcher.dispatch({
+            actionName: 'getComment',
+            id,
+        });
+    },
+
+    createComment(postID, text, replyTo) {
+        Dispatcher.dispatch({
+            actionName: 'createComment',
+            postID,
+            text,
+            replyTo
+        });
+    },
+
+    deleteComment(id) {
+        Dispatcher.dispatch({
+            actionName: 'deleteComment',
+            id
+        });
+    },
+
+    editComment(id, text) {
+        Dispatcher.dispatch({
+            actionName: 'editComment',
+            id,
+            text
+        });
+    }
 };

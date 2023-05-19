@@ -13,8 +13,13 @@ class WebSock {
      * конструктор метода
      */
     constructor() {
+        if (Ajax.beckendStatus === 'local') {
+            this._url = 'ws://' + Ajax.backendHostname + ':' + Ajax.backendPort + '/api/ws';
+        } else {
+            this._url = 'wss://' + Ajax.backendHostname + '/api/ws';
+        }
+
         this._socket = null;
-        this._url = 'ws://' + Ajax.backendHostname + ':' + Ajax.backendPort + '/api/ws';
     }
 
     /**
@@ -27,7 +32,6 @@ class WebSock {
 
         if (!this._socket && userStore.user.isAuth) {
             this._socket = new WebSocket(this._url);
-            //this._socket = new WebSocket("ws://95.163.212.121:8080/api/ws");
         }
 
         this._socket.onmessage = function(event) {

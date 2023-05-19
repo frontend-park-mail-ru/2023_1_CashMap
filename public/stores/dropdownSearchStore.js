@@ -73,6 +73,8 @@ class DropdownSearchStore {
             this.userSearchItems.forEach((user) => {
                 if (!user.avatar_url) {
                     user.avatar_url = headerConst.avatarDefault;
+                } else {
+                    user.avatar_url = Ajax.imgUrlConvert(user.avatar_url);
                 }
                 if (!user.isFriend && !user.isSubscriber && !user.isSubscribed) {
                     user.isUser = true;
@@ -82,6 +84,8 @@ class DropdownSearchStore {
             this.communitySearchItems.forEach((community) => {
                 if (!community.avatar_url) {
                     community.avatar_url = headerConst.avatarDefault;
+                } else {
+                    community.avatar_url = Ajax.imgUrlConvert(community.avatar_url);
                 }
 
                 community.isCommunity = true;
