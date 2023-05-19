@@ -1,10 +1,11 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import { sideBarConst, headerConst, activeColor } from "../static/htmlConst.js";
+import { sideBarConst, headerConst, activeColor, emotionKeyboard} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";
 import BaseView from "./baseView.js";
+import stickerStore from "../stores/stickerStore.js";
 
 export default class ChatView extends BaseView {
 	constructor() {
@@ -37,6 +38,8 @@ export default class ChatView extends BaseView {
 		this._stickersFrame = document.getElementsByClassName('stickers');
 		this._stickersImg = document.getElementById('js-stickers');
 		this._stickersImgActive = document.getElementById('js-stickers-active');
+		this._emotionBtn = document.getElementById('js-chat-smiles');
+		this._emotionKeyboard = document.getElementById('js-smiles-keyboard');
 
 		this._smilesImg.style.display='none';
 		this._smilesImgActive.style.display='block';
@@ -101,6 +104,7 @@ export default class ChatView extends BaseView {
 				this._smilesImgActive.style.display='block';
 				this._stickersImg.style.display='block';
 				this._stickersImgActive.style.display='none';
+				this._msg.focus();
 			});
 		}
 
@@ -116,8 +120,18 @@ export default class ChatView extends BaseView {
 				this._stickersImgActive.style.display='block';
 				this._smilesImg.style.display='block';
 				this._smilesImgActive.style.display='none';
+				this._msg.focus();
 			});
 		}
+
+		this._emotionBtn.addEventListener('click', () => {
+			if (this._emotionKeyboard.style.display === 'block') {
+				this._emotionKeyboard.style.display = 'none';
+			} else {
+				this._emotionKeyboard.style.display = 'block';
+			}
+			this._msg.focus();
+		});
 
 		for (let i = 0; i < this._smiles.length; i++) {
 			this._smiles[i].addEventListener('click', () => {
@@ -163,7 +177,7 @@ export default class ChatView extends BaseView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg')},
+			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg'), keyboardData: emotionKeyboard},
 		}
 	}
 }
