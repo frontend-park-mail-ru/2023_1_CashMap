@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        this.beckendStatus = 'local';
-        //this.beckendStatus = 'global';
+        //this.beckendStatus = 'local';
+        this.beckendStatus = 'global';
 
         if (this.beckendStatus === 'global') {
             this.backendHostname = 'depeche.su';
@@ -379,8 +379,14 @@ class Ajax {
         return this._request(this._apiUrl.chatCheck + `?user_link=${link}`, this._requestType.GET);
     }
 
-    async msgSend(id, text) {
-        const body = {chat_id: Number(id), text_content: text};
+    async msgSend(id, text, stickerId) {
+        let body;
+        if (stickerId) {
+            body = {chat_id: Number(id), text_content: text, message_content_type: 'sticker', sticker_id: stickerId};
+        } else {
+            body = {chat_id: Number(id), text_content: text};
+        }
+        console.log(body)
         return this._request(this._apiUrl.sendMsg, this._requestType.POST, JSON.stringify({body}));
     }
 
@@ -434,6 +440,14 @@ class Ajax {
             return  url.replace(`http://${this.backendHostname}:${this.backendStaticPort}/`, '')
         } else {
             return  url.replace(`https://${this.backendHostname}/`, '')
+        }
+    }
+
+    stickerUrlConvert(url_name) {
+        if (this.beckendStatus === 'local') {
+            return `http://${this.backendHostname}:${this.backendStaticPort}/static-service/download?name=${url_name}&type=sticker`;
+        } else {
+            return `https://${this.backendHostname}/static-service/download?name=${url_name}&type=sticker`;
         }
     }
 

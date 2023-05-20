@@ -56,7 +56,7 @@ class messagesStore {
                 await this._chatCheck(action.userLink, action.callback);
                 break;
             case 'msgSend':
-                await this._msgSend(action.chatId, action.text);
+                await this._msgSend(action.chatId, action.text, action.stickerId);
                 break;
             case 'chatCreate':
                 await this._chatCreate(action.userLinks, action.callback);
@@ -173,8 +173,8 @@ class messagesStore {
      * @param {Number} chatId - id чата
      * @param {String} text - текст сообщения
      */
-    async _msgSend(chatId, text) {
-        const request = await Ajax.msgSend(chatId, text);
+    async _msgSend(chatId, text, stickerId) {
+        const request = await Ajax.msgSend(chatId, text, stickerId);
 
         if (request.status === 401) {
             actionUser.signOut();

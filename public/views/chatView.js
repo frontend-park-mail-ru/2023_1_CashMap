@@ -1,12 +1,12 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import { sideBarConst, headerConst, activeColor } from "../static/htmlConst.js";
+import { sideBarConst, headerConst, activeColor, emotionKeyboard} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import {actionSticker} from "../actions/actionSticker.js";
 import messagesStore from "../stores/messagesStore.js";
-import stickerStore from "../stores/stickerStore.js";
 import BaseView from "./baseView.js";
+import stickerStore from "../stores/stickerStore.js";
 
 export default class ChatView extends BaseView {
 	constructor() {
@@ -21,7 +21,6 @@ export default class ChatView extends BaseView {
 	addStore() {
 		messagesStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
-		stickerStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -32,6 +31,7 @@ export default class ChatView extends BaseView {
 		this._sendMsgBlock = document.getElementById('js-send-msg-block');
 		this._msg = document.getElementById('js-msg-input');
 		this._smiles = document.getElementsByClassName('js-smile');
+		this._stickers = document.getElementsByClassName('js-sticker');
 		this._smilesBtn = document.getElementsByClassName('smiles-keyboard-icon_smiles');
 		this._smilesFrame = document.getElementsByClassName('smiles');
 		this._smilesImg = document.getElementById('js-smiles');
@@ -40,6 +40,8 @@ export default class ChatView extends BaseView {
 		this._stickersFrame = document.getElementsByClassName('stickers');
 		this._stickersImg = document.getElementById('js-stickers');
 		this._stickersImgActive = document.getElementById('js-stickers-active');
+		this._emotionBtn = document.getElementById('js-chat-smiles');
+		this._emotionKeyboard = document.getElementById('js-smiles-keyboard');
 
 		this._smilesImg.style.display='none';
 		this._smilesImgActive.style.display='block';
@@ -104,6 +106,7 @@ export default class ChatView extends BaseView {
 				this._smilesImgActive.style.display='block';
 				this._stickersImg.style.display='block';
 				this._stickersImgActive.style.display='none';
+				this._msg.focus();
 			});
 		}
 
@@ -119,8 +122,18 @@ export default class ChatView extends BaseView {
 				this._stickersImgActive.style.display='block';
 				this._smilesImg.style.display='block';
 				this._smilesImgActive.style.display='none';
+				this._msg.focus();
 			});
 		}
+
+		this._emotionBtn.addEventListener('click', () => {
+			if (this._emotionKeyboard.style.display === 'block') {
+				this._emotionKeyboard.style.display = 'none';
+			} else {
+				this._emotionKeyboard.style.display = 'block';
+			}
+			this._msg.focus();
+		});
 
 		for (let i = 0; i < this._smiles.length; i++) {
 			this._smiles[i].addEventListener('click', () => {
@@ -128,6 +141,13 @@ export default class ChatView extends BaseView {
 				this._msg.value += smile;
 				this._msg.focus();
 				this._msg.dispatchEvent(new Event('input'));
+			});
+		}
+
+		for (let i = 0; i < this._stickers.length; i++) {
+			this._stickers[i].addEventListener('click', () => {
+				localStorage.setItem('curMsg', '')
+				actionMessage.msgSend(localStorage.getItem('chatId'), '', parseInt(this._stickers[i].getAttribute("data-id")));
 			});
 		}
 	}
@@ -159,11 +179,6 @@ export default class ChatView extends BaseView {
 			}
 
 		}
-		// console.log(stickerStore.stickerPacks);
-
-		stickerStore.stickerPacks.forEach((stickerPack) => {
-			console.log(stickerPack)
-		});
 
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
@@ -172,7 +187,7 @@ export default class ChatView extends BaseView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg')},
+			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg'), keyboardData: {smiles: emotionKeyboard, stickerpacks: {stickerpacks :stickerStore.stickerPacks}}},
 		}
 	}
 }
