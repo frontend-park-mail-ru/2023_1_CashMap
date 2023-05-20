@@ -45,9 +45,7 @@ class stickerStore {
         const response = await request.json();
 
         if (request.status === 200) {
-            console.log(response.body);
-            console.log(response.body.stickerPack);
-            this.stickerPack = response.body.stickerPack;
+            this.stickerPack = response.body;
         } else {
             alert('getStickerPackInfo error');
         }
@@ -58,9 +56,12 @@ class stickerStore {
         const response = await request.json();
 
         if (request.status === 200) {
-            console.log(response.body);
-            console.log(response.body.stickerPacks);
-            this.stickerPacks = response.body.stickerPacks;
+            this.stickerPacks = response.body.stickerpacks;
+            this.stickerPacks.forEach((stickerpack) => {
+                stickerpack.stickers.forEach((sticker) => {
+                    sticker.url = Ajax.stickerUrlConvert(sticker.url);
+                });
+            });
         } else {
             alert('getStickerPackInfo error');
         }

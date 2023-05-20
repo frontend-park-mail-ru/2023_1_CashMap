@@ -1,12 +1,19 @@
 <div class="stickers">
-    <div class="block-name">Стикеры</div>
-    <div class="stickers-block">
-        {{#if stickers}}
-            {{#each stickers as |sticker|}}
-                <img src="{{sticker.src}}" class="stickers-block__sticker" data-sticker_id="{{sticker.id}}">
-            {{/each}}
-        {{else}}
-            <div class="stickers__info font-size-15">Стикеров пока нет</div>
-        {{/if}}
-    </div>
+    {{#if stickerpacks}}
+        {{#each stickerpacks as |stickerpack|}}
+            <div class="block-name">{{stickerpack.title}}</div>
+            <div class="stickers-block">
+                {{#if stickerpack.stickers}}
+                    {{#each stickerpack.stickers as |sticker|}}
+                        <img src="{{sticker.url}}" class="stickers-block__sticker js-sticker" data-id="{{sticker.id}}">
+                    {{/each}}
+                {{else}}
+                    <div class="stickers__info font-size-15">Стикеров пока нет</div>
+                {{/if}}
+            </div>
+        {{/each}}
+    {{else}}
+        <div class="block-name">Стикеры</div>
+        <div class="stickers__info font-size-15">q пока нет</div>
+    {{/if}}
 </div>

@@ -3,7 +3,11 @@
         <img src="{{ sender_info.avatar_url }}" class="chatItem__img avatar-form cursor-pointer js-go-to-profile" data-id="{{ sender_info.user_link }}">
         <div class="chatItem__info-text">
             <div class="chatItem__text chatItem__text_little  cursor-pointer js-go-to-profile" data-id="{{ sender_info.user_link }}">{{ sender_info.first_name }}</div>
-            <div class="chatItem__text">{{ text_content }}</div>
+            {{#if sticker}}
+                <img src="{{sticker.url}}" class="stickers-block__sticker">
+            {{else}}
+                <div class="chatItem__text chatItem__text_main">{{ text_content }}</div>
+            {{/if}}
         </div>
     </div>
     <div class="chatItem__text chatItem__text_little">{{ creation_date }}</div>
