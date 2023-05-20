@@ -3,7 +3,9 @@ import Router from "../modules/router.js";
 import { sideBarConst, headerConst, activeColor } from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
+import {actionSticker} from "../actions/actionSticker.js";
 import messagesStore from "../stores/messagesStore.js";
+import stickerStore from "../stores/stickerStore.js";
 import BaseView from "./baseView.js";
 
 export default class ChatView extends BaseView {
@@ -19,6 +21,7 @@ export default class ChatView extends BaseView {
 	addStore() {
 		messagesStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
+		stickerStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -133,6 +136,7 @@ export default class ChatView extends BaseView {
 		const chatId = localStorage.getItem('chatId');
 		if (chatId) {
 			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,50); actionMessage.getChats(15); });
+			actionSticker.getStickerPacksByAuthor(15, 0);
 		} else {
 			Router.goBack();
 		}
@@ -155,6 +159,11 @@ export default class ChatView extends BaseView {
 			}
 
 		}
+		// console.log(stickerStore.stickerPacks);
+
+		stickerStore.stickerPacks.forEach((stickerPack) => {
+			console.log(stickerPack)
+		});
 
 		this._template = Handlebars.templates.chatPage;
 		let header = headerConst;
