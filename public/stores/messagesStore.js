@@ -131,6 +131,10 @@ class messagesStore {
                 } else {
                     message.sender_info.avatar_url = Ajax.imgUrlConvert(message.sender_info.avatar_url);
                 }
+
+                if (message.sticker) {
+                    message.sticker.url = Ajax.stickerUrlConvert(message.sticker.url);
+                }
                 message.creation_date = new Date(message.creation_date).toLocaleDateString();
             });
 
