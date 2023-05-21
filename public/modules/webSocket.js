@@ -43,6 +43,10 @@ class WebSock {
                 response.sender_info.avatar_url = Ajax.imgUrlConvert(response.sender_info.avatar_url);
             }
 
+            if (response.sticker) {
+                response.sticker.url = Ajax.stickerUrlConvert(response.sticker.url);
+            }
+
             if (localStorage.getItem('chatId') === String(response.chat_id)) {
                 messagesStore.messages.push(response);
                 localStorage.setItem('curMsg', document.getElementById('js-msg-input').value);
