@@ -108,13 +108,6 @@
     display: inline-block;
 }
 
-
-.chat__footer-icon_smiles:hover .smiles-keyboard {
-    display: block;
-    bottom: 70px;
-    right: 17%;
-}
-
 .chat__photos {
     height: min-content;
 }

@@ -1,6 +1,8 @@
 .smiles-keyboard {
     display: none;
     position: absolute;
+    bottom: 70px;
+    right: 17%;
 
     width: 300px;
     height: 200px;
@@ -49,7 +51,7 @@
     cursor: pointer;
 }
 
-.smiles-keyboard-icon input:nth-child(3) {
+.smiles-keyboard-icon input:nth-child(2) {
     display: none;
 
 }
