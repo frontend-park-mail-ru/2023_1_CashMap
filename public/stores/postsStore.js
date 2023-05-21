@@ -3,6 +3,8 @@ import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
+import groupsStore from "./groupsStore.js";
+import ProfileView from "../views/profileView.js";
 
 /**
  * класс, хранящий информацию о постах
@@ -16,8 +18,7 @@ class postsStore {
         this._callbacks = [];
 
         this.posts = [];
-        this.friendsPosts = [];
-        this.groupsPosts = [];
+
         this.curPost = null;
 
         Dispatcher.register(this._fromDispatch.bind(this));
@@ -94,14 +95,17 @@ class postsStore {
 
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
-                    if (userLink === userStore.user.user_link) {
-                        post.isMyPost = true;
-                    } else {
-                        post.isMyPost = false;
+                    post.canDelete = post.canEdit = false;
+                    if (post.author_link === userStore.user.user_link) {
+                        post.canDelete = post.canEdit = true;
+                    } else if (post.owner_info.user_link === userStore.user.user_link) {
+                        post.canDelete = true;
                     }
 
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
                     }
                     if (!post.comments) {
                         post.comments_count = 0;
@@ -137,13 +141,24 @@ class postsStore {
             const response = await request.json();
             if (response.body.posts) {
                 response.body.posts.forEach((post) => {
-                    post.isMyPost = false;
+
+                    post.canDelete = post.canEdit = false;
+                    if (post.author_link === userStore.user.user_link) {
+                        post.canDelete = post.canEdit = true;
+                    } else if (post.owner_info.user_link === userStore.user.user_link) {
+                        post.canDelete = true;
+                    }
+
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
                     }
                     if (post.community_info) {
                         if (!post.community_info.avatar_url) {
                             post.community_info.avatar_url = headerConst.avatarDefault;
+                        } else {
+                            post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.community_info.avatar_url }`;
                         }
                     }
                     if (post.creation_date) {
@@ -155,7 +170,7 @@ class postsStore {
                     this.posts.push(post);
                 });
             }
-            this.friendsPosts = response.body.posts;
+            this.posts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -192,14 +207,25 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
 
-            this.groupsPosts = [];
             console.log(response.body)
             response.body.posts.forEach((post) => {
+
+                post.canDelete = post.canEdit = false;
+                groupsStore.curGroup.management.forEach((user) => {
+                    if (user.link === userStore.user.user_link) {
+                        post.canDelete = post.canEdit = true;
+                    }
+                });
+
                 if (!post.owner_info.avatar_url) {
                     post.owner_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.owner_info.avatar_url }`;
                 }
                 if (!post.community_info.avatar_url) {
                     post.community_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${ post.community_info.avatar_url }`;
                 }
 
                 if (!post.comments) {
@@ -212,7 +238,7 @@ class postsStore {
                 post.avatar_url = userStore.user.avatar_url;
             });
 
-            this.groupsPosts = response.body.posts;
+            this.posts = response.body.posts;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -231,24 +257,50 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
-            const p = response.body.posts[0];
+            const post = response.body.posts[0];
 
-            p.isMyPost = true;
-            p.owner_info = {};
-            p.owner_info.avatar_url = userStore.user.avatar_url;
-            p.owner_info.first_name = userStore.user.firstName;
-            p.owner_info.last_name = userStore.user.lastName;
-            p.owner_info.link = userStore.user.user_link;
-            if (!p.comments) {
-                p.comments_count = 0;
-            }
-            if (p.creation_date) {
-                const date = new Date(p.creation_date);
-                p.creation_date = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
-            }
-            p.avatar_url = userStore.user.avatar_url;
-            this.posts.unshift(p);
+            if (post.owner_info) {
+                post.canDelete = post.canEdit = false;
+                if (post.author_link === userStore.user.user_link) {
+                    post.canDelete = post.canEdit = true;
+                } else if (post.owner_info.user_link === userStore.user.user_link) {
+                    post.canDelete = true;
+                }
 
+                if (!post.owner_info.avatar_url) {
+                    post.owner_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    post.owner_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${post.owner_info.avatar_url}`;
+                }
+            }
+
+            if (post.community_info) {
+                post.canDelete = post.canEdit = false;
+                groupsStore.curGroup.management.forEach((user) => {
+                    if (user.link === userStore.user.user_link) {
+                        post.canDelete = post.canEdit = true;
+                    }
+                });
+
+                if (!post.community_info.avatar_url) {
+                    post.community_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    post.community_info.avatar_url = `http://${Ajax.backendHostname}:${Ajax.backendPort}/${post.community_info.avatar_url}`;
+                }
+            }
+
+            if (!post.comments) {
+                post.comments_count = 0;
+            }
+            if (post.creation_date) {
+                const date = new Date(post.creation_date);
+                post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
+            }
+            post.avatar_url = userStore.user.avatar_url;
+
+            if (ProfileView.curPage) {
+                this.posts.unshift(post);
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -322,7 +374,7 @@ class postsStore {
         if (request.status === 200) {
             const response = await request.json();
 
-            [...this.posts, ...this.groupsPosts, ...this.friendsPosts].forEach((post) => {
+            this.posts.forEach((post) => {
                 if (post.id === Number(postId)) {
                     post.is_liked = true;
                     post.likes_amount = response.body.likes_amount;
@@ -345,7 +397,7 @@ class postsStore {
 
         let flag = null;
         if (request.status === 200) {
-            [...this.posts, ...this.groupsPosts, ...this.friendsPosts].forEach((post) => {
+            this.posts.forEach((post) => {
                 if (post.id === Number(postId)) {
                     if (flag === null) {
                         flag = post.likes_amount - 1;

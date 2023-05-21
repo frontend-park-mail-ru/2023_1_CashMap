@@ -1,5 +1,4 @@
 import userStore from "../stores/userStore.js";
-import Router from "../modules/router.js";
 import { sideBarConst, headerConst, maxTextStrings, maxTextLength, activeColor } from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
@@ -12,6 +11,8 @@ export default class FeedView extends BaseView {
 
 		this._jsId = 'feed';
 		this.curPage = false;
+		this.isCreate = false;
+		this.isEdit = false;
 	}
 
 	addStore() {
@@ -24,49 +25,56 @@ export default class FeedView extends BaseView {
 
 		this._newsItem.style.color = activeColor;
 
-		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
 		this._likePosts = document.getElementsByClassName('post-buttons-like__icon');
 		this._dislikePosts = document.getElementsByClassName('post-buttons-dislike__icon');
-		this._createPosts = document.getElementById('js-create-post');
 		this._posts = document.getElementsByClassName('post-text');
+
+		this._createPosts = document.getElementById('js-create-post');
+		this._editPosts = document.getElementsByClassName('post-menu-item-edit');
+		this._editBtn = document.getElementById('js-edit-post-btn');
+		this._createBtn = document.getElementById('js-create-post-btn');
+		this._backBtn = document.getElementById('js-back-post-btn');
 	}
 
 	addPagesListener() {
 		super.addPagesListener();
 
-		for (let i = 0; i < this._editPosts.length; i++) {
-			this._editPosts[i].addEventListener('click', () => {
-				const postId = this._editPosts[i].getAttribute("data-id");
-				localStorage.setItem('editPostId', postId);
-				Router.go('/editPost', false);
-			});
+		this._text = document.getElementById('js-edit-post-textarea');
+		function OnInput() {
+			this.style.height = 'auto';
+			this.style.height = (this.scrollHeight) + 'px';
 		}
 
-		for (let i = 0; i < this._deletePosts.length; i++) {
-			this._deletePosts[i].addEventListener('click', () => {
-				const postId = this._deletePosts[i].getAttribute("data-id");
+		if (this._text) {
+			this._text.focus();
+
+			this._editBtn = document.getElementById('js-edit-post-btn');
+			let textarea = document.getElementsByTagName('textarea');
+
+			textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;');
+			textarea[0].addEventListener("input", OnInput, false);
+		}
+
+		Array.from(this._deletePosts).forEach((post) => {
+			post.addEventListener('click', () => {
+				const postId = post.getAttribute("data-id");
 				actionPost.deletePost(Number(postId));
 			});
-		}
+		});
 
-		for (let i = 0; i < this._likePosts.length; i++) {
-				this._likePosts[i].addEventListener('click', () => {
-						const postId = this._likePosts[i].getAttribute("data-id");
-						actionPost.likePost(Number(postId));
-				});
-		}
+		Array.from(this._likePosts).forEach((post) => {
+			post.addEventListener('click', () => {
+				const postId = post.getAttribute("data-id");
+				actionPost.likePost(Number(postId));
+			});
+		});
 
-		for (let i = 0; i < this._dislikePosts.length; i++) {
-				this._dislikePosts[i].addEventListener('click', () => {
-						const postId = this._dislikePosts[i].getAttribute("data-id");
-						actionPost.dislikePost(Number(postId));
-				});
-		}
-
-		this._createPosts.addEventListener('click', () => {
-			localStorage.removeItem('groupLink');
-			Router.go('/createPost', false);
+		Array.from(this._dislikePosts).forEach((post) => {
+			post.addEventListener('click', () => {
+				const postId = post.getAttribute("data-id");
+				actionPost.dislikePost(Number(postId));
+			});
 		});
 
 		for (let i = 0; i < this._posts.length; i++) {
@@ -94,6 +102,44 @@ export default class FeedView extends BaseView {
 				});
 			}
 		}
+
+		Array.from(this._editPosts).forEach((post) => {
+			post.addEventListener('click', () => {
+				this.isEdit = post.getAttribute("data-id");
+				this.isCreate = false;
+				actionPost.getPostsById(this.isEdit, 1);
+			});
+		});
+
+		if (this._createPosts) {
+			this._createPosts.addEventListener('click', () => {
+				this.isCreate = true;
+				this.isEdit = false;
+				super.render();
+				this._text.focus();
+			});
+		}
+
+		if (this._editBtn) {
+			this._editBtn.addEventListener('click', () => {
+				actionPost.editPost(this._text.value, this.isEdit);
+				this.isEdit = false;
+			});
+		}
+
+		if (this._createBtn) {
+			this._createBtn.addEventListener('click', () => {
+				actionPost.createPostUser(userStore.user.user_link, userStore.user.user_link, true, this._text.value);
+				this.isCreate = false;
+			});
+		}
+
+		if (this._backBtn) {
+			this._backBtn.addEventListener('click', () => {
+				this.isCreate = this.isEdit = false;
+				super.render();
+			});
+		}
 	}
 
 	showPage() {
@@ -108,7 +154,24 @@ export default class FeedView extends BaseView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			postAreaData: {createPostData: {avatar_url: userStore.user.avatar_url, jsId: 'js-create-post'}, postList: postsStore.friendsPosts},
+			postAreaData:
+			{
+				createPostData:
+				{
+					isCreate: this.isCreate,
+					isEdit: this.isEdit,
+					avatar_url: userStore.user.avatar_url,
+					jsId: 'js-create-post',
+					create: { avatar_url: userStore.user.avatar_url, text: '', buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
+				},
+				postList: postsStore.posts
+			},
+		}
+
+		if (this._context.postAreaData.createPostData.isEdit) {
+			this._context.postAreaData.createPostData.create.text = postsStore.curPost.text_content;
+			this._context.postAreaData.createPostData.create.id = postsStore.curPost.id;
+			this._context.postAreaData.createPostData.create.buttonData = { text: 'Изменить', jsId: 'js-edit-post-btn'};
 		}
 	}
 }

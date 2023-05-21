@@ -1,54 +1,60 @@
-<div class="post background-color-post border-radius post-padding">
-    <div class="post-profile">
-      {{# if community_info}}
-        <img class="post-profile__avatar avatar-form profile-img-size js-go-to-group cursor-pointer" src="{{ community_info.avatar_url }}" data-id="{{ community_info.link }}">
-        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots js-go-to-group cursor-pointer" data-id="{{ community_info.link }}"> {{ community_info.title }} </span>
-      {{else}}
-        <img class="post-profile__avatar avatar-form profile-img-size js-go-to-profile cursor-pointer" src="{{ owner_info.avatar_url }}" data-id="{{ owner_info.user_link }}">
-        <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots js-go-to-profile cursor-pointer" data-id="{{ owner_info.user_link }}"> {{ owner_info.first_name }} {{ owner_info.last_name }} </span>
-      {{/if}}
-        <span class="post-profile__date font-InterMedium font-size-12 font-color-gray-text"> {{ creation_date }} </span>
-        {{#if isMyPost}}
-            <img class="post-profile__dots margin-auto" src="static/img/post_icons/post_menu.svg">
-        {{/if}}
+{{#if (eq isEdit id)}}
+    {{> editPost create }}
+{{else}}
+    <div class="post background-color-post border-radius post-padding">
+        <div class="post-profile">
+          {{# if community_info}}
+            <img class="post-profile__avatar avatar-form profile-img-size js-go-to-group cursor-pointer" src="{{ community_info.avatar_url }}" data-id="{{ community_info.link }}">
+            <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots js-go-to-group cursor-pointer" data-id="{{ community_info.link }}"> {{ community_info.title }} </span>
+          {{else}}
+            <img class="post-profile__avatar avatar-form profile-img-size js-go-to-profile cursor-pointer" src="{{ owner_info.avatar_url }}" data-id="{{ owner_info.user_link }}">
+            <span class="post-profile__name font-MailSansRoman font-size-16 font-color-post-sender hidden-and-add-dots js-go-to-profile cursor-pointer" data-id="{{ owner_info.user_link }}"> {{ owner_info.first_name }} {{ owner_info.last_name }} </span>
+          {{/if}}
+            <span class="post-profile__date font-InterMedium font-size-12 font-color-gray-text"> {{ creation_date }} </span>
 
-        <div class="post-menu post-menu-position background-color-profile-menu border-radius-btn-input box-shadow-profile-menu">
-            <div class="post-menu-item-delete hover-block border-radius-btn-input margin-auto" data-id="{{ id }}">
-                <span class="menu-item__text font-size-15 font-MailSansRoman margin-auto"> Удалить запись </span>
+            {{#if canDelete}}
+                <img class="post-profile__dots margin-auto" src="static/img/post_icons/post_menu.svg">
+                <div class="post-menu post-menu-position background-color-profile-menu border-radius-btn-input box-shadow-profile-menu">
+                    <div class="post-menu-item-delete hover-block border-radius-btn-input margin-auto" data-id="{{ id }}">
+                        <span class="menu-item__text font-size-15 font-MailSansRoman margin-auto"> Удалить запись </span>
+                    </div>
+                    {{#if canEdit}}
+                        <div class="post-menu-item-edit hover-block border-radius-btn-input margin-auto" data-id="{{ id }}">
+                            <span class="menu-item__text font-size-15 font-MailSansRoman margin-auto"> Редактировать </span>
+                        </div>
+                    {{/if}}
+                </div>
+            {{/if}}
+        </div>
+
+        <div class="post-text font-MailSansRomanRegular font-size-16 font-color-text" data-id="{{ id }}" id="{{ id }}"> {{ text_content }} </div>
+        <div class="post-media"></div>
+        <div class="post-buttons">
+            {{#if is_liked}}
+                <div class="post-buttons-like">
+                    <img class="post-buttons-dislike__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/like_clicked.svg">
+                    <span class="like__count font-InterRegular font-size-15 font-color-gray-icon"> {{ likes_amount }} </span>
+                </div>
+            {{else}}
+                <div class="post-buttons-like post-hover">
+                    <img class="post-buttons-like__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/like.svg">
+                    <img class="post-buttons-like__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/like_hover.svg">
+                    <span class="like__count font-InterRegular font-size-15 font-color-gray-icon"> {{ likes_amount }} </span>
+                </div>
+            {{/if}}
+
+
+            <div class="post-buttons-comment post-hover">
+                <img class="post-buttons-comment__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/comment.svg">
+                <img class="post-buttons-comment__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/comment_hover.svg">
+                <span class="comment__count font-InterRegular font-size-15 font-color-gray-icon"> {{ comments_count }} </span>
             </div>
-            <div class="post-menu-item-edit hover-block border-radius-btn-input margin-auto" data-id="{{ id }}">
-                <span class="menu-item__text font-size-15 font-MailSansRoman margin-auto"> Редактировать </span>
+            <div class="post-buttons-bookmark post-hover">
+                <img class="post-buttons-bookmark__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/bookmark.svg">
+                <img class="post-buttons-bookmark__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/bookmark_hover.svg">
             </div>
         </div>
+
+        {{> commentArea this }}
     </div>
-
-    <div class="post-text font-MailSansRomanRegular font-size-16 font-color-text" data-id="{{ id }}" id="{{ id }}"> {{ text_content }} </div>
-    <div class="post-media"></div>
-    <div class="post-buttons">
-        {{#if is_liked}}
-            <div class="post-buttons-like">
-                <img class="post-buttons-dislike__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/like_clicked.svg">
-                <span class="like__count font-InterRegular font-size-15 font-color-gray-icon"> {{ likes_amount }} </span>
-            </div>
-        {{else}}
-            <div class="post-buttons-like post-hover">
-                <img class="post-buttons-like__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/like.svg">
-                <img class="post-buttons-like__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/like_hover.svg">
-                <span class="like__count font-InterRegular font-size-15 font-color-gray-icon"> {{ likes_amount }} </span>
-            </div>
-        {{/if}}
-
-
-        <div class="post-buttons-comment post-hover">
-            <img class="post-buttons-comment__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/comment.svg">
-            <img class="post-buttons-comment__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/comment_hover.svg">
-            <span class="comment__count font-InterRegular font-size-15 font-color-gray-icon"> {{ comments_count }} </span>
-        </div>
-        <div class="post-buttons-bookmark post-hover">
-            <img class="post-buttons-bookmark__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/bookmark.svg">
-            <img class="post-buttons-bookmark__icon cursor-pointer margin-auto" data-id="{{ id }}" src="static/img/post_icons/bookmark_hover.svg">
-        </div>
-    </div>
-
-    {{> commentArea this }}
-</div>
+{{/if}}
