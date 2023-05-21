@@ -1,0 +1,28 @@
+.stickers-block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-size: 20px;
+    gap: 10px;
+}
+
+.stickers {
+    height: 80%;
+    overflow-y: scroll;
+    display: none;
+}
+
+.stickers-block__sticker {
+    width: 86px;
+}
+
+.stickers-block__sticker:hover {
+    background-color: var(--background-item-hovered);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.stickers__info {
+    padding-top: 50px;
+}

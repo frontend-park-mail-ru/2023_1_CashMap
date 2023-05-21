@@ -67,6 +67,8 @@ class DropdownFriendsSearchStore {
                 friend.isFriend = true;
                 if (!friend.avatar_url) {
                     friend.avatar_url = headerConst.avatarDefault;
+                } else {
+                    friend.avatar_url = Ajax.imgUrlConvert(friend.avatar_url);
                 }
                 if (!friend.city) {
                     friend.city = 'город не указан';

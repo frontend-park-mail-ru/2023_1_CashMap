@@ -1,7 +1,7 @@
 import userStore from "../stores/userStore.js";
 import Validation from "../modules/validation.js";
 import Router from "../modules/router.js";
-import { sideBarConst, headerConst, settingsConst, activeColor, signInData } from "../static/htmlConst.js";
+import { sideBarConst, headerConst, settingsConst, activeColor, signInData, optionsAvatar} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionImg} from "../actions/actionImg.js";
 import BaseView from "./baseView.js";
@@ -35,6 +35,9 @@ export default class SettingsView extends BaseView {
 		this._safetyBtn = document.getElementById('js-menu-safety');
 		this._settingsBtn.style.color = activeColor;
 
+		this._input = document.getElementById('js-select-file');
+		this._input.setAttribute('accept', optionsAvatar.join(','));
+
 		this._dropZone = document.getElementById('js-drop-zone');
 		this._dropContent = document.getElementById('js-drop-content');
 		this._firstNameField = document.getElementById('js-first-name-input');
@@ -51,7 +54,6 @@ export default class SettingsView extends BaseView {
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 
 		this._saveInfo = document.getElementById('js-save-info');
-		this._dropArea = document.getElementById('js-drop-zone');
 
 		this._error = document.getElementById('js-sign-in-error');
 	}
@@ -63,14 +65,33 @@ export default class SettingsView extends BaseView {
 			Router.go('/safety', false);
 		});
 
-		this._dropArea.addEventListener('dragover', (event) => {
+		this._dropZone.addEventListener('dragover', (event) => {
 			event.preventDefault();
 		});
 
-		this._dropArea.addEventListener('drop', (event) => {
+		this._dropZone.addEventListener('drop', (event) => {
 			event.preventDefault();
 
 			this._fileList = event.dataTransfer.files[0];
+
+			this._dropContent.innerHTML = '';
+			this._reader.readAsDataURL(this._fileList);
+			this._reader.addEventListener('load', (event) => {
+				this._dropContent.src = event.target.result;
+			});
+		});
+
+		this._dropZone.addEventListener('click', () => {
+			this._input.click();
+		});
+
+		this._input.addEventListener('change', (event) => {
+			if (!event.target.files.length) {
+				return;
+			}
+
+			this._fileList = Array.from(event.target.files);
+			this._fileList = this._fileList[0];
 
 			this._dropContent.innerHTML = '';
 			this._reader.readAsDataURL(this._fileList);

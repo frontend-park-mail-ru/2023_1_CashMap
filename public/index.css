@@ -45,6 +45,8 @@
 @import "components/notFound/notFound.css";
 @import "components/searchItem/searchItem.css";
 @import "components/searchDropdown/searchDropdown.css";
+@import "components/smiles/smiles.css";
+@import "components/stickers/stickers.css";
 
 @font-face {
     font-family: Limelight; /* Имя шрифта */
@@ -123,6 +125,7 @@
     --font-color-menu-item-hover: #B95DD9;
     --font-color-post-sender: #474852;
     --font-color-text: #0D0F1E;
+    --font-color-show-more: rgb(151, 71, 255);
 
     --background-color-main: #FAFAFA;
     --background-color-error: #FFEBEB;

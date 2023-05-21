@@ -82,10 +82,17 @@ export default class BaseView {
         Handlebars.registerPartial('searchDropdown', Handlebars.templates.searchDropdown);
         Handlebars.registerPartial('searchItem', Handlebars.templates.searchItem);
         Handlebars.registerPartial('subscriber', Handlebars.templates.subscriber);
+        Handlebars.registerPartial('smiles', Handlebars.templates.smiles);
+        Handlebars.registerPartial('stickers', Handlebars.templates.stickers);
 
         Handlebars.registerHelper('combine', function(object1, object2) {
             return Object.assign({}, object1, object2);
         });
+
+        Handlebars.registerHelper('eq', function(value1, value2) {
+            return value1 === value2.toString();
+        });
+
 
     }
 
@@ -193,7 +200,6 @@ export default class BaseView {
         for (let i = 0; i < this._goToProfile.length; i++) {
             this._goToProfile[i].addEventListener('click', () => {
                 const userId = this._goToProfile[i].getAttribute("data-id");
-                console.log(userId)
                 Router.go('/user?link=' + userId, false);
             });
         }
@@ -240,7 +246,6 @@ export default class BaseView {
         for (let i = 0; i < this._group_search_items.length; i++) {
             this._group_search_items[i].addEventListener('mousedown', () => {
                 const groupLink = this._group_search_items[i].getAttribute("data-group-link");
-                console.log(groupLink)
                 Router.go('/group?link=' + groupLink);
             });
         }
@@ -248,7 +253,6 @@ export default class BaseView {
         for (let i = 0; i < this._userSearchItems.length; i++) {
             this._userSearchItems[i].addEventListener('mousedown', () => {
                 const userLink = this._userSearchItems[i].getAttribute("data-user-link");
-                console.log(userLink)
                 Router.go('/user?link=' + userLink);
             });
         }

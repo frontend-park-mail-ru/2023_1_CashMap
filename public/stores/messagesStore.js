@@ -56,7 +56,7 @@ class messagesStore {
                 await this._chatCheck(action.userLink, action.callback);
                 break;
             case 'msgSend':
-                await this._msgSend(action.chatId, action.text);
+                await this._msgSend(action.chatId, action.text, action.stickerId);
                 break;
             case 'chatCreate':
                 await this._chatCreate(action.userLinks, action.callback);
@@ -82,6 +82,8 @@ class messagesStore {
                 if (chat.members.length === 1) {
                     if (!chat.members[0].avatar_url) {
                         chat.members[0].avatar_url = headerConst.avatarDefault;
+                    } else {
+                        chat.members[0].avatar_url = Ajax.imgUrlConvert(chat.members[0].avatar_url);
                     }
                     chat.avatar_url = chat.members[0].avatar_url;
                     chat.first_name = chat.members[0].first_name;
@@ -90,6 +92,8 @@ class messagesStore {
                     chat.members.forEach((member) => {
                         if (!member.avatar_url) {
                             member.avatar_url = headerConst.avatarDefault;
+                        } else {
+                            member.avatar_url = Ajax.imgUrlConvert(member.avatar_url);
                         }
 
                         if (member.user_link !== userStore.user.user_link) {
@@ -124,6 +128,12 @@ class messagesStore {
             this.messages.forEach((message) => {
                 if (!message.sender_info.avatar_url) {
                     message.sender_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    message.sender_info.avatar_url = Ajax.imgUrlConvert(message.sender_info.avatar_url);
+                }
+
+                if (message.sticker) {
+                    message.sticker.url = Ajax.stickerUrlConvert(message.sticker.url);
                 }
                 message.creation_date = new Date(message.creation_date).toLocaleDateString();
             });
@@ -147,7 +157,6 @@ class messagesStore {
         if (request.status === 200) {
             const response = await request.json();
             if (response.body.has_dialog) {
-                console.log("qwerty", userLink)
                 localStorage.setItem('chatFriendId', response.body.chat_id);
             } else {
                 localStorage.removeItem('chatFriendId');
@@ -168,8 +177,8 @@ class messagesStore {
      * @param {Number} chatId - id чата
      * @param {String} text - текст сообщения
      */
-    async _msgSend(chatId, text) {
-        const request = await Ajax.msgSend(chatId, text);
+    async _msgSend(chatId, text, stickerId) {
+        const request = await Ajax.msgSend(chatId, text, stickerId);
 
         if (request.status === 401) {
             actionUser.signOut();
