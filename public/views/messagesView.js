@@ -43,14 +43,13 @@ export default class MessagesView extends BaseView {
 	}
 
 	showPage() {
-		actionUser.getProfile(() => { actionMessage.getChats(15); });
+		actionUser.getProfile(() => { actionMessage.getChats(100); });
 	}
 
 	_preRender() {
 		this._template = Handlebars.templates.messages;
 		let header = headerConst;
 		header['avatar_url'] = userStore.user.avatar_url;
-		console.log(messagesStore.chats)
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
@@ -59,6 +58,5 @@ export default class MessagesView extends BaseView {
 			},
 			messagesData: messagesStore.chats,
 		}
-		console.log(this._context)
 	}
 }

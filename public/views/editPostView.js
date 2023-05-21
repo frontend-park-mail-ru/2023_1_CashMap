@@ -78,7 +78,5 @@ export default class EditPostView extends BaseView {
 				}
 			},
 		}
-
-		console.log(this._context)
 	}
 }

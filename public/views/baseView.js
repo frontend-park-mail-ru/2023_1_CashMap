@@ -23,6 +23,8 @@ export default class BaseView {
 
         this.curPage = false;
         this.timerId = null;
+
+        this.interval = null;
     }
 
     /**
@@ -193,7 +195,6 @@ export default class BaseView {
         for (let i = 0; i < this._goToProfile.length; i++) {
             this._goToProfile[i].addEventListener('click', () => {
                 const userId = this._goToProfile[i].getAttribute("data-id");
-                console.log(userId)
                 Router.go('/user?link=' + userId, false);
             });
         }
@@ -240,7 +241,6 @@ export default class BaseView {
         for (let i = 0; i < this._group_search_items.length; i++) {
             this._group_search_items[i].addEventListener('mousedown', () => {
                 const groupLink = this._group_search_items[i].getAttribute("data-group-link");
-                console.log(groupLink)
                 Router.go('/group?link=' + groupLink);
             });
         }
@@ -248,7 +248,6 @@ export default class BaseView {
         for (let i = 0; i < this._userSearchItems.length; i++) {
             this._userSearchItems[i].addEventListener('mousedown', () => {
                 const userLink = this._userSearchItems[i].getAttribute("data-user-link");
-                console.log(userLink)
                 Router.go('/user?link=' + userLink);
             });
         }
@@ -336,6 +335,14 @@ export default class BaseView {
 
     interruptTimer() {
         window.clearTimeout(this.timerId);
+    }
+
+    startIntervalTask(time, callback) {
+        this.interval = window.setInterval(callback, time);
+    }
+
+    interruptIntervalTask() {
+        clearInterval(this.interval);
     }
 
     /**

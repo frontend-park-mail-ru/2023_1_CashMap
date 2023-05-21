@@ -20,6 +20,8 @@ class postsStore {
         this.groupsPosts = [];
         this.curPost = null;
 
+        this.hasMorePosts = true;
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -49,16 +51,16 @@ class postsStore {
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'getPosts':
-                await this._getPosts(action.userLink, action.count, action.lastPostDate);
+                await this._getPosts(action.userLink, action.count, action.lastPostDate, action.isScroll);
                 break;
-            case 'getFriendsPosts':
-                await this._getFriendsPosts(action.count, action.lastPostDate);
+            case 'getFeedPosts':
+                await this._getFeedPosts(action.count, action.lastPostDate, action.isScroll);
                 break;
             case 'getPostById':
                 await this._getPostsById(action.id, action.count, action.lastPostDate);
                 break;
             case 'getPostsByCommunity':
-                await this._getPostsByCommunity(action.community_link, action.count, action.lastPostDate);
+                await this._getPostsByCommunity(action.community_link, action.count, action.lastPostDate, action.isScroll);
                 break;
             case 'createPost':
                 await this._createPost(action.data);
@@ -81,18 +83,19 @@ class postsStore {
     }
 
     /**
-     * Метод, реализующий реакцию на получение постов 
+     * Метод, реализующий реакцию на получение постов
      * @param {String} userLink - ссылка пользователя
      * @param {Number} count - количество возвращаемых постов
      * @param {Date} lastPostDate - дата, после которой возвращаются посты
+     * @param isScroll
      */
-    async _getPosts(userLink, count, lastPostDate) {
+    async _getPosts(userLink, count, lastPostDate, isScroll=false) {
         const request = await Ajax.getPosts(userLink, count, lastPostDate);
-
         if (request.status === 200) {
             const response = await request.json();
 
-            if (response.body.posts) {
+            if (response.body.posts && response.body.posts.length !== 0) {
+                this.hasMorePosts = true;
                 response.body.posts.forEach((post) => {
                     if (userLink === userStore.user.user_link) {
                         post.isMyPost = true;
@@ -107,15 +110,21 @@ class postsStore {
                         post.comments_count = 0;
                     }
                     if (post.creation_date) {
+                        post.raw_creation_date = post.creation_date.replace("+", "%2B");
                         const date = new Date(post.creation_date);
                         post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                     }
                     post.avatar_url = userStore.userProfile.avatar_url;
-
-                    this.posts.push(post);
                 });
+            } else {
+                this.hasMorePosts = false;
             }
-            this.posts = response.body.posts;
+
+            if (!isScroll) {
+                this.posts = response.body.posts;
+            } else {
+                this.posts.push(...response.body.posts);
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -126,16 +135,18 @@ class postsStore {
     }
 
     /**
-     * Метод, реализующий реакцию на получение постов друзей 
+     * Метод, реализующий реакцию на получение постов друзей
      * @param {Number} count - количество возвращаемых постов
      * @param {Date} lastPostDate - дата, после которой возвращаются посты
+     * @param isScroll
      */
-    async _getFriendsPosts(count, lastPostDate) {
+    async _getFeedPosts(count, lastPostDate, isScroll=false) {
         const request = await Ajax.getFriendsPosts(count, lastPostDate);
 
         if (request.status === 200) {
             const response = await request.json();
-            if (response.body.posts) {
+            if (response.body.posts && response.body.posts.length !== 0) {
+                this.hasMorePosts = true;
                 response.body.posts.forEach((post) => {
                     post.isMyPost = false;
                     if (!post.owner_info.avatar_url) {
@@ -147,15 +158,21 @@ class postsStore {
                         }
                     }
                     if (post.creation_date) {
+                        post.raw_creation_date = post.creation_date.replace("+", "%2B");
                         const date = new Date(post.creation_date);
                         post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                     }
                     post.avatar_url = userStore.user.avatar_url;
-
-                    this.posts.push(post);
                 });
+            } else {
+                this.hasMorePosts = false;
             }
-            this.friendsPosts = response.body.posts;
+
+            if (isScroll) {
+                this.friendsPosts.push(...response.body.posts);
+            } else {
+                this.friendsPosts = response.body.posts;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -186,33 +203,43 @@ class postsStore {
         this._refreshStore();
     }
 
-    async _getPostsByCommunity(community_link, count, lastPostDate) {
+    async _getPostsByCommunity(community_link, count, lastPostDate, isScroll=false) {
         const request = await Ajax.getPostsByCommunity(community_link, count, lastPostDate);
 
         if (request.status === 200) {
             const response = await request.json();
 
-            this.groupsPosts = [];
-            console.log(response.body)
-            response.body.posts.forEach((post) => {
-                if (!post.owner_info.avatar_url) {
-                    post.owner_info.avatar_url = headerConst.avatarDefault;
-                }
-                if (!post.community_info.avatar_url) {
-                    post.community_info.avatar_url = headerConst.avatarDefault;
-                }
+            if (response.body.posts && response.body.posts.length !== 0) {
+                this.hasMorePosts = true;
+                response.body.posts.forEach((post) => {
+                    if (!post.owner_info.avatar_url) {
+                        post.owner_info.avatar_url = headerConst.avatarDefault;
+                    }
+                    if (!post.community_info.avatar_url) {
+                        post.community_info.avatar_url = headerConst.avatarDefault;
+                    }
 
-                if (!post.comments) {
-                    post.comments_count = 0;
-                }
-                if (post.creation_date) {
-                    const date = new Date(post.creation_date);
-                    post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
-                }
-                post.avatar_url = userStore.user.avatar_url;
-            });
+                    if (!post.comments) {
+                        post.comments_count = 0;
+                    }
+                    if (post.creation_date) {
+                        post.raw_creation_date = post.creation_date.replace("+", "%2B");
+                        const date = new Date(post.creation_date);
+                        post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
+                    }
+                    post.avatar_url = userStore.user.avatar_url;
+                });
+            } else {
+                this.hasMorePosts = false;
 
-            this.groupsPosts = response.body.posts;
+            }
+
+
+            if (isScroll) {
+                this.groupsPosts.push(...response.body.posts);
+            } else {
+                this.groupsPosts = response.body.posts;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
