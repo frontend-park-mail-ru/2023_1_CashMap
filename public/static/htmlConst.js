@@ -160,8 +160,8 @@ export const NewGroupConst = {
         type: 'text',
         jsIdInput: 'js-title-input',
         jsIdError: 'js-title-error'},
-  buttonInfo: { text: 'Создать сообщество',
-      jsId: 'js-add-group-btn'},
+        buttonInfo: {text: 'Создать сообщество',
+                    jsId: 'js-add-group-btn'},
 }
 
 export const deleteGroupConst = {

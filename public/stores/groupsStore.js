@@ -24,6 +24,8 @@ class groupsStore {
         this.editMsg = '';
         this.editStatus = null;
 
+        this.error = "";
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -303,6 +305,8 @@ class groupsStore {
             this.manageGroups.push(group);
         } else if (request.status === 401) {
             actionUser.signOut();
+        } else if (request.status === 400) {
+            this.error = request.body.message;
         } else {
             alert('createGroup error');
         }
