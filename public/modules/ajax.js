@@ -61,6 +61,9 @@ class Ajax {
             uploadImg: '/static/upload',
             deleteImg: '/static/delete',
 
+            getStickerPackInfo: '/api/sticker/pack/info',
+            getStickerPacksByAuthor: '/api/sticker/pack/author',
+
             userSearch: '/api/user/search'
         }
 
@@ -392,6 +395,30 @@ class Ajax {
     async dislikePost(id) {
         const body = {post_id: id};
         return this._request(this._apiUrl.dislikePost, this._requestType.POST, JSON.stringify({body}));
+    }
+
+    /**
+     * метод, отправляющий запрос на получение информации о стикерпаке
+     * @param {Number} packId - идентификатор стикерпака
+     * @returns {Object} - тело ответа
+     */
+    async getStickerPackInfo(packId) {
+        return this._request(this._apiUrl.getStickerPackInfo + `?pack_id=${packId}`, this._requestType.GET);
+    }
+
+    /**
+     * метод, отправляющий запрос стикерпаков автора
+     * @param {Number} count - количество возвращаемых стикерпаков
+     * @param {Number} offset - смещение
+     * @param {Number} author - ссылка на автора
+     * @returns {Object} - тело ответа
+     */
+    async getStickerPacksByAuthor(count, offset, author = undefined) {
+        if (author) {
+            return this._request(this._apiUrl.getStickerPacksByAuthor + `?author=${author}&batch_size=${count}&offset=${offset}&offset=${offset}`, this._requestType.GET);
+        } else {
+            return this._request(this._apiUrl.getStickerPacksByAuthor + `?batch_size=${count}&offset=${offset}`, this._requestType.GET);
+        }
     }
 }
 

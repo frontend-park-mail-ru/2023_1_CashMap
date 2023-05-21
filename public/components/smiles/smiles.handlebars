@@ -1,0 +1,21 @@
+<div class="smiles-keyboard background-color-post font-color-gray-icon box-shadow-create-post font-InterRegular font-size-13" id="js-smiles-keyboard">
+    <div class="smiles">
+        <div class="block-name">Эмоции</div>
+        <div class="smiles-block">
+            {{#each smiles as |smile|}}
+                <div class="smiles-block__smile js-smile">{{smile.text}}</div>
+            {{/each}}
+        </div>
+    </div>
+    {{> stickers stickersData}}
+    <div class="smiles-keyboard__options">
+        <div class="smiles-keyboard-icon smiles-keyboard-icon_smiles">
+            <input class="keyboard_img" id="js-smiles" type="image" src="static/img/post_icons/smile.svg">
+            <input class="keyboard_img" id="js-smiles-active" type="image" src="static/img/post_icons/smile_active.svg">
+        </div>
+        <div class="smiles-keyboard-icon smiles-keyboard-icon_stickers">
+            <input class="keyboard_img" id="js-stickers" type="image" src="static/img/post_icons/sticker.svg">
+            <input class="keyboard_img" id="js-stickers-active" type="image" src="static/img/post_icons/sticker_active.svg">
+        </div>
+    </div>
+</div>

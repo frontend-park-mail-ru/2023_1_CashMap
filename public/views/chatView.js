@@ -1,10 +1,11 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import { sideBarConst, headerConst, activeColor } from "../static/htmlConst.js";
+import { sideBarConst, headerConst, activeColor, emotionKeyboard} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";
 import BaseView from "./baseView.js";
+import stickerStore from "../stores/stickerStore.js";
 
 export default class ChatView extends BaseView {
 	constructor() {
@@ -28,16 +29,30 @@ export default class ChatView extends BaseView {
 		this._sendMsg = document.getElementById('js-send-msg');
 		this._sendMsgBlock = document.getElementById('js-send-msg-block');
 		this._msg = document.getElementById('js-msg-input');
+		this._smiles = document.getElementsByClassName('js-smile');
+		this._smilesBtn = document.getElementsByClassName('smiles-keyboard-icon_smiles');
+		this._smilesFrame = document.getElementsByClassName('smiles');
+		this._smilesImg = document.getElementById('js-smiles');
+		this._smilesImgActive = document.getElementById('js-smiles-active');
+		this._stickersBtn = document.getElementsByClassName('smiles-keyboard-icon_stickers');
+		this._stickersFrame = document.getElementsByClassName('stickers');
+		this._stickersImg = document.getElementById('js-stickers');
+		this._stickersImgActive = document.getElementById('js-stickers-active');
+		this._emotionBtn = document.getElementById('js-chat-smiles');
+		this._emotionKeyboard = document.getElementById('js-smiles-keyboard');
+
+		this._smilesImg.style.display='none';
+		this._smilesImgActive.style.display='block';
 
 		this._msg.focus();
 
 		this._f = document.getElementById('js-1');
 		this._f.scrollTop = this._f.scrollHeight;
 
-		let textarea = document.getElementsByTagName('textarea');
+		this._textarea = document.getElementsByTagName('textarea');
 
-		textarea[0].setAttribute('style', 'height:' + (textarea[0].scrollHeight) + 'px;overflow-y:hidden;');
-		textarea[0].addEventListener("input", OnInput, false);
+		this._textarea[0].setAttribute('style', 'height:' + (this._textarea[0].scrollHeight) + 'px;overflow-y:hidden;');
+		this._textarea[0].addEventListener("input", OnInput, false);
 
 		function OnInput() {
 			this.style.height = 'auto';
@@ -76,6 +91,56 @@ export default class ChatView extends BaseView {
 				document.getElementById("js-send-msg").click();
 			}
 		});
+
+		for (let i = 0; i < this._smilesBtn.length; i++) {
+			this._smilesBtn[i].addEventListener('click', () => {
+				for (let i = 0; i < this._stickersFrame.length; i++) {
+					this._stickersFrame[i].style.display='none';
+				}
+				for (let i = 0; i < this._smilesFrame.length; i++) {
+					this._smilesFrame[i].style.display='block';
+				}
+				this._smilesImg.style.display='none';
+				this._smilesImgActive.style.display='block';
+				this._stickersImg.style.display='block';
+				this._stickersImgActive.style.display='none';
+				this._msg.focus();
+			});
+		}
+
+		for (let i = 0; i < this._stickersBtn.length; i++) {
+			this._stickersBtn[i].addEventListener('click', () => {
+				for (let i = 0; i < this._smilesFrame.length; i++) {
+					this._smilesFrame[i].style.display='none';
+				}
+				for (let i = 0; i < this._stickersFrame.length; i++) {
+					this._stickersFrame[i].style.display='block';
+				}
+				this._stickersImg.style.display='none';
+				this._stickersImgActive.style.display='block';
+				this._smilesImg.style.display='block';
+				this._smilesImgActive.style.display='none';
+				this._msg.focus();
+			});
+		}
+
+		this._emotionBtn.addEventListener('click', () => {
+			if (this._emotionKeyboard.style.display === 'block') {
+				this._emotionKeyboard.style.display = 'none';
+			} else {
+				this._emotionKeyboard.style.display = 'block';
+			}
+			this._msg.focus();
+		});
+
+		for (let i = 0; i < this._smiles.length; i++) {
+			this._smiles[i].addEventListener('click', () => {
+				const smile = this._smiles[i].innerText || this._smiles[i].textContent;
+				this._msg.value += smile;
+				this._msg.focus();
+				this._msg.dispatchEvent(new Event('input'));
+			});
+		}
 	}
 
 	showPage() {
@@ -112,7 +177,7 @@ export default class ChatView extends BaseView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg')},
+			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg'), keyboardData: emotionKeyboard},
 		}
 	}
 }
