@@ -9,11 +9,12 @@ export const actionGroups = {
      * @param {*} count - количество возвращаемых групп
      * @param {*} offset - смещение
      */
-    getGroups(count, offset) {
+    getGroups(count, offset, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getGroups',
             count,
             offset,
+            isScroll
         });
     },
     /**
@@ -21,11 +22,12 @@ export const actionGroups = {
      * @param {*} count - количество возвращаемых групп
      * @param {*} offset - смещение
      */
-    getmanageGroups(count, offset) {
+    getmanageGroups(count, offset, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getManageGroups',
             count,
             offset,
+            isScroll
         });
     },
     /**
@@ -33,11 +35,12 @@ export const actionGroups = {
      * @param {*} count - количество возвращаемых групп
      * @param {*} offset - смещение
      */
-    getNotGroups(count, offset) {
+    getNotGroups(count, offset, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getNotGroups',
             count,
             offset,
+            isScroll
         });
     },
     /**
@@ -45,11 +48,12 @@ export const actionGroups = {
      * @param {*} count - количество возвращаемых групп
      * @param {*} offset - смещение
      */
-    getPopularGroups(count, offset) {
+    getPopularGroups(count, offset, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getPopularGroups',
             count,
             offset,
+            isScroll
         });
     },
     /**

@@ -161,7 +161,6 @@ class messagesStore {
         if (request.status === 200) {
             const response = await request.json();
             if (response.body.has_dialog) {
-                console.log("qwerty", userLink)
                 localStorage.setItem('chatFriendId', response.body.chat_id);
             } else {
                 localStorage.removeItem('chatFriendId');

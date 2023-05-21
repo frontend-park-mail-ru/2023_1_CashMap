@@ -91,7 +91,6 @@ class postsStore {
      */
     async _getPosts(userLink, count, lastPostDate, isScroll=false) {
         const request = await Ajax.getPosts(userLink, count, lastPostDate);
-        console.log(isScroll)
         if (request.status === 200) {
             const response = await request.json();
 
@@ -126,7 +125,6 @@ class postsStore {
             } else {
                 this.posts.push(...response.body.posts);
             }
-            console.log(...this.posts)
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

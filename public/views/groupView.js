@@ -1,12 +1,14 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import { sideBarConst, headerConst, maxTextStrings, maxTextLength } from "../static/htmlConst.js";
+import {sideBarConst, headerConst, maxTextStrings, maxTextLength, friendsMenuInfo} from "../static/htmlConst.js";
 import {actionPost} from "../actions/actionPost.js";
 import BaseView from "./baseView.js";
 import postsStore from "../stores/postsStore.js";
 import { actionGroups } from "../actions/actionGroups.js";
 import groupsStore from "../stores/groupsStore.js";
 import { actionUser } from "../actions/actionUser.js";
+import {actionSearch} from "../actions/actionSearch.js";
+import searchStore from "../stores/dropdownSearchStore.js";
 
 export default class GroupView extends BaseView {
 	constructor() {

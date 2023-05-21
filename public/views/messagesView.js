@@ -50,7 +50,6 @@ export default class MessagesView extends BaseView {
 		this._template = Handlebars.templates.messages;
 		let header = headerConst;
 		header['avatar_url'] = userStore.user.avatar_url;
-		console.log(messagesStore.chats)
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,

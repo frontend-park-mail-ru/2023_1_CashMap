@@ -4,12 +4,13 @@ import Dispatcher from "../dispatcher/dispatcher.js";
  * action-ы для работы с пользователем
  */
 export const actionSearch = {
-    search(text) {
+    search(text, count=3, offset=0, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'userSearch',
             searchText: text,
-            count: 10,
-            offset: 0,
+            count: count,
+            offset: offset,
+            isScroll
         });
     },
 
