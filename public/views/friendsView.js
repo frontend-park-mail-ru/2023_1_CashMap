@@ -8,6 +8,9 @@ import searchStore from "../stores/dropdownSearchStore.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import BaseView from "./baseView.js";
 import {actionSearch} from "../actions/actionSearch.js";
+import postsStore from "../stores/postsStore.js";
+import {actionPost} from "../actions/actionPost.js";
+
 
 export default class FriendsView extends BaseView {
 	constructor() {
@@ -16,6 +19,8 @@ export default class FriendsView extends BaseView {
 
 		this._jsId = 'friends';
 		this.curPage = false;
+
+		this._friendsBatchSize = 15;
 
 		friendsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
@@ -163,6 +168,27 @@ export default class FriendsView extends BaseView {
 			});
 		}
 
+		window.addEventListener('scroll', () => {
+			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewItems) {
+				let path = window.location.pathname;
+				if (path === '/friends' && friendsStore.hasMoreFriends) {
+					actionFriends.getFriends(userStore.user.user_link, this._friendsBatchSize, friendsStore.friends.length, true);
+				} else if (path === '/subscribers' && friendsStore.hasMoreSubscribers) {
+					actionFriends.getSubscribers(userStore.user.user_link, this._friendsBatchSize, friendsStore.subscribers.length, true);
+				} else if (path === '/subscriptions' && friendsStore.hasMoreSubscriptions) {
+					actionFriends.getSubscriptions(userStore.user.user_link, this._friendsBatchSize, friendsStore.subscriptions.length, true);
+				} else if (path === '/findFriends' && friendsStore.hasMoreUsers) {
+					if (this._searchAreaInput.value.trim() === "") {
+						actionFriends.getNotFriends(this._friendsBatchSize, friendsStore.notFriends.length, true);
+					} else {
+						actionSearch.search(this._searchAreaInput.value.trim(), this._friendsBatchSize, searchStore.userSearchItems.length, true)
+					}
+				}
+
+				this.watingForNewItems = true;
+			}
+		});
+
 		for (let i = 0; i < this._goToMsg.length; i++) {
 			this._goToMsg[i].addEventListener('click', () => {
 				const userId = this._goToMsg[i].getAttribute("data-id");
@@ -197,7 +223,7 @@ export default class FriendsView extends BaseView {
 					this.startTimer(250, () => {
 						if (this._searchAreaInput.value !== "") {
 							localStorage.setItem("searchQuery", this._searchAreaInput.value);
-							actionSearch.search(this._searchAreaInput.value);
+							actionSearch.search(this._searchAreaInput.value, this._friendsBatchSize);
 						}
 					})
 				});
@@ -212,10 +238,10 @@ export default class FriendsView extends BaseView {
 
 	showPage() {
 		actionUser.getProfile(() => {
-			actionFriends.getFriends(userStore.user.user_link, 15, 0);
-			actionFriends.getNotFriends(15, 0);
-			actionFriends.getSubscribers(userStore.user.user_link, 15);
-			actionFriends.getSubscriptions(userStore.user.user_link, 15);
+			actionFriends.getFriends(userStore.user.user_link, this._friendsBatchSize, 0);
+			actionFriends.getNotFriends(this._friendsBatchSize, 0);
+			actionFriends.getSubscribers(userStore.user.user_link, this._friendsBatchSize);
+			actionFriends.getSubscriptions(userStore.user.user_link, this._friendsBatchSize);
 		});
 	}
 
@@ -308,16 +334,18 @@ export default class FriendsView extends BaseView {
 	}
 
 	_render() {
+		this.watingForNewItems = false;
+
 		this._preRender();
 		Router.rootElement.innerHTML = this._template(this._context);
 		this._addPagesElements();
 		this._addPagesListener();
 
 		let query = localStorage.getItem("searchQuery");
-		if (window.location.pathname === "/findFriends" && query != null && query !== "") {
+		if (window.location.pathname === "/findFriends" && query != null && query.trim() !== "") {
 			this._searchAreaInput.value = query;
 			this._searchAreaInput.focus();
-			actionSearch.search(this._searchAreaInput.value);
+			actionSearch.search(this._searchAreaInput.value, this._friendsBatchSize);
 		} else {
 			localStorage.removeItem("searchQuery");
 			this._searchAreaInput.focus();

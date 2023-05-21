@@ -53,6 +53,11 @@ class WebSock {
             }
             messagesStore._refreshStore();
         };
+
+        this._socket.onclose = (event) => {
+            console.log(event.code);
+            open();
+        }
     }
 
     /**

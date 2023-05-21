@@ -13,6 +13,8 @@ export default class ChatView extends BaseView {
 		super();
 		this._jsId = 'chat';
 		this._curMsg = '';
+
+		this._messageBatchSize = 20;
 	}
 
 	/**
@@ -48,8 +50,8 @@ export default class ChatView extends BaseView {
 
 		this._msg.focus();
 
-		this._f = document.getElementById('js-1');
-		this._f.scrollTop = this._f.scrollHeight;
+		this._msgList = document.getElementById('js-1');
+		this._msgList.scrollTop = this._msgList.scrollHeight;
 
 		this._textarea = document.getElementsByTagName('textarea');
 
@@ -74,6 +76,13 @@ export default class ChatView extends BaseView {
 				localStorage.setItem('curMsg', '');
 				actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
 				this._msg.value = '';
+			}
+		});
+
+		this._msgList.addEventListener('scroll', () => {
+			if (this._msgList.scrollTop <= 0 && !this.watingForNewPosts && messagesStore.hasNextMessages) {
+				actionMessage.getChatsMsg(localStorage.getItem('chatId'), this._messageBatchSize, messagesStore.messages.at(0).raw_creation_date, true);
+				this.watingForNewPosts = true;
 			}
 		});
 
@@ -155,7 +164,7 @@ export default class ChatView extends BaseView {
 	showPage() {
 		const chatId = localStorage.getItem('chatId');
 		if (chatId) {
-			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,50); actionMessage.getChats(15); });
+			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,this._messageBatchSize); actionMessage.getChats(15); });
 			actionSticker.getStickerPacksByAuthor(15, 0);
 		} else {
 			Router.goBack();
@@ -163,6 +172,8 @@ export default class ChatView extends BaseView {
 	}
 
 	_preRender() {
+		this.watingForNewPosts = false;
+
 		let curChat = null;
 		messagesStore.chats.forEach((chat) => {
 			if (String(chat.chat_id) === localStorage.getItem('chatId')) {

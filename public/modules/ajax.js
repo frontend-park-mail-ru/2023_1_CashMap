@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.beckendStatus = 'local';
-        this.beckendStatus = 'global';
+        this.beckendStatus = 'local';
+        // this.beckendStatus = 'global';
 
         if (this.beckendStatus === 'global') {
             this.backendHostname = 'depeche.su';
@@ -364,7 +364,7 @@ class Ajax {
     }
 
     async getChats(count = 0, lastPostDate = 0) {
-        return this._request(this._apiUrl.getChats + `?batch_size=${count}&offset=${lastPostDate}`, this._requestType.GET);
+        return this._request(this._apiUrl.getMsg + `?chat_id=${chatId}&batch_size=${count}&last_msg_date=${lastPostDate}`, this._requestType.GET);
     }
 
     async getChatsMsg(chatId, count, lastPostDate) {

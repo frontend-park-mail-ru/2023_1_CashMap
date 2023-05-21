@@ -17,6 +17,9 @@ class DropdownSearchStore {
         this.userSearchItems = [];
         this.communitySearchItems = [];
 
+        this.hasNextUsers = true;
+        this.hasNextGroups = true;
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -46,50 +49,57 @@ class DropdownSearchStore {
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'userSearch':
-                await this._getGlobalSearchResult(action.searchText, action.count, action.offset);
+                await this._getGlobalSearchResult(action.searchText, action.count, action.offset, action.isScroll);
                 break;
             default:
                 return;
         }
     }
 
-    async _getGlobalSearchResult(searchText, count, offset) {
+    async _getGlobalSearchResult(searchText, count, offset, isScroll=false) {
         const request = await Ajax.getGlobalSearchResult(searchText, count, offset);
 
         if (request.status === 200) {
             const response = await request.json();
 
-            if (response.body.users != null) {
+            if (response.body.users && response.body.users.length !== 0) {
+                this.hasNextUsers = true;
+                response.body.users.forEach((user) => {
+                    if (!user.avatar_url) {
+                        user.avatar_url = headerConst.avatarDefault;
+                    }
+                    if (!user.isFriend && !user.isSubscriber && !user.isSubscribed) {
+                        user.isUser = true;
+                    }
+                });
+            } else {
+                this.hasNextUsers = false;
+            }
+
+            if (isScroll) {
+                this.userSearchItems.push(...response.body.users);
+            } else {
                 this.userSearchItems = response.body.users;
-            } else {
-                this.userSearchItems = [];
             }
 
-            if (response.body.communitites != null) {
+            if (response.body.communitites && response.body.communitites.length !== 0) {
+                this.hasNextGroups = true;
+                response.body.communitites.forEach((community) => {
+                    if (!community.avatar_url) {
+                        community.avatar_url = headerConst.avatarDefault;
+                    }
+
+                    community.isCommunity = true;
+                });
+            } else {
+                this.hasNextGroups = false;
+            }
+
+            if (isScroll) {
+                this.communitySearchItems.push(...response.body.communitites);
+            } else {
                 this.communitySearchItems = response.body.communitites;
-            } else {
-                this.communitySearchItems = [];
             }
-            this.userSearchItems.forEach((user) => {
-                if (!user.avatar_url) {
-                    user.avatar_url = headerConst.avatarDefault;
-                } else {
-                    user.avatar_url = Ajax.imgUrlConvert(user.avatar_url);
-                }
-                if (!user.isFriend && !user.isSubscriber && !user.isSubscribed) {
-                    user.isUser = true;
-                }
-            });
-
-            this.communitySearchItems.forEach((community) => {
-                if (!community.avatar_url) {
-                    community.avatar_url = headerConst.avatarDefault;
-                } else {
-                    community.avatar_url = Ajax.imgUrlConvert(community.avatar_url);
-                }
-
-                community.isCommunity = true;
-            });
 
         } else if (request.status === 401) {
             actionUser.signOut();

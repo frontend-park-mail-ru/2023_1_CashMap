@@ -14,12 +14,13 @@ export const actionFriends = {
      * @param {*} count - количество возвращаемых друзей
      * @param {*} offset - смещение
      */
-    getFriends(link, count, offset) {
+    getFriends(link, count, offset, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getFriends',
             link,
             count,
             offset,
+            isScroll
         });
     },
     /**
@@ -37,11 +38,12 @@ export const actionFriends = {
      * @param {*} count - количество возвращаемых пользователей
      * @param {*} offset - смещение
      */
-    getUsers(count, offset) {
+    getUsers(count, offset, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getUsers',
             count,
             offset,
+            isScroll
         });
     },
     /**
@@ -49,11 +51,12 @@ export const actionFriends = {
      * @param {*} count - количество возвращаемых пользователей
      * @param {*} offset - смещение
      */
-    getNotFriends(count, offset) {
+    getNotFriends(count, offset, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getNotFriends',
             count,
             offset,
+            isScroll
         });
     },
     /**
@@ -62,13 +65,14 @@ export const actionFriends = {
      * @param {*} count - количество аозвращаемых подписок
      * @param {*} offset - смещение
      */
-    getSubscriptions(link, count, offset) {
+    getSubscriptions(link, count, offset, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getSub',
             type: 'out',
             link,
             count,
             offset,
+            isScroll
         });
     },
     /**
@@ -77,13 +81,14 @@ export const actionFriends = {
      * @param {*} count - количество аозвращаемых подписок
      * @param {*} offset - смещение
      */
-    getSubscribers(link, count, offset) {
+    getSubscribers(link, count, offset, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getSub',
             type: 'in',
             link,
             count,
             offset,
+            isScroll
         });
     },
     /**

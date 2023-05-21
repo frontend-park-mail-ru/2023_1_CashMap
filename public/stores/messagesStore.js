@@ -18,6 +18,8 @@ class messagesStore {
         this.messages = [];
         this.chats = [];
 
+        this.hasNextMessages = true;
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -50,7 +52,7 @@ class messagesStore {
                 await this._getChats(action.count, action.lastPostDate);
                 break;
             case 'getChatsMsg':
-                await this._getChatsMsg(action.chatId, action.count, action.lastPostDate);
+                await this._getChatsMsg(action.chatId, action.count, action.lastPostDate, action.isScroll);
                 break;
             case 'chatCheck':
                 await this._chatCheck(action.userLink, action.callback);
@@ -119,25 +121,34 @@ class messagesStore {
      * @param {Number} count - количество получаемых сообщений
      * @param {Date} lastPostDate - дата, после которой выбираются сообщения
      */
-    async _getChatsMsg(chatId, count, lastPostDate) {
-        const request = await Ajax.getChatsMsg(chatId, count, lastPostDate);
+    async _getChatsMsg(chatId, count, lastMessageDate, isScroll=true) {
+        const request = await Ajax.getChatsMsg(chatId, count, lastMessageDate);
 
         if (request.status === 200) {
             const response = await request.json();
-            this.messages = response.body.messages;
-            this.messages.forEach((message) => {
-                if (!message.sender_info.avatar_url) {
-                    message.sender_info.avatar_url = headerConst.avatarDefault;
-                } else {
-                    message.sender_info.avatar_url = Ajax.imgUrlConvert(message.sender_info.avatar_url);
-                }
+            if (!response.body.messages || response.body.messages.length === 0) {
+                this.hasNextMessages = false;
+            } else {
+                response.body.messages.forEach((message) => {
+                    if (!message.sender_info.avatar_url) {
+                        message.sender_info.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        message.sender_info.avatar_url = Ajax.imgUrlConvert(message.sender_info.avatar_url);
+                    }
 
-                if (message.sticker) {
-                    message.sticker.url = Ajax.stickerUrlConvert(message.sticker.url);
-                }
-                message.creation_date = new Date(message.creation_date).toLocaleDateString();
-            });
+                    if (message.sticker) {
+                        message.sticker.url = Ajax.stickerUrlConvert(message.sticker.url);
+                    }
+                    message.creation_date = new Date(message.creation_date).toLocaleDateString();
+                });
+            }
 
+            this.hasNextMessages = response.body.has_next;
+            if (isScroll) {
+                this.messages = response.body.messages.concat(this.messages);
+            } else {
+                this.messages = response.body.messages;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

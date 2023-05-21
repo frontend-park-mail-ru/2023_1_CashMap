@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import { sideBarConst, headerConst, maxTextStrings, maxTextLength } from "../static/htmlConst.js";
+import {sideBarConst, headerConst, maxTextStrings, maxTextLength, friendsMenuInfo} from "../static/htmlConst.js";
 import {actionPost} from "../actions/actionPost.js";
 import BaseView from "./baseView.js";
 import postsStore from "../stores/postsStore.js";
@@ -9,6 +9,8 @@ import groupsStore from "../stores/groupsStore.js";
 import { actionUser } from "../actions/actionUser.js";
 import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
+import {actionSearch} from "../actions/actionSearch.js";
+import searchStore from "../stores/dropdownSearchStore.js";
 
 export default class GroupView extends BaseView {
 	constructor() {
@@ -20,6 +22,8 @@ export default class GroupView extends BaseView {
 
 		this.isCreate = false;
 		this.isEdit = false;
+
+		this._postsBatchSize = 15;
 	}
 
 	/**
@@ -98,6 +102,13 @@ export default class GroupView extends BaseView {
 				actionPost.deletePost(Number(postId));
 			});
 		}
+
+		window.addEventListener('scroll', () => {
+			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewPosts && postsStore.hasMorePosts) {
+				actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize, postsStore.posts.at(-1).raw_creation_date, true);
+				this.watingForNewPosts = true;
+			}
+		});
 
 		if (this._groupSub) {
 			this._groupSub.addEventListener('click', () => {
@@ -401,7 +412,7 @@ export default class GroupView extends BaseView {
 	showPage(search) {
 		if (search.link) {
 			this._groupLink = search.link;
-			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, 15); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
+			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
 		} else {
 			Router.go('/groups', false);
 		}
@@ -409,6 +420,8 @@ export default class GroupView extends BaseView {
 
 
 	_preRender() {
+		this.watingForNewPosts = false;
+
 		this._template = Handlebars.templates.group;
 		let header = headerConst;
 		header['avatar_url'] = userStore.user.avatar_url;
