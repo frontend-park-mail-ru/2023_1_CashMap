@@ -2,7 +2,7 @@ import messagesStore from "../stores/messagesStore.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "../stores/userStore.js";
 import Ajax from "./ajax.js";
-import chatView from "../views/chatView.js";
+import Router from "./router.js";
 
 /**
  * класс для работы с web сокетами
@@ -42,6 +42,19 @@ class WebSock {
             }
 
             if (localStorage.getItem('chatId') === String(response.chat_id)) {
+                if (response.attachments) {
+                    for (let i = 0; i < response.attachments.length; i++) {
+                        const url = response.attachments[i];
+                        let type = Router._getSearch(url).type;
+                        if (type !== 'img') {
+                            type = 'file';
+                        }
+                        response.attachments[i] = {url: Ajax.imgUrlConvert(url), id: i + 1, type: type}
+                        if (Router._getSearch(url).filename) {
+                            response.attachments[i].filename = Router._getSearch(url).filename;
+                        }
+                    }
+                }
                 messagesStore.messages.push(response);
                 localStorage.setItem('curMsg', document.getElementById('js-msg-input').value);
             }

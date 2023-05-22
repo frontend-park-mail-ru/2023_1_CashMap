@@ -110,7 +110,7 @@ class Ajax {
         let a = {};
         a['X-Csrf-Token'] = localStorage.getItem('X-Csrf-Token');
 
-        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === this._apiUrl.editGroup || apiUrlType === '/api/posts/like/set' || apiUrlType === '/api/posts/like/cancel' || apiUrlType === this._apiUrl.likePost || apiUrlType === this._apiUrl.dislikePost) {
+        if (requestType === 'DELETE' || apiUrlType === '/api/im/chat/create' || apiUrlType === this._apiUrl.editGroup || apiUrlType === this._apiUrl.sendMsg || apiUrlType === this._apiUrl.editPost || apiUrlType === '/api/posts/like/set' || apiUrlType === '/api/posts/like/cancel' || apiUrlType === this._apiUrl.likePost || apiUrlType === this._apiUrl.dislikePost) {
             a['Content-Type'] = 'application/json';
         }
 
@@ -256,13 +256,10 @@ class Ajax {
         return this._request(this._apiUrl.createPost, this._requestType.POST,  JSON.stringify({body}));
     }
 
-    async editPost(text, post_id) {
-        let formData = new FormData();
+    async editPost(text, deleteAtt, addAtt, post_id) {
+        const body = {text: text, post_id: Number(post_id), attachments: {deleted: deleteAtt, added: addAtt}};
 
-        formData.append("text", text);
-        formData.append("post_id", post_id);
-
-        return this._request(this._apiUrl.editPost, this._requestType.PATCH, formData);
+        return this._request(this._apiUrl.editPost, this._requestType.PATCH, JSON.stringify(body));
     }
 
     async deletePost(post_id) {
@@ -376,8 +373,8 @@ class Ajax {
         return this._request(this._apiUrl.chatCheck + `?user_link=${link}`, this._requestType.GET);
     }
 
-    async msgSend(id, text) {
-        const body = {chat_id: Number(id), text_content: text};
+    async msgSend(id, text, attachments) {
+        const body = {chat_id: Number(id), text_content: text, attachments: attachments};
         return this._request(this._apiUrl.sendMsg, this._requestType.POST, JSON.stringify({body}));
     }
 
@@ -386,11 +383,15 @@ class Ajax {
         return this._request(this._apiUrl.chatCreate, this._requestType.POST, JSON.stringify({body}));
     }
 
-    async uploadImg(data) {
+    async uploadImg(data, filename) {
         let formData = new FormData();
         formData.append("attachments", data);
 
-        return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData, this._staticUrl);
+        if (filename) {
+            return this._request(this._apiUrl.uploadImg + `?filename=${filename}`, this._requestType.POST, formData, this._staticUrl);
+        } else {
+            return this._request(this._apiUrl.uploadImg, this._requestType.POST, formData, this._staticUrl);
+        }
     }
 
     async getGlobalSearchResult(searchText, count, offset) {

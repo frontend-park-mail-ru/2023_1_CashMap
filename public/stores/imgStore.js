@@ -23,15 +23,15 @@ class imgStore {
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'uploadImg':
-                await this._uploadImg(action.data, action.callback);
+                await this._uploadImg(action.data, action.callback, action.filename);
                 break;
             default:
                 return;
         }
     }
 
-    async _uploadImg(data, callback) {
-        const request = await Ajax.uploadImg(data);
+    async _uploadImg(data, callback, filename) {
+        const request = await Ajax.uploadImg(data, filename);
         const response = await request.json();
 
         if (request.status === 200) {

@@ -46,11 +46,12 @@ export const actionMessage = {
      * @param {*} chatId - id чата
      * @param {*} text - текст отправляемого сообщения
      */
-    msgSend(chatId, text) {
+    msgSend(chatId, text, attachments = null) {
         Dispatcher.dispatch({
             actionName: 'msgSend',
             chatId,
             text,
+            attachments,
         });
     },
     /**

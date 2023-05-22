@@ -3,6 +3,8 @@ import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
+import Router from "../modules/router.js";
+import postsStore from "./postsStore.js";
 
 /**
  * класс, хранящий информацию о сообщениях
@@ -56,7 +58,7 @@ class messagesStore {
                 await this._chatCheck(action.userLink, action.callback);
                 break;
             case 'msgSend':
-                await this._msgSend(action.chatId, action.text);
+                await this._msgSend(action.chatId, action.text, action.attachments);
                 break;
             case 'chatCreate':
                 await this._chatCreate(action.userLinks, action.callback);
@@ -132,6 +134,19 @@ class messagesStore {
                     message.sender_info.avatar_url = Ajax.imgUrlConvert(message.sender_info.avatar_url);
                 }
                 message.creation_date = new Date(message.creation_date).toLocaleDateString();
+                if (message.attachments) {
+                    for (let i = 0; i < message.attachments.length; i++) {
+                        const url = message.attachments[i];
+                        let type = Router._getSearch(url).type;
+                        if (type !== 'img') {
+                            type = 'file';
+                        }
+                        message.attachments[i] = {url: Ajax.imgUrlConvert(url), id: i + 1, type: type}
+                        if (Router._getSearch(url).filename) {
+                            message.attachments[i].filename = Router._getSearch(url).filename;
+                        }
+                    }
+                }
             });
 
         } else if (request.status === 401) {
@@ -173,8 +188,10 @@ class messagesStore {
      * @param {Number} chatId - id чата
      * @param {String} text - текст сообщения
      */
-    async _msgSend(chatId, text) {
-        const request = await Ajax.msgSend(chatId, text);
+    async _msgSend(chatId, text, attachments) {
+        const request = await Ajax.msgSend(chatId, text, attachments);
+
+        postsStore.attachments = [];
 
         if (request.status === 401) {
             actionUser.signOut();

@@ -1,10 +1,13 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import { sideBarConst, headerConst, activeColor } from "../static/htmlConst.js";
+import { sideBarConst, headerConst } from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";
 import BaseView from "./baseView.js";
+import postsStore from "../stores/postsStore.js";
+import {actionImg} from "../actions/actionImg.js";
+import Ajax from "../modules/ajax.js";
 
 export default class ChatView extends BaseView {
 	constructor() {
@@ -19,6 +22,7 @@ export default class ChatView extends BaseView {
 	addStore() {
 		messagesStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
+		postsStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -43,19 +47,35 @@ export default class ChatView extends BaseView {
 			this.style.height = 'auto';
 			this.style.height = (this.scrollHeight) + 'px';
 		}
+
+		this._addPhotoToMsg = document.getElementById('js-add-photo-to-msg');
+		this._removeImg = document.getElementsByClassName('js-delete-photo-from-msg');
 	}
 
 	addPagesListener() {
 		super.addPagesListener();
 
 		this._backBtn.addEventListener('click', () => {
+			postsStore.attachments = [];
 			Router.goBack();
 		})
 
 		this._sendMsg.addEventListener('click', () => {
 			if (this._msg.value.length) {
 				localStorage.setItem('curMsg', '');
-				actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
+				if (postsStore.attachments.length) {
+					let sendAttachments = []
+					postsStore.attachments.forEach((img) => {
+						if (img.type === 'file') {
+							sendAttachments.push(Ajax.imgUrlBackConvert(img.url) + `&filename=${img.filename}`);
+						} else {
+							sendAttachments.push(Ajax.imgUrlBackConvert(img.url));
+						}
+					})
+					actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value, sendAttachments);
+				} else {
+					actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
+				}
 				this._msg.value = '';
 			}
 		});
@@ -76,10 +96,72 @@ export default class ChatView extends BaseView {
 				document.getElementById("js-send-msg").click();
 			}
 		});
+
+		if (this._addPhotoToMsg) {
+			this._addPhotoToMsg.addEventListener('click', ()=> {
+				console.log(postsStore.attachments)
+				if (postsStore.attachments === null) {
+					postsStore.attachments = [];
+				}
+				if (postsStore.attachments.length >= 10) {
+					return;
+				}
+				postsStore.text = this._msg.value;
+				const fileInput = document.createElement('input');
+				fileInput.type = 'file';
+
+				fileInput.addEventListener('change', function (event) {
+					const file = event.target.files[0];
+
+					const reader = new FileReader();
+					reader.onload = () => {
+						actionImg.uploadImg(file, (newUrl) => {
+							let id = 1;
+
+							if (postsStore.attachments.length) {
+								id = postsStore.attachments[postsStore.attachments.length-1].id + 1;
+							}
+							if (Router._getSearch(newUrl).type === 'img') {
+								postsStore.attachments.push({url: Ajax.imgUrlConvert(newUrl), id: id, type: 'img'});
+							} else {
+								postsStore.attachments.push({url: Ajax.imgUrlConvert(newUrl), id: id, type: 'file', filename: file.name});
+							}
+
+							postsStore._refreshStore();
+						});
+					};
+
+					reader.readAsDataURL(file);
+				});
+
+				fileInput.click();
+			});
+		}
+
+		for (let i = 0; i < this._removeImg.length; i++) {
+			this._removeImg[i].addEventListener('click', () => {
+				const imgId = this._removeImg[i].getAttribute("data-id");
+
+				let index = -1;
+				for (let i = 0; i < postsStore.attachments.length; i++) {
+					if (postsStore.attachments[i].id.toString() === imgId) {
+						index = i;
+						break;
+					}
+				}
+				if (index > -1) {
+					postsStore.attachments.splice(index, 1);
+				}
+
+				postsStore.text = this._msg.value;
+				postsStore._refreshStore();
+			});
+		}
 	}
 
 	showPage() {
 		const chatId = localStorage.getItem('chatId');
+		postsStore.attachments = [];
 		if (chatId) {
 			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,50); actionMessage.getChats(15); });
 		} else {
@@ -88,6 +170,7 @@ export default class ChatView extends BaseView {
 	}
 
 	_preRender() {
+		alert(postsStore.attachments.length)
 		let curChat = null;
 		messagesStore.chats.forEach((chat) => {
 			if (String(chat.chat_id) === localStorage.getItem('chatId')) {
@@ -112,7 +195,7 @@ export default class ChatView extends BaseView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {messages: messagesStore.messages, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg')},
+			chatData: {messages: messagesStore.messages, attachments: postsStore.attachments, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg')},
 		}
 	}
 }

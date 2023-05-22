@@ -23,7 +23,7 @@
         <div class="foo border-radius">
             <textarea class="chat__footer-input border-radius font-InterMedium font-size-15 font-color-gray-text background-color-feed border-none" placeholder="Написать сообщение" id="js-msg-input">{{ curMsg }}</textarea>
 
-            <div class="chat__footer-icon">
+            <div class="chat__footer-icon" id="js-add-photo-to-msg">
                 <input type="image" src="static/img/post_icons/photo.svg">
                 <input type="image" src="static/img/post_icons/photo_hover_msg.svg">
             </div>
@@ -34,7 +34,6 @@
             </div>
         </div>
 
-
         <div class="block" id="js-send-msg-block">
             <input type="image" src="static/img/post_icons/sendBlock.svg">
         </div>
@@ -44,6 +43,26 @@
             <input type="image" src="static/img/post_icons/send_hover.svg">
         </div>
     </div>
-    <div class="chat__photos"></div>
+
+    <div class="msg-media-create" id="js-post-media">
+        {{#each attachments}}
+            {{#if (eq type 'img')}}
+                <div class="msg-media-create__img-container">
+                    <img class="msg-media-create__img border-radius-btn-input" src="{{ url }}">
+                </div>
+                <span class="js-delete-photo-from-msg close-button cursor-pointer" data-id="{{ id }}">&times;</span>
+            {{/if}}
+        {{/each}}
+    </div>
+    {{#each attachments}}
+        {{#if (eq type 'file')}}
+            <div class="msg-files">
+                <img src="static/img/doc.svg">
+                <span class="file-name"> {{ filename }} </span>
+                <span class="js-delete-photo-from-msg delete-button cursor-pointer file-name" data-id="{{ id }}">&times;</span>
+            </div>
+        {{/if}}
+    {{/each}}
+    </div>
 
 </div>
