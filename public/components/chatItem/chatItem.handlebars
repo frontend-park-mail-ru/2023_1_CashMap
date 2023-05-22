@@ -19,7 +19,7 @@
                 <div class="post-files">
                     {{#each attachments}}
                         {{#if (eq type 'file')}}
-                            <div class="files">
+                            <div class="files js-file-i cursor-pointer" data-id="{{ url }}">
                                 <img src="static/img/doc.svg">
                                 <span class="font-InterRegular font-size-13 font-color-gray-text file-name"> {{ filename }} </span>
                             </div>

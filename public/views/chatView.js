@@ -48,6 +48,7 @@ export default class ChatView extends BaseView {
 		this._stickersImgActive = document.getElementById('js-stickers-active');
 		this._emotionBtn = document.getElementById('js-chat-smiles');
 		this._emotionKeyboard = document.getElementById('js-smiles-keyboard');
+		this._install = document.getElementsByClassName('js-file-i');
 
 		this._smilesImg.style.display='none';
 		this._smilesImgActive.style.display='block';
@@ -240,6 +241,15 @@ export default class ChatView extends BaseView {
 				actionMessage.msgSend(localStorage.getItem('chatId'), '', parseInt(this._stickers[i].getAttribute("data-id")));
 			});
 		}
+
+		for (let i = 0; i < this._install.length; i++) {
+			this._install[i].addEventListener('click', () => {
+				const url = this._install[i].getAttribute("data-id");
+				window.open(url, '_blank');
+			});
+		}
+
+
 	}
 
 	showPage() {
