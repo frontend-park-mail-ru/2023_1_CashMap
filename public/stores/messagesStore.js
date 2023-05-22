@@ -209,7 +209,6 @@ class messagesStore {
      */
     async _msgSend(chatId, text, stickerId, attachments) {
         const request = await Ajax.msgSend(chatId, text, stickerId, attachments);
-        postsStore.attachments = [];
 
         if (request.status === 401) {
             actionUser.signOut();

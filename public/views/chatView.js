@@ -92,6 +92,7 @@ export default class ChatView extends BaseView {
 							sendAttachments.push(Ajax.imgUrlBackConvert(img.url));
 						}
 					})
+					postsStore.attachments = [];
 					actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value, null ,sendAttachments);
 				} else {
 					actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
@@ -126,14 +127,13 @@ export default class ChatView extends BaseView {
 
 		if (this._addPhotoToMsg) {
 			this._addPhotoToMsg.addEventListener('click', ()=> {
-				console.log(postsStore.attachments)
 				if (postsStore.attachments === null) {
 					postsStore.attachments = [];
 				}
 				if (postsStore.attachments.length >= 10) {
 					return;
 				}
-				postsStore.text = this._msg.value;
+				localStorage.setItem('curMsg', this._msg.value);
 				const fileInput = document.createElement('input');
 				fileInput.type = 'file';
 
@@ -180,7 +180,7 @@ export default class ChatView extends BaseView {
 					postsStore.attachments.splice(index, 1);
 				}
 
-				postsStore.text = this._msg.value;
+				localStorage.setItem('curMsg', this._msg.value);
 				postsStore._refreshStore();
       });
     }
@@ -249,7 +249,13 @@ export default class ChatView extends BaseView {
 			});
 		}
 
-
+		if (this._msg.value || postsStore.attachments.length) {
+			this._sendMsg.classList.remove('display-none');
+			this._sendMsgBlock.classList.add('display-none');
+		} else {
+			this._sendMsg.classList.add('display-none');
+			this._sendMsgBlock.classList.remove('display-none');
+		}
 	}
 
 	showPage() {
