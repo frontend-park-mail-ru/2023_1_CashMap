@@ -44,7 +44,7 @@ export default class ChatView extends BaseView {
 		this._stickersImgActive = document.getElementById('js-stickers-active');
 		this._emotionBtn = document.getElementById('js-chat-smiles');
 		this._emotionKeyboard = document.getElementById('js-smiles-keyboard');
-
+	
 		this._smilesImg.style.display='none';
 		this._smilesImgActive.style.display='block';
 
@@ -68,7 +68,7 @@ export default class ChatView extends BaseView {
 		super.addPagesListener();
 
 		this._backBtn.addEventListener('click', () => {
-			Router.goBack();
+			Router.go('/message', false);
 		})
 
 		this._sendMsg.addEventListener('click', () => {
