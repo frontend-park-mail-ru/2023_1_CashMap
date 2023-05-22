@@ -1,7 +1,8 @@
 .smiles-keyboard {
     display: none;
     position: absolute;
-    bottom: 70px;
+    z-index: 1;
+    bottom: 10%;
     right: 17%;
 
     width: 300px;

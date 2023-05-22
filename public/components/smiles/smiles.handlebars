@@ -13,9 +13,11 @@
             <input class="keyboard_img" id="js-smiles" type="image" src="static/img/post_icons/smile.svg">
             <input class="keyboard_img" id="js-smiles-active" type="image" src="static/img/post_icons/smile_active.svg">
         </div>
-        <div class="smiles-keyboard-icon smiles-keyboard-icon_stickers">
-            <input class="keyboard_img" id="js-stickers" type="image" src="static/img/post_icons/sticker.svg">
-            <input class="keyboard_img" id="js-stickers-active" type="image" src="static/img/post_icons/sticker_active.svg">
-        </div>
+        {{#if stickerpacks}}
+            <div class="smiles-keyboard-icon smiles-keyboard-icon_stickers">
+                <input class="keyboard_img" id="js-stickers" type="image" src="static/img/post_icons/sticker.svg">
+                <input class="keyboard_img" id="js-stickers-active" type="image" src="static/img/post_icons/sticker_active.svg">
+            </div>
+        {{/if}}
     </div>
 </div>
