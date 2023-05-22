@@ -14,11 +14,15 @@ import groupsStore from "../stores/groupsStore.js";
 import BaseView from "./baseView.js";
 import {actionSearch} from "../actions/actionSearch.js";
 import searchStore from "../stores/dropdownSearchStore.js";
+import friendsStore from "../stores/friendsStore.js";
+import {actionFriends} from "../actions/actionFriends.js";
 
 export default class GroupsView extends BaseView {
 	constructor() {
 		super();
 		this._jsId = 'groups';
+
+		this._groupsBatchSize = 15;
 	}
 
 	/**
@@ -129,6 +133,24 @@ export default class GroupsView extends BaseView {
 			errField.textContent = "";
 		}, true);
 
+		window.addEventListener('scroll', () => {
+			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewItems) {
+				let path = window.location.pathname;
+				if (path === '/groups' && friendsStore.hasMoreFriends) {
+					actionGroups.getGroups(this._groupsBatchSize, groupsStore.groups.length, true);
+				} else if (path === '/manageGroups' && friendsStore.hasMoreSubscribers) {
+					actionGroups.getmanageGroups(this._groupsBatchSize, groupsStore.manageGroups.length, true);
+				} else if (path === '/findGroups' && friendsStore.hasMoreSubscriptions) {
+					if (this._searchAreaInput.value.trim() === "") {
+						actionGroups.getNotGroups(this._groupsBatchSize, groupsStore.findGroups.length, true);
+					} else {
+						actionSearch.search(this._searchAreaInput.value.trim(), this._groupsBatchSize, searchStore.communitySearchItems.length, true)
+					}
+				}
+
+				this.watingForNewItems = true;
+			}
+		});
 
 		if (this._addGroupBtn !== null) {
 			this._addGroupBtn.addEventListener('click', () => {
@@ -168,7 +190,7 @@ export default class GroupsView extends BaseView {
 					this.startTimer(250, () => {
 						if (this._searchAreaInput.value !== "") {
 							localStorage.setItem("searchQuery", this._searchAreaInput.value);
-							actionSearch.search(this._searchAreaInput.value);
+							actionSearch.search(this._searchAreaInput.value, this._groupsBatchSize);
 						}
 					})
 				});
@@ -209,6 +231,7 @@ export default class GroupsView extends BaseView {
 			},
 			groupsPathData: groupsConst,
 			menuInfo: friendsMenuInfo,
+			newGroupData: NewGroupConst,
 		}
 
 		Router.rootElement.innerHTML = this._template(this._context);
@@ -228,6 +251,8 @@ export default class GroupsView extends BaseView {
 	}
 
 	_preRender() {
+		this.watingForNewItems = false;
+
 		this._template = Handlebars.templates.groups;
 		let header = headerConst;
 		header['avatar_url'] = userStore.user.avatar_url;
@@ -275,6 +300,20 @@ export default class GroupsView extends BaseView {
 				this.render();
 				this._searchAreaInput.focus();
 			}
+		}
+	}
+
+	render() {
+		super.render();
+
+		let query = localStorage.getItem("searchQuery");
+		if (window.location.pathname === "/findGroups" && query !== null && query.trim() !== "") {
+			this._searchAreaInput.value = query;
+			this._searchAreaInput.focus();
+			actionSearch.search(this._searchAreaInput.value, this._friendsBatchSize);
+		} else {
+			localStorage.removeItem("searchQuery");
+			this._searchAreaInput.focus();
 		}
 	}
 }

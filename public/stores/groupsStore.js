@@ -26,6 +26,11 @@ class groupsStore {
 
         this.error = "";
 
+        this.hasNextGroups = true;
+        this.hasNextManagedGroups = true;
+        this.hasNextGroups = true;
+        this.hasNextFoundGroups = true;
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -55,16 +60,16 @@ class groupsStore {
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'getGroups':
-                await this._getGroups(action.count, action.offset);
+                await this._getGroups(action.count, action.offset, action.isScroll);
                 break;
             case 'getManageGroups':
-                await this._getManageGroups(action.count, action.offset);
+                await this._getManageGroups(action.count, action.offset, action.isScroll);
                 break;
             case 'getNotGroups':
-                await this._getNotGroups(action.count, action.offset);
+                await this._getNotGroups(action.count, action.offset, action.isScroll);
                 break;
             case 'getPopularGroups':
-                await this._getPopularGroups(action.count, action.offset);
+                await this._getPopularGroups(action.count, action.offset, action.isScroll);
                 break;
             case 'getGroupInfo':
                 await this._getGroupInfo(action.callback, action.link);
@@ -97,26 +102,36 @@ class groupsStore {
      * @param {Number} count - количество получаемых групп
      * @param {Number} offset - смещение
      */
-    async _getGroups(count, offset) {
+    async _getGroups(count, offset, isScroll=false) {
         const request = await Ajax.getGroups(count, offset);
         const response = await request.json();
 
         if (request.status === 200) {
-            response.body.groups.forEach((group) => {
-                group.isGroup = true;
-                if (!group.avatar_url) {
-                    group.avatar_url = groupAvatarDefault;
-                } else {
-                    group.avatar_url = Ajax.imgUrlConvert(group.avatar_url);
-                }
-                if (group.privacy === 'open') {
-                    group.privacy = 'Открытая группа';
-                } else {
-                    group.privacy = 'Закрытая группа';
-                }
-            });
+            if (response.body.groups && response.body.groups.length !== 0) {
+                this.hasNextGroups = true;
+                response.body.groups.forEach((group) => {
+                    group.isGroup = true;
+                    if (!group.avatar_url) {
+                        group.avatar_url = groupAvatarDefault;
+                    } else {
+                        group.avatar_url = Ajax.imgUrlConvert(group.avatar_url);
+                    }
+                    if (group.privacy === 'open') {
+                        group.privacy = 'Открытая группа';
+                    } else {
+                        group.privacy = 'Закрытая группа';
+                    }
+                });
+            } else {
+                this.hasNextGroups = false;
+            }
 
-            this.groups = response.body.groups;
+
+            if (isScroll) {
+                this.groups.push(...response.body.groups);
+            } else {
+                this.groups = response.body.groups;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -131,26 +146,35 @@ class groupsStore {
      * @param {Number} count - количество получаемых групп
      * @param {Number} offset - смещение
      */
-    async _getManageGroups(count, offset) {
+    async _getManageGroups(count, offset, isScroll=false) {
         const request = await Ajax.getmanageGroups(count, offset);
         const response = await request.json();
 
         if (request.status === 200) {
-            response.body.groups.forEach((group) => {
-                group.isUserGroup = true;
-                if (!group.avatar_url) {
-                    group.avatar_url = groupAvatarDefault;
-                } else {
-                    group.avatar_url = Ajax.imgUrlConvert(group.avatar_url);
-                }
-                if (group.privacy === 'open') {
-                    group.privacy = 'Открытая группа';
-                } else {
-                    group.privacy = 'Закрытая группа';
-                }
-            });
+            if (response.body.groups && response.body.groups.length !== 0) {
+                this.hasNextManagedGroups = true;
+                response.body.groups.forEach((group) => {
+                    group.isUserGroup = true;
+                    if (!group.avatar_url) {
+                        group.avatar_url = groupAvatarDefault;
+                    } else {
+                        group.avatar_url = Ajax.imgUrlConvert(group.avatar_url);
+                    }
+                    if (group.privacy === 'open') {
+                        group.privacy = 'Открытая группа';
+                    } else {
+                        group.privacy = 'Закрытая группа';
+                    }
+                });
+            } else {
+                this.hasNextManagedGroups = false;
+            }
 
-            this.manageGroups = response.body.groups;
+            if (isScroll) {
+                this.manageGroups.push(...response.body.groups);
+            } else {
+                this.manageGroups = response.body.groups;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -165,26 +189,35 @@ class groupsStore {
      * @param {Number} count - количество получаемых групп
      * @param {Number} offset - смещение
      */
-    async _getNotGroups(count, offset) {
+    async _getNotGroups(count, offset, isScroll=false) {
         const request = await Ajax.getNotGroups(count, offset);
         const response = await request.json();
 
         if (request.status === 200) {
-            response.body.groups.forEach((group) => {
-                group.isNotUserGroup = true;
-                if (!group.avatar_url) {
-                    group.avatar_url = groupAvatarDefault;
-                } else {
-                    group.avatar_url = Ajax.imgUrlConvert(group.avatar_url);
-                }
-                if (group.privacy === 'open') {
-                    group.privacy = 'Открытая группа';
-                } else {
-                    group.privacy = 'Закрытая группа';
-                }
-            });
+            if (response.body.groups && response.body.groups.length !== 0) {
+                this.hasNextFoundGroups = true;
+                response.body.groups.forEach((group) => {
+                    group.isNotUserGroup = true;
+                    if (!group.avatar_url) {
+                        group.avatar_url = groupAvatarDefault;
+                    } else {
+                        group.avatar_url = Ajax.imgUrlConvert(group.avatar_url);
+                    }
+                    if (group.privacy === 'open') {
+                        group.privacy = 'Открытая группа';
+                    } else {
+                        group.privacy = 'Закрытая группа';
+                    }
+                });
+            } else {
+                this.hasNextFoundGroups = false;
+            }
 
-            this.findGroups = response.body.groups;
+            if (isScroll) {
+                this.findGroups.push(...response.body.groups);
+            } else {
+                this.findGroups = response.body.groups;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -199,7 +232,7 @@ class groupsStore {
      * @param {Number} count - количество получаемых групп
      * @param {Number} offset - смещение
      */
-    async _getPopularGroups(count, offset) {
+    async _getPopularGroups(count, offset, isScroll=false) {
         const request = await Ajax.getPopularGroups(count, offset);
         const response = await request.json();
 

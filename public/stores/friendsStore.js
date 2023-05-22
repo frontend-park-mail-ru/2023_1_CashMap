@@ -25,6 +25,12 @@ class friendsStore {
 
         this.isMyFriend = false;
 
+        this.hasMoreFriends = true;
+        this.hasMoreSubscribers = true;
+        this.hasMoreSubscriptions = true;
+        this.hasMoreUsers = true;
+
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -54,19 +60,19 @@ class friendsStore {
     async _fromDispatch(action) {
         switch (action.actionName) {
             case 'getFriends':
-                await this._getFriends(action.link, action.count, action.offset);
+                await this._getFriends(action.link, action.count, action.offset, action.isScroll);
                 break;
             case 'isFriend':
                 await this._isFriend(action.link);
                 break;
             case 'getNotFriends':
-                await this._getNotFriends(action.link, action.count, action.offset);
+                await this._getNotFriends(action.link, action.count, action.offset, action.isScroll);
                 break;
             case 'getUsers':
-                await this._getUsers(action.count, action.offset);
+                await this._getUsers(action.count, action.offset, action.isScroll);
                 break;
             case 'getSub':
-                await this._getSub(action.type, action.link, action.count, action.offset);
+                await this._getSub(action.type, action.link, action.count, action.offset, action.isScroll);
                 break;
             case 'sub':
                 await this._sub(action.link);
@@ -88,24 +94,33 @@ class friendsStore {
      * @param {Number} count - количество получаемых друзей
      * @param {Number} offset - смещение
      */
-    async _getFriends(link, count, offset) {
+    async _getFriends(link, count, offset, isScroll=false) {
         const request = await Ajax.getFriends(link, count, offset);
         const response = await request.json();
 
         if (request.status === 200) {
-            response.body.friends.forEach((friend) => {
-                friend.isFriend = true;
-                if (!friend.avatar_url) {
-                    friend.avatar_url = headerConst.avatarDefault;
-                } else {
-                    friend.avatar_url = Ajax.imgUrlConvert(friend.avatar_url);
-                }
-                if (!friend.city) {
-                    friend.city = 'город не указан';
-                }
-            });
+            if (response.body.friends && response.body.friends.length !== 0) {
+                this.hasMoreFriends = true;
+                response.body.friends.forEach((friend) => {
+                    friend.isFriend = true;
+                    if (!friend.avatar_url) {
+                        friend.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        friend.avatar_url = Ajax.imgUrlConvert(friend.avatar_url);
+                    }
+                    if (!friend.city) {
+                        friend.city = 'город не указан';
+                    }
+                });
+            } else {
+                this.hasMoreFriends = false;
+            }
 
-            this.friends = response.body.friends;
+            if (isScroll) {
+                this.friends.push(...response.body.friends);
+            } else {
+                this.friends = response.body.friends;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -143,25 +158,33 @@ class friendsStore {
      * @param {Number} count - количество получаемых друзей
      * @param {Number} offset - смещение
      */
-    async _getNotFriends(link, count, offset) {
+    async _getNotFriends(link, count, offset, isScroll=false) {
         const request = await Ajax.getNotFriends(link, count, offset);
         const response = await request.json();
 
-        this.notFriends = [];
         if (request.status === 200) {
-            response.body.profiles.forEach((friend) => {
-                friend.isUser = true;
-                if (!friend.avatar_url) {
-                    friend.avatar_url = headerConst.avatarDefault;
-                } else {
-                    friend.avatar_url = Ajax.imgUrlConvert(friend.avatar_url);
-                }
-                if (!friend.city) {
-                    friend.city = 'город не указан';
-                }
-                this.notFriends.push(friend);
-            });
+            if (response.body.profiles && response.body.profiles.length !== 0) {
+                this.hasMoreUsers = true;
+                response.body.profiles.forEach((friend) => {
+                    friend.isUser = true;
+                    if (!friend.avatar_url) {
+                        friend.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        friend.avatar_url = Ajax.imgUrlConvert(friend.avatar_url);
+                    }
+                    if (!friend.city) {
+                        friend.city = 'город не указан';
+                    }
+                });
+            } else {
+                this.hasMoreUsers = false;
+            }
 
+            if (isScroll) {
+                this.notFriends.push(...response.body.profiles);
+            } else {
+                this.notFriends = response.body.profiles;
+            }
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -176,25 +199,35 @@ class friendsStore {
      * @param {Number} count - количество получаемых пользователей
      * @param {Number} offset - смещение
      */
-    async _getUsers(count, offset) {
+    async _getUsers(count, offset, isScroll=false) {
         const request = await Ajax.getUsers(count, offset);
         const response = await request.json();
 
-        this.users = [];
         if (request.status === 200) {
-            response.body.profiles.forEach((user) => {
-                if (!user.avatar_url) {
-                    user.avatar_url = headerConst.avatarDefault;
-                } else {
-                    user.avatar_url = Ajax.imgUrlConvert(user.avatar_url);
-                }
-                if (!user.city) {
-                    user.city = 'город не указан';
-                }
-                if (user.user_link !== userStore.user.user_link) {
-                    this.users.push(user);
-                }
-            });
+            if (response.body.profiles && response.body.profiles.length !== 0) {
+                this.hasMoreItems = true;
+                response.body.profiles.forEach((user) => {
+                    if (!user.avatar_url) {
+                        user.avatar_url = headerConst.avatarDefault;
+                    } else {
+                        user.avatar_url = Ajax.imgUrlConvert(user.avatar_url);
+                    }
+                    if (!user.city) {
+                        user.city = 'город не указан';
+                    }
+                    // if (user.user_link !== userStore.user.user_link) {
+                    //     this.users.push(user);
+                    // }
+                });
+            } else {
+                this.hasMoreItems = false;
+            }
+
+            if (isScroll) {
+                this.users.push(...response.body.profiles);
+            } else {
+                this.users = response.body.profiles;
+            }
 
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -212,31 +245,51 @@ class friendsStore {
      * @param {Number} count - количество получаемых подписок
      * @param {Number} offset - смещение
      */
-    async _getSub(type, link, count, offset) {
+    async _getSub(type, link, count, offset, isScroll=false) {
         const request = await Ajax.getSub(type, link, count, offset);
         const response = await request.json();
 
         if (request.status === 200) {
             if (type === 'in') {
-                this.subscribers = response.body.subs;
-                this.subscribers.forEach((sub) => {
-                    if (!sub.avatar_url) {
-                        sub.avatar_url = headerConst.avatarDefault;
-                    } else {
-                        sub.avatar_url = Ajax.imgUrlConvert(sub.avatar_url);
-                    }
-                    sub.isSubscriber = true;
-                });
+                if (response.body.subs && response.body.subs.length !== 0) {
+                    this.hasMoreSubscribers = true;
+                    response.body.subs.forEach((sub) => {
+                        if (!sub.avatar_url) {
+                            sub.avatar_url = headerConst.avatarDefault;
+                        } else {
+                            sub.avatar_url = Ajax.imgUrlConvert(sub.avatar_url);
+                        }
+                        sub.isSubscriber = true;
+                    });
+                } else {
+                    this.hasMoreSubscribers = false;
+                }
+
+                if (isScroll) {
+                    this.subscribers.push(...response.body.subs);
+                } else {
+                    this.subscribers = response.body.subs;
+                }
             } else {
-                this.subscriptions = response.body.subs;
-                this.subscriptions.forEach((sub) => {
-                    if (!sub.avatar_url) {
-                        sub.avatar_url = headerConst.avatarDefault;
-                    } else {
-                        sub.avatar_url = Ajax.imgUrlConvert(sub.avatar_url);
-                    }
-                    sub.isSubscribed = true;
-                });
+                if (response.body.subs && response.body.subs.length !== 0) {
+                    this.hasMoreSubscriptions = true;
+                    response.body.subs.forEach((sub) => {
+                        if (!sub.avatar_url) {
+                            sub.avatar_url = headerConst.avatarDefault;
+                        } else {
+                            sub.avatar_url = Ajax.imgUrlConvert(sub.avatar_url);
+                        }
+                        sub.isSubscribed = true;
+                    });
+                } else {
+                    this.hasMoreSubscriptions = false;
+                }
+
+                if (isScroll) {
+                    this.subscriptions.push(...response.body.subs);
+                } else {
+                    this.subscriptions = response.body.subs;
+                }
             }
         } else if (request.status === 401) {
             actionUser.signOut();

@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import { sideBarConst, headerConst, settingsGroupConst, activeColor, settingsConst } from "../static/htmlConst.js";
+import { sideBarConst, headerConst, settingsGroupConst, activeColor, settingsConst, optionsAvatar} from "../static/htmlConst.js";
 import {actionGroups} from "../actions/actionGroups.js";
 import {actionImg} from "../actions/actionImg.js";
 import groupsStore from "../stores/groupsStore.js";
@@ -40,6 +40,10 @@ export default class GroupView extends BaseView {
 		this._infoErrorField = document.getElementById('js-info-error');
 		this._typeField = document.getElementById('js-type-input');
 		this._showAuthorField = document.getElementById('js-showAuthor-input');
+
+		this._input = document.getElementById('js-select-file');
+		this._input.setAttribute('accept', optionsAvatar.join(','));
+
 		this._saveBtn = document.getElementById('js-settings-save-btn');
 
 		this._settingsBtn = document.getElementById('js-menu-main');
@@ -63,6 +67,25 @@ export default class GroupView extends BaseView {
 			event.preventDefault();
 
 			this._fileList = event.dataTransfer.files[0];
+
+			this._dropContent.innerHTML = '';
+			this._reader.readAsDataURL(this._fileList);
+			this._reader.addEventListener('load', (event) => {
+				this._dropContent.src = event.target.result;
+			});
+		});
+
+		this._dropArea.addEventListener('click', () => {
+			this._input.click();
+		});
+
+		this._input.addEventListener('change', (event) => {
+			if (!event.target.files.length) {
+				return;
+			}
+
+			this._fileList = Array.from(event.target.files);
+			this._fileList = this._fileList[0];
 
 			this._dropContent.innerHTML = '';
 			this._reader.readAsDataURL(this._fileList);

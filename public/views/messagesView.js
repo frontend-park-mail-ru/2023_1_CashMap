@@ -43,7 +43,7 @@ export default class MessagesView extends BaseView {
 	}
 
 	showPage() {
-		actionUser.getProfile(() => { actionMessage.getChats(15); });
+		actionUser.getProfile(() => { actionMessage.getChats(100); });
 	}
 
 	_preRender() {

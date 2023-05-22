@@ -24,6 +24,9 @@
     grid-row: 3;
 }
 
+.group__info_text {
+    word-break: break-word;
+}
 .group_right {
     grid-column: 3;
 }

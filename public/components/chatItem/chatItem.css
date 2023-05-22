@@ -24,6 +24,11 @@
     font-family: MailSansRoman;
 }
 
+.chatItem__text_main {
+    overflow: auto;
+    word-wrap: break-word;
+}
+
 .chatItem__text_little {
     font-size: var(--font-size-13);
     font-family: InterMedium;

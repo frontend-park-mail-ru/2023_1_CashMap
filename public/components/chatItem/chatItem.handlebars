@@ -21,6 +21,13 @@
                     {{/if}}
                 {{/each}}
             </div>
+
+            {{#if sticker}}
+                <img src="{{sticker.url}}" class="stickers-block__sticker">
+            {{else}}
+                <div class="chatItem__text chatItem__text_main">{{ text_content }}</div>
+            {{/if}}
+
         </div>
     </div>
     <div class="chatItem__text chatItem__text_little">{{ creation_date }}</div>
