@@ -103,12 +103,12 @@ export default class ProfileView extends BaseView {
 	addPagesListener() {
 		super.addPagesListener();
 
-		window.addEventListener('scroll', () => {
+		window.onscroll = () => {
 			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewPosts && postsStore.hasMorePosts) {
 				actionPost.getPostsByUser(this._userLink, this._postsBatchSize, postsStore.posts.at(-1).raw_creation_date, true);
 				this.watingForNewPosts = true;
 			}
-		});
+		};
 
 		this._settingsBtn.addEventListener('click', () => {
 			Router.go('/settings', false);

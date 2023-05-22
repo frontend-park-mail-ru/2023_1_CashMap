@@ -133,7 +133,7 @@ export default class GroupsView extends BaseView {
 			errField.textContent = "";
 		}, true);
 
-		window.addEventListener('scroll', () => {
+		window.onscroll = () => {
 			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewItems) {
 				let path = window.location.pathname;
 				if (path === '/groups' && friendsStore.hasMoreFriends) {
@@ -150,7 +150,7 @@ export default class GroupsView extends BaseView {
 
 				this.watingForNewItems = true;
 			}
-		});
+		};
 
 		if (this._addGroupBtn !== null) {
 			this._addGroupBtn.addEventListener('click', () => {

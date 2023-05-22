@@ -9,5 +9,6 @@ export default {
     },
     plugins: [
         css({output: 'bundle.css'}),
+        handlebars({output: 'bundle.css'}),
     ]
 };

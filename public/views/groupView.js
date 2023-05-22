@@ -110,12 +110,12 @@ export default class GroupView extends BaseView {
 			});
 		}
 
-		window.addEventListener('scroll', () => {
+		window.onscroll = () => {
 			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewPosts && postsStore.hasMorePosts) {
 				actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize, postsStore.posts.at(-1).raw_creation_date, true);
 				this.watingForNewPosts = true;
 			}
-		});
+		};
 
 		if (this._groupSub) {
 			this._groupSub.addEventListener('click', () => {

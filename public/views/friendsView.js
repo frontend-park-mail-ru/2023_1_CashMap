@@ -168,7 +168,7 @@ export default class FriendsView extends BaseView {
 			});
 		}
 
-		window.addEventListener('scroll', () => {
+		window.onscroll = () => {
 			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewItems) {
 				let path = window.location.pathname;
 				if (path === '/friends' && friendsStore.hasMoreFriends) {
@@ -187,7 +187,7 @@ export default class FriendsView extends BaseView {
 
 				this.watingForNewItems = true;
 			}
-		});
+		};
 
 		for (let i = 0; i < this._goToMsg.length; i++) {
 			this._goToMsg[i].addEventListener('click', () => {

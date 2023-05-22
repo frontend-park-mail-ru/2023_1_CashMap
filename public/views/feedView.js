@@ -76,12 +76,13 @@ export default class FeedView extends BaseView {
 	addPagesListener() {
 		super.addPagesListener();
 
-		window.addEventListener('scroll', () => {
+		window.onscroll = () => {
 			if (scrollY + innerHeight  >= document.body.scrollHeight && !this.watingForNewPosts && postsStore.hasMorePosts) {
+				alert(1)
 				actionPost.getFeedPosts(this._postBatchSize, postsStore.posts.at(-1).raw_creation_date, true)
 				this.watingForNewPosts = true;
 			}
-		});
+		};
 
 		this._text = document.getElementById('js-edit-post-textarea');
 		function OnInput() {

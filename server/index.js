@@ -11,6 +11,7 @@ const TYPES = {
     css: 'text/css',
     svg: 'image/svg+xml',
     ttf: 'font/ttf',
+    ico: 'image/x-icon',
 };
 
 const server = http.createServer((request, response) => {

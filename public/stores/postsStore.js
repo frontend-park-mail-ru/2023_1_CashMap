@@ -156,7 +156,6 @@ class postsStore {
                             }
                         }
                     }
-                    this.posts.push(post);
                 });
             } else {
                 this.hasMorePosts = false;
@@ -229,7 +228,6 @@ class postsStore {
                             }
                         }
                     }
-                    this.posts.push(post);
                 });
             } else {
                 this.hasMorePosts = false;
