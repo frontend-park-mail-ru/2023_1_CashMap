@@ -80,6 +80,9 @@ export default class GroupView extends BaseView {
 		this._emotionKeyboard = document.getElementById('js-smiles-keyboard');
 		this._smiles = document.getElementsByClassName('js-smile');
 
+		this._install = document.getElementsByClassName('js-file-i');
+
+
 		this._text = document.getElementById('js-edit-post-textarea');
 		function OnInput() {
 			this.style.height = 'auto';
@@ -368,7 +371,10 @@ export default class GroupView extends BaseView {
 		}
 
 		if (this._addPhotoToPostPic) {
-			this._addPhotoToPostPic.addEventListener('click', () => {
+			this._addPhotoToPostPic.addEventListener('click', ()=> {
+				if (postsStore.attachments === null) {
+					postsStore.attachments = [];
+				}
 				if (postsStore.attachments.length >= 10) {
 					return;
 				}
@@ -383,10 +389,18 @@ export default class GroupView extends BaseView {
 					reader.onload = function (e) {
 						actionImg.uploadImg(file, (newUrl) => {
 							let id = 1;
+
 							if (postsStore.attachments.length) {
 								id = postsStore.attachments[postsStore.attachments.length-1].id + 1;
 							}
-							postsStore.attachments.push({url: Ajax.imgUrlConvert(newUrl), id: id});
+							if (Router._getSearch(newUrl).type === 'img') {
+								postsStore.attachments.push({url: Ajax.imgUrlConvert(newUrl), id: id, type: 'img'});
+								postsStore.addAttachments.push(newUrl);
+							} else {
+								postsStore.attachments.push({url: Ajax.imgUrlConvert(newUrl), id: id, type: 'file', filename: file.name});
+								postsStore.addAttachments.push(newUrl + `&filename=${file.name}`);
+							}
+
 							postsStore._refreshStore();
 						});
 					};
@@ -406,6 +420,7 @@ export default class GroupView extends BaseView {
 				for (let i = 0; i < postsStore.attachments.length; i++) {
 					if (postsStore.attachments[i].id.toString() === imgId) {
 						index = i;
+						postsStore.deleteAttachments.push(Ajax.imgUrlBackConvert(postsStore.attachments[i].url));
 						break;
 					}
 				}
@@ -434,6 +449,13 @@ export default class GroupView extends BaseView {
 				const smile = this._smiles[i].innerText || this._smiles[i].textContent;
 				this._text.value += smile;
 				this._text.focus();
+      });
+    }
+
+    for (let i = 0; i < this._install.length; i++) {
+			this._install[i].addEventListener('click', () => {
+				const url = this._install[i].getAttribute("data-id");
+				window.open(url, '_blank');
 			});
 		}
 	}
@@ -482,6 +504,7 @@ export default class GroupView extends BaseView {
 		if (this._context.postAreaData.createPostData.isEdit) {
 			this._context.postAreaData.createPostData.create.text = postsStore.curPost.text_content;
 			this._context.postAreaData.createPostData.create.id = postsStore.curPost.id;
+			this._context.postAreaData.createPostData.create.attachments= postsStore.curPost.attachments;
 			this._context.postAreaData.createPostData.create.buttonData = { text: 'Изменить', jsId: 'js-edit-post-btn'};
 		}
 	}

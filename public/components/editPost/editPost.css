@@ -50,6 +50,38 @@
     /*border-radius: 50%;*/
     /*overflow: hidden;*/
 }
+.files {
+    display: flex;
+}
+.file-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.msg-media-create {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+}
+.msg-media-create__img-container {
+    width: 150px; /* Фиксированная ширина контейнера */
+    height: 150px; /* Фиксированная высота контейнера */
+    overflow: hidden; /* Обрезание содержимого */
+}
+.msg-media-create__img {
+    width: 100%; /* 100% ширина изображения внутри контейнера */
+    height: 100%; /* 100% высота изображения внутри контейнера */
+    object-fit: cover; /* Масштабирование с обрезкой */
+    object-position: center; /* Позиционирование в центре */
+}
+.msg-files {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+}
 .close-button {
     display: flex;
     flex-direction: column;
@@ -84,4 +116,27 @@
 
 .editPost__button_grey:hover {
     background-color: var(--background-color-header);
+}
+
+.delete-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    position: relative;
+    left: 3px;
+    top: 13px;
+
+    width: 20px;
+    height: 20px;
+
+    /* colorSelect */
+
+    background: #FBDDFF;
+    border-radius: 30px;
+
+    color: #9747FF;
 }

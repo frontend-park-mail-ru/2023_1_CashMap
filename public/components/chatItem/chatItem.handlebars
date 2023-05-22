@@ -3,11 +3,31 @@
         <img src="{{ sender_info.avatar_url }}" class="chatItem__img avatar-form cursor-pointer js-go-to-profile" data-id="{{ sender_info.user_link }}">
         <div class="chatItem__info-text">
             <div class="chatItem__text chatItem__text_little  cursor-pointer js-go-to-profile" data-id="{{ sender_info.user_link }}">{{ sender_info.first_name }}</div>
+
             {{#if sticker}}
                 <img src="{{sticker.url}}" class="stickers-block__sticker">
             {{else}}
                 <div class="chatItem__text chatItem__text_main">{{ text_content }}</div>
+
+                <div class="post-media">
+                    {{#each attachments}}
+                        {{#if (eq type 'img')}}
+                            <img class="post-media__img border-radius-btn-input" src="{{ url }}">
+                        {{/if}}
+                    {{/each}}
+                </div>
+                <div class="post-files">
+                    {{#each attachments}}
+                        {{#if (eq type 'file')}}
+                            <div class="files js-file-i cursor-pointer" data-id="{{ url }}">
+                                <img src="static/img/doc.svg">
+                                <span class="font-InterRegular font-size-13 font-color-gray-text file-name"> {{ filename }} </span>
+                            </div>
+                        {{/if}}
+                    {{/each}}
+                </div>
             {{/if}}
+
         </div>
     </div>
     <div class="chatItem__text chatItem__text_little">{{ creation_date }}</div>

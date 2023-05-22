@@ -4,7 +4,6 @@ import {actionUser} from "../actions/actionUser.js";
 import {headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import groupsStore from "./groupsStore.js";
-import ProfileView from "../views/profileView.js";
 import Router from "../modules/router.js";
 
 /**
@@ -20,6 +19,8 @@ class postsStore {
 
         this.posts = [];
         this.attachments = [];
+        this.deleteAttachments = [];
+        this.addAttachments = [];
         this.text = '';
 
         this.curPost = null;
@@ -144,7 +145,15 @@ class postsStore {
 
                     if (post.attachments) {
                         for (let i = 0; i < post.attachments.length; i++) {
-                            post.attachments[i] = Ajax.imgUrlConvert(post.attachments[i]);
+                            const url = post.attachments[i];
+                            let type = Router._getSearch(url).type;
+                            if (type !== 'img') {
+                                type = 'file';
+                            }
+                            post.attachments[i] = {url: Ajax.imgUrlConvert(url), id: i + 1, type: type}
+                            if (Router._getSearch(url).filename) {
+                                post.attachments[i].filename = Router._getSearch(url).filename;
+                            }
                         }
                     }
                     this.posts.push(post);
@@ -209,7 +218,15 @@ class postsStore {
 
                     if (post.attachments) {
                         for (let i = 0; i < post.attachments.length; i++) {
-                            post.attachments[i] = Ajax.imgUrlConvert(post.attachments[i]);
+                            const url = post.attachments[i];
+                            let type = Router._getSearch(url).type;
+                            if (type !== 'img') {
+                                type = 'file';
+                            }
+                            post.attachments[i] = {url: Ajax.imgUrlConvert(url), id: i + 1, type: type}
+                            if (Router._getSearch(url).filename) {
+                                post.attachments[i].filename = Router._getSearch(url).filename;
+                            }
                         }
                     }
                     this.posts.push(post);
@@ -344,13 +361,22 @@ class postsStore {
 
         if (request.status === 200) {
             const response = await request.json();
+
             if (response.body.posts[0].attachments) {
                 for (let i = 0; i < response.body.posts[0].attachments.length; i++) {
-                    response.body.posts[0].attachments[i] = Ajax.imgUrlConvert(response.body.posts[0].attachments[i]);
-                    this.attachments.push({id: i+1, url: response.body.posts[0].attachments[i]});
+                    const url = response.body.posts[0].attachments[i];
+                    let type = Router._getSearch(url).type;
+                    if (type !== 'img') {
+                        type = 'file';
+                    }
+                    response.body.posts[0].attachments[i] = {url: Ajax.imgUrlConvert(url), id: i + 1, type: type}
+                    if (Router._getSearch(url).filename) {
+                        response.body.posts[0].attachments[i].filename = Router._getSearch(url).filename;
+                    }
                 }
             }
             this.curPost = response.body.posts[0];
+            this.attachments = response.body.posts[0].attachments;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -399,15 +425,21 @@ class postsStore {
                     post.avatar_url = userStore.user.avatar_url;
                     if (post.attachments) {
                         for (let i = 0; i < post.attachments.length; i++) {
-                            post.attachments[i] = Ajax.imgUrlConvert(post.attachments[i]);
+                            const url = post.attachments[i];
+                            let type = Router._getSearch(url).type;
+                            if (type !== 'img') {
+                                type = 'file';
+                            }
+                            post.attachments[i] = {url: Ajax.imgUrlConvert(url), id: i + 1, type: type}
+                            if (Router._getSearch(url).filename) {
+                                post.attachments[i].filename = Router._getSearch(url).filename;
+                            }
                         }
                     }
                 });
             } else {
                 this.hasMorePosts = false;
-
             }
-
 
             if (isScroll) {
                 this.posts.push(...response.body.posts);
@@ -429,8 +461,14 @@ class postsStore {
      */
     async _createPost(data) {
         data['attachments'] = [];
+        this.deleteAttachments = [];
+        this.addAttachments = [];
         this.attachments.forEach((img) => {
-            data.attachments.push(Ajax.imgUrlBackConvert(img.url));
+            if (img.type === 'file') {
+                data.attachments.push(Ajax.imgUrlBackConvert(img.url) + `&filename=${img.filename}`);
+            } else {
+                data.attachments.push(Ajax.imgUrlBackConvert(img.url));
+            }
         });
         this.attachments = [];
         const request = await Ajax.createPost(data);
@@ -480,7 +518,15 @@ class postsStore {
 
             if (post.attachments) {
                 for (let i = 0; i < post.attachments.length; i++) {
-                    post.attachments[i] = Ajax.imgUrlConvert(post.attachments[i]);
+                    const url = post.attachments[i];
+                    let type = Router._getSearch(url).type;
+                    if (type !== 'img') {
+                        type = 'file';
+                    }
+                    post.attachments[i] = {url: Ajax.imgUrlConvert(url), id: i + 1, type: type}
+                    if (Router._getSearch(url).filename) {
+                        post.attachments[i].filename = Router._getSearch(url).filename;
+                    }
                 }
             }
             if (Router.currentPage._jsId !== 'feed') {
@@ -528,8 +574,11 @@ class postsStore {
      * @param {Number} postId - id поста
      */
     async _editPost(text, postId) {
-        this.attachments = [];
-        const request = await Ajax.editPost(text, postId);
+        console.log(this.deleteAttachments, this.addAttachments)
+        const request = await Ajax.editPost(text, this.deleteAttachments, this.addAttachments, postId);
+
+        postsStore.addAttachments = [];
+        postsStore.deleteAttachments = [];
 
         if (request.status === 200) {
             let index = -1;
@@ -541,7 +590,9 @@ class postsStore {
             }
             if (index > -1) {
                 this.posts[index].text_content = text;
+                this.posts[index].attachments = this.attachments;
             }
+            this.attachments = [];
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
