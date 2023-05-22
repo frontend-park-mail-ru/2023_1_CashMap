@@ -5,11 +5,11 @@
         <span class="comment-edit-title font-size-14 font-color-gray-text">редактирование</span>
         <input class="comment-edit-input border-radius-btn-input background-item-hovered border-none font-size-15 font-color-gray-text" placeholder="Редактировать комментарий">
         <div class="editing-buttons">
-            <div class="submit-comment-edit-button border-radius-btn-input cursor-pointer background-color-icon" data-comment-id={{id}} data-post-id={{post_id}}>
-                <span class="submit-comment-edit-button__text">Сохранить</span>
-            </div>
-            <div class="cancel-comment-edit-button border-radius-btn-input cursor-pointer background-color-icon" data-comment-id={{id}} data-post-id={{post_id}}>
+            <div class="cancel-comment-edit-button border-radius-btn-input cursor-pointer background-item-hovered font-color-gray-text" data-comment-id={{id}} data-post-id={{post_id}}>
                 <span class="cancel-comment-edit-button__text">Отменить</span>
+            </div>
+            <div class="submit-comment-edit-button border-radius-btn-input cursor-pointer background-color-icon font-color-btn " data-comment-id={{id}} data-post-id={{post_id}}>
+                <span class="submit-comment-edit-button__text">Сохранить</span>
             </div>
         </div>
     </div>

@@ -1,9 +1,13 @@
 <div class="post-area">
     {{> createPost createPostData }}
 
-    {{#each postList}}
-        {{#with (combine this ../createPostData)}}
-            {{> post}}
-        {{/with}}
-    {{/each}}
+    {{#if postList}}
+        {{#each postList}}
+            {{#with (combine this ../createPostData)}}
+                {{> post}}
+            {{/with}}
+        {{/each}}
+    {{else}}
+        {{> friendNotFound}}
+    {{/if}}
 </div>

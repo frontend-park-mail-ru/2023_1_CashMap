@@ -48,6 +48,7 @@ export default class ChatView extends BaseView {
 		this._stickersImgActive = document.getElementById('js-stickers-active');
 		this._emotionBtn = document.getElementById('js-chat-smiles');
 		this._emotionKeyboard = document.getElementById('js-smiles-keyboard');
+    
 		this._install = document.getElementsByClassName('js-file-i');
 
 		this._smilesImg.style.display='none';

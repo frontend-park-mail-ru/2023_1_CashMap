@@ -1,5 +1,5 @@
 import userStore from "../stores/userStore.js";
-import { sideBarConst, headerConst, maxTextStrings, maxTextLength, activeColor } from "../static/htmlConst.js";
+import { sideBarConst, headerConst, maxTextStrings, maxTextLength, activeColor, emotionKeyboard} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionPost} from "../actions/actionPost.js";
 import postsStore from "../stores/postsStore.js";
@@ -64,8 +64,12 @@ export default class FeedView extends BaseView {
 
 		this._addPhotoToPostPic = document.getElementById('js-add-photo-to-post-pic');
 		this._addPhotoToPost = document.getElementById('js-add-photo-to-post');
+		this._addSmileToPost = document.getElementById('js-add-smile-to-post');
 		this._removeImg = document.getElementsByClassName('close-button');
 
+		this._emotionBtn = document.getElementById('js-post-smiles');
+		this._emotionKeyboard = document.getElementById('js-smiles-keyboard');
+		this._smiles = document.getElementsByClassName('js-smile');
 		this._install = document.getElementsByClassName('js-file-i');
 	}
 
@@ -300,6 +304,13 @@ export default class FeedView extends BaseView {
 			});
 		}
 
+		if (this._addSmileToPost) {
+			this._addSmileToPost.addEventListener('click', () => {
+				this._createPosts.click();
+				this._emotionBtn.click();
+			});
+		}
+
 		if (this._editBtn) {
 			this._editBtn.addEventListener('click', () => {
 				actionPost.editPost(this._text.value, this.isEdit);
@@ -385,6 +396,25 @@ export default class FeedView extends BaseView {
 			});
 		}
 
+		if (this._emotionBtn) {
+			this._emotionBtn.addEventListener('click', () => {
+				if (this._emotionKeyboard.style.display === 'block') {
+					this._emotionKeyboard.style.display = 'none';
+				} else {
+					this._emotionKeyboard.style.display = 'block';
+				}
+				this._text.focus();
+			});
+		}
+
+		for (let i = 0; i < this._smiles.length; i++) {
+			this._smiles[i].addEventListener('click', () => {
+				const smile = this._smiles[i].innerText || this._smiles[i].textContent;
+				this._text.value += smile;
+				this._text.focus();
+      });
+    }
+
 		for (let i = 0; i < this._install.length; i++) {
 			this._install[i].addEventListener('click', () => {
 				const url = this._install[i].getAttribute("data-id");
@@ -422,7 +452,7 @@ export default class FeedView extends BaseView {
 					isEdit: this.isEdit,
 					avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
-					create: { avatar_url: userStore.user.avatar_url, attachments: postsStore.attachments, text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, buttonData1: { text: 'Отменить', jsId: 'js-back-post-btn' },}
+					create: { avatar_url: userStore.user.avatar_url, attachments: postsStore.attachments, text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, keyboardData: {smiles: emotionKeyboard},}
 				},
 				postList: postsStore.posts
 			},

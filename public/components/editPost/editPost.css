@@ -104,6 +104,20 @@
 
     color: #9747FF;
 }
+
+.editPost__button_grey {
+    background-color: var(--background-item-hovered);
+    color: var(--font-color-gray-text);
+    width: 133px;
+    height: 31px;
+    align-items: center;
+    justify-content: center;
+}
+
+.editPost__button_grey:hover {
+    background-color: var(--background-color-header);
+}
+
 .delete-button {
     display: flex;
     flex-direction: column;

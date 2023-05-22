@@ -54,12 +54,14 @@
 
     align-content: center;
     justify-content: center;
-
-    color: var(--font-color-btn);
 }
 
-.submit-comment-edit-button:hover, .cancel-comment-edit-button:hover {
+.submit-comment-edit-button:hover {
     background-color: var(--font-color-menu-item-hover);
+}
+
+.cancel-comment-edit-button:hover {
+    background-color: var(--background-color-header);
 }
 
 .submit-comment-edit-button__text, .cancel-comment-edit-button__text {
