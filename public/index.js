@@ -15,6 +15,7 @@ import ChatView from "./views/chatView.js";
 import NotFoundView from "./views/notFoundView.js";
 import imgStore from "./stores/imgStore.js"; /* НЕ УДАЛЯТЬ!!! */
 
+/*import "./index.css"*/
 
 const Views = {
     FeedView: new FeedView(),

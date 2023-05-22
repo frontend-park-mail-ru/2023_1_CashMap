@@ -27,10 +27,22 @@
             {{/if}}
         </div>
 
-        <div class="post-text font-MailSansRomanRegular font-size-16 font-color-text" data-id="{{ id }}" id="{{ id }}"> {{ text_content }} </div>
+        <div class="post-text font-MailSansRomanRegular font-size-14 font-color-text" data-id="{{ id }}" id="{{ id }}"> {{ text_content }} </div>
         <div class="post-media">
             {{#each attachments}}
-                <img class="post-media__img border-radius-btn-input" src="{{ this }}">
+                {{#if (eq type 'img')}}
+                    <img class="post-media__img border-radius-btn-input" src="{{ url }}">
+                {{/if}}
+            {{/each}}
+        </div>
+        <div class="post-files">
+            {{#each attachments}}
+                {{#if (eq type 'file')}}
+                    <div class="files">
+                        <img src="static/img/doc.svg">
+                        <span class="font-InterRegular font-size-13 font-color-gray-text file-name"> {{ filename }} </span>
+                    </div>
+                {{/if}}
             {{/each}}
         </div>
 

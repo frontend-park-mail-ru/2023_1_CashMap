@@ -47,11 +47,12 @@ export const actionMessage = {
      * @param {*} chatId - id чата
      * @param {*} text - текст отправляемого сообщения
      */
-    msgSend(chatId, text, stickerId) {
+    msgSend(chatId, text, stickerId, attachments = null) {
         Dispatcher.dispatch({
             actionName: 'msgSend',
             chatId,
             text,
+            attachments,
             stickerId,
         });
     },
