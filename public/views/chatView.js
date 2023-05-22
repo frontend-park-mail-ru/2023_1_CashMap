@@ -170,7 +170,6 @@ export default class ChatView extends BaseView {
 	}
 
 	_preRender() {
-		alert(postsStore.attachments.length)
 		let curChat = null;
 		messagesStore.chats.forEach((chat) => {
 			if (String(chat.chat_id) === localStorage.getItem('chatId')) {
