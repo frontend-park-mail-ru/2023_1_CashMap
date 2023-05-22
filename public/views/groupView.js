@@ -75,6 +75,8 @@ export default class GroupView extends BaseView {
 
 		this._showMoreCommentsButton = document.getElementsByClassName("show-more-block");
 
+		this._install = document.getElementsByClassName('js-file-i');
+
 
 		this._text = document.getElementById('js-edit-post-textarea');
 		function OnInput() {
@@ -416,6 +418,13 @@ export default class GroupView extends BaseView {
 
 				postsStore.text = this._text.value;
 				postsStore._refreshStore();
+			});
+		}
+
+		for (let i = 0; i < this._install.length; i++) {
+			this._install[i].addEventListener('click', () => {
+				const url = this._install[i].getAttribute("data-id");
+				window.open(url, '_blank');
 			});
 		}
 	}

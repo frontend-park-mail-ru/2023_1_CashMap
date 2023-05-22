@@ -65,6 +65,8 @@ export default class FeedView extends BaseView {
 		this._addPhotoToPostPic = document.getElementById('js-add-photo-to-post-pic');
 		this._addPhotoToPost = document.getElementById('js-add-photo-to-post');
 		this._removeImg = document.getElementsByClassName('close-button');
+
+		this._install = document.getElementsByClassName('js-file-i');
 	}
 
 	addPagesListener() {
@@ -380,6 +382,13 @@ export default class FeedView extends BaseView {
 
 				postsStore.text = this._text.value;
 				postsStore._refreshStore();
+			});
+		}
+
+		for (let i = 0; i < this._install.length; i++) {
+			this._install[i].addEventListener('click', () => {
+				const url = this._install[i].getAttribute("data-id");
+				window.open(url, '_blank');
 			});
 		}
 	}
