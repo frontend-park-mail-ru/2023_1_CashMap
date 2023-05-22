@@ -91,7 +91,7 @@ export default class ChatView extends BaseView {
 							sendAttachments.push(Ajax.imgUrlBackConvert(img.url));
 						}
 					})
-					actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value, sendAttachments);
+					actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value, null ,sendAttachments);
 				} else {
 					actionMessage.msgSend(localStorage.getItem('chatId'), this._msg.value);
 				}

@@ -361,7 +361,7 @@ class Ajax {
     }
 
     async getChats(count = 0, lastPostDate = 0) {
-        return this._request(this._apiUrl.getMsg + `?chat_id=${chatId}&batch_size=${count}&last_msg_date=${lastPostDate}`, this._requestType.GET);
+        return this._request(this._apiUrl.getChats + `?batch_size=${count}&last_msg_date=${lastPostDate}`, this._requestType.GET);
     }
 
     async getChatsMsg(chatId, count, lastPostDate) {
@@ -376,7 +376,7 @@ class Ajax {
         return this._request(this._apiUrl.chatCheck + `?user_link=${link}`, this._requestType.GET);
     }
 
-    async msgSend(id, text, attachments, stickerId) {
+    async msgSend(id, text, stickerId, attachments) {
         let body;
         if (stickerId) {
             body = {chat_id: Number(id), text_content: text, message_content_type: 'sticker', sticker_id: stickerId, attachments: attachments};
