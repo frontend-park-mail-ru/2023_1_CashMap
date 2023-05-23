@@ -20,8 +20,8 @@
 .chatItem__text {
     white-space: pre-line;
     color: var(--font-color-gray-text);
-    font-size: var(--font-size-16);
-    font-family: MailSansRoman;
+    font-size: var(--font-size-14);
+    font-family: MailSansRomanRegular;
 }
 
 .chatItem__text_main {

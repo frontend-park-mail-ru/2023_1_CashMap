@@ -33,7 +33,9 @@ export default class FeedView extends BaseView {
 		super.addPagesElements();
 
 		this._newsItem.style.color = activeColor;
-
+		this._newsImg.style.display = "none";
+		this._newsImgActive.style.display = "inline-block";
+ 
 		this._feedPage = document.getElementById("feed");
 
 		this._deletePosts = document.getElementsByClassName('post-menu-item-delete');
@@ -53,7 +55,7 @@ export default class FeedView extends BaseView {
 		this._commentEditButton = document.getElementsByClassName("comment-operations__update");
 		this._commentEditSaveButton = document.getElementsByClassName("submit-comment-edit-button");
 		this._commentEditCancelButton = document.getElementsByClassName("cancel-comment-edit-button");
-		this._commentEditInput = document.getElementsByClassName("comment-edit-input");
+		this._commentEditInput = document.getElementsByClassName("edit-comment__nput");
 
 		this._showMoreCommentsButton = document.getElementsByClassName("show-more-block");
 

@@ -23,6 +23,8 @@ export default class MessagesView extends BaseView {
 		super.addPagesElements();
 
 		this._msgItem.style.color = activeColor;
+		this._msgImg.style.display = "none";
+		this._msgImgActive.style.display = "inline-block";
 
 		this._groupsItem = document.getElementById('js-side-bar-groups');
 

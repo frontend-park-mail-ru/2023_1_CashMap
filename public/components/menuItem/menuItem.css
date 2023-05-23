@@ -31,9 +31,9 @@
 .hover-block img:nth-child(2) {
     display: none;
 }
-.hover-block:hover img:nth-child(1) {
+/* .hover-block:hover img:nth-child(1) {
     display: none;
 }
 .hover-block:hover img:nth-child(2) {
     display: inline-block;
-}
+} */

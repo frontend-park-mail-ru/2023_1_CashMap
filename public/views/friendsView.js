@@ -41,6 +41,8 @@ export default class FriendsView extends BaseView {
 		super.addPagesElements()
 
 		this._friendsItem.style.color = activeColor;
+		this._friendsImg.style.display = "none";
+		this._friendsImgActive.style.display = "inline-block";
 
 		this._exitBtn = document.getElementById('js-exit-btn');
 		this._settingsBtn = document.getElementById('js-settings-btn');

@@ -105,12 +105,26 @@ export default class BaseView {
 
         this._feedBtn = document.getElementById('js-logo-go-feed');
         this._myPageItem = document.getElementById('js-side-bar-my-page');
+        this._myPageImg = document.getElementById('js-side-bar-my-page-img');
+        this._myPageImgActive = document.getElementById('js-side-bar-my-page-img-active');
         this._newsItem = document.getElementById('js-side-bar-news');
+        this._newsImg = document.getElementById('js-side-bar-news-img');
+        this._newsImgActive = document.getElementById('js-side-bar-news-img-active');
         this._msgItem = document.getElementById('js-side-bar-msg');
+        this._msgImg = document.getElementById('js-side-bar-msg-img');
+        this._msgImgActive = document.getElementById('js-side-bar-msg-img-active');
         this._photoItem = document.getElementById('js-side-bar-photo');
+        this._photoImg = document.getElementById('js-side-bar-photo-img');
+        this._photoImgActive = document.getElementById('js-side-bar-photo-img-active');
         this._friendsItem = document.getElementById('js-side-bar-friends');
+        this._friendsImg = document.getElementById('js-side-bar-friends-img');
+        this._friendsImgActive = document.getElementById('js-side-bar-friends-img-active');
         this._groupsItem = document.getElementById('js-side-bar-groups');
+        this._groupsImg = document.getElementById('js-side-bar-groups-img');
+        this._groupsImgActive = document.getElementById('js-side-bar-groups-img-active');
         this._bookmarksItem = document.getElementById('js-side-bar-bookmarks');
+        this._bookmarksImg = document.getElementById('js-side-bar-bookmarks-img');
+        this._bookmarksImgActive = document.getElementById('js-side-bar-bookmarks-img-active');
 
         this._searchAreaInput = document.getElementById('js-search-area-input');
         this._searchArea = document.getElementById('js-search-area');
