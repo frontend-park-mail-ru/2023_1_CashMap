@@ -6,7 +6,7 @@
 <a href="https://www.figma.com/file/km9PODSfayL52tS5cS99P8/cash_map?node-id=0%3A1&t=vTuLLlN2fNbH7U6K-1" target="_blank">Figma</a> 
 
 
-Деплой: <a href="http://95.163.212.121:8000/" target="_blank">сайт</a>
+Деплой: <a href="https://depeche.su/" target="_blank">сайт</a>
 
 ## Авторы
 <a href="https://github.com/WhoIsYgim" target="_blank">Ларкин Егор</a>
