@@ -33,7 +33,7 @@
     background-color: var(--font-color-comment-sender);
     color: var(--background-item-hovered);
     text-overflow: ellipsis;
-    font-family: InterMedium;
+    font-family: InterRegular;
     font-size: var(--font-size-15);
     white-space: nowrap;
     cursor: pointer;

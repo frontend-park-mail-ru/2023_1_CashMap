@@ -1,7 +1,7 @@
 <div class="menu-item hover-block border-radius-btn-input" id="{{ jsId }}">
     <div class="margin-auto" style="grid-column: 2;">
-        <img class="margin-auto" src={{ iconPath }}>
-        <img class="margin-auto" src={{ hoveredIconPath }}>
+        <img class="margin-auto" id="{{ jsId }}-img" src={{ iconPath }}>
+        <img class="margin-auto" id="{{ jsId }}-img-active" src={{ hoveredIconPath }}>
     </div>
 
     <span class="menu-item__text font-size-15 font-MailSansRoman"> {{ text }} </span>
