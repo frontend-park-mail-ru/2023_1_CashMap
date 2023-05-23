@@ -162,13 +162,13 @@ export default class GroupsView extends BaseView {
 					errField.textContent = "Это поле не может быть пустым";
 					return
                 }
-				let privacy;
-				if (this._selectField.value == 'Открытая группа') {
+				let privacy = 'open';
+				/*if (this._selectField.value == 'Открытая группа') {
 					privacy = 'open';
 				} else {
 					privacy = 'close';
-				}
-				actionGroups.createGroup({title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._checkboxField.checked});
+				}*/
+				actionGroups.createGroup({title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: true});
 				Router.go('/manageGroups', false);
 			});
 		}

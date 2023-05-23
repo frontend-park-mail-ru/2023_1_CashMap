@@ -95,12 +95,12 @@ export default class GroupView extends BaseView {
 		});
 
 		this._saveBtn.addEventListener('click', () => {
-			let privacy = null;
-			if (this._typeField.value === 'Закрытая группа') {
+			let privacy = 'open';
+			/*if (this._typeField.value === 'Закрытая группа') {
 				privacy = 'close';
 			} else {
 				privacy = 'open';
-			}
+			}*/
 			if (this._validateTitle && this._validateInfo) {
 				this._error.textContent = '';
 				this._error.classList.remove('display-inline-grid');
@@ -109,10 +109,10 @@ export default class GroupView extends BaseView {
 
 				if (this._fileList) {
 					actionImg.uploadImg(this._fileList, (newUrl) => {
-						actionGroups.editGroup({link: this._groupLink, avatar: newUrl, title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._showAuthorField.checked});
+						actionGroups.editGroup({link: this._groupLink, avatar: newUrl, title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: true});
 					});
 				} else {
-					actionGroups.editGroup({link: this._groupLink, title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: this._showAuthorField.checked});
+					actionGroups.editGroup({link: this._groupLink, title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: true});
 				}
 			} else {
 				this._error.textContent = 'Заполните корректно все поля';

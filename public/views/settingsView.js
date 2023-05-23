@@ -61,9 +61,9 @@ export default class SettingsView extends BaseView {
 	addPagesListener() {
 		super.addPagesListener();
 
-		this._safetyBtn.addEventListener('click', () => {
+		/*this._safetyBtn.addEventListener('click', () => {
 			Router.go('/safety', false);
-		});
+		});*/
 
 		this._dropZone.addEventListener('dragover', (event) => {
 			event.preventDefault();
