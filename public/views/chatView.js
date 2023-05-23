@@ -61,7 +61,7 @@ export default class ChatView extends BaseView {
 
 		this._textarea = document.getElementsByTagName('textarea');
 
-		this._textarea[0].setAttribute('style', 'height:' + (this._textarea[0].scrollHeight) + 'px;overflow-y:hidden;');
+		this._textarea[0].setAttribute('style', 'height:' + (this._textarea[0].scrollHeight));
 		this._textarea[0].addEventListener("input", OnInput, false);
 
 		function OnInput() {

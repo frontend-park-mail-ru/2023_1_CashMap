@@ -37,6 +37,8 @@ export default class ProfileView extends BaseView {
 
 		if (userStore.user.user_link === this._userLink) {
 			this._myPageItem.style.color = activeColor;
+			this._myPageImg.style.display = "none";
+			this._myPageImgActive.style.display = "inline-block";
 		}
 
 		this._profileSettingsBtn = document.getElementById('js-profile-settings-btn');
@@ -74,7 +76,7 @@ export default class ProfileView extends BaseView {
 		this._commentEditButton = document.getElementsByClassName("comment-operations__update");
 		this._commentEditSaveButton = document.getElementsByClassName("submit-comment-edit-button");
 		this._commentEditCancelButton = document.getElementsByClassName("cancel-comment-edit-button");
-		this._commentEditInput = document.getElementsByClassName("comment-edit-input");
+		this._commentEditInput = document.getElementsByClassName("edit-comment__input");
 
 		this._showMoreCommentsButton = document.getElementsByClassName("show-more-block");
 
