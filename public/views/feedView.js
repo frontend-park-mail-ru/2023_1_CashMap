@@ -55,7 +55,7 @@ export default class FeedView extends BaseView {
 		this._commentEditButton = document.getElementsByClassName("comment-operations__update");
 		this._commentEditSaveButton = document.getElementsByClassName("submit-comment-edit-button");
 		this._commentEditCancelButton = document.getElementsByClassName("cancel-comment-edit-button");
-		this._commentEditInput = document.getElementsByClassName("edit-comment__nput");
+		this._commentEditInput = document.getElementsByClassName("edit-comment__input");
 
 		this._showMoreCommentsButton = document.getElementsByClassName("show-more-block");
 
@@ -72,6 +72,7 @@ export default class FeedView extends BaseView {
 		this._emotionBtn = document.getElementById('js-post-smiles');
 		this._emotionKeyboard = document.getElementById('js-smiles-keyboard');
 		this._smiles = document.getElementsByClassName('js-smile');
+		this._emotionBtnComment = document.getElementsByClassName('comment-icon_smiles');
 		this._install = document.getElementsByClassName('js-file-i');
 	}
 
@@ -192,6 +193,7 @@ export default class FeedView extends BaseView {
 				for (let i = 0; i < comments.length; ++i) {
 					if (comments[i].id === commentID) {
 						comments[i].editing_mode = true;
+						comments[i].cur_comment = comments[i].text;
 					}
 				}
 
@@ -414,8 +416,8 @@ export default class FeedView extends BaseView {
 				const smile = this._smiles[i].innerText || this._smiles[i].textContent;
 				this._text.value += smile;
 				this._text.focus();
-      });
-    }
+			});
+		}
 
 		for (let i = 0; i < this._install.length; i++) {
 			this._install[i].addEventListener('click', () => {

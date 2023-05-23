@@ -235,6 +235,7 @@ export default class ProfileView extends BaseView {
 				for (let i = 0; i < comments.length; ++i) {
 					if (comments[i].id === commentID) {
 						comments[i].editing_mode = true;
+						comments[i].cur_comment = comments[i].text;
 					}
 				}
 
