@@ -2,6 +2,7 @@ import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {groupAvatarDefault, headerConst} from "../static/htmlConst.js";
+import {actionGroups} from "../actions/actionGroups.js";
 
 /**
  * класс, хранящий информацию о группах
@@ -409,6 +410,7 @@ class groupsStore {
         const request = await Ajax.groupUnsub(link);
         if (request.status === 200) {
             this.curGroup.isSub = false;
+            actionGroups.getGroups(15, 0);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

@@ -14,8 +14,6 @@ export default class SignInView {
         this._validateEmail = false;
         this._validatePassword = false;
 
-        this._fields = null;
-
         userStore.registerCallback(this.updatePage.bind(this))
     }
 
@@ -39,10 +37,10 @@ export default class SignInView {
         this._authBtn.addEventListener('click', () => {
             if (this._validatePassword && this._validateEmail) {
                 actionUser.signIn({email: this._emailField.value, password: this._passwordField.value});
-                this._fields = null;
+                userStore.fields = null;
             } else {
                 userStore.user.errorAuth = 'Заполните корректно все поля';
-                this._fields = {email: this._emailField.value, password: this._passwordField.value };
+                userStore.fields = {email: this._emailField.value, password: this._passwordField.value };
                 this._render();
             }
         });
@@ -58,7 +56,7 @@ export default class SignInView {
             this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password', 'default');
         });
 
-        if (this._fields) {
+        if (userStore.fields) {
             this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email', 'default');
             this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password', 'default');
         }
@@ -67,6 +65,7 @@ export default class SignInView {
     remove() {
         document.getElementById(this._jsId)?.remove();
         userStore.user.errorAuth = '';
+        userStore.fields = null;
     }
 
     showPage() {
@@ -94,9 +93,9 @@ export default class SignInView {
             signInData.errorInfo['errorClass'] = 'display-none';
         }
 
-        if (this._fields) {
-            signInData.inputFields[0].text = this._fields.email;
-            signInData.inputFields[1].text = this._fields.password;
+        if (userStore.fields) {
+            signInData.inputFields[0].text = userStore.fields.email;
+            signInData.inputFields[1].text = userStore.fields.password;
         }
 
         this._context = {

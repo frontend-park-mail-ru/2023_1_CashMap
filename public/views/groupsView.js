@@ -121,10 +121,10 @@ export default class GroupsView extends BaseView {
 			Router.go('/findGroups', false);
 		});
 
-		this._popularGroupsBtn.addEventListener('click', () => {
+		/*this._popularGroupsBtn.addEventListener('click', () => {
 			this._popularGroupsBtn.style.color = activeColor;
 			Router.go('/popularGroups', false);
-		});
+		});*/
 
 		this._groupsBtn.addEventListener('click', () => {
 			this._groupsBtn.style.color = activeColor;
@@ -199,6 +199,13 @@ export default class GroupsView extends BaseView {
 				});
 				break
 
+		}
+
+		for (let i = 0; i < this._unsubGroup.length; i++) {
+			this._unsubGroup[i].addEventListener('click', () => {
+				const groupId = this._unsubGroup[i].getAttribute("data-id");
+				actionGroups.groupUnsub(groupId);
+			});
 		}
 	}
 

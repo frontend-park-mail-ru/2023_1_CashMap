@@ -4,6 +4,7 @@ import {headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import WebSock from "../modules/webSocket.js";
 import groupsStore from "./groupsStore.js";
+import SignInView from "../views/signInView.js";
 
 /**
  * класс, хранящий информацию о друзьях
@@ -50,6 +51,8 @@ class userStore {
         this.editMsg = '';
         this.editStatus = null;
         this.profile = null;
+
+        this.fields = null;
 
         Dispatcher.register(this._fromDispatch.bind(this));
     }
@@ -116,11 +119,12 @@ class userStore {
             }
 
             this.user.isAuth = true;
+            this.fields = null;
             WebSock.open();
         } else {
-            const response = await request.json();
-            this.user.errorAuth = response.message;
+            this.user.errorAuth = 'Неверный email или пароль.';
             this.user.isAuth = false;
+            this.fields = {email: data.email, password: data.password };
         }
         this._refreshStore();
     }
@@ -130,7 +134,7 @@ class userStore {
      * @param {Object} data - данные для входа
      */
     async _signUp(data) {
-        const request = await Ajax.signUp(data.firstName, data.lastName, data.email, data.password);
+        const request = await Ajax.signUp(data.firstName, data.lastName, data.email, data.password, data.password2);
 
         if (request.status === 200) {
             const csrfToken = request.headers.get('X-Csrf-Token');
@@ -139,11 +143,13 @@ class userStore {
             }
 
             this.user.isAuth = true;
+            this.fields = null;
             WebSock.open();
         } else {
             const response = await request.json();
             this.user.errorReg = response.message;
             this.user.isAuth = false;
+            this.fields = {firstName: data.firstName, lastName: data.lastName, email: data.email, password1: data.password, password2: data.password2 };
         }
         this._refreshStore();
     }

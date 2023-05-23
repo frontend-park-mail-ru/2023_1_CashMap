@@ -16,10 +16,11 @@ export const sideBarConst = {
         {text: 'Моя страница', jsId: 'js-side-bar-my-page', iconPath: 'static/img/nav_icons/profile.svg', hoveredIconPath: 'static/img/nav_icons/profile_hover.svg', notifies: 1},
         {text: 'Новости', jsId: 'js-side-bar-news', iconPath: 'static/img/nav_icons/news.svg', hoveredIconPath: 'static/img/nav_icons/news_hover.svg', notifies: 0},
         {text: 'Мессенджер', jsId: 'js-side-bar-msg', iconPath: 'static/img/nav_icons/messenger.svg', hoveredIconPath: 'static/img/nav_icons/messenger_hover.svg', notifies: 7},
-        {text: 'Фотографии', jsId: 'js-side-bar-photo', iconPath: 'static/img/nav_icons/photos.svg', hoveredIconPath: 'static/img/nav_icons/photos_hover.svg', notifies: 0},
+        // {text: 'Фотографии', jsId: 'js-side-bar-photo', iconPath: 'static/img/nav_icons/photos.svg', hoveredIconPath: 'static/img/nav_icons/photos_hover.svg', notifies: 0},
         {text: 'Друзья', jsId: 'js-side-bar-friends', iconPath: 'static/img/nav_icons/friends.svg', hoveredIconPath: 'static/img/nav_icons/friends_hover.svg', notifies: 0},
         {text: 'Сообщества', jsId: 'js-side-bar-groups', iconPath: 'static/img/nav_icons/groups.svg', hoveredIconPath: 'static/img/nav_icons/groups_hover.svg', notifies: 0},
-        {text: 'Закладки', jsId: 'js-side-bar-bookmarks', iconPath: 'static/img/nav_icons/bookmarks.svg', hoveredIconPath: 'static/img/nav_icons/bookmarks_hover.svg', notifies: 11}]
+        // {text: 'Закладки', jsId: 'js-side-bar-bookmarks', iconPath: 'static/img/nav_icons/bookmarks.svg', hoveredIconPath: 'static/img/nav_icons/bookmarks_hover.svg', notifies: 11}
+    ]
 };
 
 export const headerConst = {
@@ -100,7 +101,8 @@ export const settingsConst = {
   errorInfo: { jsId: 'js-sign-in-error'},
   menuInfo: [
       {text: 'Основные', jsId: 'js-menu-main'},
-      {text: 'Безопасность', jsId: 'js-menu-safety'}]
+      //{text: 'Безопасность', jsId: 'js-menu-safety'}
+  ]
 }
 
 export const safetyConst = {
@@ -149,7 +151,8 @@ export const groupsConst = {
     {text: 'Мои сообщества', jsId: 'js-menu-groups'},
     {text: 'Управление', jsId: 'js-menu-manage-groups'},
     {text: 'Поиск сообществ', jsId: 'js-menu-find-groups'},
-    {text: 'Популярные сообщества', jsId: 'js-menu-popular-groups'}],
+    //{text: 'Популярные сообщества', jsId: 'js-menu-popular-groups'}
+  ],
   buttonInfo: { text: 'Создать сообщество',
       jsId: 'js-create-group-btn'}
   }
@@ -184,8 +187,9 @@ export const settingsGroupConst = {
       jsId: 'js-settings-save-btn'},
   menuInfo: [
       {text: 'Настройки', jsId: 'js-menu-main'},
-      {text: 'Подписчики', jsId: 'js-menu-subscribers'},
-      {text: 'Заявки', jsId: 'js-menu-requests'}],
+      //{text: 'Подписчики', jsId: 'js-menu-subscribers'},
+      //{text: 'Заявки', jsId: 'js-menu-requests'}
+  ],
   errorInfo: { jsId: 'js-sign-in-error'},
   buttonDelete: { text: 'Удалить группу',
       jsId: 'js-delete-group-btn'},
