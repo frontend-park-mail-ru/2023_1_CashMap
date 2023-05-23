@@ -1,7 +1,7 @@
 {{#if editing_mode}}
     <div class="comment-editing-block">
-        <img class="comment__avatar profile-img-size avatar-form" src="{{ sender_info.avatar_url }}">
-        <span class="comment__name font-size-16 font-color-post-sender font-MailSansRoman">{{ sender_info.first_name }} {{ sender_info.last_name }}</span>
+        <img class="comment__avatar profile-img-size avatar-form js-go-to-profile cursor-pointer" src="{{ sender_info.avatar_url }}" data-id="{{ sender_info.user_link }}">
+        <span class="comment__name font-size-16 font-color-post-sender font-MailSansRoman js-go-to-profile cursor-pointer" data-id="{{ sender_info.user_link }}">{{ sender_info.first_name }} {{ sender_info.last_name }}</span>
         <span class="comment-edit-title font-size-14 font-color-gray-text">редактирование</span>
         {{!-- <input class="comment-edit-input border-radius-btn-input background-item-hovered border-none font-size-15 font-color-gray-text" placeholder="Редактировать комментарий"> --}}
         <textarea class="edit-comment__input border-radius font-InterRegular font-size-14 font-color-gray-text background-color-feed border-none" style="padding: 8px 10px;box-sizing: border-box;" placeholder="Редактировать комментарий">{{ curComment }}</textarea>
@@ -16,8 +16,8 @@
     </div>
 {{else}}
     <div class="comment">
-        <img class="comment__avatar profile-img-size avatar-form" src="{{ sender_info.avatar_url }}">
-        <span class="comment__name font-size-16 font-color-post-sender font-MailSansRoman">{{ sender_info.first_name }} {{ sender_info.last_name }}</span>
+        <img class="comment__avatar profile-img-size avatar-form js-go-to-profile cursor-pointer" data-id="{{ sender_info.user_link }}" src="{{ sender_info.avatar_url }}">
+        <span class="comment__name font-size-16 font-color-post-sender font-MailSansRoman js-go-to-profile cursor-pointer" data-id="{{ sender_info.user_link }}">{{ sender_info.first_name }} {{ sender_info.last_name }}</span>
         <span class="comment__date font-size-12 font-color-gray-text"> {{ creation_date }} </span>
         {{#if is_author}}
             <div class="comment-operations">

@@ -23,7 +23,7 @@ class friendsStore {
         this.subscribers = [];
         this.subscriptions = [];
 
-        this.isMyFriend = false;
+        this.isMyFriend = 'none';
 
         this.hasMoreFriends = true;
         this.hasMoreSubscribers = true;
@@ -137,12 +137,10 @@ class friendsStore {
     async _isFriend(link) {
         const request = await Ajax.isFriend(link);
 
-        this.isMyFriend = false;
+        this.isMyFriend = 'none';
         if (request.status === 200) {
             const response = await request.json();
-            if (response.body.status === 'friend' || response.body.status === 'subscribed') {
-                this.isMyFriend = true;
-            }
+            this.isMyFriend = response.body.status;
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {
@@ -308,6 +306,12 @@ class friendsStore {
         const request = await Ajax.sub(link);
 
         if (request.status === 200) {
+            if (this.isMyFriend === 'none') {
+                this.isMyFriend = 'subscriber'
+            } else if (this.isMyFriend === 'subscribed') {
+                this.isMyFriend = 'friend'
+            }
+
             actionFriends.getFriends(userStore.user.user_link, 15, 0);
             actionFriends.getNotFriends(15, 0);
             actionFriends.getSubscribers(userStore.user.user_link, 15);
@@ -329,6 +333,12 @@ class friendsStore {
         const request = await Ajax.unsub(link);
 
         if (request.status === 200) {
+            if (this.isMyFriend === 'subscriber') {
+                this.isMyFriend = 'none'
+            } else if (this.isMyFriend === 'friend') {
+                this.isMyFriend = 'subscribed'
+            }
+
             actionFriends.getFriends(userStore.user.user_link, 15, 0);
             actionFriends.getNotFriends(15, 0);
             actionFriends.getSubscribers(userStore.user.user_link, 15);

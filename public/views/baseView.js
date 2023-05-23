@@ -93,7 +93,9 @@ export default class BaseView {
             return value1 === value2.toString();
         });
 
-
+        Handlebars.registerHelper('eqs', function(value1, value2, value3) {
+            return value1 === value2 || value1 === value3;
+        });
     }
 
     /**
@@ -137,8 +139,10 @@ export default class BaseView {
         this._goToProfile = document.getElementsByClassName('js-go-to-profile');
         this._goToGroup = document.getElementsByClassName('js-go-to-group');
 
-        this._userSearchItems = document.getElementsByClassName("user-search-item");
-        this._group_search_items = document.getElementsByClassName("group-search-item");
+        this._userSearchItems = document.getElementsByClassName('user-search-item');
+        this._group_search_items = document.getElementsByClassName('group-search-item');
+
+        this._headerAvatar = document.getElementById('js-header-avatar');
     }
 
     /**
@@ -162,6 +166,10 @@ export default class BaseView {
         });
 
         this._myPageItem.addEventListener('click', () => {
+            Router.go('/user', false);
+        });
+
+        this._headerAvatar.addEventListener('click', () => {
             Router.go('/user', false);
         });
 

@@ -23,7 +23,7 @@
                 <div class="profileCard__button-text"> Редактировать </div>
             </button>
         {{else}}
-            {{# if isMyFriend}}
+            {{# if (eqs isMyFriend 'subscriber' 'friend')}}
                 <div class="post-buttons-like post-hover border-radius-btn-input cursor-pointer" data-id="{{ user_link }}" style="padding: 6px;" id="js-friend-remove">
                     <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/deleteFriend.svg">
                     <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/deleteFriendHover.svg">

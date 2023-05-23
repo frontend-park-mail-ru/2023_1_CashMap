@@ -15,6 +15,9 @@
     grid-column: 1;
     height: 30px;
 }
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
 .input-block-settings__field[type='date'] {
     padding-top: 8px; 
 }

@@ -30,6 +30,7 @@ export default class ProfileView extends BaseView {
 	addStore() {
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
+		friendsStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -64,7 +65,7 @@ export default class ProfileView extends BaseView {
 
 		this._dropContent = document.getElementById('js-drop-content');
 
-    	this._postsTexts = document.getElementsByClassName('post-text');
+		this._postsTexts = document.getElementsByClassName('post-text');
 		this._posts = document.getElementsByClassName('post');
 		this._commentsAreas = document.getElementsByClassName("comments-area");
 		this._commentsButtons = document.getElementsByClassName("post-buttons-comment");
@@ -528,7 +529,7 @@ export default class ProfileView extends BaseView {
 			postAreaData: {
 				createPostData:
 				{
-					displayNone: !(friendsStore.isMyFriend || userStore.userProfile.isMyPage),
+					displayNone: !(friendsStore.isMyFriend === 'friend' || userStore.userProfile.isMyPage),
 					isCreate: this.isCreate,
 					isEdit: this.isEdit,
 					avatar_url: userStore.user.avatar_url,
@@ -545,7 +546,6 @@ export default class ProfileView extends BaseView {
 		if (this._context.postAreaData.createPostData.isEdit) {
 			this._context.postAreaData.createPostData.create.text = postsStore.curPost.text_content;
 			this._context.postAreaData.createPostData.create.id = postsStore.curPost.id;
-			//this._context.postAreaData.createPostData.create.attachments = postsStore.curPost.attachments;
 			this._context.postAreaData.createPostData.create.buttonData = { text: 'Изменить', jsId: 'js-edit-post-btn'};
 		}
 	}
