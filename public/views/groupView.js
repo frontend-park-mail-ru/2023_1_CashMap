@@ -72,7 +72,7 @@ export default class GroupView extends BaseView {
 		this._commentEditButton = document.getElementsByClassName("comment-operations__update");
 		this._commentEditSaveButton = document.getElementsByClassName("submit-comment-edit-button");
 		this._commentEditCancelButton = document.getElementsByClassName("cancel-comment-edit-button");
-		this._commentEditInput = document.getElementsByClassName("comment-edit-input");
+		this._commentEditInput = document.getElementsByClassName("edit-comment__input");
 
 		this._showMoreCommentsButton = document.getElementsByClassName("show-more-block");
 
@@ -221,6 +221,7 @@ export default class GroupView extends BaseView {
 				for (let i = 0; i < comments.length; ++i) {
 					if (comments[i].id === commentID) {
 						comments[i].editing_mode = true;
+						comments[i].cur_comment = comments[i].text;
 					}
 				}
 

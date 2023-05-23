@@ -10,6 +10,9 @@
     grid-row-gap: 5px;
 
 }
+.comment:hover .comment-operations {
+    display: grid;
+}
 
 .comment-editing-block {
     display: grid;
@@ -70,7 +73,6 @@
     margin-bottom: auto;
 }
 
-
 .comment__avatar {
     margin: auto;
     /*grid-column: 1;*/
@@ -94,7 +96,7 @@
     /* grid-column: 3;
     grid-row: 2; */
     grid-area: comment-management;
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 1fr;
 }
 .comment-operations__update {
