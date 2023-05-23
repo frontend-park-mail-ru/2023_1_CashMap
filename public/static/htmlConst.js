@@ -44,8 +44,8 @@ export const logoDataSignUp = {
 export const signInData = {
     title: 'Авторизация',
     inputFields: [
-        { help: 'Электронная почта', type: 'email', jsIdInput: 'js-email-input', jsIdError: 'js-email-error'},
-        { help: 'Пароль', type: 'password', jsIdInput: 'js-password-input', jsIdError: 'js-password-error'}],
+        { text: '', help: 'Электронная почта', type: 'email', jsIdInput: 'js-email-input', jsIdError: 'js-email-error'},
+        { text: '', help: 'Пароль', type: 'password', jsIdInput: 'js-password-input', jsIdError: 'js-password-error'}],
     buttonInfo: { text: 'Войти', jsId: 'js-sign-in-btn'},
     errorInfo: { jsId: 'js-sign-in-error' },
     link: { text:'У вас еще нет аккаунта? Зарегистрироваться', jsId: 'js-create-account-btn'},

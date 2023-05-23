@@ -17,6 +17,8 @@ export default class SignUpView {
         this._validatePassword = false;
         this._validatePasswordRepeat = false;
 
+        this._fields = null;
+
         userStore.registerCallback(this.updatePage.bind(this))
     }
 
@@ -47,8 +49,10 @@ export default class SignUpView {
         this._regBtn.addEventListener('click', () => {
             if (this._validateFirstName && this._validateLastName && this._validateEmail && this._validatePassword && this._validatePasswordRepeat) {
                 actionUser.signUp({firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, password: this._passwordField.value});
+                this._fields = null;
             } else {
                 userStore.user.errorReg = 'Заполните корректно все поля';
+                this._fields = {firstName: this._firstNameField.value, lastName: this._lastNameField.value, email: this._emailField.value, password1: this._passwordField.value, password2: this._passwordRepeatField.value};
                 this._render();
             }
         });
@@ -73,6 +77,14 @@ export default class SignUpView {
         this._passwordRepeatField.addEventListener('change', () => {
             this._validatePasswordRepeat = Validation.validationPassword(this._passwordField, this._passwordRepeatField, this._passwordRepeatErrorField, 'default');
         });
+
+        if (this._fields) {
+            this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName', 'default');
+            this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName', 'default');
+            this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email', 'default');
+            this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password', 'default');
+            this._validatePasswordRepeat = Validation.validationPassword(this._passwordField, this._passwordRepeatField, this._passwordRepeatErrorField, 'default');
+        }
     }
 
     remove() {
@@ -104,6 +116,14 @@ export default class SignUpView {
         } else {
             signUpData.errorInfo['errorText'] = '';
             signUpData.errorInfo['errorClass'] = 'display-none';
+        }
+
+        if (this._fields) {
+            signUpData.inputFields[0].text = this._fields.firstName;
+            signUpData.inputFields[1].text = this._fields.lastName;
+            signUpData.inputFields[2].text = this._fields.email;
+            signUpData.inputFields[3].text = this._fields.password1;
+            signUpData.inputFields[4].text = this._fields.password2;
         }
 
         this._context = {
