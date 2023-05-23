@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        this.beckendStatus = 'local';
-        //this.beckendStatus = 'global';
+        //this.beckendStatus = 'local';
+        this.beckendStatus = 'global';
 
         if (this.beckendStatus === 'global') {
             this.backendHostname = 'depeche.su';
