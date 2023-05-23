@@ -130,6 +130,8 @@ export default class SignUpView {
             logoData: logoDataSignUp,
             signUpData: signUpData,
         }
+
+        document.title = 'Регистрация';
     }
 
     _render() {

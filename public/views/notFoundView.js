@@ -25,6 +25,8 @@ export default class NotFoundView {
 			code: '404',
 			text: 'Страница не найдена',
 		}
+
+		document.title = '404';
 	}
 
 	_render() {

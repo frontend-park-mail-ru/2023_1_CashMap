@@ -308,17 +308,21 @@ export default class FriendsView extends BaseView {
 		switch (window.location.pathname) {
 			case '/friends':
 				res = friendsStore.friends;
+				document.title = 'Друзья';
 				info = 'У вас пока нет друзей';
 				break;
 			case '/subscribers':
 				res = friendsStore.subscribers;
+				document.title = 'Подписчики';
 				info = 'У вас пока нет подписчиков'
 				break;
 			case '/subscriptions':
 				res = friendsStore.subscriptions;
+				document.title = 'Подписки';
 				info = 'У вас пока нет подписок'
 				break;
 			case '/findFriends':
+				document.title = 'Поиск друзей';
 				res = friendsStore.notFriends;
 				break;
 		}

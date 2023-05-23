@@ -179,5 +179,7 @@ export default class GroupView extends BaseView {
 			headerData: header,
 			settingsPathData: settings,
 		}
+
+		document.title = 'Настройки группы';
 	}
 }

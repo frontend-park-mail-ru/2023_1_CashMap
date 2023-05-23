@@ -299,5 +299,7 @@ export default class ChatView extends BaseView {
 			headerData: header,
 			chatData: {messages: messagesStore.messages, attachments: postsStore.attachments, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg'), keyboardData: {smiles: emotionKeyboard, stickerpacks: {stickerpacks :stickerStore.stickerPacks}}},
 		}
+
+		document.title = 'Мессенджер';
 	}
 }

@@ -548,5 +548,7 @@ export default class ProfileView extends BaseView {
 			this._context.postAreaData.createPostData.create.id = postsStore.curPost.id;
 			this._context.postAreaData.createPostData.create.buttonData = { text: 'Изменить', jsId: 'js-edit-post-btn'};
 		}
+
+		document.title = userStore.userProfile.firstName;
 	}
 }

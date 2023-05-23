@@ -183,5 +183,7 @@ export default class SettingsView extends BaseView {
 			headerData: header,
 			settingsPathData: settingsConst,
 		}
+
+		document.title = 'Настройки';
 	}
 }

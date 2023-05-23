@@ -143,6 +143,8 @@ export default class SafetyView extends BaseView {
 			headerData: header,
 			safetyPathData: safetyConst,
 		}
+
+		document.title = 'Настройки безопасности';
 	}
 
 	_render() {

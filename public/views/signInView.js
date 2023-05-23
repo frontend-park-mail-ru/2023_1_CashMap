@@ -103,6 +103,8 @@ export default class SignInView {
             logoData: logoDataSignIn,
             signInData: signInData,
         }
+
+        document.title = 'Авторизация';
     }
 
     _render() {

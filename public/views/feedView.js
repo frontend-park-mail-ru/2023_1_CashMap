@@ -468,5 +468,7 @@ export default class FeedView extends BaseView {
 			this._context.postAreaData.createPostData.create.attachments= postsStore.curPost.attachments;
 			this._context.postAreaData.createPostData.create.buttonData = { text: 'Изменить', jsId: 'js-edit-post-btn'};
 		}
+
+		document.title = 'Новости';
 	}
 }

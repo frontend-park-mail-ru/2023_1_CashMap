@@ -265,18 +265,22 @@ export default class GroupsView extends BaseView {
 		switch (window.location.pathname) {
 			case '/groups':
 				res = groupsStore.groups;
+				document.title = 'Подписки';
 				info = 'Вы не подписаны на сообщества';
 				break;
 			case '/manageGroups':
 				res = groupsStore.manageGroups;
+				document.title = 'Сообщества';
 				info = 'У вас пока нет сообществ';
 				break;
 			case '/findGroups':
 				res = groupsStore.findGroups;
+				document.title = 'Поиск сообществ';
                 info = 'Сообщества не найдены';
 				break;
 			case '/popularGroups':
 				res = groupsStore.popularGroups;
+				document.title = 'Поиск сообществ';
                 info = 'Сообщества не найдены';
 				break;
 		}

@@ -61,6 +61,6 @@ export default class MessagesView extends BaseView {
 			},
 			messagesData: messagesStore.chats,
 		}
-		console.log(this._context)
+		document.title = 'Мессенджер';
 	}
 }

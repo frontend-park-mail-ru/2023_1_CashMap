@@ -507,5 +507,11 @@ export default class GroupView extends BaseView {
 			this._context.postAreaData.createPostData.create.attachments= postsStore.curPost.attachments;
 			this._context.postAreaData.createPostData.create.buttonData = { text: 'Изменить', jsId: 'js-edit-post-btn'};
 		}
+
+		if (groupsStore.curGroup) {
+			document.title = groupsStore.curGroup.title;
+		} else {
+			document.title = 'Группа';
+		}
 	}
 }
