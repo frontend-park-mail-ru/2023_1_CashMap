@@ -82,7 +82,7 @@ export default class ChatView extends BaseView {
 		})
 
 		this._sendMsg.addEventListener('click', () => {
-			if (this._msg.value.length) {
+			if (this._msg.value.length || postsStore.attachments.length) {
 				localStorage.setItem('curMsg', '');
 				if (postsStore.attachments.length) {
 					let sendAttachments = []
