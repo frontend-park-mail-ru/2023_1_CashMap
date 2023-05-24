@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.beckendStatus = 'local';
-        this.beckendStatus = 'global';
+        this.beckendStatus = 'local';
+        //this.beckendStatus = 'global';
 
         if (this.beckendStatus === 'global') {
             this.backendHostname = 'depeche.su';
@@ -455,7 +455,6 @@ class Ajax {
     async getCommentsByPostId(postId, count, lastCommentDate) {
         let lastCommentDateQuery = lastCommentDate !== undefined && lastCommentDate !== null ? `last_comment_date=${lastCommentDate}` : "";
         let countQuery = count !== undefined && count !== null ? `batch_size=${count}` : "";
-        console.log(this._apiUrl.getComments + postId + `?${lastCommentDateQuery}&${countQuery}`)
         return this._request(this._apiUrl.getComments + postId + `?${lastCommentDateQuery}&${countQuery}`, this._requestType.GET);
     }
 
@@ -465,7 +464,6 @@ class Ajax {
 
     async createComment(postId, replyReceiver, text) {
         const body = {post_id: postId, reply_to: replyReceiver, text: text};
-        console.log(JSON.stringify({body}));
         return this._request(this._apiUrl.createComment, this._requestType.POST, JSON.stringify({body}));
     }
 

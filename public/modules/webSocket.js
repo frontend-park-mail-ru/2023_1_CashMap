@@ -69,7 +69,7 @@ class WebSock {
 
         this._socket.onclose = (event) => {
             console.log(event.code);
-            open();
+            this.open();
         }
     }
 

@@ -4,8 +4,8 @@
   "description": "messenger Depeche",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c",
-    "prestart": "handlebars public/components/*/*.handlebars -f public/templates.precompiled.js",
+    "build": "handlebars public/components/*/*.handlebars -f public/templates.precompiled.js && rollup -c",
+    "prestart": "handlebars public/components/*/*.handlebars -f public/templates.precompiled.js && rollup -c",
     "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint \"./public/**/*.{js,jsx,ts,tsx}\"",
@@ -25,17 +25,23 @@
     "express": "^4.18.2",
     "handlebars": "^4.7.7",
     "rollup-plugin-css-only": "^4.3.0",
-    "rollup-plugin-handlebars-plus": "^0.4.2",
-    "rollup-plugin-postcss": "^4.0.2"
+    "rollup-plugin-handlebars-plus": "^0.4.2"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.2",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
+    "cssnano": "^5.1.15",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "postcss": "^8.4.23",
+    "postcss-import": "^15.1.0",
+    "postcss-modules": "^4.3.1",
     "prettier": "^2.8.7",
     "rollup": "^3.23.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
     "websocket": "^1.0.34"
   }
 }

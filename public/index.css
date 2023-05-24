@@ -50,37 +50,37 @@
 
 @font-face {
     font-family: Limelight; /* Имя шрифта */
-    src: url(static/fonts/Limelight-Regular.ttf); /* Путь к файлу со шрифтом */
+    src: url(/static/fonts/Limelight-Regular.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: InterMedium; /* Имя шрифта */
-    src: url(static/fonts/Inter-Medium.ttf); /* Путь к файлу со шрифтом */
+    src: url(/static/fonts/Inter-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: InterRegular; /* Имя шрифта */
-    src: url(static/fonts/Inter-Regular.ttf); /* Путь к файлу со шрифтом */
+    src: url(/static/fonts/Inter-Regular.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: MailSansRoman; /* Имя шрифта */
-    src: url(static/fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
+    src: url(/static/fonts/MailSansRoman-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: MailSansRomanRegular; /* Имя шрифта */
-    src: url(static/fonts/MailSansRoman-Regular.ttf); /* Путь к файлу со шрифтом */
+    src: url(/static/fonts/MailSansRoman-Regular.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: Comfortaa; /* Имя шрифта */
-    src: url(static/fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
+    src: url(/static/fonts/Comfortaa-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
 @font-face {
     font-family: Montserrat; /* Имя шрифта */
-    src: url(static/fonts/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+    src: url(/static/fonts/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
 }
 
 
