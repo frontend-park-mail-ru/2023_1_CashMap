@@ -3,8 +3,6 @@ import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
 import { terser } from 'rollup-plugin-terser';
 
-
-
 export default {
     input: 'public/index.js', // Путь к вашему основному файлу JS
     output: {

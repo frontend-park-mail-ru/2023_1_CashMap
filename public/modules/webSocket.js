@@ -32,6 +32,7 @@ class WebSock {
 
         if (!this._socket && userStore.user.isAuth) {
             this._socket = new WebSocket(this._url);
+            console.log('WebSocket opened');
         }
 
         this._socket.onmessage = function(event) {
@@ -68,7 +69,8 @@ class WebSock {
         };
 
         this._socket.onclose = (event) => {
-            console.log(event.code);
+            console.log(`WebSocket closed `, event.code);
+            this._socket = null;
             this.open();
         }
     }
