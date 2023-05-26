@@ -371,9 +371,11 @@ export default class GroupView extends BaseView {
 		if (this._addPhotoToPostPic) {
 			this._addPhotoToPostPic.addEventListener('click', ()=> {
 				if (postsStore.attachments === null) {
+					alert(1)
 					postsStore.attachments = [];
 				}
 				if (postsStore.attachments.length >= 10) {
+					alert(2)
 					return;
 				}
 				postsStore.text = this._text.value;
@@ -502,7 +504,6 @@ export default class GroupView extends BaseView {
 		if (this._context.postAreaData.createPostData.isEdit) {
 			this._context.postAreaData.createPostData.create.text = postsStore.curPost.text_content;
 			this._context.postAreaData.createPostData.create.id = postsStore.curPost.id;
-			this._context.postAreaData.createPostData.create.attachments= postsStore.curPost.attachments;
 			this._context.postAreaData.createPostData.create.buttonData = { text: 'Изменить', jsId: 'js-edit-post-btn'};
 		}
 

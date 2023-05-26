@@ -90,6 +90,15 @@ export default class SettingsView extends BaseView {
 				return;
 			}
 
+			if (!event.target.files[0].type.startsWith('image/')) {
+				this._error.textContent = 'Ставить на аватарку можно только картинки';
+				this._error.classList.add('display-inline-grid');
+				this._error.classList.add('font-color-error');
+				this._error.classList.remove('font-color-ok');
+				this._error.classList.remove('display-none');
+				return;
+			}
+
 			this._fileList = Array.from(event.target.files);
 			this._fileList = this._fileList[0];
 
