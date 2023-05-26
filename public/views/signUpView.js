@@ -56,7 +56,7 @@ export default class SignUpView {
         });
 
         this._logBtn.addEventListener('click', () => {
-            Router.go('/signIn', false);
+            Router.go('/sign-in', false);
         });
 
 

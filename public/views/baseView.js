@@ -261,14 +261,14 @@ export default class BaseView {
         if (this._showMorePeopleButton !== null) {
             this._showMorePeopleButton.addEventListener('mousedown', () => {
                 localStorage.setItem("searchQuery", this._searchAreaInput.value);
-                Router.go('/findFriends');
+                Router.go('/find-friends');
             });
         }
 
         if (this._showMoreCommunititesButton !== null) {
             this._showMoreCommunititesButton.addEventListener('mousedown', () => {
                 localStorage.setItem("searchQuery", this._searchAreaInput.value);
-                Router.go('/findGroups');
+                Router.go('/find-groups');
             });
         }
 
@@ -335,7 +335,7 @@ export default class BaseView {
     updatePage() {
         if (this.curPage) {
             if (!userStore.user.isAuth) {
-                Router.go('/signIn');
+                Router.go('/sign-in');
             } else {
                 this.render();
             }

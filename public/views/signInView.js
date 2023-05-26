@@ -46,7 +46,7 @@ export default class SignInView {
         });
 
         this._newBtn.addEventListener('click', () => {
-            Router.go('/signUp', false);
+            Router.go('/sign-up', false);
         });
 
         this._emailField.addEventListener('change', () => {

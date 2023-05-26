@@ -62,7 +62,7 @@ export default class FriendsView extends BaseView {
 			case '/subscriptions':
 				this._subscriptionsBtn.style.color = activeColor;
 				break;
-			case '/findFriends':
+			case '/find-friends':
 				this._findFriendsBtn.style.color = activeColor;
 				break;
 		}
@@ -123,7 +123,7 @@ export default class FriendsView extends BaseView {
 
 		this._findFriendsBtn.addEventListener('click', () => {
 			this._findFriendsBtn.style.color = activeColor;
-			Router.go('/findFriends', false);
+			Router.go('/find-friends', false);
 		});
 
 		this._feedBtn.addEventListener('click', () => {
@@ -178,7 +178,7 @@ export default class FriendsView extends BaseView {
 					actionFriends.getSubscribers(userStore.user.user_link, this._friendsBatchSize, friendsStore.subscribers.length, true);
 				} else if (path === '/subscriptions' && friendsStore.hasMoreSubscriptions) {
 					actionFriends.getSubscriptions(userStore.user.user_link, this._friendsBatchSize, friendsStore.subscriptions.length, true);
-				} else if (path === '/findFriends' && friendsStore.hasMoreUsers) {
+				} else if (path === '/find-friends' && friendsStore.hasMoreUsers) {
 					if (this._searchAreaInput.value.trim() === "") {
 						actionFriends.getNotFriends(this._friendsBatchSize, friendsStore.notFriends.length, true);
 					} else {
@@ -212,11 +212,11 @@ export default class FriendsView extends BaseView {
 
 
 		switch (window.location.pathname) {
-			case '/findFriends':
+			case '/find-friends':
 				this._searchAreaInput.addEventListener('keyup', () => {
 					if (this._searchAreaInput.value === "") {
 						localStorage.removeItem("searchQuery");
-						Router.go('/findFriends');
+						Router.go('/find-friends');
 						return
 					}
 					this.interruptTimer();
@@ -249,7 +249,7 @@ export default class FriendsView extends BaseView {
 	updateSearchList() {
 		if (this.curPage) {
 			if (!userStore.user.isAuth) {
-				Router.go('/signIn');
+				Router.go('/sign-in');
 			} else {
 				this._renderNewSearchList();
 			}
@@ -259,7 +259,7 @@ export default class FriendsView extends BaseView {
 	updatePage() {
 		if (this.curPage) {
 			if (!userStore.user.isAuth) {
-				Router.go('/signIn');
+				Router.go('/sign-in');
 			} else {
 				this._render();
 			}
@@ -274,7 +274,7 @@ export default class FriendsView extends BaseView {
 		let res;
 		let info;
 		switch (window.location.pathname) {
-			case '/findFriends':
+			case '/find-friends':
 				res = searchStore.userSearchItems;
 				info = 'По данному запросу не найдено людей'
 				break;
@@ -319,7 +319,7 @@ export default class FriendsView extends BaseView {
 				document.title = 'Подписки';
 				info = 'У вас пока нет подписок'
 				break;
-			case '/findFriends':
+			case '/find-friends':
 				document.title = 'Поиск друзей';
 				res = friendsStore.notFriends;
 				break;
@@ -346,7 +346,7 @@ export default class FriendsView extends BaseView {
 		this._addPagesListener();
 
 		let query = localStorage.getItem("searchQuery");
-		if (window.location.pathname === "/findFriends" && query != null && query.trim() !== "") {
+		if (window.location.pathname === "/find-friends" && query != null && query.trim() !== "") {
 			this._searchAreaInput.value = query;
 			this._searchAreaInput.focus();
 			actionSearch.search(this._searchAreaInput.value, this._friendsBatchSize);

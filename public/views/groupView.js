@@ -311,7 +311,7 @@ export default class GroupView extends BaseView {
 
 		if (this._groupSettingsBtn) {
 			this._groupSettingsBtn.addEventListener('click', () => {
-				Router.go('/settingsGroup', false);
+				Router.go('/settings-group', false);
 			});
 		}
 
@@ -461,6 +461,7 @@ export default class GroupView extends BaseView {
 	showPage(search) {
 		if (search.link) {
 			this._groupLink = search.link;
+			localStorage.setItem('groupLink', this._groupLink);
 			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
 		} else {
 			Router.go('/groups', false);
