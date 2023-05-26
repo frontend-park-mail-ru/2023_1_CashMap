@@ -138,9 +138,9 @@ export default class GroupView extends BaseView {
 		
 	}
 
-	showPage(search) {
-		if (search.link) {
-			this._groupLink = search.link;
+	showPage() {
+		if (groupsStore.curGroup.isAdmin) {
+			this._groupLink = groupsStore.curGroup.link;
 			actionUser.getProfile(() => { actionGroups.getGroupInfo(null, this._groupLink); });
 		} else {
 			Router.goBack();

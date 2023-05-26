@@ -311,7 +311,7 @@ export default class GroupView extends BaseView {
 
 		if (this._groupSettingsBtn) {
 			this._groupSettingsBtn.addEventListener('click', () => {
-				Router.go('/settingsGroup?link=' + this._groupLink, false);
+				Router.go('/settingsGroup', false);
 			});
 		}
 
@@ -371,11 +371,9 @@ export default class GroupView extends BaseView {
 		if (this._addPhotoToPostPic) {
 			this._addPhotoToPostPic.addEventListener('click', ()=> {
 				if (postsStore.attachments === null) {
-					alert(1)
 					postsStore.attachments = [];
 				}
 				if (postsStore.attachments.length >= 10) {
-					alert(2)
 					return;
 				}
 				postsStore.text = this._text.value;
