@@ -13,7 +13,7 @@
     {{/if}}
 
     <div class="create-comment">
-        <img class="create-comment__avatar profile-img-size avatar-form" src={{ avatar_url }}>
+        <img class="create-comment__avatar profile-img-size avatar-form" src="{{#if user_avatar_url}}{{user_avatar_url}}{{else}}{{avatar_url}}{{/if}}">
 
         <div class="foo__create-comment border-radius">
             <textarea class="create-comment__input border-radius font-InterRegular font-size-14 font-color-gray-text background-color-feed border-none" placeholder="Написать комментарий">{{ curComment }}</textarea>
@@ -34,21 +34,4 @@
             <input class="cursor-pointer" type="image" src="static/img/post_icons/send_hover.svg">
         </div>
     </div>
-
-    {{!-- <div class="create-comment">
-        <img class="create-comment__avatar profile-img-size avatar-form" src={{ avatar_url }}>
-        <input class="create-comment__input border-radius-btn-input background-item-hovered border-none font-size-14 font-color-gray-text" placeholder="Написать комментарий">
-
-        <div class="hover-pic margin-auto" style="cursor: pointer;">
-            <img class="margin-auto" src="static/img/post_icons/photo.svg">
-            <img class="margin-auto" src="static/img/post_icons/photo_hover.svg">
-        </div>
-
-        <div class="hover-pic margin-auto" style="cursor: pointer;">
-            <img class="margin-auto" src="static/img/post_icons/smile.svg">
-            <img class="margin-auto" src="static/img/post_icons/smile_hover.svg">
-        </div>
-
-        <img class="create-comment__send-icon margin-auto" style="cursor: pointer; grid-column: 7;" src="static/img/post_icons/send.svg">
-    </div> --}}
 </div>

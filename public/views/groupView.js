@@ -494,6 +494,7 @@ export default class GroupView extends BaseView {
 					isCreate: this.isCreate,
 					isEdit: this.isEdit,
 					avatar_url: groupsStore.curGroup.avatar_url,
+					user_avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
 					create: { avatar_url: groupsStore.curGroup.avatar_url, attachments: postsStore.attachments , text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, keyboardData: {smiles: emotionKeyboard},}
 				},

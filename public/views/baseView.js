@@ -96,6 +96,13 @@ export default class BaseView {
         Handlebars.registerHelper('eqs', function(value1, value2, value3) {
             return value1 === value2 || value1 === value3;
         });
+
+        Handlebars.registerHelper('second-if-any', function(value1, value2) {
+            if (value2) {
+                return value2;
+            }
+            return value1;
+        });
     }
 
     /**
