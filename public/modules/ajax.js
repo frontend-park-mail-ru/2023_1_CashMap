@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        this.beckendStatus = 'local';
-        //this.beckendStatus = 'global';
+        //this.beckendStatus = 'local';
+        this.beckendStatus = 'global';
 
         if (this.beckendStatus === 'global') {
             this.backendHostname = 'depeche.su';
@@ -24,65 +24,64 @@ class Ajax {
         this._staticUrl = 'https://' + this.backendHostname;
 
         this._apiUrl = {
-            signIn: '/auth/sign-in',
-            signUp: '/auth/sign-up',
-            signOut: '/auth/logout',
-            check: '/auth/check',
-            getProfile: '/api/user/profile',
-            getProfileLink: '/api/user/profile/link/',
-            editProfile: '/api/user/profile/edit',
+            signIn:                  '/auth/sign-in',
+            signUp:                  '/auth/sign-up',
+            signOut:                 '/auth/logout',
+            check:                   '/auth/check',
+            getProfile:              '/api/user/profile',
+            getProfileLink:          '/api/user/profile/link/',
+            editProfile:             '/api/user/profile/edit',
 
-            feed: '/api/feed',
-            userPosts: '/api/posts/profile',
-            userPostById: '/api/posts/id',
-            communityPosts: '/api/posts/community',
-            createPost: '/api/posts/create',
-            deletePost: '/api/posts/delete',
-            editPost: '/api/posts/edit',
-            likePost: '/api/posts/like/set',
-            dislikePost: '/api/posts/like/cancel',
+            feed:                    '/api/feed',
+            userPosts:               '/api/posts/profile',
+            userPostById:            '/api/posts/id',
+            communityPosts:          '/api/posts/community',
+            createPost:              '/api/posts/create',
+            deletePost:              '/api/posts/delete',
+            editPost:                '/api/posts/edit',
+            likePost:                '/api/posts/like/set',
+            dislikePost:             '/api/posts/like/cancel',
 
-            getFriends: '/api/user/friends',
-            isFriend: '/api/user/status',
-            getNotFriends: '/api/user/rand',
-            getUsers: '/api/user/all',
-            getSub: '/api/user/sub',
-            reject: '/api/user/reject',
-            sub: '/api/user/sub',
-            unsub: '/api/user/unsub',
+            getFriends:              '/api/user/friends',
+            isFriend:                '/api/user/status',
+            getNotFriends:           '/api/user/rand',
+            getUsers:                '/api/user/all',
+            getSub:                  '/api/user/sub',
+            reject:                  '/api/user/reject',
+            sub:                     '/api/user/sub',
+            unsub:                   '/api/user/unsub',
 
-            getGroups: '/api/group/self',
-            getGroupInfo: '/api/group/link/',
-            editGroup: '/api/group/link/',
-            deleteGroup: '/api/group/link/',
-            getManageGroups: '/api/group/manage',
-            getNotGroups: '/api/group/hot',
-            getPopularGroups: '/api/group/hot',
-            createGroup: '/api/group/create',
-            getGroupsSub: '/api/group/link/',
-            GroupsSub: '/api/group/link/',
-            GroupsUnsub: '/api/group/link/',
+            getGroups:               '/api/group/self',
+            getGroupInfo:            '/api/group/link/',
+            editGroup:               '/api/group/link/',
+            deleteGroup:             '/api/group/link/',
+            getManageGroups:         '/api/group/manage',
+            getNotGroups:            '/api/group/hot',
+            getPopularGroups:        '/api/group/hot',
+            createGroup:             '/api/group/create',
+            getGroupsSub:            '/api/group/link/',
+            GroupsSub:               '/api/group/link/',
+            GroupsUnsub:             '/api/group/link/',
 
-            chatCheck: '/api/im/chat/check',
-            chatCreate: '/api/im/chat/create',
-            getChats: '/api/im/chats',
-            getMsg: '/api/im/messages',
-            sendMsg: '/api/im/send',
+            chatCheck:               '/api/im/chat/check',
+            chatCreate:              '/api/im/chat/create',
+            getChats:                '/api/im/chats',
+            getMsg:                  '/api/im/messages',
+            sendMsg:                 '/api/im/send',
 
-            uploadImg: '/static-service/upload',
-            deleteImg: '/static-service/delete',
+            uploadImg:               '/static-service/upload',
+            deleteImg:               '/static-service/delete',
+            downloadImg:             '/static-service/download',
 
-            downloadImg: '/static-service/download',
+            userSearch:              '/api/user/search',
 
-            userSearch: '/api/user/search',
+            getComments:             '/api/comment/post/',
+            getComment:              '/api/comment/',
+            createComment:           '/api/comment/create',
+            deleteComment:           '/api/comment/delete/',
+            editComment:             '/api/comment/edit',
 
-            getComments: '/api/comment/post/',
-            getComment: '/api/comment/',
-            createComment: '/api/comment/create',
-            deleteComment: '/api/comment/delete/',
-            editComment: '/api/comment/edit',
-
-            getStickerPackInfo: '/api/sticker/pack/info',
+            getStickerPackInfo:      '/api/sticker/pack/info',
             getStickerPacksByAuthor: '/api/sticker/pack/author',
         }
 

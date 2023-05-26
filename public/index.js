@@ -29,6 +29,14 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+navigator.serviceWorker.addEventListener('message', event => {
+    const { type, message } = event.data;
+    if (type === 'log') {
+        console.log('Service Worker log:', message);
+    }
+});
+
+
 const Views = {
     FeedView: new FeedView(),
     SignInView: new SignInView(),
