@@ -10,8 +10,10 @@ const TYPES = {
     js: 'application/javascript; charset=UTF-8',
     css: 'text/css',
     svg: 'image/svg+xml',
+    png: 'image/png',
     ttf: 'font/ttf',
     ico: 'image/x-icon',
+    json: 'application/json',
 };
 
 const server = http.createServer((request, response) => {
