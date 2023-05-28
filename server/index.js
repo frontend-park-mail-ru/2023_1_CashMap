@@ -38,7 +38,6 @@ const server = http.createServer((request, response) => {
             return;
         }
 
-        console.log(`!!! ${STATIC_PATH}${normalizedUrl}`);
         response.writeHead(200, {'Content-Type': restype});
         response.write(data);
         response.end();
