@@ -2,7 +2,6 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
 import { terser } from 'rollup-plugin-terser';
-import assets from 'rollup-plugin-assets';
 
 
 export default {
