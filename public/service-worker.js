@@ -1,6 +1,6 @@
 // Кеш для статики
 const staticCacheName = 'static-cache-v1';
-const staticFilesToCache = [
+let staticFilesToCache = [
     'static/',
 ];
 
@@ -8,6 +8,15 @@ const staticFilesToCache = [
 const dynamicCacheName = 'dynamic-cache-v1';
 
 self.addEventListener('install', async (event) => {
+    await fetch('/static/build/assets.json')
+        .then(response => response.json())
+        .then(data => {
+            data.files.forEach((url) => {
+                url = url.replace('public/', '');
+                staticFilesToCache.push(url);
+            });
+        });
+
     await caches.open(dynamicCacheName);
     const cache = await caches.open(staticCacheName);
     await cache.addAll(staticFilesToCache);
