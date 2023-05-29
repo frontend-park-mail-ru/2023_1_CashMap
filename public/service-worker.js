@@ -61,7 +61,7 @@ self.addEventListener('fetch', event => {
     } else {
         event.respondWith(fromNetwork(event.request, timeout)
             .catch((err) => {
-                console.log(`Error: go cash`);
+                console.log(`Go cash`, event.request.name);
                 return fromCache(event.request);
             }));
     }
@@ -74,10 +74,12 @@ function fromNetwork(request, timeout) {
         fetch(request).then((response) => {
             clearTimeout(timeoutId);
 
-            const clonedResponse = response.clone();
-            caches.open(dynamicCacheName).then((cache) => {
-                cache.put(request, clonedResponse.clone());
-            });
+            if (request.method === 'GET') {
+                const clonedResponse = response.clone();
+                caches.open(dynamicCacheName).then((cache) => {
+                    cache.put(request, clonedResponse.clone());
+                });
+            }
 
             fulfill(response);
         }, reject);
