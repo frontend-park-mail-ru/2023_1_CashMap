@@ -50,21 +50,25 @@ self.addEventListener('fetch', event => {
                 .then(cache => {
                     return cache.match(request)
                         .then(response => {
-                            return (
-                                response ||
-                                fetch(request)
+                            if (response && request.method === 'GET') {
+                                return response;
+                            } else {
+                                return fetch(request)
                                     .then(networkResponse => {
-                                        const clonedResponse = networkResponse.clone();
-                                        cache.put(request, clonedResponse);
+                                        if (request.method === 'GET') {
+                                            const clonedResponse = networkResponse.clone();
+                                            cache.put(request, clonedResponse);
+                                        }
                                         return networkResponse;
                                     })
-                            );
-                        })
-                        .catch(() => {
-                            return caches.match(request);
+                                    .catch(() => {
+                                        return caches.match(request);
+                                    });
+                            }
                         });
                 })
         );
+
     }
 });
 
