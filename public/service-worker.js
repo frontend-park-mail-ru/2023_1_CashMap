@@ -1,11 +1,20 @@
-// Кеш для статики
+const timeout = 400;
 const staticCacheName = 'static-cache-v1';
+const dynamicCacheName = 'dynamic-cache-v1';
+
 let staticFilesToCache = [
     'static/',
 ];
 
-// Кеш для запросов
-const dynamicCacheName = 'dynamic-cache-v1';
+self.addEventListener('activate', async (event) => {
+    const cacheNames = await caches.keys();
+    await Promise.all(
+        cacheNames
+            .filter((name) => name !== staticCacheName)
+            .filter((name) => name !== dynamicCacheName)
+            .map((name) => caches.delete(name)),
+    );
+});
 
 self.addEventListener('install', async (event) => {
     await fetch('/static/build/assets.json')
@@ -22,6 +31,9 @@ self.addEventListener('install', async (event) => {
     await cache.addAll(staticFilesToCache);
 });
 
+
+
+
 self.addEventListener('fetch', event => {
     const { request } = event;
 
@@ -29,55 +41,52 @@ self.addEventListener('fetch', event => {
 
     if (isStaticRequest) {
         event.respondWith(
-            caches.match(request)
-                .then(response => {
-                    return response || fetch(request)
-                        .then(networkResponse => {
-                            const clonedResponse = networkResponse.clone();
-
-                            caches.open(staticCacheName)
-                                .then(cache => {
-                                    cache.put(request, clonedResponse);
-                                });
-
-                            return networkResponse;
-                        });
+            caches.match(event.request)
+                .then((response) => {
+                    if (response) {
+                        return response;
+                    } else {
+                        return fetch(event.request)
+                            .then((networkResponse) => {
+                                const clonedResponse = networkResponse.clone();
+                                caches.open(staticCacheName)
+                                    .then((cache) => {
+                                        cache.put(event.request, clonedResponse);
+                                    });
+                                return networkResponse;
+                            });
+                    }
                 })
         );
     } else {
-        event.respondWith(
-            caches.open(dynamicCacheName)
-                .then(cache => {
-                    return cache.match(request)
-                        .then(response => {
-                            if (response && request.method === 'GET') {
-                                return response;
-                            } else {
-                                return fetch(request)
-                                    .then(networkResponse => {
-                                        if (request.method === 'GET') {
-                                            const clonedResponse = networkResponse.clone();
-                                            cache.put(request, clonedResponse);
-                                        }
-                                        return networkResponse;
-                                    })
-                                    .catch(() => {
-                                        return caches.match(request);
-                                    });
-                            }
-                        });
-                })
-        );
-
+        event.respondWith(fromNetwork(event.request, timeout)
+            .catch((err) => {
+                console.log(`Error: go cash`);
+                return fromCache(event.request);
+            }));
     }
 });
 
-self.addEventListener('activate', async (event) => {
-    const cacheNames = await caches.keys();
-    await Promise.all(
-        cacheNames
-            .filter((name) => name !== staticCacheName)
-            .filter((name) => name !== dynamicCacheName)
-            .map((name) => caches.delete(name)),
-    );
-});
+// Временно-ограниченный запрос.
+function fromNetwork(request, timeout) {
+    return new Promise((fulfill, reject) => {
+        let timeoutId = setTimeout(reject, timeout);
+        fetch(request).then((response) => {
+            clearTimeout(timeoutId);
+
+            const clonedResponse = response.clone();
+            caches.open(dynamicCacheName).then((cache) => {
+                cache.put(request, clonedResponse.clone());
+            });
+
+            fulfill(response);
+        }, reject);
+    });
+}
+
+function fromCache(request) {
+    return caches.open(dynamicCacheName).then((cache) =>
+        cache.match(request).then((matching) =>
+            matching || Promise.reject('no-match')
+        ));
+}
