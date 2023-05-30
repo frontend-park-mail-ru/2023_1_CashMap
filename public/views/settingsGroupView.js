@@ -141,11 +141,11 @@ export default class GroupView extends BaseView {
 			Router.go('/manage-groups', false);
 		});
 
-		this._titleField.addEventListener('change', () => {
-			this._validateTitle = Validation.validation(this._titleField, this._titleErrorField, 'userStatus', 'settings');
+		this._titleField.addEventListener('input', () => {
+			this._validateTitle = Validation.validation(this._titleField, this._titleErrorField, 'title', 'settings');
 		});
 
-		this._infoField.addEventListener('change', () => {
+		this._infoField.addEventListener('input', () => {
 			this._validateInfo = Validation.validation(this._infoField, this._infoErrorField, 'bio', 'settings');
 		});
 		
