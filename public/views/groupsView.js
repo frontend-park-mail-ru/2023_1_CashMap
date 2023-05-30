@@ -205,6 +205,7 @@ export default class GroupsView extends BaseView {
 			this._unsubGroup[i].addEventListener('click', () => {
 				const groupId = this._unsubGroup[i].getAttribute("data-id");
 				actionGroups.groupUnsub(groupId);
+				event.stopPropagation();
 			});
 		}
 	}

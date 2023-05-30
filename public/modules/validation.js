@@ -24,6 +24,7 @@ class Validation {
 			secondPassword: this._validateTwoPasswords,
 			userStatus: this._validateStatus,
 			bio: this._validateBio,
+			title: this._validateTitle,
 			birthday: this._validateBirthday,
 		}
 	}
@@ -349,6 +350,39 @@ class Validation {
 			return {
 				status: false,
 				error: `Статус должен быть короче ${MAX_STATUS_LENGTH} символов`
+			};
+		}
+
+		return {
+			status: true,
+		}
+	}
+
+	/**
+     * @private метод, валидирующий название
+     * @param {String} title название для валидации
+	 * @return {Boolean} статус
+     * @return {String | null} сообщение об ошибке
+     */
+	_validateTitle(title) {
+		if (!(title instanceof String) && typeof(title) != 'string') {
+			return {
+				status: false,
+				error: 'Недопустимый формат данных'
+			};
+		}
+
+		if (title.length === 0) {
+			return {
+				status: false,
+				error: 'Введите название'
+			};
+		}
+
+		if (title.length > MAX_STATUS_LENGTH) {
+			return {
+				status: false,
+				error: `Название должно быть короче ${MAX_STATUS_LENGTH} символов`
 			};
 		}
 

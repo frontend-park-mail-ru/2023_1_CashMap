@@ -136,19 +136,19 @@ export default class SettingsView extends BaseView {
 			}
 		});
 
-		this._firstNameField.addEventListener('change', () => {
+		this._firstNameField.addEventListener('input', () => {
 			this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName', 'settings');
 		});
-		this._lastNameField.addEventListener('change', () => {
+		this._lastNameField.addEventListener('input', () => {
 			this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName', 'settings');
 		});
-		this._statusField.addEventListener('change', () => {
+		this._statusField.addEventListener('input', () => {
 			this._validateStatus = Validation.validation(this._statusField, this._statusErrorField, 'userStatus', 'settings');
 		});
-		this._bioField.addEventListener('change', () => {
+		this._bioField.addEventListener('input', () => {
 			this._validateBio = Validation.validation(this._bioField, this._bioErrorField, 'bio', 'settings');
 		});
-		this._birthdayField.addEventListener('change', () => {
+		this._birthdayField.addEventListener('input', () => {
 			this._validateBirthday = Validation.validation(this._birthdayField, this._birthdayErrorField, 'birthday', 'settings');
 		});
 	}

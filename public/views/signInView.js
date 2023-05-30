@@ -49,10 +49,10 @@ export default class SignInView {
             Router.go('/sign-up', false);
         });
 
-        this._emailField.addEventListener('change', () => {
+        this._emailField.addEventListener('input', () => {
             this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email', 'default');
         });
-        this._passwordField.addEventListener('change', () => {
+        this._passwordField.addEventListener('input', () => {
             this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password', 'default');
         });
 

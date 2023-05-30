@@ -138,6 +138,7 @@ export default class FriendsView extends BaseView {
 			this._addUser[i].addEventListener('click', () => {
 				const userId = this._addUser[i].getAttribute("data-id");
 				actionFriends.sub(userId);
+				event.stopPropagation();
 			});
 		}
 
@@ -145,6 +146,7 @@ export default class FriendsView extends BaseView {
 			this._deleteFriend[i].addEventListener('click', () => {
 				const userId = this._deleteFriend[i].getAttribute("data-id");
 				actionFriends.unsub(userId);
+				event.stopPropagation();
 			});
 		}
 
@@ -152,6 +154,7 @@ export default class FriendsView extends BaseView {
 			this._unsubUser[i].addEventListener('click', () => {
 				const userId = this._unsubUser[i].getAttribute("data-id");
 				actionFriends.unsub(userId);
+				event.stopPropagation();
 			});
 		}
 
@@ -207,6 +210,7 @@ export default class FriendsView extends BaseView {
 						});
 					}
 				});
+				event.stopPropagation();
 			});
 		}
 

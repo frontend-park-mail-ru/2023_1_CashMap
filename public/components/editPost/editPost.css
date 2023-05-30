@@ -29,6 +29,7 @@
     align-items: flex-end;
     padding: 8px 0px 0px;
     gap: 16px;
+    position: relative;
 }
 
 .edit-post__options-button {
@@ -139,4 +140,10 @@
     border-radius: 30px;
 
     color: #9747FF;
+}
+
+.edit-post__smiles {
+    position: absolute;
+    z-index: 1;
+    top: 120%
 }
