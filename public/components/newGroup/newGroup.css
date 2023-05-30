@@ -24,7 +24,6 @@
 
 .newGroup-position {
     width: 600px;
-    height: 368px;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -117,6 +116,10 @@
     grid-column: 1;
 
     font-weight: 400;
+}
+
+.newGroup__button {
+    padding-top: 10px;
 }
 
 .newGroup__textarea__info {

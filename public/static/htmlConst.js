@@ -193,6 +193,8 @@ export const settingsGroupConst = {
   errorInfo: { jsId: 'js-sign-in-error'},
   buttonDelete: { text: 'Удалить группу',
       jsId: 'js-delete-group-btn'},
+  buttonGoToGroup: { text: 'Вернуться в сообщество',
+      jsId: 'js-go-to-group-btn'},
   deleteGroupData : { text: 'Да',
       jsId: 'js-group-delete-btn'},
 }
