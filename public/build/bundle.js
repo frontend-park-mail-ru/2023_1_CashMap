@@ -4061,7 +4061,7 @@ class FeedView extends BaseView {
 		this._commentsButtons = document.getElementsByClassName("post-buttons-comment");
 		this._commentsAreas = document.getElementsByClassName("comments-area");
 		this._sendCommentButtons = document.getElementsByClassName('create-comment__send-icon');
-		this._commentInput = document.getElementsByClassName('create-comment__input');
+		this._commentInput = document.getElementsByClassName('depeche-multiline-input');
 
 		this._commentDeleteButton = document.getElementsByClassName("comment-operations__delete");
 
@@ -5486,7 +5486,7 @@ let GroupView$1 = class GroupView extends BaseView {
 		this._commentsAreas = document.getElementsByClassName("comments-area");
 		this._commentsButtons = document.getElementsByClassName("post-buttons-comment");
 		this._sendCommentButtons = document.getElementsByClassName('create-comment__send-icon');
-		this._commentInput = document.getElementsByClassName('create-comment__input');
+		this._commentInput = document.getElementsByClassName('depeche-multiline-input');
 
 		this._commentDeleteButton = document.getElementsByClassName("comment-operations__delete");
 
@@ -5936,7 +5936,7 @@ class ProfileView extends BaseView {
 		this._commentsAreas = document.getElementsByClassName("comments-area");
 		this._commentsButtons = document.getElementsByClassName("post-buttons-comment");
 		this._sendCommentButtons = document.getElementsByClassName('create-comment__send-icon');
-		this._commentInput = document.getElementsByClassName('create-comment__input');
+		this._commentInput = document.getElementsByClassName('depeche-multiline-input');
 
 		this._commentDeleteButton = document.getElementsByClassName("comment-operations__delete");
 

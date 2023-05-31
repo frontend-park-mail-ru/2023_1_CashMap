@@ -18,25 +18,30 @@
                 <div class="profileCard__info-text font-InterRegular profileCard__info-text_little"> в сети: {{ lastActive }} </div>
             </div>
         </div>
-        {{# if isMyPage}}
-            <button class="profileCard__button profileCard__button_grey" id="js-profile-settings-btn" data-id="{{ user_link }}">
-                <div class="profileCard__button-text"> Редактировать </div>
-            </button>
-        {{else}}
-            {{# if (eqs isMyFriend 'subscriber' 'friend')}}
-                <div class="post-buttons-like post-hover border-radius-btn-input cursor-pointer" data-id="{{ user_link }}" style="padding: 6px;" id="js-friend-remove">
-                    <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/deleteFriend.svg">
-                    <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/deleteFriendHover.svg">
-                </div>
+
+        <div class="profileCard__buttons">
+            {{# if isMyPage}}
+                <button class="profileCard__button profileCard__button_grey" id="js-profile-settings-btn" data-id="{{ user_link }}">
+                    <div class="profileCard__button-text">Редактировать</div>
+                    <img class="profileCard__edit-icon" src="static/img/settings.svg">
+                </button>
             {{else}}
-                <div class="post-buttons-like post-hover border-radius-btn-input cursor-pointer" data-id="{{ user_link }}" style="padding: 6px;" id="js-friend-add">
-                    <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/addFriend.svg">
-                    <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/addFriendHover.svg">
-                </div>
+                {{# if (eqs isMyFriend 'subscriber' 'friend')}}
+                    <div class="profileCard__friend-button post-buttons-like post-hover border-radius-btn-input cursor-pointer" data-id="{{ user_link }}" style="padding: 6px;" id="js-friend-remove">
+                        <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/deleteFriend.svg">
+                        <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/deleteFriendHover.svg">
+                    </div>
+                {{else}}
+                    <div class="profileCard__friend-button post-buttons-like post-hover border-radius-btn-input cursor-pointer" data-id="{{ user_link }}" style="padding: 6px;" id="js-friend-add">
+                        <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/addFriend.svg">
+                        <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/addFriendHover.svg">
+                    </div>
+                {{/if}}
+                <button class="profileCard__button profileCard__button_grey" id="js-go-msg" data-id="{{ user_link }}">
+                    <div class="profileCard__button-text" data-id="{{ user_link }}"> Написать сообщение </div>
+                    <img class="profileCard__edit-icon" src="static/img/nav_icons/messenger.svg">
+                </button>
             {{/if}}
-            <button class="profileCard__button profileCard__button_grey" id="js-go-msg" data-id="{{ user_link }}">
-                <div class="profileCard__button-text" data-id="{{ user_link }}"> Написать сообщение </div>
-            </button>
-        {{/if}}
+        </div>
     </div>
 </div>

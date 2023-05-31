@@ -9,6 +9,8 @@
     grid-template-areas: "search-area . profile-item";
     grid-template-columns: 66% 1fr minmax(20px, 50px);
     grid-template-rows: 1fr;
+
+    margin-top: 10px;
 }
 
 .search-area-with-dropdown {

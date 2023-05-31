@@ -11,7 +11,7 @@
 
 }
 .comment:hover .comment-operations {
-    display: grid;
+    visibility: visible;
 }
 
 .comment-editing-block {
@@ -95,8 +95,9 @@
 .comment-operations {
     /* grid-column: 3;
     grid-row: 2; */
+    display: grid;
     grid-area: comment-management;
-    display: none;
+    visibility: hidden;
     grid-template-columns: 1fr 1fr;
 }
 .comment-operations__update {
@@ -114,6 +115,7 @@
 
     overflow: auto;
     word-break: break-word;
+    white-space: pre-line;
 }
 .edit-comment__input {
     max-height: 200px;

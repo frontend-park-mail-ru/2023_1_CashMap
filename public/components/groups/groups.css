@@ -1,16 +1,22 @@
 .groups {
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 25% 3.6% 55% 16.4%;
-    grid-template-rows: 32px 38px 32px 1fr 32px;
+    /*grid-template-columns: minmax(200px, 25%) minmax(max-content, 50%) minmax(200px, 25%);*/
+    grid-template-columns: 25% 50% 25%;
+    grid-template-areas: "sidebar main-column ."
+                         "sidebar main-column .";
+    grid-template-rows: 6vh 1fr;
+    background-repeat: repeat-y;
+
+    grid-column-gap: 38px;
 }
 
 .groups__info {
     display: grid;
     grid-template-columns: 66% 8% 26%;
-    grid-column: 3;
-    grid-row: 4;
+    grid-area: main;
 }
+
 
 .groups__nav-list {
     display: flex;
@@ -38,4 +44,35 @@
 
 .newGroupElem:hover {
     display: block;
+}
+
+@media (max-width: 760px) {
+    .groups {
+        /*min-width: 60vh;*/
+        grid-template-columns: 50px 1fr;
+        grid-column-gap: 20px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .groups__info {
+        grid-template-columns: 1fr;
+        grid-row-gap: 30px;
+    }
+
+    .groups__nav-list {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .groups__nav {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+}
+
+.groups-nav-menu__text {
+    display: inline-grid;
+    align-items: center;
 }

@@ -21,21 +21,21 @@
          {{/if}}
      {{/each}}
     <div class="edit-post__options">
-        <div class="hover-pic margin-auto cursor-pointer" id="js-add-photo-to-post-pic" style="grid-column: 6;">
+        <div class="edit-post__add-photo-icon hover-pic margin-auto cursor-pointer" id="js-add-photo-to-post-pic">
             <img class="margin-auto" src="static/img/post_icons/photo.svg">
             <img class="margin-auto" src="static/img/post_icons/photo_hover.svg">
         </div>
         <input class="display-none" id="js-add-photo-to-post" type="file">
 
-        <div class="hover-pic margin-auto cursor-pointer" style="grid-column: 8;" id="js-post-smiles">
+        <div class="edit-post__add-emoji-icon hover-pic margin-auto cursor-pointer" id="js-post-smiles">
             <img class="margin-auto" src="static/img/post_icons/smile.svg">
             <img class="margin-auto" src="static/img/post_icons/smile_hover.svg">
         </div>
         {{> smiles keyboardData}}
-        <button class="profileCard__button editPost__button_grey" id="js-back-post-btn">
-            <div class="profileCard__button-text"> Отменить </div>
+        <button class="edit-post__cancel-button profileCard__button editPost__button_grey" id="js-back-post-btn">
+            <div class=""> Отменить </div>
         </button>
-        <div class="edit-post__options-button">
+        <div class="edit-post__submit-button edit-post__options-button">
             {{> buttonDefault buttonData }}
         </div>
     </div>

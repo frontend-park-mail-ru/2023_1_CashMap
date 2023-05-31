@@ -24,11 +24,37 @@
 }
 
 .edit-post__options {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding: 8px 0px 0px;
-    gap: 16px;
+    /*display: flex;*/
+    /*justify-content: flex-end;*/
+    /*align-items: flex-end;*/
+    /*padding: 8px 0px 0px;*/
+    /*gap: 16px;*/
+
+    display: grid;
+
+    grid-template-areas: "photo-icon emoji-icon cancel-button submit-button";
+    grid-template-rows: 1fr;
+
+    grid-template-columns: max-content max-content 1fr 1fr;
+
+    grid-column-gap: 16px;
+}
+
+
+.edit-post__add-photo-icon {
+    grid-area: photo-icon;
+}
+
+.edit-post__add-emoji-icon {
+    grid-area: emoji-icon;
+}
+
+.edit-post__submit-button {
+    grid-area: submit-button;
+}
+
+.edit-post__cancel-button {
+    grid-area: cancel-button;
 }
 
 .edit-post__options-button {
@@ -112,6 +138,14 @@
     height: 31px;
     align-items: center;
     justify-content: center;
+}
+
+@media screen and (max-width: 750px) {
+    .editPost__button_grey, .edit-post__submit-button {
+        width: 50px;
+        overflow: hidden;
+    }
+
 }
 
 .editPost__button_grey:hover {

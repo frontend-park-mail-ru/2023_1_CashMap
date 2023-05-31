@@ -159,6 +159,18 @@
     --side-bar-height: 100%;
 }
 
+[contenteditable][placeholder]:empty:before {
+    display: block;
+    content: attr(placeholder);
+    position: absolute;
+    color: gray;
+    background-color: transparent;
+
+    overflow: auto;
+}
+
+
+
 .font-Limelight {
     font-family: Limelight, sans-serif;
 }
