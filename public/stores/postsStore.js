@@ -572,7 +572,6 @@ class postsStore {
      * @param {Number} postId - id поста
      */
     async _editPost(text, postId) {
-        console.log(this.deleteAttachments, this.addAttachments)
         const request = await Ajax.editPost(text, this.deleteAttachments, this.addAttachments, postId);
 
         postsStore.addAttachments = [];

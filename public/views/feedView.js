@@ -244,10 +244,7 @@ export default class FeedView extends BaseView {
 			this._showMoreCommentsButton[i].addEventListener('click', () => {
 				let postID = Number(this._showMoreCommentsButton[i].getAttribute('data-post-id'));
 
-				console.log(postID)
 				let lastCommentDate = postsStore.comments.get(postID).at(-1).raw_creation_date;
-				console.log(lastCommentDate);
-
 
 				for (let i = 0; i < postsStore.posts.length; ++i) {
 					if (postsStore.posts[i].id === postID) {
@@ -255,9 +252,6 @@ export default class FeedView extends BaseView {
 						break;
 					}
 				}
-
-
-				// this.updatePage();
 			})
 		}
 
