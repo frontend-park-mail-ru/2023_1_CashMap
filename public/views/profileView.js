@@ -539,6 +539,15 @@ export default class ProfileView extends BaseView {
 		}
 		postsStore.text = '';
 
+		const avg_color = this._context.profileData.avg_avatar_color;
+		if (avg_color) {
+			const avg_colors = avg_color.split(' ');
+			if (avg_colors.length == 2) {
+				this._context.profileData.avg_color1 = avg_colors[0];
+				this._context.profileData.avg_color2 = avg_colors[1];
+			}
+		}
+
 		this._context.profileData.isMyFriend = friendsStore.isMyFriend;
 
 		if (this._context.postAreaData.createPostData.isEdit) {

@@ -26,6 +26,7 @@ class userStore {
             firstName: null,
             lastName: null,
             avatar_url: null,
+            avg_avatar_color: null,
             bio: null,
             birthday: null,
             status: null,
@@ -42,6 +43,7 @@ class userStore {
             firstName: null,
             lastName: null,
             avatar_url: null,
+            avg_avatar_color: null,
             bio: null,
             birthday: null,
             status: null,
@@ -184,6 +186,7 @@ class userStore {
             let profile = {};
 
             profile.avatar_url = response.body.profile.avatar_url;
+            profile.avg_avatar_color = response.body.profile.avg_avatar_color;
             profile.user_link = response.body.profile.user_link;
             profile.firstName = response.body.profile.first_name;
             profile.lastName = response.body.profile.last_name;
