@@ -195,8 +195,12 @@ class userStore {
             profile.email = response.body.profile.email;
 
             if (response.body.profile.last_active) {
-                const date = new Date(response.body.profile.last_active);
-                profile.lastActive = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                if (response.body.profile.last_active === 'now') {
+                    profile.lastActive = 'онлайн';
+                } else {
+                    const date = new Date(response.body.profile.last_active);
+                    profile.lastActive = 'в сети: ' + (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                }
             }
 
             if (response.body.profile.birthday) {

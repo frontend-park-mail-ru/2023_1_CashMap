@@ -10,6 +10,7 @@ import BaseView from "./baseView.js";
 import {actionSearch} from "../actions/actionSearch.js";
 import postsStore from "../stores/postsStore.js";
 import {actionPost} from "../actions/actionPost.js";
+import router from "../modules/router.js";
 
 
 export default class FriendsView extends BaseView {

@@ -103,6 +103,18 @@ export default class BaseView {
             }
             return value1;
         });
+
+        Handlebars.registerHelper('num-subs', function(value) {
+            if (value % 100 > 10 & value % 100 < 20) {
+                return 'подписчиков';
+            }
+            if (value % 10 === 1) {
+                return 'подписчик';
+            } else if (value % 10 === 2 || value % 10 === 3 || value % 10 === 4) {
+                return 'подписчика';
+            }
+            return 'подписчиков';
+        });
     }
 
     /**

@@ -313,5 +313,6 @@ export const emotionKeyboard = {
     {text: '🙉'},
     {text: '🙊'},
     {text: '🦠'},
+    {text: '❤️'},
   ]
 }
