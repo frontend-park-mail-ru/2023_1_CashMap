@@ -53,6 +53,11 @@
     grid-area: submit-button;
 }
 
+.edit-post__cancel-button__text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .edit-post__cancel-button {
     grid-area: cancel-button;
 }
@@ -135,14 +140,14 @@
     background-color: var(--background-item-hovered);
     color: var(--font-color-gray-text);
     width: 133px;
-    height: 31px;
+    /*height: 31px;*/
     align-items: center;
     justify-content: center;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 560px) {
     .editPost__button_grey, .edit-post__submit-button {
-        width: 50px;
+        width: 70px;
         overflow: hidden;
     }
 

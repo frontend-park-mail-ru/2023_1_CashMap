@@ -1,6 +1,6 @@
 .button-def {
     width: 100%;
-    height: 32px;
+    height: max-content;
     border: none;
     cursor: pointer;
 }
@@ -10,7 +10,12 @@
 }
 
 .button-def__text {
+    padding: 8px;
     display: inline-grid;
     justify-content: center;
     align-items: center;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
 }

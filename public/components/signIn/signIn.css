@@ -9,3 +9,13 @@
 .right-path {
     grid-column: 2;
 }
+
+@media screen and (max-width: 560px) {
+    .right-path {
+        display: none;
+    }
+
+    .sign-in {
+        grid-template-columns: 1fr;
+    }
+}

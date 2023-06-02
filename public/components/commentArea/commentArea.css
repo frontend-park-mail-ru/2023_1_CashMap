@@ -22,7 +22,7 @@
     position: relative;
     max-width: 100%;
     white-space: pre-line;
-    overflow: auto;
+    overflow: hidden;
     grid-area: input;
 
     resize: none;

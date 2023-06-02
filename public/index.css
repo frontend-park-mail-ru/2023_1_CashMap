@@ -167,6 +167,8 @@
     background-color: transparent;
 
     overflow: auto;
+
+    width: max-content;
 }
 
 

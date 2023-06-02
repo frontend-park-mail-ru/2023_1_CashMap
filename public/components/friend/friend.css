@@ -1,15 +1,27 @@
 .friend {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: auto;
-    min-width: 110px;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    /*align-items: flex-start;*/
+    /*width: auto;*/
+    /*min-width: 110px;*/
+
     padding: 14px 20px;
     background-color: var(--background-color-menu);
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     cursor: pointer;
     position: relative;
+
+    display: grid;
+    grid-template-areas: "user_info . buttons"
+                         "user_info . .";
+
+    grid-template-columns: 1fr 10px max-content;
+    grid-template-rows: max-content 1fr;
+
+
+    /*убрать по возможности, пожалуйста...*/
+    overflow: hidden;
 }
 
 .friend:hover .friend__name{
@@ -31,14 +43,17 @@
 }
 
 .friend__info {
+    grid-area: user_info;
     align-items: center;
     display: grid;
-    grid-template-columns: 80px 8px 1fr;
+    grid-template-columns: 80px 8px minmax(100px, 1fr);
 }
 
 .friend__name {
     color: var(--font-color-nav);
+    overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
     font-weight: bolder;
     font-family: MailSansRoman;
     font-size: var(--font-size-19);
@@ -57,6 +72,14 @@
     top: -10px;
     position: relative;
     cursor: pointer;
+}
+
+.friend__button-text__icon {
+    display: none;
+}
+
+.friends-buttons__wrapper {
+    grid-area: buttons;
 }
 
 .friend__button {
@@ -151,4 +174,18 @@
     justify-content: center;
     align-items: center;
     gap: 6px;
+}
+
+@media screen and (max-width: 560px) {
+    .friend__button-text {
+        display: none;
+    }
+
+    .friend__button-text__icon {
+        display: block;
+    }
+
+    .friend__button {
+        padding: 4px 6px;
+    }
 }

@@ -1,23 +1,26 @@
 <div class="friends background-color-feed" id="friends">
     {{> sideBar sideBarData}}
-    {{> header headerData}}
 
-    <div class="friends__info">
-        <div class="friends__nav-list" id="js-users-list">
-            {{#if friendsData}}
-                {{#each friendsData}}
-                    {{> friend this}}
+    <div class="main-column">
+        {{> header headerData}}
+
+        <div class="friends__info">
+            <div class="friends__nav-list" id="js-users-list">
+                {{#if friendsData}}
+                    {{#each friendsData}}
+                        {{> friend this}}
+                    {{/each}}
+                {{else}}
+                    {{> friendNotFound textInfo}}
+                {{/if}}
+            </div>
+            <div class="menu-friends border-radius-btn-input background-color-profile-menu box-shadow-create-post">
+                {{#each menuInfo}}
+                    <div class="menu-settings-item hover-block border-radius-btn-input" style="cursor: pointer;" id="{{ this.jsId }}">
+                        <span class="friends-menu-item__text font-size-15 font-InterMedium"> {{ this.text }} </span>
+                    </div>
                 {{/each}}
-            {{else}}
-                {{> friendNotFound textInfo}}
-            {{/if}}
-        </div>
-        <div class="menu-friends border-radius-btn-input background-color-profile-menu box-shadow-create-post">
-            {{#each menuInfo}}
-                <div class="menu-settings-item hover-block border-radius-btn-input" style="cursor: pointer;" id="{{ this.jsId }}">
-                    <span class="menu-item__text font-size-15 font-InterMedium"> {{ this.text }} </span>
-                </div>
-            {{/each}}
+            </div>
         </div>
     </div>
 </div>

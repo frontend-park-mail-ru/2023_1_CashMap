@@ -18,11 +18,10 @@
     display: grid;
     grid-template-areas: "commnent-sender-photo . comment-sender-name . editing-comment-title"
                          ". . comment-edit-area comment-edit-area comment-edit-area"
-                         ". . . . ."
                          ". . edit-buttons edit-buttons edit-buttons";
 
-    grid-template-rows: 40px 35px 10px 30px;
-    grid-template-columns: 35px 16px max-content 1fr;
+    grid-template-rows: 40px 1fr  30px;
+    grid-template-columns: 35px 16px 1fr 10px 1fr;
 
     /*grid-row-gap: 8px;*/
 }
@@ -84,7 +83,7 @@
     text-overflow: ellipsis;
     /*grid-column: 2;*/
     /*grid-row: 1;*/
-
+    overflow: hidden;
     grid-area: comment-sender-name;
 }
 .comment__date {
@@ -100,6 +99,25 @@
     visibility: hidden;
     grid-template-columns: 1fr 1fr;
 }
+
+@media screen and (max-width: 560px) {
+    .comment-operations {
+        visibility: visible;
+    }
+
+    .comment-edit-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .comment-editing-block {
+        grid-template-areas: "commnent-sender-photo . comment-sender-name . editing-comment-title"
+                             ". . comment-edit-area comment-edit-area comment-edit-area"
+                             ". edit-buttons edit-buttons edit-buttons edit-buttons";
+        grid-row-gap: 10px;
+    }
+}
+
 .comment-operations__update {
     grid-column: 1;
     margin: auto;

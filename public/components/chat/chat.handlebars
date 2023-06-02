@@ -27,11 +27,11 @@
                 <input class="cursor-pointer" type="image" src="static/img/post_icons/photo_hover_msg.svg">
             </div>
 
-            <div class="chat__footer-icon chat__footer-icon_smiles" id="js-chat-smiles">
+            <div class="chat__footer-icon chat__footer-icon__position chat__footer-icon_smiles" id="js-chat-smiles">
                 <input class="cursor-pointer" type="image" src="static/img/post_icons/smile.svg">
                 <input class="cursor-pointer" type="image" src="static/img/post_icons/smile_hover_msg.svg">
+                {{> smiles keyboardData}}
             </div>
-            {{> smiles keyboardData}}
         </div>
 
         <div class="block" id="js-send-msg-block">

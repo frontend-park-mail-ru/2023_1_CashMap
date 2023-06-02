@@ -206,8 +206,8 @@ export default class FeedView extends BaseView {
 
 		for (let i = 0; i < this._commentEditSaveButton.length; ++i) {
 			this._commentEditSaveButton[i].addEventListener('click', () => {
-				let newCommentText = this._commentEditInput[i].value.trim();
-				if (this._commentEditInput[i].value.trim() !== '') {
+				let newCommentText = this._commentEditInput[i].textContent.trim();
+				if (this._commentEditInput[i].textContent.trim() !== '') {
 					let commentID = Number(this._commentEditSaveButton[i].getAttribute('data-comment-id'));
 					actionPost.editComment(commentID, newCommentText);
 

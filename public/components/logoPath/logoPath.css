@@ -4,7 +4,7 @@
     background-size: cover;
 
     display: grid;
-    grid-template-columns: 29% 42% 29%;
+    grid-template-columns: 3fr 4fr 3fr;
     grid-template-rows: 34.5% 18.9% 46.6%;
 }
 
@@ -16,7 +16,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-width: 180px;
+
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .logo-table__logo {

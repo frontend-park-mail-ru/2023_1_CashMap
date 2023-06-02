@@ -1,7 +1,6 @@
 .settings-path {
     display: grid;
     grid-template-columns: 66% 8% 26%;
-    min-width: 390.5px;
 }
 .menu-settings {
     grid-column: 3;
@@ -73,4 +72,25 @@
 
 input[type=file] {
     display: none;
+}
+
+@media screen and (max-width: 560px) {
+    .menu-settings {
+        display: none;
+    }
+
+    .settings-path {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: 1fr;
+    }
+
+    .settingsPath {
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .settings__menu-delete {
+        grid-row: 2 !important;
+        grid-column: 1 !important;
+    }
 }
