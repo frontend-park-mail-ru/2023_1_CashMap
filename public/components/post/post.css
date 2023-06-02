@@ -92,6 +92,11 @@
 .post-profile__dots:hover + .post-menu {
     display: grid;
 }
+
+.post-menu:not(:focus) .post-menu {
+    display: grid;
+}
+
 .post-menu:hover {
     display: grid;
 }
