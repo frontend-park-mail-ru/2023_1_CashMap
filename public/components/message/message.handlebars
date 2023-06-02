@@ -19,11 +19,13 @@
         </div>
     </div>
     <div class="message__block">
-        <div class="message__date"> {{ last_msg.creation_date }} </div>
-        {{#if read }}
-            <div class="message__status"> </div>
-        {{ else }}
-            <div class="message__status message__status_muted"> </div>
+        {{#if last_msg.creation_date}}
+            <div class="message__date"> {{ last_msg.creation_date }} </div>
+            {{#if read }}
+                <div class="message__status"> </div>
+            {{ else }}
+                <div class="message__status message__status_muted"> </div>
+            {{/if}}
         {{/if}}
     </div>
 </div>
