@@ -94,7 +94,7 @@
 }
 
 .post-menu:not(:focus) .post-menu {
-    display: grid;
+    display: none;
 }
 
 .post-menu:hover {
@@ -118,6 +118,9 @@
     right: 0;
 }
 
+.post-hover img:nth-child(2) {
+    display: none;
+}
 
 @media (min-width: 760px) {
     .post-hover img:nth-child(2) {
