@@ -507,7 +507,7 @@ class Ajax {
     }
 
     async msgRead(chat_id, time) {
-        const body = {chat_id: chat_id,  time: time};
+        const body = {chat_id: Number(chat_id),  time: time};
         return this._request(this._apiUrl.msgRead, this._requestType.POST, JSON.stringify({body}));
     }
 }

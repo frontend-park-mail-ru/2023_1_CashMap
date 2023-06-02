@@ -252,7 +252,9 @@ class messagesStore {
 
         if (request.status === 200) {
             const response = await request.json();
-            sideBarConst.menuItemList[2].notifies = response.body.count;
+            if (response.body.count) {
+                sideBarConst.menuItemList[2].notifies = response.body.count;
+            }
             if (callback) {
                 callback(response.body.count);
             }

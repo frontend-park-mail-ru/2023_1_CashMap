@@ -278,6 +278,7 @@ export default class ChatView extends BaseView {
 		this.watingForNewPosts = false;
 
 		if (messagesStore.messages.length) {
+			console.log(messagesStore.messages.length)
 			actionMessage.msgRead(localStorage.getItem('chatId'), messagesStore.messages.slice(-1)[0].creation_date_read);
 		}
 
