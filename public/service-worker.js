@@ -1,6 +1,6 @@
 const timeout = 400;
-const staticCacheName = 'static-cache-v1';
-const dynamicCacheName = 'dynamic-cache-v1';
+const staticCacheName = 'static-cache-v10';
+const dynamicCacheName = 'dynamic-cache-v10';
 
 let staticFilesToCache = [
     'static/',
