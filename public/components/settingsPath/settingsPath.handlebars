@@ -13,9 +13,18 @@
             {{> inputSettings this}}
         {{/each}}
 
-      <span class="input-table__error-info font-MailSansRoman font-size-15 display-none {{ errorInfo.errorClass }}" id="{{ errorInfo.jsId }}">{{ errorInfo.errorText }}</span>
+        <span class="input-table__error-info font-MailSansRoman font-size-15 display-none {{ errorInfo.errorClass }}" id="{{ errorInfo.jsId }}">{{ errorInfo.errorText }}</span>
 
-      <div class="settings-path__button">
+        <div class="newGroup__checkbox">
+            <div class="newGroup__checkbox__info font-InterRegular font-size-12 font-color-gray-text">Откючить уведомления</div>
+            {{#if showAuthor}}
+                <input type="checkbox" id="js-showAuthor-input" checked>
+            {{else}}
+                <input type="checkbox" id="js-showAuthor-input">
+            {{/if}}
+        </div>
+
+        <div class="settings-path__button">
             {{> buttonDefault buttonInfo}}
         </div>
       <span class="settings-path__info font-MailSansRoman font-size-19 font-color-comment-sender" id="js-save-info"></span>
