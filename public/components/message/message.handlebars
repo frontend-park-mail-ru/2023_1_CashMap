@@ -19,8 +19,7 @@
         </div>
     </div>
     <div class="message__block">
-        {{#if (eq last_msg.creation_date '')}}
-        {{else}}
+        {{#if last_msg.creation_date }}
             <div class="message__date"> {{ last_msg.creation_date }} </div>
             {{#if read }}
                 <div class="message__status"> </div>
