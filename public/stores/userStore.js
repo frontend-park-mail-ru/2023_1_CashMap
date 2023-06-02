@@ -6,6 +6,7 @@ import WebSock from "../modules/webSocket.js";
 import groupsStore from "./groupsStore.js";
 import SignInView from "../views/signInView.js";
 import Router from "../modules/router.js";
+import DateConvert from "../modules/dateConvert";
 
 /**
  * класс, хранящий информацию о друзьях
@@ -199,8 +200,7 @@ class userStore {
                 if (response.body.profile.last_active === 'now') {
                     profile.lastActive = 'онлайн';
                 } else {
-                    const date = new Date(response.body.profile.last_active);
-                    profile.lastActive = 'в сети: ' + (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                    profile.lastActive = 'был в сети: ' + DateConvert.fromBackToPost(response.body.profile.last_active);
                 }
             }
 

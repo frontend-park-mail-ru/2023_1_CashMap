@@ -276,6 +276,16 @@ class groupsStore {
             this.curGroup.isSub = response.body.is_sub;
             this.curGroup.isAdmin = response.body.is_admin;
 
+            if (this.curGroup.management[0].avatar) {
+                this.curGroup.management[0].avatar_url = Ajax.imgUrlConvert(this.curGroup.management[0].avatar);
+            } else {
+                this.curGroup.management[0].avatar_url = headerConst.avatarDefault;
+            }
+            if (this.curGroup.management[0].link) {
+                this.curGroup.management[0].user_link = this.curGroup.management[0].link;
+            }
+            this.curGroup.management = this.curGroup.management[0];
+
             if (!this.curGroup.avatar_url) {
                 this.curGroup.avatar_url = groupAvatarDefault;
             } else {

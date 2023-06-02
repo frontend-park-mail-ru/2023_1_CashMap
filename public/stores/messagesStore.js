@@ -6,6 +6,7 @@ import userStore from "./userStore.js";
 import Router from "../modules/router.js";
 import postsStore from "./postsStore.js";
 import Notifies from "../modules/notifies.js";
+import DateConvert from "../modules/dateConvert";
 
 /**
  * класс, хранящий информацию о сообщениях
@@ -151,7 +152,7 @@ class messagesStore {
                     }
                     message.raw_creation_date = message.creation_date;
                     message.creation_date_read = message.creation_date;
-                    message.creation_date = new Date(message.creation_date).toLocaleDateString();
+                    message.creation_date = DateConvert.fromBackToMsg(message.creation_date);
                    
                   
                     if (message.attachments) {

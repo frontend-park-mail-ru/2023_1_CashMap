@@ -518,6 +518,15 @@ export default class GroupView extends BaseView {
 		}
 		postsStore.text = '';
 
+		const avg_color = this._context.groupData.avg_avatar_color;
+		if (avg_color) {
+			const avg_colors = avg_color.split(' ');
+			if (avg_colors.length === 2) {
+				this._context.groupData.avg_color1 = avg_colors[0];
+				this._context.groupData.avg_color2 = avg_colors[1];
+			}
+		}
+
 		if (this._context.postAreaData.createPostData.isEdit) {
 			this._context.postAreaData.createPostData.create.text = postsStore.curPost.text_content;
 			this._context.postAreaData.createPostData.create.id = postsStore.curPost.id;

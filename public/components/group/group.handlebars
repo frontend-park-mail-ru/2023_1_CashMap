@@ -11,10 +11,12 @@
             </div>
 
             <div class="group_right">
-                <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
-                    <div class="font-color-post-sender font-MailSansRoman font-size-16">Подробная информация</div>
-                    <div class="group__info_text font-color-gray-text font-InterMedium font-size-13">{{groupData.info}}</div>
-                </div>
+                {{#if groupData.info}}
+                    <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
+                        <div class="group-info__text font-color-post-sender font-MailSansRoman font-size-16">Подробная информация</div>
+                        <div class="group__info_text font-color-gray-text font-InterMedium font-size-13">{{groupData.info}}</div>
+                    </div>
+                {{/if}}
 
                 <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
                     <div class="font-color-post-sender font-MailSansRoman font-size-16">Подписчики</div>
@@ -33,9 +35,7 @@
 
                 <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
                     <div class="font-color-post-sender font-MailSansRoman font-size-16">Контакты</div>
-                    {{#each groupData.manageList}}
-                        {{> subscriber this}}
-                    {{/each}}
+                    {{> subscriber groupData.management}}
                 </div>
             </div>
         </div>

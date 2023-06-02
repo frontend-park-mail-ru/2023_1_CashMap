@@ -5,6 +5,8 @@ import {groupAvatarDefault, headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import groupsStore from "./groupsStore.js";
 import Router from "../modules/router.js";
+import DateConvert from "../modules/dateConvert";
+import dateConvert from "../modules/dateConvert";
 
 /**
  * класс, хранящий информацию о постах
@@ -139,7 +141,7 @@ class postsStore {
                     if (post.creation_date) {
                         const date = new Date(post.creation_date);
                         post.raw_creation_date = post.creation_date.replace("+", "%2B");
-                        post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
+                        post.creation_date = DateConvert.fromBackToPost(date);
                     }
                     post.avatar_url = userStore.userProfile.avatar_url;
 
@@ -211,7 +213,8 @@ class postsStore {
                     if (post.creation_date) {
                         const date = new Date(post.creation_date);
                         post.raw_creation_date = post.creation_date.replace("+", "%2B");
-                        post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
+                        post.creation_date = DateConvert.fromBackToPost(date);
+                        //post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
                     }
                     post.avatar_url = userStore.user.avatar_url;
 
@@ -263,8 +266,8 @@ class postsStore {
                 }
 
                 comment.raw_creation_date = comment.creation_date.replace("+", "%2B");
-                comment.creation_date = (new Date(comment.creation_date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
-                comment.change_date = (new Date(comment.change_date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                comment.creation_date = DateConvert.fromBackToPost(comment.creation_date);
+                comment.change_date = DateConvert.fromBackToPost(comment.change_date);
             })
 
 
@@ -509,8 +512,7 @@ class postsStore {
                 post.comments_count = 0;
             }
             if (post.creation_date) {
-                const date = new Date(post.creation_date);
-                post.creation_date = (new Date(date)).toLocaleDateString('ru-RU', {dateStyle: 'long'});
+                post.creation_date = dateConvert.fromBackToPost(post.creation_date);
             }
             post.avatar_url = userStore.user.avatar_url;
 
@@ -527,9 +529,7 @@ class postsStore {
                     }
                 }
             }
-            if (Router.currentPage._jsId !== 'feed') {
-                this.posts.unshift(post);
-            }
+            this.posts.unshift(post);
         } else if (request.status === 401) {
             actionUser.signOut();
         } else {

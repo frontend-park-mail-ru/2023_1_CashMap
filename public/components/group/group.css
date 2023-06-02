@@ -10,7 +10,11 @@
 
     grid-column-gap: 38px;
 }
-
+.group-info__text {
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+}
 .group__body {
     grid-area: main;
 
@@ -39,7 +43,6 @@
 }
 
 .group__info {
-    word-break: break-word;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

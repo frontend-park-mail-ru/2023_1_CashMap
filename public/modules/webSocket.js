@@ -3,8 +3,9 @@ import {headerConst} from "../static/htmlConst.js";
 import userStore from "../stores/userStore.js";
 import Ajax from "./ajax.js";
 import Router from "./router.js";
-import {actionMessage} from "../actions/actionMessage";
-import Notifies from "./notifies";
+import {actionMessage} from "../actions/actionMessage.js";
+import Notifies from "./notifies.js";
+import DateConvert from "./dateConvert.js";
 
 /**
  * класс для работы с web сокетами
@@ -43,7 +44,8 @@ class WebSock {
             if (localStorage.getItem('chatId') === String(response.chat_id) && (Router.currentPage._jsId === 'chat')) {
                 actionMessage.msgRead(localStorage.getItem('chatId'), response.creation_date);
 
-                response.creation_date = new Date(response.creation_date).toLocaleDateString();
+                response.creation_date = DateConvert.fromBackToMsg(response.creation_date);
+
                 if (!response.sender_info.avatar_url) {
                     response.sender_info.avatar_url = headerConst.avatarDefault;
                 } else {
