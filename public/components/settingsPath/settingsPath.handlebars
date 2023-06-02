@@ -17,10 +17,10 @@
 
         <div class="newGroup__checkbox">
             <div class="newGroup__checkbox__info font-InterRegular font-size-12 font-color-gray-text">Откючить уведомления</div>
-            {{#if showAuthor}}
-                <input type="checkbox" id="js-showAuthor-input" checked>
+            {{#if (eq orOff 'true')}}
+                <input type="checkbox" id="js-or-off" checked>
             {{else}}
-                <input type="checkbox" id="js-showAuthor-input">
+                <input type="checkbox" id="js-or-off">
             {{/if}}
         </div>
 

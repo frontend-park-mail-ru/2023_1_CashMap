@@ -60,6 +60,8 @@ export default class SettingsView extends BaseView {
 		this._saveInfo = document.getElementById('js-save-info');
 
 		this._error = document.getElementById('js-sign-in-error');
+
+		this._orOff = document.getElementById('js-or-off')
 	}
 
 	addPagesListener() {
@@ -155,6 +157,16 @@ export default class SettingsView extends BaseView {
 		this._birthdayField.addEventListener('input', () => {
 			this._validateBirthday = Validation.validation(this._birthdayField, this._birthdayErrorField, 'birthday', 'settings');
 		});
+
+		if (this._orOff) {
+			this._orOff.addEventListener('click', () => {
+				if (localStorage.getItem('or-off') === 'true') {
+					localStorage.setItem('or-off', 'false')
+				} else {
+					localStorage.setItem('or-off', 'true')
+				}
+			})
+		}
 	}
 
 	showPage() {
@@ -168,6 +180,8 @@ export default class SettingsView extends BaseView {
 		header['avatar_url'] = userStore.user.avatar_url;
 
 		let settings = settingsConst;
+		settings['orOff'] = localStorage.getItem('or-off');
+
 		settings['avatar_url'] = userStore.user.avatar_url;
 		settings['inputFields'][0]['data'] = userStore.user.firstName;
 		settings['inputFields'][1]['data'] = userStore.user.lastName;

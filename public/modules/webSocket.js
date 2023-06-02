@@ -74,8 +74,10 @@ class WebSock {
 
                 messagesStore._refreshStore();
             } else {
-                let audio = new Audio('static/img/msg_fly.mp3');
-                audio.play();
+                if (localStorage.getItem('or-off') === 'true') {
+                    let audio = new Audio('static/img/msg_fly.mp3');
+                    audio.play();
+                }
 
                 Notifies.getNotifiesCount();
             }
