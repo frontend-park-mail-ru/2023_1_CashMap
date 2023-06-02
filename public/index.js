@@ -17,6 +17,10 @@ import imgStore from "./stores/imgStore.js"; /* НЕ УДАЛЯТЬ!!! */
 
 import './index.css';
 
+if (!localStorage.getItem('or-off')) {
+    localStorage.setItem('or-off', 'true');
+}
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')

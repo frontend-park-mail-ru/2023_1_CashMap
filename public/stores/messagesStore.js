@@ -1,10 +1,11 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
-import {headerConst} from "../static/htmlConst.js";
+import {headerConst, sideBarConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import Router from "../modules/router.js";
 import postsStore from "./postsStore.js";
+import Notifies from "../modules/notifies.js";
 
 /**
  * класс, хранящий информацию о сообщениях
@@ -54,7 +55,7 @@ class messagesStore {
                 await this._getChats(action.count, action.lastPostDate);
                 break;
             case 'getChatsMsg':
-                await this._getChatsMsg(action.chatId, action.count, action.lastPostDate, action.isScroll);
+                await this._getChatsMsg(action.callback, action.chatId, action.count, action.lastPostDate, action.isScroll);
                 break;
             case 'chatCheck':
                 await this._chatCheck(action.userLink, action.callback);
@@ -64,6 +65,12 @@ class messagesStore {
                 break;
             case 'chatCreate':
                 await this._chatCreate(action.userLinks, action.callback);
+                break;
+            case 'notifiesCount':
+                await this._notifiesCount(action.callback);
+                break;
+            case 'msgRead':
+                await this._msgRead(action.chat_id, action.time);
                 break;
             default:
                 return;
@@ -123,7 +130,7 @@ class messagesStore {
      * @param {Number} count - количество получаемых сообщений
      * @param {Date} lastPostDate - дата, после которой выбираются сообщения
      */
-    async _getChatsMsg(chatId, count, lastMessageDate, isScroll=true) {
+    async _getChatsMsg(callback, chatId, count, lastMessageDate, isScroll=true) {
         const request = await Ajax.getChatsMsg(chatId, count, lastMessageDate);
 
         if (request.status === 200) {
@@ -143,6 +150,7 @@ class messagesStore {
                         message.sticker.url = Ajax.stickerUrlConvert(message.sticker.url);
                     }
                     message.raw_creation_date = message.creation_date;
+                    message.creation_date_read = message.creation_date;
                     message.creation_date = new Date(message.creation_date).toLocaleDateString();
                    
                   
@@ -167,6 +175,10 @@ class messagesStore {
                 this.messages = response.body.messages.concat(this.messages);
             } else {
                 this.messages = response.body.messages;
+            }
+
+            if (callback) {
+                callback();
             }
         } else if (request.status === 401) {
             actionUser.signOut();
@@ -237,6 +249,38 @@ class messagesStore {
 
         if (callback) {
             callback();
+        }
+    }
+
+    async _notifiesCount(callback) {
+        const request = await Ajax.notifiesCount();
+
+        if (request.status === 200) {
+            const response = await request.json();
+            if (response.body.count) {
+                sideBarConst.menuItemList[2].notifies = response.body.count;
+            } else {
+                sideBarConst.menuItemList[2].notifies = '';
+            }
+            if (callback) {
+                callback(response.body.count);
+            }
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('notifiesCount error');
+        }
+    }
+
+    async _msgRead(chat_id, time) {
+        const request = await Ajax.msgRead(chat_id, time);
+
+        if (request.status === 200) {
+            Notifies.getNotifiesCount(true);
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('imgRead error');
         }
     }
 }

@@ -5,6 +5,7 @@ import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";
 import BaseView from "./baseView.js";
+import Notifies from "../modules/notifies";
 
 export default class MessagesView extends BaseView {
 	constructor() {
@@ -38,14 +39,14 @@ export default class MessagesView extends BaseView {
 			this._goToMsg[i].addEventListener('click', () => {
 				const chatId = this._goToMsg[i].getAttribute("data-id");
 				localStorage.setItem('chatId', chatId);
-				actionMessage.getChatsMsg(chatId,15);
+				actionMessage.getChatsMsg(null, chatId,15);
 				Router.go('/chat', false);
 			});
 		}
 	}
 
 	showPage() {
-		actionUser.getProfile(() => { actionMessage.getChats(100); });
+		actionUser.getProfile(() => { actionMessage.getChats(100); Notifies.getNotifiesCount(true); });
 	}
 
 	_preRender() {

@@ -22,9 +22,10 @@ export const actionMessage = {
      * @param {*} count - количество возвращаемых сообщений
      * @param {*} lastPostDate - дата, после которой получаются сообщения
      */
-    getChatsMsg(chatId, count, lastPostDate, isScroll=false) {
+    getChatsMsg(callback, chatId, count, lastPostDate, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getChatsMsg',
+            callback,
             chatId,
             count,
             lastPostDate,
@@ -65,6 +66,21 @@ export const actionMessage = {
             actionName: 'chatCreate',
             userLinks,
             callback,
+        });
+    },
+
+    notifiesCount(callback) {
+        Dispatcher.dispatch({
+            actionName: 'notifiesCount',
+            callback,
+        });
+    },
+
+    msgRead(chat_id, time) {
+        Dispatcher.dispatch({
+            actionName: 'msgRead',
+            chat_id,
+            time,
         });
     },
 };

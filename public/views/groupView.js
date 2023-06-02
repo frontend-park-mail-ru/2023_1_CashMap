@@ -11,6 +11,9 @@ import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
 import {actionSearch} from "../actions/actionSearch.js";
 import searchStore from "../stores/dropdownSearchStore.js";
+import {actionMessage} from "../actions/actionMessage";
+import Notifies from "../modules/notifies";
+import messagesStore from "../stores/messagesStore";
 
 export default class GroupView extends BaseView {
 	constructor() {
@@ -30,6 +33,7 @@ export default class GroupView extends BaseView {
 	 * @private метод, отправляющий callback, которые вызываются при изменении определенных Store.
 	 */
 	addStore() {
+		messagesStore.registerCallback(this.updatePage.bind(this));
 		groupsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 		postsStore.registerCallback(this.updatePage.bind(this));
@@ -475,7 +479,7 @@ export default class GroupView extends BaseView {
 		if (search.link) {
 			this._groupLink = search.link;
 			localStorage.setItem('groupLink', this._groupLink);
-			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
+			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize); Notifies.getNotifiesCount(true); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
 		} else {
 			Router.go('/groups', false);
 		}

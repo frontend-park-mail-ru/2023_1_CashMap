@@ -14,6 +14,7 @@ const TYPES = {
     ttf: 'font/ttf',
     ico: 'image/x-icon',
     json: 'application/json',
+    mp3: 'audio/mpeg',
 };
 
 const server = http.createServer((request, response) => {

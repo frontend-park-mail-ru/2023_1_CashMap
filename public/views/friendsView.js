@@ -11,6 +11,8 @@ import {actionSearch} from "../actions/actionSearch.js";
 import postsStore from "../stores/postsStore.js";
 import {actionPost} from "../actions/actionPost.js";
 import router from "../modules/router.js";
+import Notifies from "../modules/notifies";
+import messagesStore from "../stores/messagesStore";
 
 
 export default class FriendsView extends BaseView {
@@ -23,6 +25,7 @@ export default class FriendsView extends BaseView {
 
 		this._friendsBatchSize = 15;
 
+		messagesStore.registerCallback(this.updatePage.bind(this));
 		friendsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 		searchStore.registerCallback(this.updateSearchList.bind(this))
@@ -203,12 +206,12 @@ export default class FriendsView extends BaseView {
 					if (localStorage.getItem('chatFriendId')) {
 						localStorage.setItem('chatId', localStorage.getItem('chatFriendId'));
 						Router.go('/chat', false);
-						actionMessage.getChatsMsg(localStorage.getItem('chatId'),15);
+						actionMessage.getChatsMsg(null, localStorage.getItem('chatId'),15);
 					} else {
 						actionMessage.chatCreate(userId, () => {
 							if (localStorage.getItem('chatId')) {
 								Router.go('/chat', false);
-								actionMessage.getChatsMsg(localStorage.getItem('chatId'),15);
+								actionMessage.getChatsMsg(null, localStorage.getItem('chatId'),15);
 							}
 						});
 					}
@@ -246,6 +249,7 @@ export default class FriendsView extends BaseView {
 
 	showPage() {
 		actionUser.getProfile(() => {
+			Notifies.getNotifiesCount(true);
 			actionFriends.getFriends(userStore.user.user_link, this._friendsBatchSize, 0);
 			actionFriends.getNotFriends(this._friendsBatchSize, 0);
 			actionFriends.getSubscribers(userStore.user.user_link, this._friendsBatchSize);

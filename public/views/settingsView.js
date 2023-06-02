@@ -5,6 +5,9 @@ import { sideBarConst, headerConst, settingsConst, activeColor, signInData, opti
 import {actionUser} from "../actions/actionUser.js";
 import {actionImg} from "../actions/actionImg.js";
 import BaseView from "./baseView.js";
+import {actionMessage} from "../actions/actionMessage";
+import Notifies from "../modules/notifies";
+import messagesStore from "../stores/messagesStore";
 
 export default class SettingsView extends BaseView {
 	constructor() {
@@ -25,6 +28,7 @@ export default class SettingsView extends BaseView {
 	}
 
 	addStore() {
+		messagesStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
@@ -56,6 +60,8 @@ export default class SettingsView extends BaseView {
 		this._saveInfo = document.getElementById('js-save-info');
 
 		this._error = document.getElementById('js-sign-in-error');
+
+		this._orOff = document.getElementById('js-or-off')
 	}
 
 	addPagesListener() {
@@ -151,10 +157,20 @@ export default class SettingsView extends BaseView {
 		this._birthdayField.addEventListener('input', () => {
 			this._validateBirthday = Validation.validation(this._birthdayField, this._birthdayErrorField, 'birthday', 'settings');
 		});
+
+		if (this._orOff) {
+			this._orOff.addEventListener('click', () => {
+				if (localStorage.getItem('or-off') === 'true') {
+					localStorage.setItem('or-off', 'false')
+				} else {
+					localStorage.setItem('or-off', 'true')
+				}
+			})
+		}
 	}
 
 	showPage() {
-		actionUser.getProfile();
+		actionUser.getProfile(() => { Notifies.getNotifiesCount(true); });
 	}
 
 	_preRender() {
@@ -164,6 +180,8 @@ export default class SettingsView extends BaseView {
 		header['avatar_url'] = userStore.user.avatar_url;
 
 		let settings = settingsConst;
+		settings['orOff'] = localStorage.getItem('or-off');
+
 		settings['avatar_url'] = userStore.user.avatar_url;
 		settings['inputFields'][0]['data'] = userStore.user.firstName;
 		settings['inputFields'][1]['data'] = userStore.user.lastName;

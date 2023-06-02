@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        this.beckendStatus = 'local';
-        // this.beckendStatus = 'global';
+        //this.beckendStatus = 'local';
+        this.beckendStatus = 'global';
 
         if (this.beckendStatus === 'global') {
             this.backendHostname = 'depeche.su';
@@ -83,6 +83,9 @@ class Ajax {
 
             getStickerPackInfo:      '/api/sticker/pack/info',
             getStickerPacksByAuthor: '/api/sticker/pack/author',
+
+            notifiesCount:           '/api/im/unread',
+            msgRead:                 '/api/im/set-read',
         }
 
         this._requestType = {
@@ -497,6 +500,15 @@ class Ajax {
         } else {
             return this._request(this._apiUrl.getStickerPacksByAuthor + `?limit=${count}&offset=${offset}`, this._requestType.GET);
         }
+    }
+
+    async notifiesCount() {
+        return this._request(this._apiUrl.notifiesCount, this._requestType.GET);
+    }
+
+    async msgRead(chat_id, time) {
+        const body = {chat_id: Number(chat_id),  time: time};
+        return this._request(this._apiUrl.msgRead, this._requestType.POST, JSON.stringify({body}));
     }
 }
 
