@@ -156,13 +156,10 @@ export default class GroupView extends BaseView {
 	}
 
 	showPage() {
-		if (!this._groupLink) {
-			console.log(localStorage.getItem('groupLink'));
-			if (!localStorage.getItem('groupLink')) {
-				Router.goBack();
-			} else {
-				this._groupLink = localStorage.getItem('groupLink');
-			}
+		if (localStorage.getItem('groupLink')) {
+			this._groupLink = localStorage.getItem('groupLink');
+		} else {
+			Router.goBack();
 		}
 
 		if (this._groupLink) {

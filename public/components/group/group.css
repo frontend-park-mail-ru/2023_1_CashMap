@@ -56,7 +56,6 @@
 
 .group__info_more {
     display: flex;
-    cursor: pointer;
     justify-content: space-between;
     width: 100%;
     padding: 8px;
