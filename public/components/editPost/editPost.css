@@ -38,6 +38,8 @@
     grid-template-columns: max-content max-content 1fr 1fr;
 
     grid-column-gap: 16px;
+
+    position: relative;
 }
 
 
@@ -183,5 +185,5 @@
 .edit-post__smiles {
     position: absolute;
     z-index: 1;
-    top: 120%
+    top: 50px;
 }

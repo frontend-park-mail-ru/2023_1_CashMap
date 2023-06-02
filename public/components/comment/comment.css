@@ -14,17 +14,32 @@
     visibility: visible;
 }
 
+/*.comment-editing-block {*/
+/*    display: grid;*/
+/*    grid-template-areas: "commnent-sender-photo . comment-sender-name . editing-comment-title"*/
+/*                         ". . comment-edit-area comment-edit-area comment-edit-area"*/
+/*                         ". . edit-buttons edit-buttons edit-buttons";*/
+
+/*    grid-template-rows: 40px 1fr  30px;*/
+/*    grid-template-columns: 35px 16px 1fr 10px 1fr;*/
+
+/*    !*grid-row-gap: 8px;*!*/
+/*}*/
+
+
 .comment-editing-block {
     display: grid;
     grid-template-areas: "commnent-sender-photo . comment-sender-name . editing-comment-title"
                          ". . comment-edit-area comment-edit-area comment-edit-area"
+                         ". . . . ."
                          ". . edit-buttons edit-buttons edit-buttons";
 
-    grid-template-rows: 40px 1fr  30px;
-    grid-template-columns: 35px 16px 1fr 10px 1fr;
+    grid-template-rows: 40px 1fr 10px 30px;
+    grid-template-columns: 35px 16px max-content 1fr;
 
     /*grid-row-gap: 8px;*/
 }
+
 
 .comment-edit-title {
     grid-area: editing-comment-title;
@@ -50,7 +65,8 @@
 .submit-comment-edit-button, .cancel-comment-edit-button {
     margin: auto;
     height: 100%;
-    width: 100%;
+    width: auto;
+    padding: 0 8px;
 
     display: flex;
 
@@ -102,23 +118,6 @@
     grid-template-columns: 1fr 1fr;
 }
 
-@media screen and (max-width: 560px) {
-    .comment-operations {
-        visibility: visible;
-    }
-
-    .comment-edit-title {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .comment-editing-block {
-        grid-template-areas: "commnent-sender-photo . comment-sender-name . editing-comment-title"
-                             ". . comment-edit-area comment-edit-area comment-edit-area"
-                             ". edit-buttons edit-buttons edit-buttons edit-buttons";
-        grid-row-gap: 10px;
-    }
-}
 
 .comment-operations__update {
     grid-column: 1;
@@ -143,4 +142,30 @@
 
     width: 100%;
     resize: none;
+}
+
+@media screen and (max-width: 560px) {
+    .comment-operations {
+        visibility: visible;
+    }
+
+    .comment-edit-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .comment-editing-block {
+        grid-template-areas: "commnent-sender-photo . comment-sender-name comment-sender-name comment-sender-name"
+                             "commnent-sender-photo . editing-comment-title editing-comment-title editing-comment-title"
+                             ". . comment-edit-area comment-edit-area comment-edit-area"
+                             ". . . . ."
+                             ". edit-buttons edit-buttons edit-buttons edit-buttons";
+
+        grid-template-rows: 20px  20px 1fr 10px 30px;
+        grid-template-columns: 35px 16px max-content 1fr;
+    }
+
+    .editing-buttons {
+        grid-template-columns: 1fr 1fr;
+    }
 }
