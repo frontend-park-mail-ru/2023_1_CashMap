@@ -3,11 +3,23 @@
         <img src="{{ avatar_url }}" class="message__friend-avatar avatar-form">
         <div class="message__block message__block_flex-start">
             <div class="message__text">{{ first_name }} {{ last_name }}</div>
-            <div class="message__text message__text_grey">{{ text }}</div>
+            {{#if last_msg.sticker }}
+                <div class="message__text message__text_grey"> стикер </div>
+            {{ else }}
+                {{#if (eq last_msg.text_content '') }}
+                    {{#if last_msg.attachments}}
+                        <div class="message__text message__text_grey"> вложение </div>
+                    {{ else }}
+                        <div class="message__text message__text_grey"> сообщений пока нет </div>
+                    {{/if}}
+                {{ else }}
+                    <div class="message__text message__text_grey">{{ last_msg.text_content }}</div>
+                {{/if}}
+            {{/if}}
         </div>
     </div>
     <div class="message__block">
-        <div class="message__date"> {{ date }} </div>
+        <div class="message__date"> {{ last_msg.creation_date }} </div>
         {{#if read }}
             <div class="message__status"> </div>
         {{ else }}

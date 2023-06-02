@@ -7,6 +7,7 @@ import Router from "../modules/router.js";
 import postsStore from "./postsStore.js";
 import Notifies from "../modules/notifies.js";
 import DateConvert from "../modules/dateConvert";
+import dateConvert from "../modules/dateConvert";
 
 /**
  * класс, хранящий информацию о сообщениях
@@ -91,6 +92,8 @@ class messagesStore {
             this.chats = response.body.chats;
 
             this.chats.forEach((chat) => {
+                chat.last_msg.creation_date = dateConvert.fromBackToPost(chat.last_msg.creation_date);
+
                 if (chat.members.length === 1) {
                     if (!chat.members[0].avatar_url) {
                         chat.members[0].avatar_url = headerConst.avatarDefault;

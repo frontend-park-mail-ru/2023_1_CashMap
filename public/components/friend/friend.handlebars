@@ -1,8 +1,8 @@
-<div class="friend js-go-to-profile" id="{{ user_link }}" data-id="{{ user_link }}">
+<div class="friend" id="{{ user_link }}">
     <div class="friend__info">
-        <img src="{{ avatar_url }}" class="friend__avatar avatar-form margin-auto" data-id="{{ user_link }}" data-action="profile">
+        <img src="{{ avatar_url }}" class="friend__avatar avatar-form js-go-to-profile margin-auto" data-id="{{ user_link }}" data-action="profile">
         <div class="friend__wrapper">
-            <div class="friend__name" data-action="profile" data-id="{{ user_link }}">{{ first_name }} {{ last_name }}</div>
+            <div class="friend__name js-go-to-profile margin-auto" data-action="profile" data-id="{{ user_link }}">{{ first_name }} {{ last_name }}</div>
             {{#if isFriend}}
                 <button class="friend__button friend__button_grey js-friend-go-msg" data-id="{{ user_link }}">
                     <div class=""> Написать сообщение </div>

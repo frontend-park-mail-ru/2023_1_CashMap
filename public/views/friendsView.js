@@ -55,7 +55,7 @@ export default class FriendsView extends BaseView {
 		this._subscribersBtn = document.getElementById('js-menu-subscribers');
 		this._subscriptionsBtn = document.getElementById('js-menu-subscriptions');
 		this._findFriendsBtn = document.getElementById('js-menu-find-friends');
-		this._profile = document.getElementsByClassName("friend__info");
+		this._profile = document.getElementsByClassName("js-go-to-profile");
 
 
 		switch (window.location.pathname) {
@@ -144,23 +144,20 @@ export default class FriendsView extends BaseView {
 			this._addUser[i].addEventListener('click', () => {
 				const userId = this._addUser[i].getAttribute("data-id");
 				actionFriends.sub(userId);
-				event.stopPropagation();
 			});
 		}
 
 		for (let i = 0; i < this._deleteFriend.length; i++) {
-			this._deleteFriend[i].addEventListener('click', () => {
+			this._deleteFriend[i].addEventListener('click', (e) => {
 				const userId = this._deleteFriend[i].getAttribute("data-id");
 				actionFriends.unsub(userId);
-				event.stopPropagation();
 			});
 		}
 
 		for (let i = 0; i < this._unsubUser.length; i++) {
-			this._unsubUser[i].addEventListener('click', () => {
+			this._unsubUser[i].addEventListener('click', (e) => {
 				const userId = this._unsubUser[i].getAttribute("data-id");
 				actionFriends.unsub(userId);
-				event.stopPropagation();
 			});
 		}
 
