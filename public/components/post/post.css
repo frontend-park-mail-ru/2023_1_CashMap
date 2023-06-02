@@ -57,14 +57,6 @@
     overflow: hidden;
 }
 
-@media screen and (max-width: 560px) {
-    .post-media__img {
-        min-width: 100px;
-        min-height: 100px;
-    }
-
-}
-
 .post-buttons {
     display: flex;
     align-items: center;
@@ -129,4 +121,24 @@
 }
 .post-hover:hover img:nth-child(2) {
     display: inline-block;
+}
+
+
+@media (min-width: 760px) {
+    .post-hover img:nth-child(2) {
+        display: none;
+    }
+    .post-hover:hover img:nth-child(1) {
+        display: none;
+    }
+    .post-hover:hover img:nth-child(2) {
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .post-media__img {
+        min-width: 100px;
+        min-height: 100px;
+    }
 }
