@@ -5,6 +5,7 @@ import {actionUser} from "../actions/actionUser.js";
 import WebSock from "../modules/webSocket.js";
 import groupsStore from "./groupsStore.js";
 import SignInView from "../views/signInView.js";
+import Router from "../modules/router.js";
 
 /**
  * класс, хранящий информацию о друзьях
@@ -225,6 +226,8 @@ class userStore {
             }
         } else if (request.status === 401) {
             actionUser.signOut();
+        } else if (request.status === 404) {
+            Router.go('/404');
         } else {
             alert('error getUserInfo')
         }

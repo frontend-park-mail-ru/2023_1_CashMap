@@ -3,6 +3,7 @@ import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
 import {groupAvatarDefault, headerConst} from "../static/htmlConst.js";
 import {actionGroups} from "../actions/actionGroups.js";
+import Router from "../modules/router.js";
 
 /**
  * класс, хранящий информацию о группах
@@ -282,6 +283,8 @@ class groupsStore {
             }
         } else if (request.status === 401) {
             actionUser.signOut();
+        } else if (request.status === 404) {
+            Router.go('/404');
         } else {
             alert('getGroup error');
         }
