@@ -113,6 +113,10 @@
     position: relative;
 }
 
+.chat__footer-icon input:nth-child(2) {
+    display: none;
+}
+
 @media (min-width: 560px) {
     .chat__footer-icon input:nth-child(2) {
         display: none;
