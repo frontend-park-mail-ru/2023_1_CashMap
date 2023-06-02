@@ -167,9 +167,9 @@
 }
 
 .friend-menu-position {
+    top: 18px;
     position: absolute;
-    bottom: 0;
-    right: 0;
+    right: -20px;
 }
 
 .friend__buttons {

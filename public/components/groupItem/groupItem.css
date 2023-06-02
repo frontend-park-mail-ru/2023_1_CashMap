@@ -59,6 +59,10 @@
     cursor: pointer;
 }
 
+.groupItem-menu {
+    position: relative;
+}
+
 .groupItem:has(.friend__button_grey:hover) .groupItem__name{
     color: var(--font-color-nav);
 }
