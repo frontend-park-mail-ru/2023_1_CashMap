@@ -45,7 +45,7 @@ export default class MessagesView extends BaseView {
 	}
 
 	showPage() {
-		actionUser.getProfile(() => { actionMessage.getChats(100); });
+		actionUser.getProfile(() => { actionMessage.getChats(100); actionMessage.notifiesCount(); });
 	}
 
 	_preRender() {

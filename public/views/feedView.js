@@ -7,6 +7,7 @@ import BaseView from "./baseView.js";
 import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
 import Router from "../modules/router.js";
+import {actionMessage} from "../actions/actionMessage";
 
 
 export default class FeedView extends BaseView {
@@ -439,7 +440,7 @@ export default class FeedView extends BaseView {
 
 
 	showPage() {
-		actionUser.getProfile(() => { actionPost.getFeedPosts(this._postBatchSize); });
+		actionUser.getProfile(() => { actionPost.getFeedPosts(this._postBatchSize); actionMessage.notifiesCount(); });
 	}
 
 	_preRender() {

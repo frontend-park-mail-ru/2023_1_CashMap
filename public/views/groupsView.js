@@ -16,6 +16,7 @@ import {actionSearch} from "../actions/actionSearch.js";
 import searchStore from "../stores/dropdownSearchStore.js";
 import friendsStore from "../stores/friendsStore.js";
 import {actionFriends} from "../actions/actionFriends.js";
+import {actionMessage} from "../actions/actionMessage";
 
 export default class GroupsView extends BaseView {
 	constructor() {
@@ -254,6 +255,7 @@ export default class GroupsView extends BaseView {
 
 	showPage() {
 		actionUser.getProfile(() => {
+			actionMessage.notifiesCount();
 			actionGroups.getGroups(15, 0);
 			actionGroups.getmanageGroups(15, 0);
 			actionGroups.getNotGroups(15, 0);

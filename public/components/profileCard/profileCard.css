@@ -86,7 +86,7 @@
     grid-template-columns: 1fr minmax(40px, max-content);
 
     grid-column-gap: 15px;
-    /*width: 100%;*/ */
+    /*width: 100%;*/
 
     display: grid;
     grid-template-columns: 100px 1fr auto;

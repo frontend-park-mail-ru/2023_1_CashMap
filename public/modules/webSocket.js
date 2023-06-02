@@ -3,6 +3,7 @@ import {headerConst} from "../static/htmlConst.js";
 import userStore from "../stores/userStore.js";
 import Ajax from "./ajax.js";
 import Router from "./router.js";
+import {actionMessage} from "../actions/actionMessage";
 
 /**
  * класс для работы с web сокетами
@@ -48,7 +49,7 @@ class WebSock {
                 response.sticker.url = Ajax.stickerUrlConvert(response.sticker.url);
             }
 
-            if (localStorage.getItem('chatId') === String(response.chat_id)) {
+            if (localStorage.getItem('chatId') === String(response.chat_id) && (Router.currentPage._jsId === 'chat')) {
                 if (response.attachments) {
                     for (let i = 0; i < response.attachments.length; i++) {
                         const url = response.attachments[i];
@@ -63,9 +64,24 @@ class WebSock {
                     }
                 }
                 messagesStore.messages.push(response);
-                localStorage.setItem('curMsg', document.getElementById('js-msg-input').value);
+                if (document.getElementById('js-msg-input')) {
+                    localStorage.setItem('curMsg', document.getElementById('js-msg-input').value);
+                }
+                messagesStore._refreshStore();
+            } else {
+                //let audio = new Audio('static/img/msg_fly.mp3');
+                //audio.play();
+
+                const notifiesCount = document.getElementById('js-msg-notifies');
+
+                actionMessage.notifiesCount((count) => {
+                    if (count) {
+                        notifiesCount.textContent = count;
+                    } else {
+                        notifiesCount.textContent = '';
+                    }
+                });
             }
-            messagesStore._refreshStore();
         };
 
         this._socket.onclose = (event) => {

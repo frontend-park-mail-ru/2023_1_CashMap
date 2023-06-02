@@ -506,9 +506,9 @@ export default class ProfileView extends BaseView {
 	showPage(search) {
 		if (search.link) {
 			this._userLink = search.link;
-			actionUser.getProfile(() => { actionPost.getPostsByUser(this._userLink, this._postsBatchSize); }, this._userLink);
+			actionUser.getProfile(() => { actionPost.getPostsByUser(this._userLink, this._postsBatchSize); actionMessage.notifiesCount(); }, this._userLink);
 		} else {
-			actionUser.getProfile(() => { this._userLink = userStore.user.user_link; Router.go('/user?link=' + userStore.user.user_link, true); });
+			actionUser.getProfile(() => { this._userLink = userStore.user.user_link; Router.go('/user?link=' + userStore.user.user_link, true); actionMessage.notifiesCount(); });
 		}
 
 		actionUser.getProfile();

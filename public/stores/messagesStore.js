@@ -1,7 +1,7 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
-import {headerConst} from "../static/htmlConst.js";
+import {headerConst, sideBarConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import Router from "../modules/router.js";
 import postsStore from "./postsStore.js";
@@ -64,6 +64,12 @@ class messagesStore {
                 break;
             case 'chatCreate':
                 await this._chatCreate(action.userLinks, action.callback);
+                break;
+            case 'notifiesCount':
+                await this._notifiesCount(action.callback);
+                break;
+            case 'msgRead':
+                await this._msgRead(action.chat_id, action.time);
                 break;
             default:
                 return;
@@ -143,6 +149,7 @@ class messagesStore {
                         message.sticker.url = Ajax.stickerUrlConvert(message.sticker.url);
                     }
                     message.raw_creation_date = message.creation_date;
+                    message.creation_date_read = message.creation_date;
                     message.creation_date = new Date(message.creation_date).toLocaleDateString();
                    
                   
@@ -237,6 +244,34 @@ class messagesStore {
 
         if (callback) {
             callback();
+        }
+    }
+
+    async _notifiesCount(callback) {
+        const request = await Ajax.notifiesCount();
+
+        if (request.status === 200) {
+            const response = await request.json();
+            sideBarConst.menuItemList[2].notifies = response.body.count;
+            if (callback) {
+                callback(response.body.count);
+            }
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('notifiesCount error');
+        }
+    }
+
+    async _msgRead(chat_id, time) {
+        const request = await Ajax.msgRead(chat_id, time);
+
+        if (request.status === 200) {
+
+        } else if (request.status === 401) {
+            actionUser.signOut();
+        } else {
+            alert('imgRead error');
         }
     }
 }

@@ -11,6 +11,7 @@ import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
 import {actionSearch} from "../actions/actionSearch.js";
 import searchStore from "../stores/dropdownSearchStore.js";
+import {actionMessage} from "../actions/actionMessage";
 
 export default class GroupView extends BaseView {
 	constructor() {
@@ -475,7 +476,7 @@ export default class GroupView extends BaseView {
 		if (search.link) {
 			this._groupLink = search.link;
 			localStorage.setItem('groupLink', this._groupLink);
-			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
+			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize); actionMessage.notifiesCount(); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
 		} else {
 			Router.go('/groups', false);
 		}

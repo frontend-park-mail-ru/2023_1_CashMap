@@ -8,6 +8,7 @@ import BaseView from "./baseView.js";
 import Validation from "../modules/validation.js";
 import { actionUser } from "../actions/actionUser.js";
 import router from "../modules/router.js";
+import {actionMessage} from "../actions/actionMessage";
 
 export default class GroupView extends BaseView {
 	constructor() {
@@ -170,6 +171,7 @@ export default class GroupView extends BaseView {
 						Router.goBack();
 					}
 				}, this._groupLink);
+				actionMessage.notifiesCount();
 			});
 		}
 	}

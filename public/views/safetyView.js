@@ -4,6 +4,7 @@ import Router from "../modules/router.js";
 import {sideBarConst, headerConst, safetyConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import BaseView from "./baseView.js";
+import {actionMessage} from "../actions/actionMessage";
 
 export default class SafetyView extends BaseView {
 	constructor() {
@@ -129,7 +130,7 @@ export default class SafetyView extends BaseView {
 	}
 
 	showPage() {
-		actionUser.getProfile();
+		actionUser.getProfile(() => { actionMessage.notifiesCount(); });
 	}
 
 	_preRender() {

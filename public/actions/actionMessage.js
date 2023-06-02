@@ -67,4 +67,19 @@ export const actionMessage = {
             callback,
         });
     },
+
+    notifiesCount(callback) {
+        Dispatcher.dispatch({
+            actionName: 'notifiesCount',
+            callback,
+        });
+    },
+
+    msgRead(chat_id, time) {
+        Dispatcher.dispatch({
+            actionName: 'msgRead',
+            chat_id,
+            time,
+        });
+    },
 };

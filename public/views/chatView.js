@@ -263,7 +263,11 @@ export default class ChatView extends BaseView {
 		const chatId = localStorage.getItem('chatId');
 		postsStore.attachments = [];
 		if (chatId) {
-			actionUser.getProfile(() => { actionMessage.getChatsMsg(chatId,this._messageBatchSize); actionMessage.getChats(15); });
+			actionUser.getProfile(() => {
+				actionMessage.getChatsMsg(chatId, this._messageBatchSize);
+				actionMessage.getChats(15);
+				actionMessage.notifiesCount();
+			});
 			actionSticker.getStickerPacksByAuthor(15, 0);
 		} else {
 			Router.goBack();
@@ -272,6 +276,10 @@ export default class ChatView extends BaseView {
 
 	_preRender() {
 		this.watingForNewPosts = false;
+
+		if (messagesStore.messages.length) {
+			actionMessage.msgRead(localStorage.getItem('chatId'), messagesStore.messages.slice(-1)[0].creation_date_read);
+		}
 
 		let curChat = null;
 		messagesStore.chats.forEach((chat) => {

@@ -244,6 +244,7 @@ export default class FriendsView extends BaseView {
 
 	showPage() {
 		actionUser.getProfile(() => {
+			actionMessage.notifiesCount();
 			actionFriends.getFriends(userStore.user.user_link, this._friendsBatchSize, 0);
 			actionFriends.getNotFriends(this._friendsBatchSize, 0);
 			actionFriends.getSubscribers(userStore.user.user_link, this._friendsBatchSize);

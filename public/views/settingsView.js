@@ -5,6 +5,7 @@ import { sideBarConst, headerConst, settingsConst, activeColor, signInData, opti
 import {actionUser} from "../actions/actionUser.js";
 import {actionImg} from "../actions/actionImg.js";
 import BaseView from "./baseView.js";
+import {actionMessage} from "../actions/actionMessage";
 
 export default class SettingsView extends BaseView {
 	constructor() {
@@ -154,7 +155,7 @@ export default class SettingsView extends BaseView {
 	}
 
 	showPage() {
-		actionUser.getProfile();
+		actionUser.getProfile(() => { actionMessage.notifiesCount(); });
 	}
 
 	_preRender() {
