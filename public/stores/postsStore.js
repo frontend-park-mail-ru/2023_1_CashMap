@@ -398,11 +398,9 @@ class postsStore {
                 response.body.posts.forEach((post) => {
 
                     post.canDelite = post.canEdit = false;
-                    groupsStore.curGroup.management.forEach((user) => {
-                        if (user.link === userStore.user.user_link) {
-                            post.canDelite = post.canEdit = true;
-                        }
-                    });
+                    if (groupsStore.curGroup.management.link === userStore.user.user_link) {
+                        post.canDelite = post.canEdit = true;
+                    }
 
                     if (!post.owner_info.avatar_url) {
                         post.owner_info.avatar_url = headerConst.avatarDefault;
@@ -495,11 +493,15 @@ class postsStore {
 
             if (post.community_info) {
                 post.canDelite = post.canEdit = false;
-                groupsStore.curGroup.management.forEach((user) => {
+                if (groupsStore.curGroup.management.link === userStore.user.user_link) {
+                    post.canDelite = post.canEdit = true;
+                }
+
+                /*groupsStore.curGroup.management.forEach((user) => {
                     if (user.link === userStore.user.user_link) {
                         post.canDelite = post.canEdit = true;
                     }
-                });
+                });*/
 
                 if (!post.community_info.avatar_url) {
                     post.community_info.avatar_url = groupAvatarDefault;
