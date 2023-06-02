@@ -10,8 +10,10 @@ const TYPES = {
     js: 'application/javascript; charset=UTF-8',
     css: 'text/css',
     svg: 'image/svg+xml',
+    png: 'image/png',
     ttf: 'font/ttf',
     ico: 'image/x-icon',
+    json: 'application/json',
 };
 
 const server = http.createServer((request, response) => {
@@ -30,8 +32,7 @@ const server = http.createServer((request, response) => {
 
     fs.readFile(`${STATIC_PATH}${normalizedUrl}`, (err, data) => {
         if (err) {
-            console.log('not found');
-            console.log(`${STATIC_PATH}${normalizedUrl}`);
+            console.log(`not found ${STATIC_PATH}${normalizedUrl}`);
             response.writeHead(404);
             response.end();
             return;

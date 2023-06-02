@@ -13,37 +13,26 @@
     {{/if}}
 
     <div class="create-comment">
-        <img class="create-comment__avatar profile-img-size avatar-form" src={{ avatar_url }}>
+        <img class="create-comment__avatar profile-img-size avatar-form" src="{{#if user_avatar_url}}{{user_avatar_url}}{{else}}{{avatar_url}}{{/if}}">
+
 
 
         <div class="depeche-multiline-input border-radius font-InterRegular font-size-14 font-color-gray-text background-color-feed border-none" placeholder="Написать комментарий" contenteditable="true" role="textbox" aria-multiline="true">{{ curComment }}</div>
 
-        <div class="chat__footer-icon chat__footer-icon__position comment-icon_smiles">
+        {{!-- <div class="chat__footer-icon">
+            <input class="cursor-pointer" type="image" src="static/img/post_icons/photo.svg">
+            <input class="cursor-pointer" type="image" src="static/img/post_icons/photo_hover_msg.svg">
+        </div>
+
+        <div class="chat__footer-icon comment-icon_smiles">
             <input class="cursor-pointer" type="image" src="static/img/post_icons/smile.svg">
             <input class="cursor-pointer" type="image" src="static/img/post_icons/smile_hover_msg.svg">
-            {{> smiles keyboardData}}
         </div>
+        {{> smiles keyboardData}} --}}
 
         <div class="chat__footer-icon create-comment__send-icon">
             <input class="cursor-pointer" type="image" src="static/img/post_icons/send.svg">
             <input class="cursor-pointer" type="image" src="static/img/post_icons/send_hover.svg">
         </div>
     </div>
-
-    {{!-- <div class="create-comment">
-        <img class="create-comment__avatar profile-img-size avatar-form" src={{ avatar_url }}>
-        <input class="create-comment__input border-radius-btn-input background-item-hovered border-none font-size-14 font-color-gray-text" placeholder="Написать комментарий">
-
-        <div class="hover-pic margin-auto" style="cursor: pointer;">
-            <img class="margin-auto" src="static/img/post_icons/photo.svg">
-            <img class="margin-auto" src="static/img/post_icons/photo_hover.svg">
-        </div>
-
-        <div class="hover-pic margin-auto" style="cursor: pointer;">
-            <img class="margin-auto" src="static/img/post_icons/smile.svg">
-            <img class="margin-auto" src="static/img/post_icons/smile_hover.svg">
-        </div>
-
-        <img class="create-comment__send-icon margin-auto" style="cursor: pointer; grid-column: 7;" src="static/img/post_icons/send.svg">
-    </div> --}}
 </div>

@@ -7,7 +7,7 @@ export const maxBirthday = '2017-01-01';
 
 export const groupAvatarDefault = 'static/img/post_icons/group_image.svg';
 
-export const optionsAvatar = ['.png', '.jpeg', '.jpg', '.gif'];
+export const optionsAvatar = ['.png', '.jpeg', '.jpg', '.gif', '.webp'];
 
 export const sideBarConst = {
     logoImgPath: 'static/img/logo.svg',
@@ -193,6 +193,8 @@ export const settingsGroupConst = {
   errorInfo: { jsId: 'js-sign-in-error'},
   buttonDelete: { text: 'Удалить группу',
       jsId: 'js-delete-group-btn'},
+  buttonGoToGroup: { text: 'Вернуться в сообщество',
+      jsId: 'js-go-to-group-btn'},
   deleteGroupData : { text: 'Да',
       jsId: 'js-group-delete-btn'},
 }
@@ -311,5 +313,6 @@ export const emotionKeyboard = {
     {text: '🙉'},
     {text: '🙊'},
     {text: '🦠'},
+    {text: '❤️'},
   ]
 }

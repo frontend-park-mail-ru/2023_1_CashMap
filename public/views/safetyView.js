@@ -121,7 +121,7 @@ export default class SafetyView extends BaseView {
 	updatePage() {
 		if (this.curPage) {
 			if (!userStore.user.isAuth) {
-				Router.go('/signIn');
+				Router.go('/sign-in');
 			} else {
 				this._render();
 			}

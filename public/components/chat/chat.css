@@ -121,3 +121,10 @@
 .chat__photos {
     /*height: min-content;*/
 }
+
+.chat__smiles {
+    position: absolute;
+    z-index: 1;
+    bottom: 10%;
+    right: 17%;
+}

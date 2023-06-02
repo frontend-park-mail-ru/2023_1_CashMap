@@ -179,3 +179,9 @@
 
     color: #9747FF;
 }
+
+.edit-post__smiles {
+    position: absolute;
+    z-index: 1;
+    top: 120%
+}

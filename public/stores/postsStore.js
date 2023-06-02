@@ -1,7 +1,7 @@
 import Dispatcher from '../dispatcher/dispatcher.js';
 import Ajax from "../modules/ajax.js";
 import {actionUser} from "../actions/actionUser.js";
-import {headerConst} from "../static/htmlConst.js";
+import {groupAvatarDefault, headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import groupsStore from "./groupsStore.js";
 import Router from "../modules/router.js";
@@ -203,7 +203,7 @@ class postsStore {
                     }
                     if (post.community_info) {
                         if (!post.community_info.avatar_url) {
-                            post.community_info.avatar_url = headerConst.avatarDefault;
+                            post.community_info.avatar_url = groupAvatarDefault;
                         } else {
                             post.community_info.avatar_url = Ajax.imgUrlConvert(post.community_info.avatar_url);
                         }
@@ -407,7 +407,7 @@ class postsStore {
                         post.owner_info.avatar_url = Ajax.imgUrlConvert(post.owner_info.avatar_url);
                     }
                     if (!post.community_info.avatar_url) {
-                        post.community_info.avatar_url = headerConst.avatarDefault;
+                        post.community_info.avatar_url = groupAvatarDefault;
                     } else {
                         post.community_info.avatar_url = Ajax.imgUrlConvert(post.community_info.avatar_url);
                     }
@@ -499,7 +499,7 @@ class postsStore {
                 });
 
                 if (!post.community_info.avatar_url) {
-                    post.community_info.avatar_url = headerConst.avatarDefault;
+                    post.community_info.avatar_url = groupAvatarDefault;
                 } else {
                     post.community_info.avatar_url = Ajax.imgUrlConvert(post.community_info.avatar_url);
                 }

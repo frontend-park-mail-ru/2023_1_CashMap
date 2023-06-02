@@ -1,14 +1,14 @@
 <div class="sign-up-path">
     <div class="sign-up-table">
         <span class="sign-up-table__title font-Comfortaa font-size-23 font-color-title"> {{ title }} </span>
-        <div class="input-table">
+        <div class="input-table-sing-up">
             {{#each inputFields}}
                 {{> inputField this}}
             {{/each}}
 
             {{> button buttonInfo}}
 
-            <span class="input-table__error-info font-MailSansRoman font-size-19 font-color-error {{ errorInfo.errorClass }}" id="{{ errorInfo.jsId }}"> {{ errorInfo.errorText }} </span>
+            <span class="input-table__error-info font-MailSansRoman font-size-14 font-color-error {{ errorInfo.errorClass }}" id="{{ errorInfo.jsId }}"> {{ errorInfo.errorText }} </span>
 
             <a class="input-table__link font-MailSansRoman font-size-16 font-color-info cursor-pointer" id="{{ link.jsId }}"> {{ link.text }} </a>
         </div>

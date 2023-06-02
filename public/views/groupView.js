@@ -68,6 +68,7 @@ export default class GroupView extends BaseView {
 		this._commentInput = document.getElementsByClassName('depeche-multiline-input');
 
 		this._commentDeleteButton = document.getElementsByClassName("comment-operations__delete");
+		this._editPostError = document.getElementById("js-edit-post-error");
 
 		this._commentEditButton = document.getElementsByClassName("comment-operations__update");
 		this._commentEditSaveButton = document.getElementsByClassName("submit-comment-edit-button");
@@ -311,7 +312,7 @@ export default class GroupView extends BaseView {
 
 		if (this._groupSettingsBtn) {
 			this._groupSettingsBtn.addEventListener('click', () => {
-				Router.go('/settingsGroup?link=' + this._groupLink, false);
+				Router.go('/settings-group', false);
 			});
 		}
 
@@ -355,9 +356,20 @@ export default class GroupView extends BaseView {
 
 		if (this._createBtn) {
 			this._createBtn.addEventListener('click', () => {
-				actionPost.createPostCommunity(userStore.user.user_link, this._groupLink, true, this._text.value);
+				if (this._text.value === '' && postsStore.attachments.length === 0) {
+					this._editPostError.textContent = 'Запись не может быть пустой';
+				} else {
+					this._editPostError.textContent = '';
+					actionPost.createPostCommunity(userStore.user.user_link, this._groupLink, true, this._text.value);
 				this.isCreate = false;
+				}
 			});
+		}
+
+		if (this._text) {
+			this._text.addEventListener('input', () => {
+				this._editPostError.textContent = '';
+			})
 		}
 
 		if (this._backBtn) {
@@ -446,6 +458,7 @@ export default class GroupView extends BaseView {
 			this._smiles[i].addEventListener('click', () => {
 				const smile = this._smiles[i].innerText || this._smiles[i].textContent;
 				this._text.value += smile;
+				this._editPostError.textContent = '';
 				this._text.focus();
       });
     }
@@ -461,6 +474,7 @@ export default class GroupView extends BaseView {
 	showPage(search) {
 		if (search.link) {
 			this._groupLink = search.link;
+			localStorage.setItem('groupLink', this._groupLink);
 			actionUser.getProfile(() => { actionGroups.getGroupInfo(() => { actionPost.getPostsByCommunity(this._groupLink, this._postsBatchSize); actionGroups.getGroupsSub(this._groupLink, 3); }, this._groupLink); });
 		} else {
 			Router.go('/groups', false);
@@ -492,6 +506,7 @@ export default class GroupView extends BaseView {
 					isCreate: this.isCreate,
 					isEdit: this.isEdit,
 					avatar_url: groupsStore.curGroup.avatar_url,
+					user_avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
 					create: { avatar_url: groupsStore.curGroup.avatar_url, attachments: postsStore.attachments , text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, keyboardData: {smiles: emotionKeyboard},}
 				},
@@ -502,7 +517,6 @@ export default class GroupView extends BaseView {
 		if (this._context.postAreaData.createPostData.isEdit) {
 			this._context.postAreaData.createPostData.create.text = postsStore.curPost.text_content;
 			this._context.postAreaData.createPostData.create.id = postsStore.curPost.id;
-			this._context.postAreaData.createPostData.create.attachments= postsStore.curPost.attachments;
 			this._context.postAreaData.createPostData.create.buttonData = { text: 'Изменить', jsId: 'js-edit-post-btn'};
 		}
 

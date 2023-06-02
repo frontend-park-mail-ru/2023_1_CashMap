@@ -7,6 +7,7 @@ import groupsStore from "../stores/groupsStore.js";
 import BaseView from "./baseView.js";
 import Validation from "../modules/validation.js";
 import { actionUser } from "../actions/actionUser.js";
+import router from "../modules/router.js";
 
 export default class GroupView extends BaseView {
 	constructor() {
@@ -19,6 +20,7 @@ export default class GroupView extends BaseView {
 		this._reader = new FileReader();
 
 		this._fileList = null;
+		this._groupLink = null;
 	}
 
 	/**
@@ -46,18 +48,29 @@ export default class GroupView extends BaseView {
 
 		this._saveBtn = document.getElementById('js-settings-save-btn');
 
-		this._settingsBtn = document.getElementById('js-menu-main');
-		this._settingsBtn.style.color = activeColor;
+		this._groupSettingsBtn = document.getElementById('js-group-settings');
+		this._groupSettingsBtn.style.color = activeColor;
 		this._subBtn = document.getElementById('js-menu-subscribers');
 		this._requestsBtn = document.getElementById('js-menu-requests');
 
 		this._deleteGroup = document.getElementById('js-group-delete-btn');
+		this._goToGroupBtn = document.getElementById('js-go-to-group-btn');
 
 		this._error = document.getElementById('js-sign-in-error');
 	}
 
 	addPagesListener() {
 		super.addPagesListener();
+
+		this._goToGroupBtn.addEventListener('click', () => {
+			router.goBack();
+		});
+
+		if (this._groupSettingsBtn) {
+			this._groupSettingsBtn.addEventListener('click', () => {
+				Router.go('/settings-group', false);
+			});
+		}
 
 		this._dropArea.addEventListener('dragover', (event) => {
 			event.preventDefault();
@@ -125,25 +138,39 @@ export default class GroupView extends BaseView {
 
 		this._deleteGroup.addEventListener('click', () => {
 			actionGroups.deleteGroup(this._groupLink);
-			Router.go('/manageGroups', false);
+			Router.go('/manage-groups', false);
 		});
 
-		this._titleField.addEventListener('change', () => {
-			this._validateTitle = Validation.validation(this._titleField, this._titleErrorField, 'userStatus', 'settings');
+		this._titleField.addEventListener('input', () => {
+			this._validateTitle = Validation.validation(this._titleField, this._titleErrorField, 'title', 'settings');
 		});
 
-		this._infoField.addEventListener('change', () => {
+		this._infoField.addEventListener('input', () => {
 			this._validateInfo = Validation.validation(this._infoField, this._infoErrorField, 'bio', 'settings');
 		});
 		
 	}
 
-	showPage(search) {
-		if (search.link) {
-			this._groupLink = search.link;
-			actionUser.getProfile(() => { actionGroups.getGroupInfo(null, this._groupLink); });
-		} else {
-			Router.goBack();
+	showPage() {
+		if (!this._groupLink) {
+			console.log(localStorage.getItem('groupLink'));
+			if (!localStorage.getItem('groupLink')) {
+				Router.goBack();
+			} else {
+				this._groupLink = localStorage.getItem('groupLink');
+			}
+		}
+
+		if (this._groupLink) {
+			actionUser.getProfile(() => {
+				actionGroups.getGroupInfo(() => {
+					if (groupsStore.curGroup.isAdmin) {
+						this._groupLink = groupsStore.curGroup.link;
+					} else {
+						Router.goBack();
+					}
+				}, this._groupLink);
+			});
 		}
 	}
 

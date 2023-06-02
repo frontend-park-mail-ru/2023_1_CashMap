@@ -5,10 +5,14 @@
 .menu-settings {
     height: min-content;
     padding: 16px;
-    margin-bottom: 16px;
 }
 
 .settings__menu-delete {
+    display: flex;
+    flex-direction:column;
+    gap: 16px;
+    grid-column: 3;
+
     grid-column: 3;
     grid-row: 1;
     height: min-content;

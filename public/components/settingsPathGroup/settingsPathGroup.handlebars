@@ -49,9 +49,12 @@
         <span class="settings-path__info font-MailSansRoman font-size-19 font-color-comment-sender" id="js-save-info"></span>
     </div>
     <div class="settings__menu-delete">
+        <div class="settings__btn">
+            {{> buttonDefault buttonGoToGroup}}
+        </div>
         <div class="menu-settings border-radius-btn-input background-color-profile-menu box-shadow-create-post">
             {{#each menuInfo}}
-                <div class="menu-settings-item hover-block border-radius-btn-input" style="cursor: pointer;" id="{{ this.jsId }}">
+                <div class="menu-settings-item hover-block border-radius-btn-input" style="cursor: pointer;" id="js-group-settings">
                     <span class="font-size-15 font-InterMedium"> {{ this.text }} </span>
                 </div>
             {{/each}}

@@ -1,38 +1,39 @@
 <div class="profileCard">
-    <div class="profileCard__header" style="background-image: url( static/img/profile_background.svg )">
-        {{!-- <button class="profileCard__button">
-            <div class="profileCard__button-text">
-                Изменить обложку
-            </div>
-        </button> --}}
-    </div>
-    <div class="profileCard__body">
-        <div class="profileCard__info">
-            <div class="profileCard__inf">
-                <div class="profileCard__info-img-wrapper background-color-post "></div>
-                <img src="{{ avatar_url }}" class="profileCard__info-img avatar-form">
-            </div>
-            <div class="profileCard__info-data">
-                <div class="profileCard__info-text profileCard__info-text_header">{{ firstName }} {{ lastName }}</div>
-                <div class="profileCard__info-text font-InterMedium ">{{ status }}</div>
-                <div class="profileCard__info-text font-InterRegular profileCard__info-text_little"> в сети: {{ lastActive }} </div>
-            </div>
+    {{#if avg_color1}}
+        <div class="profileCard__header" style="background: linear-gradient(30deg, {{avg_color1}}, {{avg_color2}});"></div>
+    {{else}}
+        <div class="profileCard__header" style="background-image: url( static/img/profile_background.svg )">
+            {{!-- <button class="profileCard__button">
+                <div class="profileCard__button-text">
+                    Изменить обложку
+                </div>
+            </button> --}}
         </div>
-
-        <div class="profileCard__buttons">
+    {{/if}}
+    <div class="profileCard__body">
+        <div class="profileCard__inf">
+            <div class="profileCard__info-img-wrapper background-color-post "></div>
+            <img src="{{ avatar_url }}" class="profileCard__info-img avatar-form">
+        </div>
+        <div class="profileCard__info-data">
+            <div class="profileCard__info-text profileCard__info-text_header">{{ firstName }} {{ lastName }}</div>
+            <div class="profileCard__info-text font-InterMedium ">{{ status }}</div>
+            <div class="profileCard__info-text font-InterRegular profileCard__info-text_little"> {{ lastActive }} </div>
+        </div>
+        <div class="profileCard__option">
             {{# if isMyPage}}
                 <button class="profileCard__button profileCard__button_grey" id="js-profile-settings-btn" data-id="{{ user_link }}">
-                    <div class="profileCard__button-text">Редактировать</div>
+                    <div class="profileCard__button-text"> Редактировать </div>
                     <img class="profileCard__edit-icon" src="static/img/settings.svg">
                 </button>
             {{else}}
                 {{# if (eqs isMyFriend 'subscriber' 'friend')}}
-                    <div class="profileCard__friend-button post-buttons-like post-hover border-radius-btn-input cursor-pointer" data-id="{{ user_link }}" style="padding: 6px;" id="js-friend-remove">
+                    <div class="post-buttons-like post-hover border-radius-btn-input cursor-pointer" data-id="{{ user_link }}" style="padding: 6px;" id="js-friend-remove">
                         <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/deleteFriend.svg">
                         <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/deleteFriendHover.svg">
                     </div>
                 {{else}}
-                    <div class="profileCard__friend-button post-buttons-like post-hover border-radius-btn-input cursor-pointer" data-id="{{ user_link }}" style="padding: 6px;" id="js-friend-add">
+                    <div class="post-buttons-like post-hover border-radius-btn-input cursor-pointer" data-id="{{ user_link }}" style="padding: 6px;" id="js-friend-add">
                         <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/addFriend.svg">
                         <img class="add-friend__icon cursor-pointer margin-auto" src="static/img/addFriendHover.svg">
                     </div>

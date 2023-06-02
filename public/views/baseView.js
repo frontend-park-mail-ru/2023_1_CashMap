@@ -96,6 +96,25 @@ export default class BaseView {
         Handlebars.registerHelper('eqs', function(value1, value2, value3) {
             return value1 === value2 || value1 === value3;
         });
+
+        Handlebars.registerHelper('second-if-any', function(value1, value2) {
+            if (value2) {
+                return value2;
+            }
+            return value1;
+        });
+
+        Handlebars.registerHelper('num-subs', function(value) {
+            if (value % 100 > 10 & value % 100 < 20) {
+                return 'подписчиков';
+            }
+            if (value % 10 === 1) {
+                return 'подписчик';
+            } else if (value % 10 === 2 || value % 10 === 3 || value % 10 === 4) {
+                return 'подписчика';
+            }
+            return 'подписчиков';
+        });
     }
 
     /**
@@ -254,14 +273,14 @@ export default class BaseView {
         if (this._showMorePeopleButton !== null) {
             this._showMorePeopleButton.addEventListener('mousedown', () => {
                 localStorage.setItem("searchQuery", this._searchAreaInput.value);
-                Router.go('/findFriends');
+                Router.go('/find-friends');
             });
         }
 
         if (this._showMoreCommunititesButton !== null) {
             this._showMoreCommunititesButton.addEventListener('mousedown', () => {
                 localStorage.setItem("searchQuery", this._searchAreaInput.value);
-                Router.go('/findGroups');
+                Router.go('/find-groups');
             });
         }
 
@@ -328,7 +347,7 @@ export default class BaseView {
     updatePage() {
         if (this.curPage) {
             if (!userStore.user.isAuth) {
-                Router.go('/signIn');
+                Router.go('/sign-in');
             } else {
                 this.render();
             }

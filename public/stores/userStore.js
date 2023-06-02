@@ -26,6 +26,7 @@ class userStore {
             firstName: null,
             lastName: null,
             avatar_url: null,
+            avg_avatar_color: null,
             bio: null,
             birthday: null,
             status: null,
@@ -42,6 +43,7 @@ class userStore {
             firstName: null,
             lastName: null,
             avatar_url: null,
+            avg_avatar_color: null,
             bio: null,
             birthday: null,
             status: null,
@@ -184,6 +186,7 @@ class userStore {
             let profile = {};
 
             profile.avatar_url = response.body.profile.avatar_url;
+            profile.avg_avatar_color = response.body.profile.avg_avatar_color;
             profile.user_link = response.body.profile.user_link;
             profile.firstName = response.body.profile.first_name;
             profile.lastName = response.body.profile.last_name;
@@ -192,8 +195,12 @@ class userStore {
             profile.email = response.body.profile.email;
 
             if (response.body.profile.last_active) {
-                const date = new Date(response.body.profile.last_active);
-                profile.lastActive = (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                if (response.body.profile.last_active === 'now') {
+                    profile.lastActive = 'онлайн';
+                } else {
+                    const date = new Date(response.body.profile.last_active);
+                    profile.lastActive = 'в сети: ' + (new Date(date)).toLocaleDateString('ru-RU', { dateStyle: 'long' });
+                }
             }
 
             if (response.body.profile.birthday) {

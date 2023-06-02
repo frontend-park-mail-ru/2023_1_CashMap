@@ -1,10 +1,10 @@
-<div class="groupItem">
+<div class="groupItem js-go-to-group cursor-pointer" data-id="{{ link }}">
     <div class="groupItem__info">
-        <img src="{{ avatar_url }}" class="groupItem__avatar avatar-form js-go-to-group cursor-pointer" data-id="{{ link }}">
+        <img src="{{ avatar_url }}" class="groupItem__avatar avatar-form " data-id="{{ link }}">
         <div class="groupItem__wrapper">
-            <div class="groupItem__name js-go-to-group cursor-pointer" data-id="{{ link }}">{{ title }}</div>
+            <div class="groupItem__name" data-id="{{ link }}">{{ title }}</div>
             <div class="groupItem__text">{{ privacy }}</div>
-            <div class="groupItem__text">{{ subscribers }} подписчиков</div>
+            <div class="groupItem__text">{{ subscribers }} {{num-subs subscribers}}</div>
         </div>
     </div>
     {{#if isGroup}}

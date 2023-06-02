@@ -56,13 +56,13 @@ export default class GroupsView extends BaseView {
 			case '/groups':
 				this._groupsBtn.style.color = activeColor;
 				break;
-			case '/manageGroups':
+			case '/manage-groups':
 				this._manageGroupsBtn.style.color = activeColor;
 				break;
-			case '/findGroups':
+			case '/find-groups':
 				this._findGroupsBtn.style.color = activeColor;
 				break;
-			case '/popularGroups':
+			case '/popular-groups':
 				this._popularGroupsBtn.style.color = activeColor;
 				break;
 		}
@@ -113,17 +113,17 @@ export default class GroupsView extends BaseView {
 
 		this._manageGroupsBtn.addEventListener('click', () => {
 			this._manageGroupsBtn.style.color = activeColor;
-			Router.go('/manageGroups', false);
+			Router.go('/manage-groups', false);
 		});
 
 		this._findGroupsBtn.addEventListener('click', () => {
 			this._findGroupsBtn.style.color = activeColor;
-			Router.go('/findGroups', false);
+			Router.go('/find-groups', false);
 		});
 
 		/*this._popularGroupsBtn.addEventListener('click', () => {
 			this._popularGroupsBtn.style.color = activeColor;
-			Router.go('/popularGroups', false);
+			Router.go('/popular-groups', false);
 		});*/
 
 		this._groupsBtn.addEventListener('click', () => {
@@ -141,9 +141,9 @@ export default class GroupsView extends BaseView {
 				let path = window.location.pathname;
 				if (path === '/groups' && friendsStore.hasMoreFriends) {
 					actionGroups.getGroups(this._groupsBatchSize, groupsStore.groups.length, true);
-				} else if (path === '/manageGroups' && friendsStore.hasMoreSubscribers) {
+				} else if (path === '/manage-groups' && friendsStore.hasMoreSubscribers) {
 					actionGroups.getmanageGroups(this._groupsBatchSize, groupsStore.manageGroups.length, true);
-				} else if (path === '/findGroups' && friendsStore.hasMoreSubscriptions) {
+				} else if (path === '/find-groups' && friendsStore.hasMoreSubscriptions) {
 					if (this._searchAreaInput.value.trim() === "") {
 						actionGroups.getNotGroups(this._groupsBatchSize, groupsStore.findGroups.length, true);
 					} else {
@@ -169,7 +169,7 @@ export default class GroupsView extends BaseView {
 					privacy = 'close';
 				}*/
 				actionGroups.createGroup({title: this._titleField.value, info: this._infoField.value, privacy: privacy, hideOwner: false});
-				Router.go('/manageGroups', false);
+				Router.go('/manage-groups', false);
 			});
 		}
 
@@ -181,11 +181,11 @@ export default class GroupsView extends BaseView {
 		}
 
 		switch (window.location.pathname) {
-			case '/findGroups':
+			case '/find-groups':
 				this._searchAreaInput.addEventListener('keyup', () => {
 					if (this._searchAreaInput.value === "") {
 						localStorage.removeItem("searchQuery");
-						Router.go('/findGroups');
+						Router.go('/find-groups');
 						return
 					}
 					this.interruptTimer();
@@ -205,6 +205,7 @@ export default class GroupsView extends BaseView {
 			this._unsubGroup[i].addEventListener('click', () => {
 				const groupId = this._unsubGroup[i].getAttribute("data-id");
 				actionGroups.groupUnsub(groupId);
+				event.stopPropagation();
 			});
 		}
 	}
@@ -212,7 +213,7 @@ export default class GroupsView extends BaseView {
 	updateSearchList() {
 		if (this.curPage) {
 			if (!userStore.user.isAuth) {
-				Router.go('/signIn');
+				Router.go('/sign-in');
 			} else {
 				this._renderNewSearchList();
 			}
@@ -227,7 +228,7 @@ export default class GroupsView extends BaseView {
 		let res;
 		let info;
 		switch (window.location.pathname) {
-			case '/findGroups':
+			case '/find-groups':
 				res = searchStore.communitySearchItems;
 				info = 'По данному запросу не найдены сообщества'
 				break;
@@ -275,17 +276,17 @@ export default class GroupsView extends BaseView {
 				document.title = 'Подписки';
 				info = 'Вы не подписаны на сообщества';
 				break;
-			case '/manageGroups':
+			case '/manage-groups':
 				res = groupsStore.manageGroups;
 				document.title = 'Сообщества';
 				info = 'У вас пока нет сообществ';
 				break;
-			case '/findGroups':
+			case '/find-groups':
 				res = groupsStore.findGroups;
 				document.title = 'Поиск сообществ';
                 info = 'Сообщества не найдены';
 				break;
-			case '/popularGroups':
+			case '/popular-groups':
 				res = groupsStore.popularGroups;
 				document.title = 'Поиск сообществ';
                 info = 'Сообщества не найдены';
@@ -309,7 +310,7 @@ export default class GroupsView extends BaseView {
 	updatePage() {
 		if (this.curPage) {
 			if (!userStore.user.isAuth) {
-				Router.go('/signIn');
+				Router.go('/sign-in');
 			} else {
 				this.render();
 				this._searchAreaInput.focus();

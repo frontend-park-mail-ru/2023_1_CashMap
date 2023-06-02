@@ -10,5 +10,7 @@
 }
 
 .subscriber__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
     grid-column: 3;
 }

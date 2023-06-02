@@ -56,23 +56,23 @@ export default class SignUpView {
         });
 
         this._logBtn.addEventListener('click', () => {
-            Router.go('/signIn', false);
+            Router.go('/sign-in', false);
         });
 
 
-        this._firstNameField.addEventListener('change', () => {
+        this._firstNameField.addEventListener('input', () => {
             this._validateFirstName = Validation.validation(this._firstNameField, this._firstNameErrorField, 'firstName', 'default');
         });
-        this._lastNameField.addEventListener('change', () => {
+        this._lastNameField.addEventListener('input', () => {
             this._validateLastName = Validation.validation(this._lastNameField, this._lastNameErrorField, 'lastName', 'default');
         });
-        this._emailField.addEventListener('change', () => {
+        this._emailField.addEventListener('input', () => {
             this._validateEmail = Validation.validation(this._emailField, this._emailErrorField, 'email', 'default');
         });
-        this._passwordField.addEventListener('change', () => {
+        this._passwordField.addEventListener('input', () => {
             this._validatePassword = Validation.validation(this._passwordField, this._passwordErrorField, 'password', 'default');
         });
-        this._passwordRepeatField.addEventListener('change', () => {
+        this._passwordRepeatField.addEventListener('input', () => {
             this._validatePasswordRepeat = Validation.validationPassword(this._passwordField, this._passwordRepeatField, this._passwordRepeatErrorField, 'default');
         });
 
