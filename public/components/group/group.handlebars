@@ -19,14 +19,13 @@
                 {{/if}}
 
                 <div class="group__info border-radius-btn-input background-color-post box-shadow-create-post">
-                    <div class="font-color-post-sender font-MailSansRoman font-size-16">Подписчики</div>
+                    <div class="group-info__text font-color-post-sender font-MailSansRoman font-size-16">Подписчики</div>
                     {{#if groupData.subList}}
                         {{#each groupData.subList}}
                             {{> subscriber this}}
                         {{/each}}
                         <div class="group__info_more border-radius-btn-input">
-                            <div class="font-color-gray-text font-InterMedium font-size-13" id="js-show-subscribers">Показать всех</div>
-                            <img src="static/img/show.svg" class="">
+                            <div class="font-color-gray-text font-InterMedium font-size-13" id="js-show-subscribers">и другие</div>
                         </div>
                     {{else}}
                         <div class="font-color-gray-text font-InterMedium font-size-13" id="js-show-subscribers">Тут пока пусто</div>

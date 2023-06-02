@@ -63,11 +63,6 @@
     box-sizing: border-box;
 }
 
-.group__info_more:hover {
-    background-color: var(--background-color-feed);
-}
-
-
 @media (max-width: 760px) {
     .group {
         /*min-width: 60vh;*/
@@ -90,4 +85,10 @@
     .group__info_more {
         gap: 5px;
     }
+}
+
+.group-info__text {
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
 }

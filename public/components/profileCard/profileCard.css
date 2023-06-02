@@ -41,11 +41,16 @@
 
 .profileCard__option {
     display: flex;
-    grid-column: 3;
-    grid-row: 2;
     height: max-content;
+}
 
-    margin-top: -17px;
+.profileCard__footer {
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    gap: 8px;
+    justify-items: stretch;
+    align-items: end;
+    justify-content: space-between;
 }
 
 .profileCard__button_grey {
@@ -63,7 +68,7 @@
 
 .profileCard__body {
     display: grid;
-    grid-template-columns: 100px 1fr auto;
+    grid-template-columns: 100px 1fr;
     grid-template-rows: 1fr auto;
     width: 100%;
     column-gap: 23px;
@@ -98,13 +103,11 @@
 }
 
 .profileCard__info-data {
-    display: grid;
+    display: flex;
     gap: 8px;
-    grid-row: 1;
-    grid-column: 2/4;
-    margin-top: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex-direction: column;
 }
 
 .profileCard__info-text {
@@ -115,11 +118,14 @@
     overflow: hidden;
 }
 .profileCard__info-text_header {
+    margin-top: 16px;
     color: var(--font-color-post-sender);
     font-family: Montserrat;
     font-size: var(--font-size-23);
     overflow: hidden;
     text-overflow: ellipsis;
+    grid-row: 1;
+    grid-column: 2;
 }
 
 .profileCard__info-text_little {
