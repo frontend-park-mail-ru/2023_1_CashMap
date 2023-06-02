@@ -92,7 +92,9 @@ class messagesStore {
             this.chats = response.body.chats;
 
             this.chats.forEach((chat) => {
-                chat.last_msg.creation_date = dateConvert.fromBackToPost(chat.last_msg.creation_date);
+                if (chat.last_msg.creation_date) {
+                    chat.last_msg.creation_date = dateConvert.fromBackToPost(chat.last_msg.creation_date);
+                }
 
                 if (chat.members.length === 1) {
                     if (!chat.members[0].avatar_url) {
