@@ -82,6 +82,7 @@ class WebSock {
                 }
 
                 Notifies.getNotifiesCount();
+                actionMessage.getChats(100);
             }
         };
 
