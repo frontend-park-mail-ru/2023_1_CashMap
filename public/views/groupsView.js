@@ -234,7 +234,7 @@ export default class GroupsView extends BaseView {
 		switch (window.location.pathname) {
 			case '/find-groups':
 				res = searchStore.communitySearchItems;
-				info = 'По данному запросу не найдены сообщества'
+				info = 'Данный запрос не дал результатов'
 				break;
 		}
 		this._context = {

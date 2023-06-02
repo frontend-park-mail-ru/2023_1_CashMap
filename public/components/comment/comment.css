@@ -35,7 +35,7 @@
                          ". . edit-buttons edit-buttons edit-buttons";
 
     grid-template-rows: 40px 1fr 10px 30px;
-    grid-template-columns: 35px 16px max-content 1fr;
+    grid-template-columns: 35px 16px 1fr 5px 1fr;
 
     /*grid-row-gap: 8px;*/
 }
@@ -43,6 +43,7 @@
 
 .comment-edit-title {
     grid-area: editing-comment-title;
+
 }
 
 .comment-edit-input {
@@ -56,11 +57,12 @@
 
     display: grid;
 
-    grid-template-columns: minmax(100px, 120px) minmax(100px, 120px);
+    grid-template-columns: min-content min-content;
     grid-template-rows: 1fr;
     grid-column-gap: 10px;
     position: relative;
 }
+
 
 .submit-comment-edit-button, .cancel-comment-edit-button {
     margin: auto;
@@ -144,6 +146,18 @@
     resize: none;
 }
 
+@media (max-width: 1200px) {
+    .comment-editing-block {
+        grid-template-areas: "commnent-sender-photo . comment-sender-name comment-sender-name comment-sender-name"
+                             "commnent-sender-photo . editing-comment-title editing-comment-title editing-comment-title"
+                             ". . comment-edit-area comment-edit-area comment-edit-area"
+                             ". . . . ."
+                             "edit-buttons edit-buttons edit-buttons edit-buttons edit-buttons";
+
+        grid-template-rows: 20px  20px 1fr 10px 30px;
+    }
+}
+
 @media screen and (max-width: 560px) {
     .comment-operations {
         visibility: visible;
@@ -162,6 +176,7 @@
                              ". edit-buttons edit-buttons edit-buttons edit-buttons";
 
         grid-template-rows: 20px  20px 1fr 10px 30px;
+
         grid-template-columns: 35px 16px max-content 1fr;
     }
 

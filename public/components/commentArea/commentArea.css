@@ -8,8 +8,8 @@
 }
 .create-comment {
     display: grid;
-    grid-template-areas: "user-icon input smile-icon send-comment-icon";
-    grid-template-columns: 35px 1fr auto auto;
+    grid-template-areas: "user-icon input send-comment-icon";
+    grid-template-columns: 35px 1fr auto;
     grid-template-rows: 1fr;
     grid-column-gap: 16px;
 }

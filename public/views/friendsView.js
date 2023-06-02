@@ -284,7 +284,7 @@ export default class FriendsView extends BaseView {
 		switch (window.location.pathname) {
 			case '/find-friends':
 				res = searchStore.userSearchItems;
-				info = 'По данному запросу не найдено людей'
+				info = 'Запрос не дал результатов'
 				break;
 		}
 		this._context = {
