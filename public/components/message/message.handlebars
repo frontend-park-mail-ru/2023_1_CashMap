@@ -7,13 +7,11 @@
         </div>
     </div>
     <div class="message__block">
-        <div class="message__date">{{ date }}</div>
-        {{#if isUnread }}
-            {{#if isMuted }}
+        <div class="message__date"> {{ date }} </div>
+        {{#if read }}
             <div class="message__status message__status_muted"> </div>
-            {{ else }}
+        {{ else }}
             <div class="message__status"> </div>
-            {{/if}}
         {{/if}}
     </div>
 </div>
