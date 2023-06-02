@@ -113,16 +113,18 @@
     position: relative;
 }
 
-.chat__footer-icon input:nth-child(2) {
-    display: none;
+@media (min-width: 560px) {
+    .chat__footer-icon input:nth-child(2) {
+        display: none;
 
-}
-.chat__footer-icon:hover input:nth-child(1) {
-    display: none;
-}
+    }
+    .chat__footer-icon:hover input:nth-child(1) {
+        display: none;
+    }
 
-.chat__footer-icon:hover input:nth-child(2) {
-    display: inline-block;
+    .chat__footer-icon:hover input:nth-child(2) {
+        display: inline-block;
+    }
 }
 
 .chat__photos {

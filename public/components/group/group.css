@@ -19,8 +19,9 @@
     grid-area: main;
 
     display: grid;
-    grid-template-columns: 66% 6% 28%;
+    /*grid-template-columns: 66% 6% 28%;*/
 
+    grid-column-gap: 10px;
     grid-template-areas: "group-card group-card group-card"
                          "feed . group-management";
 }
@@ -75,8 +76,8 @@
     }
 
     .group__body {
-        grid-template-columns: 66% 6% 28%;
-
+        /*grid-template-columns: 66% 6% 28%;*/
+        column-gap: 0;
         grid-template-areas: "group-card group-card group-card"
                              "group-management group-management group-management"
                              "feed feed feed";
@@ -87,7 +88,6 @@
     }
 
     .group__info_more {
-
         gap: 5px;
     }
 }
