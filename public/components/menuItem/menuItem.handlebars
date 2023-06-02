@@ -5,5 +5,7 @@
     </div>
 
     <span class="menu-item__text font-size-15 font-MailSansRoman"> {{ text }} </span>
-    <span class="menu-item__notifies" id="{{ jsIdNotifies }}"> {{ notifies }} </span>
+    {{#if notifies}}
+        <span class="menu-item__notifies font-size-13 font-InterMedium font-color-gray-text background-item-hovered border-radius" id="{{ jsIdNotifies }}"> {{ notifies }} </span>
+    {{/if}}
 </div>
