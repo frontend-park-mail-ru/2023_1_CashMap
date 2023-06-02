@@ -74,6 +74,7 @@ export default class ChatView extends BaseView {
 	}
 
 	addPagesListener() {
+		this._msg.setSelectionRange(this._msg.textContent.length, this._msg.textContent.length);
 		super.addPagesListener();
 
 		this._backBtn.addEventListener('click', () => {
@@ -231,8 +232,8 @@ export default class ChatView extends BaseView {
 			this._smiles[i].addEventListener('click', () => {
 				const smile = this._smiles[i].innerText || this._smiles[i].textContent;
 				this._msg.value += smile;
-				this._msg.focus();
 				this._msg.dispatchEvent(new Event('input'));
+				// this._msg.focus();
 			});
 		}
 

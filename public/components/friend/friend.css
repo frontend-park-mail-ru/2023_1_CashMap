@@ -9,7 +9,6 @@
     background-color: var(--background-color-menu);
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-    cursor: pointer;
     position: relative;
 
     display: grid;
@@ -47,6 +46,7 @@
     align-items: center;
     display: grid;
     grid-template-columns: 80px 8px minmax(100px, 1fr);
+    cursor: pointer;
 }
 
 .friend__name {
@@ -139,6 +139,10 @@
 }
 
 .friend__img:hover + .friend-menu {
+    display: grid;
+}
+
+.friend__img:active + .friend-menu {
     display: grid;
 }
 

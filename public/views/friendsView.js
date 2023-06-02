@@ -52,6 +52,8 @@ export default class FriendsView extends BaseView {
 		this._subscribersBtn = document.getElementById('js-menu-subscribers');
 		this._subscriptionsBtn = document.getElementById('js-menu-subscriptions');
 		this._findFriendsBtn = document.getElementById('js-menu-find-friends');
+		this._profile = document.getElementsByClassName("friend__info");
+
 
 		switch (window.location.pathname) {
 			case '/friends':
@@ -166,8 +168,8 @@ export default class FriendsView extends BaseView {
 			});
 		}
 
-		for (let i = 0; i < this._goToProfile.length; i++) {
-			this._goToProfile[i].addEventListener('click', () => {
+		for (let i = 0; i < this._profile.length; i++) {
+			this._profile[i].addEventListener('click', () => {
 				const userId = this._goToProfile[i].getAttribute("data-id");
 				Router.go('/user?link=' + userId, false);
 			});
