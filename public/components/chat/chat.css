@@ -8,6 +8,12 @@
     height: 96%;
 }
 
+@media screen and (max-width: 560px) {
+    .chat {
+        gap: 0;
+    }
+}
+
 .chat__header {
     display: flex;
     align-items: center;
@@ -94,6 +100,10 @@
 
 .chat__footer-icon {
     height: 100%;
+}
+
+.chat__footer-icon__position {
+    position: relative;
 }
 
 .chat__footer-icon input:nth-child(2) {

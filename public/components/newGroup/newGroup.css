@@ -23,12 +23,28 @@
 }
 
 .newGroup-position {
-    width: 600px;
+    width: max-content;
+    height: max-content;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -300px;
-    margin-top: -216px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    padding: 20px;
+}
+
+@media  (max-width: 760px) {
+    .newGroup-position {
+        width: auto;
+
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .newGroup__info {
+        display: none;
+    }
 }
 
 .newGroup__header {
@@ -100,7 +116,7 @@
     grid-column: 1;
 }
 .newGroup__textarea__field[type='date'] {
-    padding-top: 8px; 
+    padding-top: 8px;
 }
 
 .newGroup__textarea__field-correct {

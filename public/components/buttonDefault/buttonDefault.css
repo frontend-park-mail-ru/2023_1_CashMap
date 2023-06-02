@@ -1,8 +1,12 @@
 .button-def {
     width: 100%;
+/* adaptiv */
+/*     height: max-content; */
+
     display: inline-block;
     max-height: 100%;
     height: auto;
+
     border: none;
     cursor: pointer;
 }
@@ -15,5 +19,9 @@
     display: inline-grid;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
     padding: 6px;
 }

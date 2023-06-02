@@ -22,23 +22,27 @@
      {{/each}}
     <div class="edit-post__error font-InterRegular font-size-12 font-color-error" id="js-edit-post-error"></div>
     <div class="edit-post__options">
+
+        {{!-- <div class="edit-post__add-photo-icon hover-pic margin-auto cursor-pointer" id="js-add-photo-to-post-pic"> --}}
+
         <div class="hover-pic margin-auto cursor-pointer" id="js-add-photo-to-post-pic" style="grid-column: 6;">
             <img class="margin-auto" src="static/img/post_icons/sticker.svg">
             <img class="margin-auto" src="static/img/post_icons/sticker_active.svg">
         </div>
         <input class="display-none" id="js-add-photo-to-post" type="file">
 
-        <div class="hover-pic margin-auto cursor-pointer" style="grid-column: 8;" id="js-post-smiles">
+        <div class="edit-post__add-emoji-icon chat__footer-icon__position hover-pic margin-auto cursor-pointer" id="js-post-smiles">
             <img class="margin-auto" src="static/img/post_icons/smile.svg">
             <img class="margin-auto" src="static/img/post_icons/smile_hover.svg">
         </div>
+
         <div class="edit-post__smiles">
             {{> smiles keyboardData}}
         </div>
-        <button class="profileCard__button editPost__button_grey" id="js-back-post-btn">
-            <div class="profileCard__button-text"> Отменить </div>
+        <button class="edit-post__cancel-button profileCard__button editPost__button_grey" id="js-back-post-btn">
+            <div class="edit-post__cancel-button__text"> Отменить </div>
         </button>
-        <div class="edit-post__options-button">
+        <div class="edit-post__submit-button edit-post__options-button">
             {{> buttonDefault buttonData }}
         </div>
     </div>

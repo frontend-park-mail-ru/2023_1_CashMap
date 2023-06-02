@@ -8,6 +8,16 @@
     padding: 10px;
 }
 
+@media screen and (max-width: 760px) {
+    .smiles-keyboard {
+        top: -220px;
+        right: -80px;
+
+        width: 180px;
+        height: 200px;
+    }
+}
+
 .smiles {
     height: 80%;
     overflow-y: scroll;

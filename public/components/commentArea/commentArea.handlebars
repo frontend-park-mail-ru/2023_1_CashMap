@@ -15,21 +15,22 @@
     <div class="create-comment">
         <img class="create-comment__avatar profile-img-size avatar-form" src="{{#if user_avatar_url}}{{user_avatar_url}}{{else}}{{avatar_url}}{{/if}}">
 
-        <div class="foo__create-comment border-radius">
-            <textarea class="create-comment__input border-radius font-InterRegular font-size-14 font-color-gray-text background-color-feed border-none" placeholder="Написать комментарий">{{ curComment }}</textarea>
-            {{!-- <div class="chat__footer-icon">
-                <input class="cursor-pointer" type="image" src="static/img/post_icons/photo.svg">
-                <input class="cursor-pointer" type="image" src="static/img/post_icons/photo_hover_msg.svg">
-            </div>
 
-            <div class="chat__footer-icon comment-icon_smiles">
-                <input class="cursor-pointer" type="image" src="static/img/post_icons/smile.svg">
-                <input class="cursor-pointer" type="image" src="static/img/post_icons/smile_hover_msg.svg">
-            </div>
-            {{> smiles keyboardData}} --}}
+
+        <div class="depeche-multiline-input border-radius font-InterRegular font-size-14 font-color-gray-text background-color-feed border-none" placeholder="Написать комментарий" contenteditable="true" role="textbox" aria-multiline="true">{{ curComment }}</div>
+
+        {{!-- <div class="chat__footer-icon">
+            <input class="cursor-pointer" type="image" src="static/img/post_icons/photo.svg">
+            <input class="cursor-pointer" type="image" src="static/img/post_icons/photo_hover_msg.svg">
         </div>
 
-        <div class="chat__footer-icon create-comment__send-icon" style="grid-column: 4;">
+        <div class="chat__footer-icon comment-icon_smiles">
+            <input class="cursor-pointer" type="image" src="static/img/post_icons/smile.svg">
+            <input class="cursor-pointer" type="image" src="static/img/post_icons/smile_hover_msg.svg">
+        </div>
+        {{> smiles keyboardData}} --}}
+
+        <div class="chat__footer-icon create-comment__send-icon">
             <input class="cursor-pointer" type="image" src="static/img/post_icons/send.svg">
             <input class="cursor-pointer" type="image" src="static/img/post_icons/send_hover.svg">
         </div>

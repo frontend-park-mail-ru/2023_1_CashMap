@@ -24,6 +24,7 @@
             {{# if isMyPage}}
                 <button class="profileCard__button profileCard__button_grey" id="js-profile-settings-btn" data-id="{{ user_link }}">
                     <div class="profileCard__button-text"> Редактировать </div>
+                    <img class="profileCard__edit-icon" src="static/img/settings.svg">
                 </button>
             {{else}}
                 {{# if (eqs isMyFriend 'subscriber' 'friend')}}
@@ -39,6 +40,7 @@
                 {{/if}}
                 <button class="profileCard__button profileCard__button_grey" id="js-go-msg" data-id="{{ user_link }}">
                     <div class="profileCard__button-text" data-id="{{ user_link }}"> Написать сообщение </div>
+                    <img class="profileCard__edit-icon" src="static/img/nav_icons/messenger.svg">
                 </button>
             {{/if}}
         </div>

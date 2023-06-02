@@ -29,6 +29,7 @@
 }
 
 .groupItem__name {
+    word-break: break-word;
     color: var(--font-color-nav);
     text-overflow: ellipsis;
     font-weight: bolder;
@@ -37,6 +38,7 @@
 }
 
 .groupItem__text {
+    word-break: break-word;
     color: var(--font-color-gray-text);
     font-size: var(--font-size-15);
     font-family: InterMedium;

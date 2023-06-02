@@ -1,16 +1,18 @@
-<div class="messages" id="messages">
+<div class="messages background-color-feed" id="messages">
     {{> sideBar sideBarData}}
-    {{> header headerData}}
-    <!--<div class="messages__search">
+    <div class="main-column">
+        {{> header headerData}}
+        <!--<div class="messages__search">
         {{> search}}
     </div>-->
-    <div class="messages__nav-list">
-      {{#if messagesData}}
-        {{#each messagesData}}
-          {{> message this}}
-        {{/each}}
-      {{else}}
-        {{> friendNotFound textInfo}}
-      {{/if}}
+        <div class="messages__nav-list">
+            {{#if messagesData}}
+                {{#each messagesData}}
+                    {{> message this}}
+                {{/each}}
+            {{else}}
+                {{> friendNotFound textInfo}}
+            {{/if}}
+        </div>
     </div>
 </div>

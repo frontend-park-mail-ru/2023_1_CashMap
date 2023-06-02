@@ -40,6 +40,7 @@
     color: var(--font-color-post-sender);
     text-overflow: ellipsis;
     font-weight: bolder;
+    word-break: break-word;
     font-family: MailSansRoman;
     font-size: var(--font-size-16);
 }

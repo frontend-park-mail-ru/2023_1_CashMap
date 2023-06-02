@@ -100,6 +100,8 @@
 
     --main-margin: 20px;
 
+    --sidebar-margin: 8px;
+
     --font-size-10: 10px;
     --font-size-12: 12px;
     --font-size-13: 13px;
@@ -156,6 +158,20 @@
     --side-bar-width: 427px;
     --side-bar-height: 100%;
 }
+
+[contenteditable][placeholder]:empty:before {
+    display: block;
+    content: attr(placeholder);
+    position: absolute;
+    color: gray;
+    background-color: transparent;
+
+    overflow: auto;
+
+    width: max-content;
+}
+
+
 
 .font-Limelight {
     font-family: Limelight, sans-serif;

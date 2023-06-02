@@ -30,6 +30,7 @@
             {{#if isAdmin}}
                 <button class="profileCard__button profileCard__button_grey"data-id="{{ group_link }}" id="js-group-settings-btn">
                     <div class="profileCard__button-text"> Управление </div>
+                    <img class="profileCard__edit-icon" src="../../static/img/settings.svg">
                 </button>
                 <!--<button class="profileCard__button profileCard__button_grey"data-id="{{ group_link }}" id="js-group-settings-btn">
                     <div class="profileCard__button-text"> Заявки </div>
@@ -38,10 +39,12 @@
                 {{#if isSub}}
                     <button class="profileCard__button profileCard__button_grey" id="js-group-unsub-btn" data-id="{{ group_link }}">
                         <div class="profileCard__button-text"> Отписаться </div>
+                        <img class="profileCard__edit-icon" src="../../static/img/exit.svg">
                     </button>
                 {{else}}
                     <button class="groupCard__button" id="js-group-sub-btn" data-id="{{ group_link }}">
                         <div class="profileCard__button-text"> Подписаться </div>
+                      <img class="profileCard__edit-icon" src="../../static/img/join_group_white.svg">
                     </button>
                 {{/if}}
             {{/if}}

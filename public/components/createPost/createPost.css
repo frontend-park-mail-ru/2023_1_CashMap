@@ -1,13 +1,35 @@
 .create-post {
     display: grid;
     height: 59px;
-    grid-template-columns: 4px 35px 1fr auto auto 4px;
+    grid-template-areas: ". profile-icon input attachments stickers .";
+    grid-template-columns: 4px 35px minmax(0, 1fr) auto auto 4px;
+    grid-template-rows: 1fr;
     grid-column-gap: 16px;
+
+    width: 100%;
 }
 .create-post__profile {
-    grid-column: 2;
+    grid-area: profile-icon;
 }
 .create-post__input {
-    grid-column: 3;
+    grid-area: input;
     outline:none;
+
+    width: 100%;
+    min-width: 50px;
+}
+
+.create-post__attachments {
+    grid-area: attachments;
+}
+
+.create-post__stickers {
+    grid-area: stickers;
+}
+
+
+@media screen and (max-width: 760px) {
+    .create-post {
+        /*grid-column-gap: 5%;*/
+    }
 }

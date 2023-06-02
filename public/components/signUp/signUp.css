@@ -3,9 +3,27 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
-.left-path {
+.left-path-sign-up {
     grid-column: 1;
 }
-.right-path {
+.right-path-sign-up {
     grid-column: 2;
+}
+
+@media screen and (max-width: 560px) {
+    .left-path-sign-up {
+        display: none;
+    }
+
+    .right-path-sign-up {
+        grid-column: 1;
+    }
+
+    .sign-up {
+        grid-template-columns: 1fr;
+    }
+
+    .sign-up-path {
+        grid-template-rows: 10% 1fr 5% !important;
+    }
 }

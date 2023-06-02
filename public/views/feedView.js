@@ -48,7 +48,7 @@ export default class FeedView extends BaseView {
 		this._commentsButtons = document.getElementsByClassName("post-buttons-comment");
 		this._commentsAreas = document.getElementsByClassName("comments-area");
 		this._sendCommentButtons = document.getElementsByClassName('create-comment__send-icon');
-		this._commentInput = document.getElementsByClassName('create-comment__input');
+		this._commentInput = document.getElementsByClassName('depeche-multiline-input');
 
 		this._commentDeleteButton = document.getElementsByClassName("comment-operations__delete");
 		this._editPostError = document.getElementById("js-edit-post-error");
@@ -144,8 +144,8 @@ export default class FeedView extends BaseView {
 
 		for (let i = 0; i < this._sendCommentButtons.length; ++i) {
 			this._sendCommentButtons[i].addEventListener('click', () => {
-				if (this._commentInput[i].value.trim() !== '') {
-					actionPost.createComment(postsStore.posts[i].id, this._commentInput[i].value.trim(), null);
+				if (this._commentInput[i].textContent.trim() !== '') {
+					actionPost.createComment(postsStore.posts[i].id, this._commentInput[i].textContent.trim(), null);
 				}
 			})
 
@@ -153,11 +153,14 @@ export default class FeedView extends BaseView {
 
 		for (let i = 0; i < this._commentInput.length; ++i) {
 			this._commentInput[i].addEventListener('keyup', (event) => {
-				if (this._commentInput[i].value.trim() !== '' && event.code === 'Enter' && document.activeElement === this._commentInput[i]) {
-					actionPost.createComment(postsStore.posts[i].id, this._commentInput[i].value.trim(), null);
+				if (this._commentInput[i].textContent.trim() !== '' && event.code === 'Enter' && !event.shiftKey && document.activeElement === this._commentInput[i]) {
+					console.log(this._commentInput[i].textContent)
+					event.preventDefault();
+					actionPost.createComment(postsStore.posts[i].id, this._commentInput[i].textContent.trim(), null);
 				}
 			})
 		}
+
 
 		for (let i = 0; i < this._commentDeleteButton.length; ++i) {
 			this._commentDeleteButton[i].addEventListener('click', () => {
@@ -204,8 +207,8 @@ export default class FeedView extends BaseView {
 
 		for (let i = 0; i < this._commentEditSaveButton.length; ++i) {
 			this._commentEditSaveButton[i].addEventListener('click', () => {
-				let newCommentText = this._commentEditInput[i].value.trim();
-				if (this._commentEditInput[i].value.trim() !== '') {
+				let newCommentText = this._commentEditInput[i].textContent.trim();
+				if (this._commentEditInput[i].textContent.trim() !== '') {
 					let commentID = Number(this._commentEditSaveButton[i].getAttribute('data-comment-id'));
 					actionPost.editComment(commentID, newCommentText);
 
