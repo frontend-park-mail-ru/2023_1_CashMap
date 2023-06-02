@@ -6,6 +6,8 @@ import {actionUser} from "../actions/actionUser.js";
 import {actionImg} from "../actions/actionImg.js";
 import BaseView from "./baseView.js";
 import {actionMessage} from "../actions/actionMessage";
+import Notifies from "../modules/notifies";
+import messagesStore from "../stores/messagesStore";
 
 export default class SettingsView extends BaseView {
 	constructor() {
@@ -26,6 +28,7 @@ export default class SettingsView extends BaseView {
 	}
 
 	addStore() {
+		messagesStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
@@ -155,7 +158,7 @@ export default class SettingsView extends BaseView {
 	}
 
 	showPage() {
-		actionUser.getProfile(() => { actionMessage.notifiesCount(); });
+		actionUser.getProfile(() => { Notifies.getNotifiesCount(true); });
 	}
 
 	_preRender() {

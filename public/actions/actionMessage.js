@@ -22,9 +22,10 @@ export const actionMessage = {
      * @param {*} count - количество возвращаемых сообщений
      * @param {*} lastPostDate - дата, после которой получаются сообщения
      */
-    getChatsMsg(chatId, count, lastPostDate, isScroll=false) {
+    getChatsMsg(callback, chatId, count, lastPostDate, isScroll=false) {
         Dispatcher.dispatch({
             actionName: 'getChatsMsg',
+            callback,
             chatId,
             count,
             lastPostDate,

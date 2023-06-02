@@ -17,6 +17,8 @@ import searchStore from "../stores/dropdownSearchStore.js";
 import friendsStore from "../stores/friendsStore.js";
 import {actionFriends} from "../actions/actionFriends.js";
 import {actionMessage} from "../actions/actionMessage";
+import Notifies from "../modules/notifies";
+import messagesStore from "../stores/messagesStore";
 
 export default class GroupsView extends BaseView {
 	constructor() {
@@ -30,6 +32,7 @@ export default class GroupsView extends BaseView {
 	 * @private метод, отправляющий callback, которые вызываются при изменении определенных Store.
 	 */
 	addStore() {
+		messagesStore.registerCallback(this.updatePage.bind(this));
 		groupsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 		searchStore.registerCallback(this.updateSearchList.bind(this))
@@ -255,7 +258,7 @@ export default class GroupsView extends BaseView {
 
 	showPage() {
 		actionUser.getProfile(() => {
-			actionMessage.notifiesCount();
+			Notifies.getNotifiesCount(true);
 			actionGroups.getGroups(15, 0);
 			actionGroups.getmanageGroups(15, 0);
 			actionGroups.getNotGroups(15, 0);

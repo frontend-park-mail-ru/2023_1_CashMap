@@ -10,6 +10,8 @@ import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
 import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
+import Notifies from "../modules/notifies";
+import messagesStore from "../stores/messagesStore";
 
 export default class ProfileView extends BaseView {
 	constructor() {
@@ -28,6 +30,7 @@ export default class ProfileView extends BaseView {
 	}
 
 	addStore() {
+		messagesStore.registerCallback(this.updatePage.bind(this));
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 		friendsStore.registerCallback(this.updatePage.bind(this));
@@ -152,12 +155,12 @@ export default class ProfileView extends BaseView {
 					if (localStorage.getItem('chatFriendId')) {
 						localStorage.setItem('chatId', localStorage.getItem('chatFriendId'));
 						Router.go('/chat', false);
-						actionMessage.getChatsMsg(localStorage.getItem('chatId'), 15);
+						actionMessage.getChatsMsg(null, localStorage.getItem('chatId'), 15);
 					} else {
 						actionMessage.chatCreate(userId, () => {
 							if (localStorage.getItem('chatId')) {
 								Router.go('/chat', false);
-								actionMessage.getChatsMsg(localStorage.getItem('chatId'), 15);
+								actionMessage.getChatsMsg(null, localStorage.getItem('chatId'), 15);
 							}
 						});
 					}
@@ -506,9 +509,9 @@ export default class ProfileView extends BaseView {
 	showPage(search) {
 		if (search.link) {
 			this._userLink = search.link;
-			actionUser.getProfile(() => { actionPost.getPostsByUser(this._userLink, this._postsBatchSize); actionMessage.notifiesCount(); }, this._userLink);
+			actionUser.getProfile(() => { actionPost.getPostsByUser(this._userLink, this._postsBatchSize); Notifies.getNotifiesCount(true); }, this._userLink);
 		} else {
-			actionUser.getProfile(() => { this._userLink = userStore.user.user_link; Router.go('/user?link=' + userStore.user.user_link, true); actionMessage.notifiesCount(); });
+			actionUser.getProfile(() => { this._userLink = userStore.user.user_link; Router.go('/user?link=' + userStore.user.user_link, true); Notifies.getNotifiesCount(true); });
 		}
 
 		actionUser.getProfile();

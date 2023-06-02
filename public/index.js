@@ -17,7 +17,7 @@ import imgStore from "./stores/imgStore.js"; /* НЕ УДАЛЯТЬ!!! */
 
 import './index.css';
 
-/*if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
             .then(registration => {
@@ -27,7 +27,7 @@ import './index.css';
                 console.log('Service Worker registration failed:', error);
             });
     });
-}*/
+}
 
 const Views = {
     FeedView: new FeedView(),

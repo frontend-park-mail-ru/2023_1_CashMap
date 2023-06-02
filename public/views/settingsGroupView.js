@@ -9,6 +9,8 @@ import Validation from "../modules/validation.js";
 import { actionUser } from "../actions/actionUser.js";
 import router from "../modules/router.js";
 import {actionMessage} from "../actions/actionMessage";
+import Notifies from "../modules/notifies";
+import messagesStore from "../stores/messagesStore";
 
 export default class GroupView extends BaseView {
 	constructor() {
@@ -28,6 +30,7 @@ export default class GroupView extends BaseView {
 	 * @private метод, отправляющий callback, которые вызываются при изменении определенных Store.
 	 */
 	addStore() {
+		messagesStore.registerCallback(this.updatePage.bind(this));
 		groupsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
@@ -171,7 +174,7 @@ export default class GroupView extends BaseView {
 						Router.goBack();
 					}
 				}, this._groupLink);
-				actionMessage.notifiesCount();
+				Notifies.getNotifiesCount(true);
 			});
 		}
 	}

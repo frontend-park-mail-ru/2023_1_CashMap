@@ -4,6 +4,7 @@ import userStore from "../stores/userStore.js";
 import Ajax from "./ajax.js";
 import Router from "./router.js";
 import {actionMessage} from "../actions/actionMessage";
+import Notifies from "./notifies";
 
 /**
  * класс для работы с web сокетами
@@ -38,18 +39,21 @@ class WebSock {
 
         this._socket.onmessage = function(event) {
             const response = JSON.parse(event.data);
-            response.creation_date = new Date(response.creation_date).toLocaleDateString();
-            if (!response.sender_info.avatar_url) {
-                response.sender_info.avatar_url = headerConst.avatarDefault;
-            } else {
-                response.sender_info.avatar_url = Ajax.imgUrlConvert(response.sender_info.avatar_url);
-            }
-
-            if (response.sticker) {
-                response.sticker.url = Ajax.stickerUrlConvert(response.sticker.url);
-            }
 
             if (localStorage.getItem('chatId') === String(response.chat_id) && (Router.currentPage._jsId === 'chat')) {
+                actionMessage.msgRead(localStorage.getItem('chatId'), response.creation_date);
+
+                response.creation_date = new Date(response.creation_date).toLocaleDateString();
+                if (!response.sender_info.avatar_url) {
+                    response.sender_info.avatar_url = headerConst.avatarDefault;
+                } else {
+                    response.sender_info.avatar_url = Ajax.imgUrlConvert(response.sender_info.avatar_url);
+                }
+
+                if (response.sticker) {
+                    response.sticker.url = Ajax.stickerUrlConvert(response.sticker.url);
+                }
+
                 if (response.attachments) {
                     for (let i = 0; i < response.attachments.length; i++) {
                         const url = response.attachments[i];
@@ -67,20 +71,13 @@ class WebSock {
                 if (document.getElementById('js-msg-input')) {
                     localStorage.setItem('curMsg', document.getElementById('js-msg-input').value);
                 }
+
                 messagesStore._refreshStore();
             } else {
-                //let audio = new Audio('static/img/msg_fly.mp3');
-                //audio.play();
+                let audio = new Audio('static/img/msg_fly.mp3');
+                audio.play();
 
-                const notifiesCount = document.getElementById('js-msg-notifies');
-
-                actionMessage.notifiesCount((count) => {
-                    if (count) {
-                        notifiesCount.textContent = count;
-                    } else {
-                        notifiesCount.textContent = '';
-                    }
-                });
+                Notifies.getNotifiesCount();
             }
         };
 

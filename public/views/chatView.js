@@ -10,6 +10,7 @@ import postsStore from "../stores/postsStore.js";
 import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
 import stickerStore from "../stores/stickerStore.js";
+import Notifies from "../modules/notifies.js";
 
 export default class ChatView extends BaseView {
 	constructor() {
@@ -104,7 +105,7 @@ export default class ChatView extends BaseView {
 
 		this._msgList.addEventListener('scroll', () => {
 			if (this._msgList.scrollTop <= 0 && !this.watingForNewPosts && messagesStore.hasNextMessages) {
-				actionMessage.getChatsMsg(localStorage.getItem('chatId'), this._messageBatchSize, messagesStore.messages.at(0).raw_creation_date, true);
+				actionMessage.getChatsMsg(null, localStorage.getItem('chatId'), this._messageBatchSize, messagesStore.messages.at(0).raw_creation_date, true);
 				this.watingForNewPosts = true;
 			}
 		});
@@ -264,9 +265,9 @@ export default class ChatView extends BaseView {
 		postsStore.attachments = [];
 		if (chatId) {
 			actionUser.getProfile(() => {
-				actionMessage.getChatsMsg(chatId, this._messageBatchSize);
+				actionMessage.getChatsMsg(() => { actionMessage.msgRead(localStorage.getItem('chatId'), messagesStore.messages.slice(-1)[0].creation_date_read); }, chatId, this._messageBatchSize);
 				actionMessage.getChats(15);
-				actionMessage.notifiesCount();
+				Notifies.getNotifiesCount(true);
 			});
 			actionSticker.getStickerPacksByAuthor(15, 0);
 		} else {
@@ -276,11 +277,6 @@ export default class ChatView extends BaseView {
 
 	_preRender() {
 		this.watingForNewPosts = false;
-
-		if (messagesStore.messages.length) {
-			console.log(messagesStore.messages.length)
-			actionMessage.msgRead(localStorage.getItem('chatId'), messagesStore.messages.slice(-1)[0].creation_date_read);
-		}
 
 		let curChat = null;
 		messagesStore.chats.forEach((chat) => {

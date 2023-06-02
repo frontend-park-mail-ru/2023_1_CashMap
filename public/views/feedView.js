@@ -7,7 +7,8 @@ import BaseView from "./baseView.js";
 import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
 import Router from "../modules/router.js";
-import {actionMessage} from "../actions/actionMessage";
+import Notifies from "../modules/notifies.js";
+import messagesStore from "../stores/messagesStore";
 
 
 export default class FeedView extends BaseView {
@@ -26,6 +27,7 @@ export default class FeedView extends BaseView {
 	}
 
 	addStore() {
+		messagesStore.registerCallback(this.updatePage.bind(this));
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
@@ -440,7 +442,7 @@ export default class FeedView extends BaseView {
 
 
 	showPage() {
-		actionUser.getProfile(() => { actionPost.getFeedPosts(this._postBatchSize); actionMessage.notifiesCount(); });
+		actionUser.getProfile(() => { actionPost.getFeedPosts(this._postBatchSize); Notifies.getNotifiesCount(true); });
 	}
 
 	_preRender() {
@@ -452,7 +454,6 @@ export default class FeedView extends BaseView {
 			postsStore.posts[i].comments = postsStore.comments.get(postsStore.posts[i].id);
 			postsStore.posts[i].has_next = postsStore.haveCommentsContinuation.get(postsStore.posts[i].id);
 		}
-
 
 		let header = headerConst;
 		header['avatar_url'] = userStore.user.avatar_url;

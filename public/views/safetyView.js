@@ -5,6 +5,8 @@ import {sideBarConst, headerConst, safetyConst, activeColor} from "../static/htm
 import {actionUser} from "../actions/actionUser.js";
 import BaseView from "./baseView.js";
 import {actionMessage} from "../actions/actionMessage";
+import Notifies from "../modules/notifies";
+import messagesStore from "../stores/messagesStore";
 
 export default class SafetyView extends BaseView {
 	constructor() {
@@ -18,6 +20,7 @@ export default class SafetyView extends BaseView {
 		this._validatePasswordNew = false;
         this._validatePasswordRepeat = true;
 
+		messagesStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 	}
 
@@ -130,7 +133,7 @@ export default class SafetyView extends BaseView {
 	}
 
 	showPage() {
-		actionUser.getProfile(() => { actionMessage.notifiesCount(); });
+		actionUser.getProfile(() => { Notifies.getNotifiesCount(true); });
 	}
 
 	_preRender() {
