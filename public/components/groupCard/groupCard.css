@@ -9,6 +9,14 @@
     border-radius: 12px 12px 0px 0px;
 }
 
+.groupCard__body {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    grid-template-rows: 1fr 32px;
+    width: 100%;
+    column-gap: 23px;
+}
+
 .profiteCard__info-check {
     display: flex;
     align-items: center;
@@ -52,4 +60,10 @@
 
 .groupCard__button:hover {
     background-color: var(--font-color-comment-sender);
+}
+
+.groupCard__option {
+    display: flex;
+    grid-column: 3;
+    grid-row: 2;
 }

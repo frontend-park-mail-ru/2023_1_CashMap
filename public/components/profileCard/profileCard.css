@@ -26,7 +26,6 @@
 }
 
 .profileCard__button {
-    display: flex; 
     border: none;
     border-radius: 8px;
     padding: 8px 10px;
@@ -37,6 +36,14 @@
     font-size: var(--font-size-15);
     white-space: nowrap;
     cursor: pointer;
+    max-height: 100%;
+    height: auto;
+}
+
+.profileCard__option {
+    display: flex;
+    grid-column: 3;
+    grid-row: 2;
 }
 
 .profileCard__button_grey {
@@ -53,15 +60,16 @@
 }
 
 .profileCard__body {
-    display: flex;
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    grid-template-rows: 1fr 32px;
     width: 100%;
-    justify-content: space-between;
-    align-items: flex-end;
-
+    column-gap: 23px;
 }
 
 .profileCard__inf {
     margin-top: -8px;
+    grid-row: 1/3;
 }
 
 .profileCard__info {
@@ -86,13 +94,13 @@
 }
 
 .profileCard__info-data {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
     gap: 8px;
+    grid-row: 1/3;
     margin-top: 16px;
     max-width: 400px;
-    grid-column: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .profileCard__info-text {
@@ -103,6 +111,8 @@
     color: var(--font-color-post-sender);
     font-family: Montserrat;
     font-size: var(--font-size-23);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .profileCard__info-text_little {

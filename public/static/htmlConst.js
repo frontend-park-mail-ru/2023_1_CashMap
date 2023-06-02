@@ -7,7 +7,7 @@ export const maxBirthday = '2017-01-01';
 
 export const groupAvatarDefault = 'static/img/post_icons/group_image.svg';
 
-export const optionsAvatar = ['.png', '.jpeg', '.jpg', '.gif'];
+export const optionsAvatar = ['.png', '.jpeg', '.jpg', '.gif', '.webp'];
 
 export const sideBarConst = {
     logoImgPath: 'static/img/logo.svg',
@@ -313,5 +313,6 @@ export const emotionKeyboard = {
     {text: '🙉'},
     {text: '🙊'},
     {text: '🦠'},
+    {text: '❤️'},
   ]
 }

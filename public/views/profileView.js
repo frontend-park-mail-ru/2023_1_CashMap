@@ -73,6 +73,7 @@ export default class ProfileView extends BaseView {
 		this._commentInput = document.getElementsByClassName('create-comment__input');
 
 		this._commentDeleteButton = document.getElementsByClassName("comment-operations__delete");
+		this._editPostError = document.getElementById("js-edit-post-error");
 
 		this._commentEditButton = document.getElementsByClassName("comment-operations__update");
 		this._commentEditSaveButton = document.getElementsByClassName("submit-comment-edit-button");
@@ -371,9 +372,20 @@ export default class ProfileView extends BaseView {
 
 		if (this._createBtn) {
 			this._createBtn.addEventListener('click', () => {
-				actionPost.createPostUser(userStore.user.user_link, userStore.userProfile.user_link, true, this._text.value);
-				this.isCreate = false;
+				if (this._text.value === '' && postsStore.attachments.length === 0) {
+					this._editPostError.textContent = 'Запись не может быть пустой';
+				} else {
+					this._editPostError.textContent = '';
+					actionPost.createPostUser(userStore.user.user_link, userStore.userProfile.user_link, true, this._text.value);
+					this.isCreate = false;
+				}
 			});
+		}
+
+		if (this._text) {
+			this._text.addEventListener('input', () => {
+				this._editPostError.textContent = '';
+			})
 		}
 
 		if (this._backBtn) {
@@ -478,6 +490,7 @@ export default class ProfileView extends BaseView {
 			this._smiles[i].addEventListener('click', () => {
 				const smile = this._smiles[i].innerText || this._smiles[i].textContent;
 				this._text.value += smile;
+				this._editPostError.textContent = '';
 				this._text.focus();
       });
     }
@@ -538,6 +551,15 @@ export default class ProfileView extends BaseView {
 			},
 		}
 		postsStore.text = '';
+
+		const avg_color = this._context.profileData.avg_avatar_color;
+		if (avg_color) {
+			const avg_colors = avg_color.split(' ');
+			if (avg_colors.length == 2) {
+				this._context.profileData.avg_color1 = avg_colors[0];
+				this._context.profileData.avg_color2 = avg_colors[1];
+			}
+		}
 
 		this._context.profileData.isMyFriend = friendsStore.isMyFriend;
 
