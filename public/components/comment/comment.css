@@ -43,6 +43,8 @@
 
 .comment-edit-title {
     grid-area: editing-comment-title;
+    width: max-content;
+    margin-left: auto;
 
 }
 
