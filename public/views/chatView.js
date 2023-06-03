@@ -280,7 +280,7 @@ export default class ChatView extends BaseView {
 		postsStore.attachments = [];
 		if (chatId) {
 			actionUser.getProfile(() => {
-				actionMessage.getChatsMsg(() => { actionMessage.msgRead(localStorage.getItem('chatId'), messagesStore.messages.slice(-1)[0].creation_date_read); }, chatId, this._messageBatchSize);
+				actionMessage.getChatsMsg(() => { actionMessage.msgRead(localStorage.getItem('chatId'), messagesStore.messages.slice(0)[0].creation_date_read); }, chatId, this._messageBatchSize);
 				actionMessage.getChats(15);
 				Notifies.getNotifiesCount(true);
 			});

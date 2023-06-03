@@ -7,7 +7,7 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.beckendStatus = 'local';
+        // this.beckendStatus = 'local';
         this.beckendStatus = 'global';
 
         if (this.beckendStatus === 'global') {
