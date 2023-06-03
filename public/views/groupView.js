@@ -14,6 +14,7 @@ import searchStore from "../stores/dropdownSearchStore.js";
 import {actionMessage} from "../actions/actionMessage";
 import Notifies from "../modules/notifies";
 import messagesStore from "../stores/messagesStore";
+import imgStore from "../stores/imgStore";
 
 export default class GroupView extends BaseView {
 	constructor() {
@@ -37,6 +38,7 @@ export default class GroupView extends BaseView {
 		groupsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 		postsStore.registerCallback(this.updatePage.bind(this));
+		imgStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -324,6 +326,8 @@ export default class GroupView extends BaseView {
 			this._editPosts[i].addEventListener('click', () => {
 				this.isEdit = this._editPosts[i].getAttribute("data-id");
 				this.isCreate = false;
+				imgStore.editError = '';
+				this._editPostError = '';
 				actionPost.getPostsById(this.isEdit, 1);
 			});
 		}
@@ -332,6 +336,8 @@ export default class GroupView extends BaseView {
 			this._createPosts.addEventListener('click', () => {
 				this.isCreate = true;
 				this.isEdit = false;
+				imgStore.editError = '';
+				this._editPostError = '';
 				super.render();
 				this._text.focus();
 			});
@@ -380,6 +386,7 @@ export default class GroupView extends BaseView {
 			this._backBtn.addEventListener('click', () => {
 				this.isCreate = this.isEdit = false;
 				postsStore.attachments = [];
+				imgStore.editError = '';
 				super.render();
 			});
 		}
@@ -512,7 +519,7 @@ export default class GroupView extends BaseView {
 					avatar_url: groupsStore.curGroup.avatar_url,
 					user_avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
-					create: { avatar_url: groupsStore.curGroup.avatar_url, attachments: postsStore.attachments , text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, keyboardData: {smiles: emotionKeyboard},}
+					create: { avatar_url: groupsStore.curGroup.avatar_url, attachments: postsStore.attachments , text: postsStore.text, myError: imgStore.editError, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, keyboardData: {smiles: emotionKeyboard},}
 				},
 				postList: postsStore.posts},
 		}

@@ -9,6 +9,7 @@ import Ajax from "../modules/ajax.js";
 import Router from "../modules/router.js";
 import Notifies from "../modules/notifies.js";
 import messagesStore from "../stores/messagesStore";
+import imgStore from "../stores/imgStore";
 
 
 export default class FeedView extends BaseView {
@@ -30,6 +31,7 @@ export default class FeedView extends BaseView {
 		messagesStore.registerCallback(this.updatePage.bind(this));
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
+		imgStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -289,6 +291,8 @@ export default class FeedView extends BaseView {
 			this._editPosts[i].addEventListener('click', () => {
 				this.isEdit = this._editPosts[i].getAttribute("data-id");
 				this.isCreate = false;
+				imgStore.editError = '';
+				this._editPostError = '';
 				actionPost.getPostsById(this.isEdit, 1);
 			});
 		}
@@ -297,6 +301,8 @@ export default class FeedView extends BaseView {
 			this._createPosts.addEventListener('click', () => {
 				this.isCreate = true;
 				this.isEdit = false;
+				imgStore.editError = '';
+				this._editPostError = '';
 				super.render();
 				this._text.focus();
 			});
@@ -345,6 +351,7 @@ export default class FeedView extends BaseView {
 			this._backBtn.addEventListener('click', () => {
 				this.isCreate = this.isEdit = false;
 				postsStore.attachments = [];
+				imgStore.editError = '';
 				super.render();
 			});
 		}
@@ -468,7 +475,7 @@ export default class FeedView extends BaseView {
 					isEdit: this.isEdit,
 					avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
-					create: { avatar_url: userStore.user.avatar_url, attachments: postsStore.attachments, text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, keyboardData: {smiles: emotionKeyboard},}
+					create: { avatar_url: userStore.user.avatar_url, attachments: postsStore.attachments, text: postsStore.text, myError: imgStore.editError, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, keyboardData: {smiles: emotionKeyboard},}
 				},
 				postList: postsStore.posts
 			},

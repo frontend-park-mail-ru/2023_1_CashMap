@@ -12,6 +12,7 @@ import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
 import Notifies from "../modules/notifies";
 import messagesStore from "../stores/messagesStore";
+import imgStore from "../stores/imgStore";
 
 export default class ProfileView extends BaseView {
 	constructor() {
@@ -34,6 +35,7 @@ export default class ProfileView extends BaseView {
 		postsStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 		friendsStore.registerCallback(this.updatePage.bind(this));
+		imgStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -335,6 +337,8 @@ export default class ProfileView extends BaseView {
 				postsStore.attachments = [];
 				postsStore.addAttachments = [];
 				postsStore.deleteAttachments = [];
+				imgStore.editError = '';
+				this._editPostError = '';
 				actionPost.getPostsById(this.isEdit, 1);
 			});
 		}
@@ -347,6 +351,8 @@ export default class ProfileView extends BaseView {
 				postsStore.attachments = [];
 				postsStore.addAttachments = [];
 				postsStore.deleteAttachments = [];
+				imgStore.editError = '';
+				this._editPostError = '';
 				super.render();
 				this._text.focus();
 			}, true);
@@ -397,6 +403,7 @@ export default class ProfileView extends BaseView {
 				postsStore.attachments = [];
 				postsStore.addAttachments = [];
 				postsStore.deleteAttachments = [];
+				imgStore.editError = '';
 				super.render();
 			});
 		}
@@ -548,7 +555,7 @@ export default class ProfileView extends BaseView {
 					isEdit: this.isEdit,
 					avatar_url: userStore.user.avatar_url,
 					jsId: 'js-create-post',
-					create: { avatar_url: userStore.user.avatar_url, attachments: postsStore.attachments ,text: postsStore.text, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, keyboardData: {smiles: emotionKeyboard}}
+					create: { avatar_url: userStore.user.avatar_url, attachments: postsStore.attachments ,text: postsStore.text, myError: imgStore.editError, buttonData: { text: 'Опубликовать', jsId: 'js-create-post-btn' }, keyboardData: {smiles: emotionKeyboard}}
 				},
 				postList: postsStore.posts
 			},

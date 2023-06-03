@@ -5,6 +5,8 @@ class imgStore {
     constructor() {
         this._callbacks = [];
 
+        this.editError = '';
+
         Dispatcher.register(this._fromDispatch.bind(this));
     }
 
@@ -31,12 +33,16 @@ class imgStore {
     }
 
     async _uploadImg(data, callback, filename) {
+        this.editError = '';
         const request = await Ajax.uploadImg(data, filename);
         const response = await request.json();
 
         if (request.status === 200) {
             const newUrl = `static-service/download?name=${ response.body.form[0].name }&type=${ response.body.form[0].type }`;
             callback(newUrl);
+        } else if (request.status === 413) {
+            this.editError = 'Файл слишком большой';
+            this._refreshStore();
         } else {
             alert('uploadImg error');
         }

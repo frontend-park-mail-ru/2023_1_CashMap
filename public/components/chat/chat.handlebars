@@ -46,6 +46,8 @@
         </div>
     </div>
 
+    <div class="edit-post__error font-InterRegular font-size-12 font-color-error" id="js-msg-error"> {{ myError }} </div>
+
     <div class="msg-media-create" id="js-post-media">
         {{#each attachments}}
             {{#if (eq type 'img')}}

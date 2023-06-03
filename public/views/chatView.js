@@ -11,6 +11,7 @@ import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
 import stickerStore from "../stores/stickerStore.js";
 import Notifies from "../modules/notifies.js";
+import imgStore from "../stores/imgStore";
 
 export default class ChatView extends BaseView {
 	constructor() {
@@ -28,6 +29,7 @@ export default class ChatView extends BaseView {
 		messagesStore.registerCallback(this.updatePage.bind(this));
 		userStore.registerCallback(this.updatePage.bind(this));
 		postsStore.registerCallback(this.updatePage.bind(this));
+		imgStore.registerCallback(this.updatePage.bind(this));
 	}
 
 	addPagesElements() {
@@ -51,6 +53,7 @@ export default class ChatView extends BaseView {
 		this._emotionKeyboard = document.getElementById('js-smiles-keyboard');
     
 		this._install = document.getElementsByClassName('js-file-i');
+		this._msgError = document.getElementById('js-msg-error');
 
 		this._smilesImg.style.display='none';
 		this._smilesImgActive.style.display='block';
@@ -80,6 +83,8 @@ export default class ChatView extends BaseView {
 
 		this._backBtn.addEventListener('click', () => {
 			postsStore.attachments = [];
+			imgStore.editError = '';
+			this._msgError.textContent = '';
 			Router.goBack();
 		})
 
@@ -112,6 +117,8 @@ export default class ChatView extends BaseView {
 		});
 
 		this._msg.addEventListener('input', (event) => {
+			imgStore.editError = '';
+			this._msgError.textContent = '';
 			if (event.target.value.length) {
 				this._sendMsg.classList.remove('display-none');
 				this._sendMsgBlock.classList.add('display-none');
@@ -183,6 +190,9 @@ export default class ChatView extends BaseView {
 					postsStore.attachments.splice(index, 1);
 				}
 
+				imgStore.editError = '';
+				this._msgError.textContent = '';
+
 				localStorage.setItem('curMsg', this._msg.value);
 				postsStore._refreshStore();
       });
@@ -200,6 +210,7 @@ export default class ChatView extends BaseView {
 				this._smilesImgActive.style.display='block';
 				this._stickersImg.style.display='block';
 				this._stickersImgActive.style.display='none';
+
 				this._msg.focus();
 			});
 		}
@@ -226,6 +237,9 @@ export default class ChatView extends BaseView {
 			} else {
 				this._emotionKeyboard.style.display = 'block';
 			}
+
+			imgStore.editError = '';
+			this._msgError.textContent = '';
 			this._msg.focus();
 		});
 
@@ -303,7 +317,7 @@ export default class ChatView extends BaseView {
 		this._context = {
 			sideBarData: sideBarConst,
 			headerData: header,
-			chatData: {messages: messagesStore.messages, attachments: postsStore.attachments, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg'), keyboardData: {smiles: emotionKeyboard, stickerpacks: {stickerpacks :stickerStore.stickerPacks}}},
+			chatData: {messages: messagesStore.messages, myError: imgStore.editError, attachments: postsStore.attachments, user: secondUser, chat: curChat, curMsg: localStorage.getItem('curMsg'), keyboardData: {smiles: emotionKeyboard, stickerpacks: {stickerpacks :stickerStore.stickerPacks}}},
 		}
 
 		document.title = 'Мессенджер';

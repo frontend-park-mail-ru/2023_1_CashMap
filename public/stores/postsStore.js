@@ -24,6 +24,7 @@ class postsStore {
         this.deleteAttachments = [];
         this.addAttachments = [];
         this.text = '';
+        this.editError = '';
 
         this.curPost = null;
 
