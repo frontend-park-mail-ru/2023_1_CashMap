@@ -53,7 +53,7 @@ export default class FeedView extends BaseView {
 		this._commentsButtons = document.getElementsByClassName("post-buttons-comment");
 		this._commentsAreas = document.getElementsByClassName("comments-area");
 		this._sendCommentButtons = document.getElementsByClassName('create-comment__send-icon');
-		this._commentInput = document.getElementsByClassName('depeche-multiline-input');
+		this._commentInput = document.getElementsByClassName('comment-input');
 
 		this._commentDeleteButton = document.getElementsByClassName("comment-operations__delete");
 		this._editPostError = document.getElementById("js-edit-post-error");
