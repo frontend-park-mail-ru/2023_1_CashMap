@@ -106,7 +106,7 @@ export default class ChatView extends BaseView {
 
 		this._msgList.addEventListener('scroll', () => {
 			if (this._msgList.scrollTop <= 0 && !this.watingForNewPosts && messagesStore.hasNextMessages) {
-				actionMessage.getChatsMsg(null, localStorage.getItem('chatId'), this._messageBatchSize, messagesStore.messages.at(0).raw_creation_date, true);
+				actionMessage.getChatsMsg(null, localStorage.getItem('chatId'), this._messageBatchSize, messagesStore.messages.at(-1).raw_creation_date, true);
 				this.watingForNewPosts = true;
 			}
 		});
