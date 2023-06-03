@@ -368,7 +368,7 @@ class Ajax {
 
     async getChatsMsg(chatId, count, lastPostDate) {
         if (lastPostDate) {
-            return this._request(this._apiUrl.getMsg + `?chat_id=${chatId}&batch_size=${count}&last_post_date=${lastPostDate}`, this._requestType.GET);
+            return this._request(this._apiUrl.getMsg + `?chat_id=${chatId}&batch_size=${count}&last_msg_date=${lastPostDate}`, this._requestType.GET);
         } else {
             return this._request(this._apiUrl.getMsg + `?chat_id=${chatId}&batch_size=${count}`, this._requestType.GET);
         }
