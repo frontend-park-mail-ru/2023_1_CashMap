@@ -33,7 +33,7 @@ class WebSock {
             throw new Error('Ошибка: браузер не поддерживает WebSocket');
         }
 
-        if (!this._socket && userStore.user.isAuth) {
+        if (!this._socket && userStore.user.isAuth && navigator.onLine) {
             this._socket = new WebSocket(this._url);
             //console.log('WebSocket opened');
         }

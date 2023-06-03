@@ -1,4 +1,4 @@
-const timeout = 400;
+const timeout = 500;
 const staticCacheName = 'static-cache-v10';
 const dynamicCacheName = 'dynamic-cache-v10';
 

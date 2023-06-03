@@ -8,6 +8,8 @@ import {searchDropdownConst} from "../static/htmlConst.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import dropdownFriendsSearchStore from "../stores/dropdownFriendsSearchStore.js";
 import {actionGroups} from "../actions/actionGroups.js";
+import friendsStore from "../stores/friendsStore";
+import {actionFriends} from "../actions/actionFriends";
 
 /**
  * Базовый класс View
@@ -201,7 +203,13 @@ export default class BaseView {
         });
 
         this._friendsItem.addEventListener('click', () => {
-            Router.go('/friends', false);
+            friendsStore._getFriends(userStore.user.user_link, 1).then(() => {
+                if (friendsStore.friends.length) {
+                    Router.go('/friends', false);
+                } else {
+                    Router.go('/find-friends', false);
+                }
+            });
         });
 
         this._searchArea.addEventListener('blur', (event) => {
