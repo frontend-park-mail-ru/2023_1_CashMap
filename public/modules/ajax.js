@@ -15,7 +15,7 @@ class Ajax {
 
         if (this.beckendStatus === 'global') {
             this.backendHostname = '176.118.165.63:2229';
-            this._backendUrl = 'https://' + this.backendHostname;
+            this._backendUrl = 'http://' + this.backendHostname;
         } else {
             this.backendHostname = '127.0.0.1';
             this.backendPort = '8080';
