@@ -11,14 +11,6 @@ class Metrics {
         const resourceEntries = window.performance.getEntriesByType("resource");
         const memoryInfo = window.performance.memory;
 
-        var performanceEntries = performance.getEntries();
-
-        var requests = performanceEntries.filter(function(entry) {
-            return entry.initiatorType === 'xmlhttprequest';
-        });
-
-        var requestCount = requests.length;
-
         const metricsList = [
             {name: 'Загружаемая страница', metricValue: url, metricValue2: Router.currentPage},
             /*{name: '', metricValue: ''},
@@ -28,7 +20,7 @@ class Metrics {
             {name: 'Время получения ответа', metricValue: perfNavigation.responseEnd - perfNavigation.responseStart  + " мс"},*/
             {name: '', metricValue: ''},
             {name: 'Всего запросов', metricValue: localStorage.getItem('reqCount')},
-            {name: 'Всего запросов', metricValue: requestCount},
+            {name: 'Всего запросов', metricValue: resourceEntries.length},
             {name: '', metricValue: ''},
             {name: 'Выделенная память', metricValue: (memoryInfo.usedJSHeapSize / (1024 * 1024)).toFixed(2) + 'МБ'},
             {name: '', metricValue: ''},
