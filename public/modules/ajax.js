@@ -10,7 +10,7 @@ class Ajax {
         //this.beckendStatus = 'local';
         this.beckendStatus = 'global';
 
-        this.SW = false;
+        this.SW = true;
         this.rollup = false;
 
         if (this.beckendStatus === 'global') {

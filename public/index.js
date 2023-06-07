@@ -16,7 +16,7 @@ import NotFoundView from "./views/notFoundView.js";
 import Ajax from "./modules/ajax.js";
 import imgStore from "./stores/imgStore.js"; /* НЕ УДАЛЯТЬ!!! */
 
-//import './index.css';
+import './index.css';
 
 localStorage.setItem('reqCount', '0');
 
