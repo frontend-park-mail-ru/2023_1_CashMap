@@ -22,13 +22,14 @@ class Metrics {
             {name: 'Время установки соединения', metricValue: perfNavigation.connectEnd - perfNavigation.connectStart  + " мс"},
             {name: 'Время отправки запроса', metricValue: perfNavigation.responseStart - perfNavigation.requestStart  + " мс"},
             {name: 'Время получения ответа', metricValue: perfNavigation.responseEnd - perfNavigation.responseStart  + " мс"},*/
-            {name: 'Всего запросов к api', metricValue: localStorage.getItem('reqCount')},
+            {name: 'Новых запросов к api', metricValue: Number(localStorage.getItem('reqCount'))},
+            {name: 'Новых запросов ресурсов', metricValue: resourceEntries.length},
             {name: 'Время подгрузки ресурсов страницы', metricValue: totalLoadTime  + " мс"},
-            {name: 'Новых запросов', metricValue: resourceEntries.length},
             {name: 'Выделенная память', metricValue: (memoryInfo.usedJSHeapSize / (1024 * 1024)).toFixed(2) + 'МБ'},
         ];
 
         window.performance.clearResourceTimings();
+        localStorage.setItem('reqCount', '0');
 
         console.log(metricsList);
         this.metrics.push(metricsList);
