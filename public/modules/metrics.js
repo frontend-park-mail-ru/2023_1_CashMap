@@ -8,8 +8,8 @@ class Metrics {
 
     addMetric(url) {
         const perfNavigation = window.performance.getEntriesByType("navigation")[0];
-        const resourceEntries = window.performance.getEntriesByType("resource");
         const fetchEntries = window.performance.getEntriesByType("fetch");
+        const resourceEntries = window.performance.getEntriesByType("resource");
         const memoryInfo = window.performance.memory;
 
         let totalLoadTime = 0;
@@ -24,10 +24,6 @@ class Metrics {
 
         const metricsList = [
             {name: 'Загружаемая страница', metricValue: url, metricValue2: Router.currentPage},
-            /*{name: 'Время загрузки страницы', metricValue: perfNavigation.loadEventEnd - perfNavigation.navigationStart  + " мс"},
-            {name: 'Время установки соединения', metricValue: perfNavigation.connectEnd - perfNavigation.connectStart  + " мс"},
-            {name: 'Время отправки запроса', metricValue: perfNavigation.responseStart - perfNavigation.requestStart  + " мс"},
-            {name: 'Время получения ответа', metricValue: perfNavigation.responseEnd - perfNavigation.responseStart  + " мс"},*/
             {name: 'Новых запросов к api', metricValue: fetchEntries.length, metricValue2: fetchEntries},
             {name: 'Время ожидания api запросов', metricValue: totalLoadTimeFetch + 'мс'},
             {name: 'Новых запросов ресурсов', metricValue: resourceEntries.length, metricValue2: resourceEntries },
@@ -37,6 +33,8 @@ class Metrics {
 
         window.performance.clearResourceTimings();
         localStorage.setItem('reqCount', '0');
+
+
 
         console.log(metricsList);
         this.metrics.push(metricsList);
