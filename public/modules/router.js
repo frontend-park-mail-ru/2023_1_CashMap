@@ -33,6 +33,7 @@ class Router {
         const url = this._getUrl(winUrl);
         const search = this._getSearch(winUrl);
         if (this.currentPage) {
+            Metrics.addMetric(url);
             this.currentPage.remove();
             this.currentPage.curPage = false;
         }
@@ -42,7 +43,6 @@ class Router {
         if (this._pages[url]) {
             this.currentPage = this._pages[url];
             this.currentPage.curPage = true;
-            Metrics.addMetric(url);
             this.currentPage.showPage(search);
 
             if (window.location.pathname + window.location.search !== winUrl) {
