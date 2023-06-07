@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import { sideBarConst, headerConst, settingsGroupConst, activeColor, settingsConst, optionsAvatar} from "../static/htmlConst.js";
+import { sideBarConst, headerConst, settingsGroupConst, activeColor, optionsAvatar} from "../static/htmlConst.js";
 import {actionGroups} from "../actions/actionGroups.js";
 import {actionImg} from "../actions/actionImg.js";
 import groupsStore from "../stores/groupsStore.js";
@@ -8,9 +8,8 @@ import BaseView from "./baseView.js";
 import Validation from "../modules/validation.js";
 import { actionUser } from "../actions/actionUser.js";
 import router from "../modules/router.js";
-import {actionMessage} from "../actions/actionMessage";
-import Notifies from "../modules/notifies";
-import messagesStore from "../stores/messagesStore";
+import Notifies from "../modules/notifies.js";
+import messagesStore from "../stores/messagesStore.js";
 
 export default class GroupView extends BaseView {
 	constructor() {

@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {sideBarConst, headerConst, maxTextStrings, maxTextLength, friendsMenuInfo, emotionKeyboard} from "../static/htmlConst.js";
+import {sideBarConst, headerConst, maxTextStrings, maxTextLength, emotionKeyboard} from "../static/htmlConst.js";
 import {actionPost} from "../actions/actionPost.js";
 import BaseView from "./baseView.js";
 import postsStore from "../stores/postsStore.js";
@@ -9,12 +9,9 @@ import groupsStore from "../stores/groupsStore.js";
 import { actionUser } from "../actions/actionUser.js";
 import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
-import {actionSearch} from "../actions/actionSearch.js";
-import searchStore from "../stores/dropdownSearchStore.js";
-import {actionMessage} from "../actions/actionMessage";
-import Notifies from "../modules/notifies";
-import messagesStore from "../stores/messagesStore";
-import imgStore from "../stores/imgStore";
+import Notifies from "../modules/notifies.js";
+import messagesStore from "../stores/messagesStore.js";
+import imgStore from "../stores/imgStore.js";
 
 export default class GroupView extends BaseView {
 	constructor() {

@@ -4,9 +4,8 @@ import Router from "../modules/router.js";
 import {sideBarConst, headerConst, safetyConst, activeColor} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import BaseView from "./baseView.js";
-import {actionMessage} from "../actions/actionMessage";
-import Notifies from "../modules/notifies";
-import messagesStore from "../stores/messagesStore";
+import Notifies from "../modules/notifies.js";
+import messagesStore from "../stores/messagesStore.js";
 
 export default class SafetyView extends BaseView {
 	constructor() {

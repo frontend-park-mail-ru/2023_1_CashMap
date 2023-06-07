@@ -8,8 +8,8 @@ import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
 import Router from "../modules/router.js";
 import Notifies from "../modules/notifies.js";
-import messagesStore from "../stores/messagesStore";
-import imgStore from "../stores/imgStore";
+import messagesStore from "../stores/messagesStore.js";
+import imgStore from "../stores/imgStore.js";
 
 
 export default class FeedView extends BaseView {

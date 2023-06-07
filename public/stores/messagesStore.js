@@ -4,10 +4,8 @@ import {actionUser} from "../actions/actionUser.js";
 import {headerConst, sideBarConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import Router from "../modules/router.js";
-import postsStore from "./postsStore.js";
 import Notifies from "../modules/notifies.js";
-import DateConvert from "../modules/dateConvert";
-import dateConvert from "../modules/dateConvert";
+import DateConvert from "../modules/dateConvert.js";
 
 /**
  * класс, хранящий информацию о сообщениях
@@ -93,7 +91,7 @@ class messagesStore {
 
             this.chats.forEach((chat) => {
                 if (chat.last_msg.creation_date) {
-                    chat.last_msg.creation_date = dateConvert.fromBackToPost(chat.last_msg.creation_date);
+                    chat.last_msg.creation_date = DateConvert.fromBackToPost(chat.last_msg.creation_date);
                 }
 
                 if (chat.members.length === 1) {

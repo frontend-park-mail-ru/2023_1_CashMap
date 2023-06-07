@@ -2,7 +2,7 @@ import {actionUser} from "../actions/actionUser.js";
 import Validation from "../modules/validation.js";
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import { logoDataSignUp, signInData, signUpData } from "../static/htmlConst.js";
+import { logoDataSignUp, signUpData } from "../static/htmlConst.js";
 
 export default class SignUpView {
     constructor() {

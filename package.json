@@ -4,8 +4,8 @@
   "description": "messenger Depeche",
   "main": "index.js",
   "scripts": {
-    "build": "mkdir -p public/static/build && handlebars public/components/*/*.handlebars -f public/static/build/templates.precompiled.js && rollup -c && node public/staticScript.js",
-    "prestart": "mkdir -p public/static/build && handlebars public/components/*/*.handlebars -f public/static/build/templates.precompiled.js && rollup -c && node public/staticScript.js",
+    "build": "mkdir -p public/static/build && handlebars public/components/*/*.handlebars -f public/static/build/templates.precompiled.js && node public/staticScript.js",
+    "build-with-rollup": "mkdir -p public/static/build && handlebars public/components/*/*.handlebars -f public/static/build/templates.precompiled.js && rollup -c && node public/staticScript.js",
     "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint \"./public/**/*.{js,jsx,ts,tsx}\"",

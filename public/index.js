@@ -13,6 +13,7 @@ import SafetyView from "./views/safetyView.js";
 import MessagesView from "./views/messagesView.js";
 import ChatView from "./views/chatView.js";
 import NotFoundView from "./views/notFoundView.js";
+import Ajax from "./modules/ajax.js";
 import imgStore from "./stores/imgStore.js"; /* НЕ УДАЛЯТЬ!!! */
 
 import './index.css';
@@ -21,7 +22,7 @@ if (!localStorage.getItem('or-off')) {
     localStorage.setItem('or-off', 'true');
 }
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && Ajax.SW) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
             .then(registration => {

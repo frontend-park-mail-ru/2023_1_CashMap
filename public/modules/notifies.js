@@ -1,6 +1,5 @@
-import {actionMessage} from "../actions/actionMessage";
-import messagesStore from "../stores/messagesStore";
-import {sideBarConst} from "../static/htmlConst";
+import {actionMessage} from "../actions/actionMessage.js";
+import messagesStore from "../stores/messagesStore.js";
 
 class Notifies {
 

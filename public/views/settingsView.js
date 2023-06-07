@@ -1,13 +1,11 @@
 import userStore from "../stores/userStore.js";
 import Validation from "../modules/validation.js";
-import Router from "../modules/router.js";
-import { sideBarConst, headerConst, settingsConst, activeColor, signInData, optionsAvatar} from "../static/htmlConst.js";
+import { sideBarConst, headerConst, settingsConst, activeColor, optionsAvatar} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionImg} from "../actions/actionImg.js";
 import BaseView from "./baseView.js";
-import {actionMessage} from "../actions/actionMessage";
-import Notifies from "../modules/notifies";
-import messagesStore from "../stores/messagesStore";
+import Notifies from "../modules/notifies.js";
+import messagesStore from "../stores/messagesStore.js";
 
 export default class SettingsView extends BaseView {
 	constructor() {

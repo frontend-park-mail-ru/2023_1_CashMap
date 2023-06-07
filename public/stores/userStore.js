@@ -4,9 +4,8 @@ import {headerConst} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import WebSock from "../modules/webSocket.js";
 import groupsStore from "./groupsStore.js";
-import SignInView from "../views/signInView.js";
 import Router from "../modules/router.js";
-import DateConvert from "../modules/dateConvert";
+import DateConvert from "../modules/dateConvert.js";
 
 /**
  * класс, хранящий информацию о друзьях

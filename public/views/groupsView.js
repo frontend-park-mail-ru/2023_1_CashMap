@@ -1,13 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import {
-	sideBarConst,
-	headerConst,
-	groupsConst,
-	NewGroupConst,
-	activeColor,
-	friendsMenuInfo
-} from "../static/htmlConst.js";
+import {sideBarConst, headerConst, groupsConst, NewGroupConst, activeColor, friendsMenuInfo} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionGroups} from "../actions/actionGroups.js";
 import groupsStore from "../stores/groupsStore.js";
@@ -15,10 +8,8 @@ import BaseView from "./baseView.js";
 import {actionSearch} from "../actions/actionSearch.js";
 import searchStore from "../stores/dropdownSearchStore.js";
 import friendsStore from "../stores/friendsStore.js";
-import {actionFriends} from "../actions/actionFriends.js";
-import {actionMessage} from "../actions/actionMessage";
-import Notifies from "../modules/notifies";
-import messagesStore from "../stores/messagesStore";
+import Notifies from "../modules/notifies.js";
+import messagesStore from "../stores/messagesStore.js";
 
 export default class GroupsView extends BaseView {
 	constructor() {
@@ -262,7 +253,6 @@ export default class GroupsView extends BaseView {
 			actionGroups.getGroups(15, 0);
 			actionGroups.getmanageGroups(15, 0);
 			actionGroups.getNotGroups(15, 0);
-			//actionGroups.getPopularGroups(15, 0);
 		});
 	}
 

@@ -10,9 +10,9 @@ import {actionFriends} from "../actions/actionFriends.js";
 import friendsStore from "../stores/friendsStore.js";
 import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
-import Notifies from "../modules/notifies";
-import messagesStore from "../stores/messagesStore";
-import imgStore from "../stores/imgStore";
+import Notifies from "../modules/notifies.js";
+import messagesStore from "../stores/messagesStore.js";
+import imgStore from "../stores/imgStore.js";
 
 export default class ProfileView extends BaseView {
 	constructor() {

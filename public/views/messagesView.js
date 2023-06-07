@@ -5,7 +5,7 @@ import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import messagesStore from "../stores/messagesStore.js";
 import BaseView from "./baseView.js";
-import Notifies from "../modules/notifies";
+import Notifies from "../modules/notifies.js";
 
 export default class MessagesView extends BaseView {
 	constructor() {

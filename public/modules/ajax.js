@@ -10,8 +10,11 @@ class Ajax {
         //this.beckendStatus = 'local';
         this.beckendStatus = 'global';
 
+        this.SW = false;
+        this.rollup = false;
+
         if (this.beckendStatus === 'global') {
-            this.backendHostname = 'depeche.su';
+            this.backendHostname = '176.118.165.63:2229';
             this._backendUrl = 'https://' + this.backendHostname;
         } else {
             this.backendHostname = '127.0.0.1';

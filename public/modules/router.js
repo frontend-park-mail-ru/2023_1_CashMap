@@ -1,3 +1,5 @@
+import Metrics from "./metrics.js";
+
 /**
  * класс роутера, который отсеживает переход по url, и вызывает соответствующие им view
  */
@@ -40,6 +42,7 @@ class Router {
         if (this._pages[url]) {
             this.currentPage = this._pages[url];
             this.currentPage.curPage = true;
+            Metrics.addMetric(url);
             this.currentPage.showPage(search);
 
             if (window.location.pathname + window.location.search !== winUrl) {

@@ -5,8 +5,7 @@ import {groupAvatarDefault, headerConst} from "../static/htmlConst.js";
 import userStore from "./userStore.js";
 import groupsStore from "./groupsStore.js";
 import Router from "../modules/router.js";
-import DateConvert from "../modules/dateConvert";
-import dateConvert from "../modules/dateConvert";
+import DateConvert from "../modules/dateConvert.js";
 
 /**
  * класс, хранящий информацию о постах

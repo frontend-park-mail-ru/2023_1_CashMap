@@ -1,6 +1,6 @@
 import userStore from "../stores/userStore.js";
 import Router from "../modules/router.js";
-import { sideBarConst, headerConst, activeColor, emotionKeyboard} from "../static/htmlConst.js";
+import { sideBarConst, headerConst, emotionKeyboard} from "../static/htmlConst.js";
 import {actionUser} from "../actions/actionUser.js";
 import {actionMessage} from "../actions/actionMessage.js";
 import {actionSticker} from "../actions/actionSticker.js";
@@ -11,7 +11,7 @@ import {actionImg} from "../actions/actionImg.js";
 import Ajax from "../modules/ajax.js";
 import stickerStore from "../stores/stickerStore.js";
 import Notifies from "../modules/notifies.js";
-import imgStore from "../stores/imgStore";
+import imgStore from "../stores/imgStore.js";
 
 export default class ChatView extends BaseView {
 	constructor() {
