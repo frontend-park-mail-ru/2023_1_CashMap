@@ -19,7 +19,7 @@ class Metrics {
             {name: 'Время отправки запроса', metricValue: perfNavigation.responseStart - perfNavigation.requestStart  + " мс"},
             {name: 'Время получения ответа', metricValue: perfNavigation.responseEnd - perfNavigation.responseStart  + " мс"},*/
             {name: '', metricValue: ''},
-            {name: 'Всего запросов', metricValue: resourceEntries.length},
+            {name: 'Всего запросов', metricValue: localStorage.getItem('reqCount')},
             {name: '', metricValue: ''},
             {name: 'Выделенная память', metricValue: (memoryInfo.usedJSHeapSize / (1024 * 1024)).toFixed(2) + 'МБ'},
             {name: '', metricValue: ''},

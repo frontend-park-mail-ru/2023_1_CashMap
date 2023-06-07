@@ -108,6 +108,8 @@ class Ajax {
      * @returns {Object} - тело ответа
      */
     _request(apiUrlType, requestType, body) {
+        localStorage.setItem('reqCount', String(Number(localStorage.getItem('reqCount')) + 1));
+
         let requestUrl = null;
         if (this.beckendStatus === 'local' && apiUrlType === this._apiUrl.uploadImg) {
             requestUrl = this._backendStaticUrl + apiUrlType;
