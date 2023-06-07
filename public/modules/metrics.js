@@ -23,7 +23,7 @@ class Metrics {
             {name: 'Время отправки запроса', metricValue: perfNavigation.responseStart - perfNavigation.requestStart  + " мс"},
             {name: 'Время получения ответа', metricValue: perfNavigation.responseEnd - perfNavigation.responseStart  + " мс"},*/
             {name: 'Новых запросов к api', metricValue: Number(localStorage.getItem('reqCount'))},
-            {name: 'Новых запросов ресурсов', metricValue: resourceEntries.length},
+            {name: 'Новых запросов ресурсов', metricValue: resourceEntries.length, metricValue2: resourceEntries },
             {name: 'Время подгрузки ресурсов страницы', metricValue: totalLoadTime  + " мс"},
             {name: 'Выделенная память', metricValue: (memoryInfo.usedJSHeapSize / (1024 * 1024)).toFixed(2) + 'МБ'},
         ];
