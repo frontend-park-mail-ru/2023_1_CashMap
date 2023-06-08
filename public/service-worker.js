@@ -1,9 +1,9 @@
 const timeout = 500;
-const staticCacheName = 'static-cache-v10';
-const dynamicCacheName = 'dynamic-cache-v10';
+const staticCacheName = 'static-cache-v14';
+const dynamicCacheName = 'dynamic-cache-v14';
 
 let staticFilesToCache = [
-    'static/',
+    //'static/',
 ];
 
 self.addEventListener('activate', async (event) => {
@@ -28,6 +28,7 @@ self.addEventListener('install', async (event) => {
 
     await caches.open(dynamicCacheName);
     const cache = await caches.open(staticCacheName);
+    console.log(staticFilesToCache);
     await cache.addAll(staticFilesToCache);
 });
 

@@ -62,6 +62,8 @@ class stickerStore {
                     sticker.url = Ajax.stickerUrlConvert(sticker.url);
                 });
             });
+
+            this.stickerPacks.splice(3, 1);
         } else {
             alert('getStickerPackInfo error');
         }

@@ -18,8 +18,6 @@ import imgStore from "./stores/imgStore.js"; /* НЕ УДАЛЯТЬ!!! */
 
 import './index.css';
 
-localStorage.setItem('reqCount', '0');
-
 if (!localStorage.getItem('or-off')) {
     localStorage.setItem('or-off', 'true');
 }

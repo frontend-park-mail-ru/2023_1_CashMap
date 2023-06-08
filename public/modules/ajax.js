@@ -7,8 +7,8 @@ class Ajax {
      * конструктор метода
      */
     constructor() {
-        //this.beckendStatus = 'local';
-        this.beckendStatus = 'global';
+        this.beckendStatus = 'local';
+        //this.beckendStatus = 'global';
 
         this.SW = true;
         this.rollup = false;
@@ -19,12 +19,12 @@ class Ajax {
         } else {
             this.backendHostname = '127.0.0.1';
             this.backendPort = '8080';
-            this.backendStaticPort = '8082';
+            this.backendStaticPort = '8000';
             this._backendUrl = 'http://' + this.backendHostname + ':' + this.backendPort;
             this._backendStaticUrl = 'http://' + this.backendHostname + ':' + this.backendStaticPort;
         }
 
-        this._staticUrl = 'https://' + this.backendHostname;
+        this._staticUrl = 'http://' + this.backendHostname;
 
         this._apiUrl = {
             signIn:                  '/auth/sign-in',
@@ -108,8 +108,6 @@ class Ajax {
      * @returns {Object} - тело ответа
      */
     _request(apiUrlType, requestType, body) {
-        localStorage.setItem('reqCount', String(Number(localStorage.getItem('reqCount')) + 1));
-
         let requestUrl = null;
         if (this.beckendStatus === 'local' && apiUrlType === this._apiUrl.uploadImg) {
             requestUrl = this._backendStaticUrl + apiUrlType;

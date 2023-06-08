@@ -183,6 +183,7 @@ export default class BaseView {
         });
  
         this._feedBtn.addEventListener('click', () => {
+            console.log(JSON.stringify(Metrics.metrics));
             Router.go('/feed', false);
         });
 
@@ -398,18 +399,6 @@ export default class BaseView {
     _preRender() {
     }
 
-    /*displayMetrics() {
-        const performance = {
-            timing: window.performance.timing, // Используем Performance API для получения метрик загрузки страницы
-            pageLoadTime: "Время загрузки страницы: " + (window.performance.timing.loadEventEnd - window.performance.timing.navigationStart) / 1000 + " сек", // Время загрузки страницы в секундах
-            memoryUsage: "Использование памяти: " + (window.performance.memory.usedJSHeapSize / 1024 / 1024).toFixed(2)  + " МБ", // Использование памяти в МБ
-            jsRequests: "Количество запросов на JavaScript: " + window.performance.getEntriesByType("script").length, // Количество запросов на JavaScript
-        }
-
-        console.log(`Метрики загрузки страницы $(this.jsId):`);
-        console.log(performance);
-    }*/
-
     /**
      * @private метод отрисовки страницы.
      */
@@ -418,15 +407,6 @@ export default class BaseView {
         Router.rootElement.innerHTML = this._template(this._context);
         this.addPagesElements();
         this.addPagesListener();
-
-        // Вызываем функцию для получения и вывода метрик
-        /*if (this.lastPage) {
-            if (this.lastPage !== this._jsId) {
-                Metrics.addMetric();
-            }
-        }
-
-        this.lastPage = this._jsId;*/
     }
 }
 
