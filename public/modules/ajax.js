@@ -11,8 +11,8 @@ class Ajax {
         this.beckendStatus = 'global';
 
         if (this.beckendStatus === 'global') {
-            this.backendHostname = 'depeche.su';
-            this._backendUrl = 'https://' + this.backendHostname;
+            this.backendHostname = '212.233.91.72:80';
+            this._backendUrl = 'http://' + this.backendHostname;
         } else {
             this.backendHostname = '127.0.0.1';
             this.backendPort = '8080';
@@ -21,7 +21,7 @@ class Ajax {
             this._backendStaticUrl = 'http://' + this.backendHostname + ':' + this.backendStaticPort;
         }
 
-        this._staticUrl = 'https://' + this.backendHostname;
+        this._staticUrl = 'http://' + this.backendHostname;
 
         this._apiUrl = {
             signIn:                  '/auth/sign-in',
@@ -434,7 +434,7 @@ class Ajax {
         if (this.beckendStatus === 'local') {
             return `http://${this.backendHostname}:${this.backendStaticPort}/${ avatar_url }`;
         } else {
-            return `https://${this.backendHostname}/${avatar_url}`;
+            return `http://${this.backendHostname}/${avatar_url}`;
         }
     }
 
@@ -442,7 +442,7 @@ class Ajax {
         if (this.beckendStatus === 'local') {
             return  url.replace(`http://${this.backendHostname}:${this.backendStaticPort}/`, '')
         } else {
-            return  url.replace(`https://${this.backendHostname}/`, '')
+            return  url.replace(`http://${this.backendHostname}/`, '')
         }
     }
 
@@ -450,7 +450,7 @@ class Ajax {
         if (this.beckendStatus === 'local') {
             return `http://${this.backendHostname}:${this.backendStaticPort}/static-service/download?name=${url_name}&type=sticker`;
         } else {
-            return `https://${this.backendHostname}/static-service/download?name=${url_name}&type=sticker`;
+            return `http://${this.backendHostname}/static-service/download?name=${url_name}&type=sticker`;
         }
     }
 

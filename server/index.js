@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const SERVER_PORT = 8000;
+const SERVER_PORT = 9001;
 const STATIC_PATH = './public';
 
 const TYPES = {
@@ -18,6 +18,7 @@ const TYPES = {
 };
 
 const server = http.createServer((request, response) => {
+    console.log(1);
     const {url} = request;
     let fileExt = path.extname(url).substring(1);
     let normalizedUrl;
